@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		dS0+xz9CwsKbE1D31P2Obwc6iMk=
+		DPT2Y+F+7suO8T7EIpseU/lkjhs=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
-		9H7lruK2veR3qYcIgn/xfODk0Ho=
+		vKJkVIcw+LGHFnKJGwrQwCREv68=
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
@@ -23,10 +23,6 @@
 		<key>flutter_assets/assets/font/CarterOne-Regular.woff</key>
 		<data>
 		YQaA/d+RsDtAHUeSX0u1nOorPQ0=
-		</data>
-		<key>flutter_assets/assets/images/BigLogo.png</key>
-		<data>
-		osagxAMX8M/1BdSXic8sLy4PH2Y=
 		</data>
 		<key>flutter_assets/assets/images/Butter_Large.png</key>
 		<data>
@@ -44,9 +40,65 @@
 		<data>
 		osagxAMX8M/1BdSXic8sLy4PH2Y=
 		</data>
-		<key>flutter_assets/assets/images/web_sign_logo.png</key>
+		<key>flutter_assets/assets/images/email-label.png</key>
 		<data>
-		N1gZvmbAH967R0GI3lmhVuLG73E=
+		AIrwgk0vkk143dGCClNYaz/Brfg=
+		</data>
+		<key>flutter_assets/assets/images/email-logo.png</key>
+		<data>
+		aXQkRukN6G4ezTsQrpoiiD2+FEk=
+		</data>
+		<key>flutter_assets/assets/images/go-to-signup.png</key>
+		<data>
+		PxDmBsXuGhhNYfvi9dowAkJ6q0c=
+		</data>
+		<key>flutter_assets/assets/images/gotosignup-logo.png</key>
+		<data>
+		q3IcKfShXTp4meBE3aHjzhAi9go=
+		</data>
+		<key>flutter_assets/assets/images/large-logo.png</key>
+		<data>
+		3opnwzS9SoW0Wx1SPNy3v+yrUGo=
+		</data>
+		<key>flutter_assets/assets/images/password-label.png</key>
+		<data>
+		Mid8Er8R2xzLwULoMv9+IYUtRmU=
+		</data>
+		<key>flutter_assets/assets/images/password-logo.png</key>
+		<data>
+		AEkpSxAAwpO6/4NraylPHNwXGAw=
+		</data>
+		<key>flutter_assets/assets/images/signin-btn-logo.png</key>
+		<data>
+		PJ+CVFfsqs8C5GctLHN5pSbb844=
+		</data>
+		<key>flutter_assets/assets/images/signin-btn-s.png</key>
+		<data>
+		hX6ccUcAWMf7XTOCvu4S1gAvWZ0=
+		</data>
+		<key>flutter_assets/assets/images/signin-btn-small.png</key>
+		<data>
+		RSQOtUbRisSPC9HO+QpKOulZYW4=
+		</data>
+		<key>flutter_assets/assets/images/signin-btn.png</key>
+		<data>
+		ZXUFQRckdK/xA8nwBt57j7NYxPA=
+		</data>
+		<key>flutter_assets/assets/images/signin-title-logo.png</key>
+		<data>
+		LWY0LH274BoaU7mrFgMK2U6ji2Y=
+		</data>
+		<key>flutter_assets/assets/images/signin-title.png</key>
+		<data>
+		WHN/zr12H7BzGs6t0uIsAGEROxY=
+		</data>
+		<key>flutter_assets/assets/images/signup-title-logo.png</key>
+		<data>
+		xwP91TWB+rkXuPBwDohPokrZ81I=
+		</data>
+		<key>flutter_assets/assets/images/signup-title.png</key>
+		<data>
+		Y3flrJe45UIDBorY0vaYKu1zeYw=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -58,7 +110,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		jSmT9+qBpafBP4fUzyekeoLQzQQ=
+		kkzqvkJdbjHTIhIGkbyJYKxNQbE=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -75,22 +127,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dS0+xz9CwsKbE1D31P2Obwc6iMk=
+			DPT2Y+F+7suO8T7EIpseU/lkjhs=
 			</data>
 			<key>hash2</key>
 			<data>
-			i2f1nQ+u3gYzixHuGZ58no6RN0+DCyw/FlP1mN1chVo=
+			P6lss7ktFKAmxs3kbk0jOhA1+b+IW0fxNbgRVGbYtpI=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9H7lruK2veR3qYcIgn/xfODk0Ho=
+			vKJkVIcw+LGHFnKJGwrQwCREv68=
 			</data>
 			<key>hash2</key>
 			<data>
-			Jii/stItMkVTMryJnTg0Lh/0XOPZH6oQZvqbh9DrZiE=
+			zX4DZFvESy3Ue3y2JvUcTsv1Whl6t3JBYotHrBZfviE=
 			</data>
 		</dict>
 		<key>flutter_assets/NOTICES.Z</key>
@@ -113,17 +165,6 @@
 			<key>hash2</key>
 			<data>
 			tpvl89Y2e/2VQERWbqFS6q6TWArlpigGVzmlnXGJ8uM=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/BigLogo.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			osagxAMX8M/1BdSXic8sLy4PH2Y=
-			</data>
-			<key>hash2</key>
-			<data>
-			j4mDsFFae6+gBVfQS7H7edPr6Ktp/7kn8aLtWOxWDN0=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/Butter_Large.png</key>
@@ -170,15 +211,169 @@
 			j4mDsFFae6+gBVfQS7H7edPr6Ktp/7kn8aLtWOxWDN0=
 			</data>
 		</dict>
-		<key>flutter_assets/assets/images/web_sign_logo.png</key>
+		<key>flutter_assets/assets/images/email-label.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			N1gZvmbAH967R0GI3lmhVuLG73E=
+			AIrwgk0vkk143dGCClNYaz/Brfg=
 			</data>
 			<key>hash2</key>
 			<data>
-			1PTHZSGYP43eLi4YbklXt6V8y8l5l+ydYjRgY39gViE=
+			mhOfImTXT0nob34ubzlfpi4J1ehNkhgGqfarEfppdfo=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/email-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aXQkRukN6G4ezTsQrpoiiD2+FEk=
+			</data>
+			<key>hash2</key>
+			<data>
+			xW0vGRaLuz26A11Cqt04y0cMF6FIB0ZMMfCdU4zHTsY=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/go-to-signup.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PxDmBsXuGhhNYfvi9dowAkJ6q0c=
+			</data>
+			<key>hash2</key>
+			<data>
+			Yflkkw0uXs+TnXDilBNVofqJwGyxgTEJFBWxJtTTays=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/gotosignup-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			q3IcKfShXTp4meBE3aHjzhAi9go=
+			</data>
+			<key>hash2</key>
+			<data>
+			Qjkui3yt7bU9UgGEYwAxonhxE10SmYvYRwd1XWYGoJU=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/large-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3opnwzS9SoW0Wx1SPNy3v+yrUGo=
+			</data>
+			<key>hash2</key>
+			<data>
+			rZ3lTLkX/0qyq7C0gP6scF4p6BwtvzDlck1ISPqOHZs=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/password-label.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Mid8Er8R2xzLwULoMv9+IYUtRmU=
+			</data>
+			<key>hash2</key>
+			<data>
+			IoVxWwY2jcKQ/NMr2SciHlRhdID66jbqibKeW3Ng5Jw=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/password-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			AEkpSxAAwpO6/4NraylPHNwXGAw=
+			</data>
+			<key>hash2</key>
+			<data>
+			fMv5ZhhuIGhMu9ejfT7dzVUSXRUOm5O6JY8ka+ECj7w=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-btn-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PJ+CVFfsqs8C5GctLHN5pSbb844=
+			</data>
+			<key>hash2</key>
+			<data>
+			bNnhpcOyIjkGSCe+rce2FegGlOSLpKY3nGgIJgyqW/U=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-btn-s.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hX6ccUcAWMf7XTOCvu4S1gAvWZ0=
+			</data>
+			<key>hash2</key>
+			<data>
+			J5kpBtOT99UVr8dTfFh3sopEW1LNKEiMSrkmzQVFQso=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-btn-small.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			RSQOtUbRisSPC9HO+QpKOulZYW4=
+			</data>
+			<key>hash2</key>
+			<data>
+			KAtPi3/Ezab/2ia1X++WOwskCgWLo8Lkt3o3m09q5WM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-btn.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZXUFQRckdK/xA8nwBt57j7NYxPA=
+			</data>
+			<key>hash2</key>
+			<data>
+			Py3T80iqTY4+AG1Vc2z7dh5GoX2mtQjsbZvuQbGSVCM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-title-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LWY0LH274BoaU7mrFgMK2U6ji2Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			3Jv1p2Mt+RkARGDl0wbo/osPzu7qWbj8YrYBAbIYSUU=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signin-title.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WHN/zr12H7BzGs6t0uIsAGEROxY=
+			</data>
+			<key>hash2</key>
+			<data>
+			cqtWoEshKrxiwVSI78eEZThaYiPLkcTKdbI/hPfGPqU=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signup-title-logo.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xwP91TWB+rkXuPBwDohPokrZ81I=
+			</data>
+			<key>hash2</key>
+			<data>
+			1fIxx9CsQf/0NdnhSrqXhLsT9bbD8W35zStwHNDEBy8=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/signup-title.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Y3flrJe45UIDBorY0vaYKu1zeYw=
+			</data>
+			<key>hash2</key>
+			<data>
+			3VJoWpra+Lr7kYVA3t0Us7Y67FH/aXhCc5tGj48rQ/Y=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -207,11 +402,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jSmT9+qBpafBP4fUzyekeoLQzQQ=
+			kkzqvkJdbjHTIhIGkbyJYKxNQbE=
 			</data>
 			<key>hash2</key>
 			<data>
-			gcqA71/zLyG7FJagGAlxokk3rhgMxPMhEVfqe/DytXY=
+			TRxyra3O+swV5A6R2s3zUW71hbvtwJM0N0MoCj/Tfxw=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

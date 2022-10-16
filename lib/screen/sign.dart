@@ -2,6 +2,7 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/widget/sign_in.dart';
+import 'package:bwa/widget/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,6 @@ class _SignState extends State<Sign> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
 
@@ -34,26 +34,36 @@ class _SignState extends State<Sign> {
         return Column(
           children: [
             // 로고
-            Container(
-              height: boxHeight*0.4,
-              child: Image.asset('assets/images/large-logo.png'),
-            ),
+            // !isKeyboardVisible?
+            Center(
+              child: SizedBox(
+                height: isKeyboardVisible? boxHeight*0.15 : boxHeight*0.3,
+                width: boxWidth * 0.8,
+                child: isKeyboardVisible 
+                  ? Image.asset('assets/images/appbar-logo-2.png') 
+                  : Image.asset('assets/images/large-logo.png'),
+                // child: Image.asset('assets/images/large-logo.png'),
+              ),
+            )
+            // :SizedBox()
+            ,
             // Text('Baking', style: TextStyle(fontFamily: 'carter'),),
             // Text('Weighing Assistant'),
             // 내용
             Expanded(
               child: Container(
-                height: GetPlatform.isMobile? boxHeight*0.57 : 450,
+                height: GetPlatform.isMobile? boxHeight*0.67 : 450,
                 width: GetPlatform.isMobile? boxWidth : 350,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.fromLTRB(20,5,20,20),
                 
-                child: Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Palette.yellow,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Palette.yellow,
+                    borderRadius: BorderRadius.circular(20)
                   ),
+                  child: SignIn(),
+                  // child: SignUp(),
                 )
               )
             ),

@@ -1,5 +1,8 @@
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/widget/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:get/get.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -19,208 +22,140 @@ class _SignInState extends State<SignIn> {
   
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      color: Colors.red[200],
-      child: Column(
-        children: [
-          // 탭
-          Container(
-            height: 100,
-            color: Colors.green[200],
-            child: Text('aaaaAAasdA',
-            style: TextStyle(fontFamily: 'Raleway'),)
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                  
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 300,
-                      height: 75,
-                      color: Colors.grey,
-                    ),
-                    Container(
-                      width: 300,
-                      height: 75,
-                      color: Colors.grey,
-                    ),
-                    Container(
-                      width: 300,
-                      height: 55,
-                      color: Colors.grey,
-                    )
-                  ],
+    return KeyboardVisibilityBuilder(
+      builder: (BuildContext , bool isKeyboardVisible) {
+        return SizedBox(
+          width: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 메뉴
+              Container(
+                padding: const EdgeInsets.only(left: 20),
+                height: 50,
+                child: Image.asset("assets/images/signin-title.png")
+              ),
+              !isKeyboardVisible ? const SizedBox(height: 20) : const SizedBox(height: 0),
+              
+              // 텍스트 폼 필드
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20,10,20,0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // 이메일 입력 창
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 20,
+                                margin: const EdgeInsets.only(bottom: 5),
+                                child: Image.asset("assets/images/email-label.png"),
+                              ),
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Palette.lightyellow,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: TextFormField(
+                                  key: const ValueKey(1),
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor: Palette.lightblack,
+                                  decoration: InputDecoration(
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Palette.lightblack
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onChanged: (value){},
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          // 비밀번호 입력 창
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 20,
+                                margin: const EdgeInsets.only(bottom: 5),
+                                child: Image.asset("assets/images/password-label.png"),
+                              ),
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Palette.lightyellow,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: TextFormField(
+                                  key: const ValueKey(2),
+                                  obscureText: true,
+                                  cursorColor: Palette.lightblack,
+                                  decoration: InputDecoration(
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent
+                                      ),
+                                      // borderRadius: BorderRadius.circular(10)
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Palette.lightblack
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onChanged: (value){},
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                        
+                          // 버튼
+                          // isKeyboardVisible 
+                          // ? SizedBox()
+                          // : 
+                          Column(
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 50,
+                                margin: const EdgeInsets.only(bottom: 10),
+                                child: Image.asset("assets/images/signin-btn.png"),
+                              ),
+                              GestureDetector(
+                                child: SizedBox(
+                                  height: 20,
+                                  child: Image.asset("assets/images/go-to-signup.png"),
+                                ),
+                                onTap: () {
+                                  Get.to(SignUp());
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                  ),
                 ),
-            ),
+              ),
+            ],
           ),
-          
-          // // 상단 탭
-          // Container(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       // TextButton(
-          //       //   onPressed: (){
-
-          //       //   }, 
-          //       //   child: Text('asd')
-          //       // ),
-          //       Column(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Text('Sign In',
-          //             style: TextStyle(
-          //               fontFamily: fontFamily,
-          //               fontSize: 30,
-          //               color: Palette.black,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //           Container(
-          //             width: 100,
-          //             height: 3,
-          //             color: Colors.black,
-          //           )
-          //         ],
-          //       ),
-          //       SizedBox(width: 50),
-          //       TextButton(
-          //         onPressed: (){
-          //           print('asdasdasd');
-          //         }, 
-          //         child: Text('Sign up',
-          //           style: TextStyle(
-          //             fontFamily: fontFamily,
-          //             fontSize: 30,
-          //             color: Palette.lightgray,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   )
-          // ),
-          // SizedBox(height: 20),
-          // // 텍스트폼필드
-          // Expanded(
-          //   flex: 4,
-          //   child: Form(
-          //     key: _formKey,
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Container(
-          //           height: 100,
-          //           color: Colors.red,
-          //         ),
-          //         // Container(
-          //         //   alignment: Alignment.centerLeft,
-          //         //   child: Text('E-Mail Address',
-          //         //     style: TextStyle(
-          //         //       fontSize: 18,
-          //         //       fontWeight: FontWeight.bold
-          //         //     ),
-          //         //   ),
-          //         // ),
-
-          //         // Container(
-          //         //   decoration: BoxDecoration(
-          //         //     borderRadius: BorderRadius.circular(15),
-          //         //     color: Palette.lightyellow
-          //         //   ),
-          //         //   child: TextFormField(
-          //         //     keyboardType: TextInputType.emailAddress,
-          //         //     key: const ValueKey(1),
-          //         //     decoration: const InputDecoration(
-          //         //       enabledBorder: OutlineInputBorder(
-          //         //         borderSide: BorderSide(color: Colors.transparent),
-          //         //       ),
-          //         //       focusedBorder: OutlineInputBorder(
-          //         //         borderSide: BorderSide(color: Colors.transparent),
-          //         //       ),
-          //         //       hintText: 'E-Mail',
-          //         //       hintStyle: TextStyle(
-          //         //         fontSize: 14,
-          //         //         color: Palette.lightgray
-          //         //       ),
-          //         //       // contentPadding: EdgeInsets.fromLTRB(10, 25, 10, 25)
-          //         //     ),
-          //         //     onChanged: (value){
-          //         //       userEmail = value;
-          //         //       print(userEmail);
-          //         //     },
-          //         //   ),
-          //         // ),
-          //         SizedBox(
-          //           height: 20,
-          //           // child: Text(loginValidator),
-          //         ),
-          //         Container(
-          //           height: 100,
-          //           color: Colors.blue,
-          //         ),
-          //         // TextFormField(
-          //         //   key: const ValueKey(2),
-          //         //   validator: (value){
-          //         //     // 유효성검사
-          //         //     if(value!.isEmpty || value.length < 6){
-          //         //       return 'Password must be at least 7 characters long';
-          //         //     }
-          //         //     return null;
-          //         //   },
-          //         //   onSaved: (value){
-          //         //     userPassword = value!;
-          //         //   },
-          //         //   onChanged: (value){
-          //         //     userPassword = value;
-          //         //   },
-          //         //   obscureText: true,
-          //         //   decoration: InputDecoration(
-          //         //     prefixIcon: Icon(
-          //         //       Icons.lock,
-          //         //       color: Colors.red
-          //         //     ),
-          //         //     // enabledBorder: OutlineInputBorder(
-          //         //     //   borderSide: BorderSide(
-          //         //     //     color: Palette.textColor1
-          //         //     //   ),
-          //         //     //   borderRadius: BorderRadius.circular(25)
-          //         //     // ),
-          //         //     // focusedBorder: OutlineInputBorder(
-          //         //     //   borderSide: BorderSide(
-          //         //     //     color: Palette.blue
-          //         //     //   ),
-          //         //     //   borderRadius: BorderRadius.circular(25)
-          //         //     // ),
-          //         //     // hintText: 'Password',
-          //         //     // hintStyle: TextStyle(
-          //         //     //   fontSize: 14,
-          //         //     //   color: Palette.textColor1
-          //         //     // ),
-          //         //     contentPadding: EdgeInsets.all(10.0)
-          //         //   ),
-          //         // ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // // 버튼
-          // Expanded(
-          //   flex: 1,
-          //   child: TextButton(
-          //     onPressed: (){
-          //       print('asdasdasd');
-          //     }, 
-          //     child: Text('zxasd')
-          //   ),
-          // ),
-        ],
-      ),
+        ); 
+      }
     );
   }
 }
