@@ -8,17 +8,25 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 
 class Sign extends StatefulWidget {
-  const Sign({Key? key, required this.boxRadius}) : super(key: key);
+  Sign({Key? key, required this.boxRadius}) : super(key: key);
   final double boxRadius;
+  // bool isSignin = true;
+
   @override
   State<Sign> createState() => _SignState();
 }
 
 class _SignState extends State<Sign> {
-
+  bool isSignin = true;
   late double boxWidth = MediaQuery.of(context).size.width;
   late double boxHeight = MediaQuery.of(context).size.height;
+  
 
+  // void changeSign(){
+  //   setState((){
+  //     widget.isSignin = !widget.isSignin;
+  //   });
+  // }
   @override
   void initState() {
     super.initState();
@@ -62,7 +70,53 @@ class _SignState extends State<Sign> {
                     color: Palette.yellow,
                     borderRadius: BorderRadius.circular(20)
                   ),
-                  child: SignIn(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            child: SizedBox(
+                              height: 50,
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 20),
+                                height: 50,
+                                child: isSignin 
+                                ? Image.asset("assets/images/signin-title.png") 
+                                : Image.asset("assets/images/signin-title-unfocus.png")
+                              ),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isSignin = true;
+                                print(isSignin);
+                              });
+                            },
+                          ),
+                          GestureDetector(
+                            child: SizedBox(
+                              height: 50,
+                              child: Container(
+                                padding: const EdgeInsets.only(right: 20),
+                                height: 50,
+                                child: isSignin 
+                                ? Image.asset("assets/images/signup-title-unfocus.png")
+                                : Image.asset("assets/images/signup-title.png")
+                              ),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isSignin = false;
+                                print(isSignin);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      Expanded(child: isSignin ? SignIn() : SignUp())
+                    ],
+                  ),
                   // child: SignUp(),
                 )
               )

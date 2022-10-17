@@ -1,5 +1,4 @@
 import 'package:bwa/config/palette.dart';
-import 'package:bwa/widget/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -24,17 +23,9 @@ class _SignUpState extends State<SignUp> {
     return KeyboardVisibilityBuilder(
       builder: (BuildContext , bool isKeyboardVisible) {
         return SizedBox(
-          width: 100,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 메뉴
-              Container(
-                padding: const EdgeInsets.only(left: 20),
-                height: 50,
-                child: Image.asset("assets/images/signup-title.png")
-              ),
-              // !isKeyboardVisible ? const SizedBox(height: 0) : const SizedBox(height: 0),
               const SizedBox(height: 0),
               
               // 텍스트 폼 필드
@@ -166,26 +157,12 @@ class _SignUpState extends State<SignUp> {
                             ],
                           ),
 
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
                         
-                          Column(
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 50,
-                                margin: const EdgeInsets.only(bottom: 10),
-                                child: Image.asset("assets/images/signup-btn.png"),
-                              ),
-                              GestureDetector(
-                                child: SizedBox(
-                                  height: 20,
-                                  child: Image.asset("assets/images/go-to-signin.png"),
-                                ),
-                                onTap: () {
-                                  Get.to(SignIn());
-                                },
-                              ),
-                            ],
+                          Container(
+                            height: 50,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: Image.asset("assets/images/signup-btn.png"),
                           ),
                         ],
                       ),
