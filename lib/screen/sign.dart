@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 class Sign extends StatefulWidget {
   Sign({Key? key, required this.boxRadius}) : super(key: key);
   final double boxRadius;
-  // bool isSignin = true;
 
   @override
   State<Sign> createState() => _SignState();
@@ -21,12 +20,6 @@ class _SignState extends State<Sign> {
   late double boxWidth = MediaQuery.of(context).size.width;
   late double boxHeight = MediaQuery.of(context).size.height;
   
-
-  // void changeSign(){
-  //   setState((){
-  //     widget.isSignin = !widget.isSignin;
-  //   });
-  // }
   @override
   void initState() {
     super.initState();
@@ -52,11 +45,7 @@ class _SignState extends State<Sign> {
                   : Image.asset('assets/images/large-logo.png'),
                 // child: Image.asset('assets/images/large-logo.png'),
               ),
-            )
-            // :SizedBox()
-            ,
-            // Text('Baking', style: TextStyle(fontFamily: 'carter'),),
-            // Text('Weighing Assistant'),
+            ),
             // 내용
             Expanded(
               child: Container(
@@ -90,7 +79,6 @@ class _SignState extends State<Sign> {
                             onTap: (){
                               setState(() {
                                 isSignin = true;
-                                print(isSignin);
                               });
                             },
                           ),
@@ -108,7 +96,6 @@ class _SignState extends State<Sign> {
                             onTap: (){
                               setState(() {
                                 isSignin = false;
-                                print(isSignin);
                               });
                             },
                           ),
@@ -122,57 +109,6 @@ class _SignState extends State<Sign> {
               )
             ),
           ],
-          // mainAxisAlignment: GetPlatform.isMobile 
-          // ? MainAxisAlignment.end
-          // : MainAxisAlignment.center,
-          //   // ignore: prefer_const_literals_to_create_immutables
-          //   children: [
-          //     // !isKeyboardVisible 
-          //     // ? Expanded(
-          //     //   flex: 1,
-          //     //   child: Text('is Mobile? : ${GetPlatform.isMobile}')
-          //     // )
-          //     // : SizedBox(),
-          //     // Expanded(
-          //     //   flex: 2,
-          //     //   child: Container(
-          //     //     width: GetPlatform.isMobile ? boxWidth : 400,
-          //     //     decoration: BoxDecoration(
-          //     //       color: Palette.yellow,
-          //     //       borderRadius: BorderRadius.only(
-          //     //         topLeft: Radius.circular(widget.boxRadius),
-          //     //         topRight: Radius.circular(widget.boxRadius)
-          //     //       ),
-          //     //     ),
-          //     //     padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-          //     //     child: Center(
-          //     //       child: Container(
-          //     //         // color: Colors.white,
-          //     //         padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          //     //         child: SignIn(),
-          //     //       ),
-          //     //     ),
-          //     //   ),
-          //     // )
-          //     Container(
-          //       // color: Colors.black,
-          //       width: GetPlatform.isMobile ? boxWidth : 400,
-          //       height: GetPlatform.isMobile ? boxHeight : 400,
-          //       child: Column(
-          //         children: [
-          //           // Container(
-          //           //   height: 100,
-          //           //   color: Colors.red,
-          //           // ),
-          //           // SizedBox(height: 30),
-          //           // Container(
-          //           //   height: 100,
-          //           //   color: Colors.blue,
-          //           // ),
-          //         ],
-          //       )
-          //     ),
-          //   ],
           );
        },
     );
