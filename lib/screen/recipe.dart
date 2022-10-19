@@ -18,20 +18,19 @@ class _RecipeState extends State<Recipe> {
   late double boxWidth = MediaQuery.of(context).size.width;
   late double boxHeight = MediaQuery.of(context).size.height;
   
-  late bool isFolded;
+  late bool moreBtnFolded;
+  late bool listFolded;
 
 
   @override
   void initState() {
+    moreBtnFolded = true;
+    listFolded = false;
     super.initState();
-    isFolded = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    
-    
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
         return Column(
@@ -66,18 +65,46 @@ class _RecipeState extends State<Recipe> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // 리스트
-                            Container(
-                              width: boxWidth*0.3,
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 400),
+                              curve: Curves.bounceOut,
+                              width: listFolded ? boxWidth*0.1 : boxWidth*0.3,
                               decoration: BoxDecoration(
                                 color: Palette.lightyellow,
                                 borderRadius: BorderRadius.circular(15)
                               ),
                               child: Column(
                                 children: [
-                                  Expanded(
-                                      // 리스트
-                                      child: Text('asd'),
+                                  GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        listFolded = !listFolded;
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      width: 20,
+                                      height: 20,
+                                      child: listFolded 
+                                      ? Image.asset('assets/images/list-arrow-r.png')
+                                      : Image.asset('assets/images/list-arrow-l.png')
+                                    ),
                                   ),
+                                  !listFolded 
+                                  ? Expanded(
+                                      // 리스트
+                                      child: Column(
+                                        children: [
+                                          Text('123'),
+                                          Text('456'),
+                                          Text('789'),
+                                          Text('131'),
+                                          Text('225'),
+                                          Text('1235'),
+                                        ],
+                                      ),
+                                  )
+                                  : SizedBox()
                                 ],
                               ),
                             ),
@@ -101,54 +128,75 @@ class _RecipeState extends State<Recipe> {
                             ),
                         ],
                       ),
-                      // child: Image.asset('assets/images/appbar-logo.png') 
                       AnimatedPositioned(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeIn,
-                        // 애니메이션추가 / 버튼 3개 배치 / 버튼 바뀌는거 구현하기
-                        bottom: 60,
-                        right: 10,
+                        duration: Duration(milliseconds: 500),
+                        // curve: Curves.linearToEaseOut,
+                        curve: Curves.bounceOut,
+                        bottom: moreBtnFolded ? 10 : 90,
+                        right: 5,
                         child: Column(
                           children: [
                             GestureDetector(
                               child: Container(
-                                padding: EdgeInsets.all(5),
-                                color: Colors.red[200],
-                                width: 45,
-                                height: 45,
-                                child: Image.asset('assets/images/appbar-logo-2.png'),
+                                width: 60,
+                                height: 30,
+                                child: Image.asset('assets/images/add-btn-s.png'),
                               ),
                               onTap: (){
-                                print('클릭클릭!!');
+                                setState(() {
+                                  moreBtnFolded = true;
+                                  print('ADD!!');
+                                });
                               },
                             ),
                           ],
                         )
                       ),
-                      // Positioned(
-                      //   bottom: 10,
-                      //   right: 10,
-                      //   child: Column(
-                      //     children: [
-                      //       Container(
-                      //         padding: EdgeInsets.all(5),
-                      //         color: Colors.red[200],
-                      //         width: 45,
-                      //         height: 45,
-                      //         child: GestureDetector(
-                      //           onTap: () {
-                      //             setState(() {
-                      //               isFolded = !isFolded;
-                      //             });
-                      //           },
-                      //           child: Container(
-                      //             child: isFolded ? Icon(Icons.more) : Icon(Icons.close),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   )
-                      // )
+                      AnimatedPositioned(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.bounceOut,
+                        bottom: moreBtnFolded ? 10 : 50,
+                        right: 5,
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                width: 60,
+                                height: 30,
+                                child: Image.asset('assets/images/update-btn-s.png'),
+                              ),
+                              onTap: (){
+                                setState(() {
+                                  moreBtnFolded = true;
+                                  print('UPDATE!!');
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 5,
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                width: 60,
+                                height: 30,
+                                child: moreBtnFolded 
+                                ? Image.asset('assets/images/moreu-btn.png') 
+                                : Image.asset('assets/images/mored-btn.png'),
+                              ),
+                              onTap: (){
+                                setState(() {
+                                  moreBtnFolded = !moreBtnFolded;
+                                });
+                              },
+                            ),
+                          ],
+                        )
+                      ),
                     ],
                   ),
                         
