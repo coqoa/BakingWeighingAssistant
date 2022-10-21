@@ -15,17 +15,18 @@ class Recipe extends StatefulWidget {
 
 class _RecipeState extends State<Recipe> {
   
-  late double boxWidth = MediaQuery.of(context).size.width;
+  // late double boxWidth = MediaQuery.of(context).size.width;
+  late double boxWidth = 1000;
   late double boxHeight = MediaQuery.of(context).size.height;
   
   late bool moreBtnFolded;
-  late bool listFolded;
+  // late bool listFolded;
 
 
   @override
   void initState() {
     moreBtnFolded = true;
-    listFolded = false;
+    // listFolded = false;
     super.initState();
   }
 
@@ -50,7 +51,7 @@ class _RecipeState extends State<Recipe> {
               flex: 10,
               child: Container(
                 height: GetPlatform.isMobile? boxHeight*0.67 : 450,
-                width: GetPlatform.isMobile? boxWidth : 350,
+                width: GetPlatform.isMobile? boxWidth : 1050,
                 padding: EdgeInsets.fromLTRB(10,0,10,10),
                 
                 child: Container(
@@ -68,32 +69,25 @@ class _RecipeState extends State<Recipe> {
                             AnimatedContainer(
                               duration: Duration(milliseconds: 400),
                               curve: Curves.bounceOut,
-                              width: listFolded ? boxWidth*0.1 : boxWidth*0.3,
+                              // width: listFolded ? boxWidth*0.1 : boxWidth*0.3,
+                              width: GetPlatform.isMobile? boxWidth*0.3 : 200,
                               decoration: BoxDecoration(
                                 color: Palette.lightyellow,
                                 borderRadius: BorderRadius.circular(15)
                               ),
                               child: Column(
                                 children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        listFolded = !listFolded;
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      width: 20,
-                                      height: 20,
-                                      child: listFolded 
-                                      ? Image.asset('assets/images/list-arrow-r.png')
-                                      : Image.asset('assets/images/list-arrow-l.png')
-                                    ),
+                                  Container(
+                                    margin: EdgeInsets.all(10),
+                                    width: 20,
+                                    height: 20,
                                   ),
-                                  !listFolded 
-                                  ? Expanded(
+                                  // !listFolded 
+                                  // ? 
+                                  Expanded(
                                       // 리스트
                                       child: Column(
+                                        // ignore: prefer_const_literals_to_create_immutables
                                         children: [
                                           Text('123'),
                                           Text('456'),
@@ -104,7 +98,7 @@ class _RecipeState extends State<Recipe> {
                                         ],
                                       ),
                                   )
-                                  : SizedBox()
+                                  // : SizedBox()
                                 ],
                               ),
                             ),
@@ -117,11 +111,9 @@ class _RecipeState extends State<Recipe> {
                                   borderRadius: BorderRadius.circular(15)
                                 ),
                                 child: Column(
+                                  // ignore: prefer_const_literals_to_create_immutables
                                   children: [
-                                    Expanded(
-                                        // 리스트
-                                        child: Text('asd'),
-                                    ),
+                                    Text('asd'),
                                   ],
                                 ),
                               ),

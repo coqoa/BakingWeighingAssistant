@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Palette.lightyellow,
           body: Center(
-            // child: Sign(boxRadius:25)
-            child:Recipe()
+            child: Sign(boxRadius:25)
+            // child:Recipe()
           ),
         ),
       ),
