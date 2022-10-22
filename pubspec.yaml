@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_keyboard_visibility: ^5.4.0
   get: ^4.6.5
+  flutter_svg: ^1.1.5
 
 dev_dependencies:
   flutter_test:
@@ -76,10 +77,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: carter
-  #     fonts:
-        # - asset: assets/font/CarterOne-Regular.ttf
+  fonts:
+    - family: carter
+      fonts:
+        - asset: assets/font/CarterOne-Regular.ttf
         # - asset: assets/font/CarterOne-Regular.otf
         # - asset: assets/font/CarterOne-Regular.woff
 

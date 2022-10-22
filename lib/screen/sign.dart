@@ -16,7 +16,7 @@ class Sign extends StatefulWidget {
 }
 
 class _SignState extends State<Sign> {
-  bool isSignin = true;
+  bool isSigninScreen = true;
   late double boxWidth = MediaQuery.of(context).size.width;
   late double boxHeight = MediaQuery.of(context).size.height;
   
@@ -32,26 +32,23 @@ class _SignState extends State<Sign> {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
-        return Column(
-          children: [
-            // 로고
-            // !isKeyboardVisible?
-            Center(
-              child: SizedBox(
-                height: isKeyboardVisible? boxHeight*0.15 : boxHeight*0.3,
-                width: boxWidth * 0.8,
-                child: isKeyboardVisible 
-                  ? Image.asset('assets/images/appbar-logo-2.png') 
-                  : Image.asset('assets/images/large-logo.png'),
-                // child: Image.asset('assets/images/large-logo.png'),
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 로고
+              SizedBox(
+                width: 250,
+                height: 250,
+                child: Image.asset('assets/images/logo-large.png'),
               ),
-            ),
-            // 내용
-            Expanded(
-              child: Container(
+              
+              // 내용
+              Container(
                 height: GetPlatform.isMobile? boxHeight*0.67 : 450,
                 width: GetPlatform.isMobile? boxWidth : 350,
-                padding: EdgeInsets.fromLTRB(20,5,20,20),
+
+                padding: EdgeInsets.fromLTRB(20,20,20,0),
                 
                 child: Container(
                   padding: EdgeInsets.all(20),
@@ -61,56 +58,74 @@ class _SignState extends State<Sign> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            child: SizedBox(
-                              height: 50,
-                              child: Container(
-                                padding: const EdgeInsets.only(left: 20),
-                                height: 50,
-                                child: isSignin 
-                                ? Image.asset("assets/images/signin-title.png") 
-                                : Image.asset("assets/images/signin-title-unfocus.png")
-                              ),
+                      SizedBox(
+                        // height: 45,
+                        child: Container(
+                          // padding: const EdgeInsets.only(left: 10,top: 30),
+                          // height: 50,
+                          child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
+                            style: TextStyle(
+                              fontFamily: 'carter',
+                              fontSize: 40
                             ),
-                            onTap: (){
-                              setState(() {
-                                isSignin = true;
-                              });
-                            },
-                          ),
-                          GestureDetector(
-                            child: SizedBox(
-                              height: 50,
-                              child: Container(
-                                padding: const EdgeInsets.only(right: 20),
-                                height: 50,
-                                child: isSignin 
-                                ? Image.asset("assets/images/signup-title-unfocus.png")
-                                : Image.asset("assets/images/signup-title.png")
-                              ),
-                            ),
-                            onTap: (){
-                              setState(() {
-                                isSignin = false;
-                              });
-                            },
-                          ),
-                        ],
+                          )
+                        ),
                       ),
-                      Expanded(child: isSignin ? SignIn() : SignUp())
+                      SizedBox(height: 20),
+                      Expanded(
+                        flex: 13,
+                        child: Container(
+                          // color: Colors.red,
+                            child: isSigninScreen ? SignIn() : SignUp(),
+                        )
+                      ),
+                      SizedBox(height: 5),
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              isSigninScreen
+                              ?'Don’t you have an account?'
+                              : 'Do you have an account?',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontFamily: 'carter',
+                                color: Palette.lightblack
+                              ),
+                            ),
+                            SizedBox(width: 5,),
+                            GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  isSigninScreen = !isSigninScreen;
+                                });
+                              },
+                              child: Text(
+                                isSigninScreen
+                                ? 'Sign Up!'
+                                : 'Sign In!',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'carter',
+                                  color: Palette.red
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                  // child: SignUp(),
                 )
-              )
-            ),
-          ],
-          );
-       },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

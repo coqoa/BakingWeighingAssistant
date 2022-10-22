@@ -10,4 +10,6 @@ class Palette{
   static const Color darkgray = Color.fromRGBO(144, 144, 144, 1);
   static const Color lightblack = Color.fromRGBO(63, 63, 63, 1);
   static const Color black = Color.fromRGBO(0, 0, 0, 1);
+
+  static const Color red = Color.fromRGBO(246, 113, 0, 1);
 }

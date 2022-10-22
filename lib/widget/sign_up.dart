@@ -35,7 +35,6 @@ class _SignUpState extends State<SignUp> {
                   child: SingleChildScrollView(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // 이메일 입력 창
                           Column(
@@ -44,7 +43,7 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/email-label.png"),
+                                child: Image.asset("assets/images/label-email.png"),
                               ),
                               Container(
                                 height: 45,
@@ -84,7 +83,7 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/password-label.png"),
+                                child: Image.asset("assets/images/label-password.png"),
                               ),
                               Container(
                                 height: 45,
@@ -125,7 +124,7 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/password-repeat-label.png"),
+                                child: Image.asset("assets/images/label-password-repeat.png"),
                               ),
                               Container(
                                 height: 45,
@@ -162,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                           Container(
                             height: 50,
                             margin: const EdgeInsets.only(bottom: 10),
-                            child: Image.asset("assets/images/signup-btn.png"),
+                            child: Image.asset("assets/images/signup-title-unfocus.png"),
                           ),
                         ],
                       ),

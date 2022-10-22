@@ -21,6 +21,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'carter',
+        // brightness: Brightness.light,
+        // backgroundColor: Colors.white,
+        // visualDensity: VisualDensity.adaptivePlatformDensity,
+        // primaryColor: Colors.blueGrey,
+        // primarySwatch: Colors.blueGrey,
+        // scaffoldBackgroundColor: Colors.white,
+      ),
       home: SafeArea(
         child: Scaffold(
           backgroundColor: Palette.lightyellow,
