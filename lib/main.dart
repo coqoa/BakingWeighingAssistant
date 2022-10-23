@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'carter',
+        fontFamily: 'notosans',
         // brightness: Brightness.light,
         // backgroundColor: Colors.white,
         // visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -43,7 +43,6 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/label-email.png"),
                               ),
                               Container(
                                 height: 45,
@@ -83,7 +82,6 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/label-password.png"),
                               ),
                               Container(
                                 height: 45,
@@ -124,7 +122,6 @@ class _SignUpState extends State<SignUp> {
                               Container(
                                 height: 20,
                                 margin: const EdgeInsets.only(bottom: 5),
-                                child: Image.asset("assets/images/label-password-repeat.png"),
                               ),
                               Container(
                                 height: 45,
@@ -161,7 +158,6 @@ class _SignUpState extends State<SignUp> {
                           Container(
                             height: 50,
                             margin: const EdgeInsets.only(bottom: 10),
-                            child: Image.asset("assets/images/signup-title-unfocus.png"),
                           ),
                         ],
                       ),

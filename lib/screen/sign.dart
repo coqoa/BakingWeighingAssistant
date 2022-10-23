@@ -32,97 +32,109 @@ class _SignState extends State<Sign> {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // 로고
-              SizedBox(
-                width: 250,
-                height: 250,
-                child: Image.asset('assets/images/logo-large.png'),
-              ),
-              
-              // 내용
-              Container(
-                height: GetPlatform.isMobile? boxHeight*0.67 : 450,
-                width: GetPlatform.isMobile? boxWidth : 350,
-
-                padding: EdgeInsets.fromLTRB(20,20,20,0),
+        return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // 로고
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Image.asset('assets/images/logo-large.png'),
+                ),
                 
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Palette.yellow,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        // height: 45,
-                        child: Container(
-                          // padding: const EdgeInsets.only(left: 10,top: 30),
-                          // height: 50,
+                // 내용
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 600),
+                  curve: Curves.linearToEaseOut,
+
+                  // width: GetPlatform.isMobile? boxWidth : 350,
+                  // height: 
+                  //   isSigninScreen 
+                  //   ? GetPlatform.isMobile? boxHeight*0.67 : 450
+                  //   : GetPlatform.isMobile? boxHeight*0.67 : 480,
+                  width: 350,
+                  height: isSigninScreen ? 380 : 450,
+                  
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(30,20,30,30),
+                    padding: EdgeInsets.fromLTRB(10,10,10,10),
+                    decoration: BoxDecoration(
+                      color: Palette.yellow,
+                      borderRadius: BorderRadius.circular(20),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Palette.lightgray,
+                      //     offset: Offset(2, 2),
+                      //     spreadRadius: 1,
+                      //     blurRadius: 2,
+                      //   )
+                      // ]
+                    ),
+                    
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 10),
                           child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
                             style: TextStyle(
                               fontFamily: 'carter',
-                              fontSize: 40
+                              fontSize: 30
                             ),
                           )
                         ),
-                      ),
-                      SizedBox(height: 20),
-                      Expanded(
-                        flex: 13,
-                        child: Container(
-                          // color: Colors.red,
-                            child: isSigninScreen ? SignIn() : SignUp(),
-                        )
-                      ),
-                      SizedBox(height: 5),
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              isSigninScreen
-                              ?'Don’t you have an account?'
-                              : 'Do you have an account?',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'carter',
-                                color: Palette.lightblack
-                              ),
-                            ),
-                            SizedBox(width: 5,),
-                            GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  isSigninScreen = !isSigninScreen;
-                                });
-                              },
-                              child: Text(
+                        Expanded(
+                          flex: 13,
+                          child: isSigninScreen ? SignIn() : SignUp()
+                        ),
+                        SizedBox(height: 10),
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
                                 isSigninScreen
-                                ? 'Sign Up!'
-                                : 'Sign In!',
+                                ?'Don’t you have an account?'
+                                : 'Do you have an account?',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   fontFamily: 'carter',
-                                  color: Palette.red
+                                  // fontFamily: 'notosans',
+                                  // fontWeight: FontWeight.w600,
+                                  // color: Palette.lightblack
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ),
-            ],
+                              SizedBox(width: 5,),
+                              GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    isSigninScreen = !isSigninScreen;
+                                  });
+                                },
+                                child: Text(
+                                  isSigninScreen ? 'Sign Up!' : 'Sign In!',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontFamily: 'carter',
+                                    // fontFamily: 'notosans',
+                                    // fontWeight: FontWeight.w600,
+                                    color: Palette.red
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ),
+              ],
+            ),
           ),
         );
       },

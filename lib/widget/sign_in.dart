@@ -19,7 +19,7 @@ class _SignInState extends State<SignIn> {
   String userEmail = '';
   String userPassword = '';
   String fontFamily = "NotoSansRegular";
-  
+
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
@@ -29,7 +29,7 @@ class _SignInState extends State<SignIn> {
             !isKeyboardVisible ? const SizedBox(height: 20) : const SizedBox(height: 0),
             // 텍스트 폼 필드
             Expanded(
-              flex: 3,
+              flex: 4,
               child: SingleChildScrollView(
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(20,0,20,0),
@@ -47,39 +47,105 @@ class _SignInState extends State<SignIn> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'carter',
+                                    color: Palette.lightblack
                                   ),
                                 ),
-                                const SizedBox(height: 5),
+                                SizedBox(height: 5),
                                 Container(
                                   height: 40,
-                                  decoration: BoxDecoration(
-                                    color: Palette.lightyellow,
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
-                                  child: TextFormField(
+                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: TextField(
                                     key: const ValueKey(1),
                                     keyboardType: TextInputType.emailAddress,
+                                    // autofocus: true,
                                     cursorColor: Palette.lightblack,
+                                    cursorWidth: 2,
+                                    cursorHeight: 15,
+
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      // fontFamily: 'carter'
+                                      fontFamily: 'notosans',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                     decoration: InputDecoration(
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent
-                                        ),
+                                      contentPadding: const EdgeInsets.only(left: 10),
+                                      hintText: 'abc@example.com',
+                                      hintStyle: const TextStyle(
+                                        color: Palette.gray,
+                                        fontSize: 11,
+                                        // fontFamily: 'carter'
+                                        fontFamily: 'notosans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Palette.lightblack
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
                                       ),
+                                      filled: true,
+                                      fillColor: Palette.lightyellow
                                     ),
+                                    
                                     onChanged: (value){},
                                   ),
-                                ),
+                                )
                               ],
                             ),
-                            isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 20),
+                            isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 10),
                             // 비밀번호 입력 창
+                            // Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: [
+                            //     const Text('Password',
+                            //       style: TextStyle(
+                            //         fontSize: 15,
+                            //         fontFamily: 'carter',
+                            //         color: Palette.lightblack
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       height: 40,
+                            //       // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            //       child: TextField(
+                            //         key: const ValueKey(1),
+                            //         keyboardType: TextInputType.emailAddress,
+                            //         obscureText: true,
+                            //         cursorColor: Palette.lightblack,
+                            //         cursorWidth: 2,
+                            //         cursorHeight: 15,
+
+                            //         style: const TextStyle(
+                            //           fontSize: 11,
+                            //           fontFamily: 'notosans',
+                            //           fontWeight: FontWeight.w600,
+                            //         ),
+                            //         decoration: const InputDecoration(
+                            //           hintText: '******',
+                            //           hintStyle: TextStyle(
+                            //             color: Palette.gray,
+                            //             // fontFamily: 'carter',
+                            //             fontSize: 11,
+                            //             fontFamily: 'notosans',
+                            //             fontWeight: FontWeight.w600,
+                            //           ),
+                            //           enabledBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Palette.lightblack)
+                            //           ),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Palette.lightblack)
+                            //           ),
+                            //           contentPadding: EdgeInsets.only(left: 2)
+                            //         ),
+                                    
+                            //         onChanged: (value){},
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -87,33 +153,49 @@ class _SignInState extends State<SignIn> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'carter',
+                                    color: Palette.lightblack
                                   ),
                                 ),
-                                const SizedBox(height: 5),
+                                SizedBox(height: 5),
                                 Container(
                                   height: 40,
-                                  decoration: BoxDecoration(
-                                    color: Palette.lightyellow,
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
-                                  child: TextFormField(
-                                    key: const ValueKey(2),
+                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: TextField(
+                                    key: const ValueKey(1),
+                                    keyboardType: TextInputType.emailAddress,
                                     obscureText: true,
                                     cursorColor: Palette.lightblack,
+                                    cursorWidth: 2,
+                                    cursorHeight: 15,
+
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      // fontFamily: 'carter'
+                                      fontFamily: 'notosans',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                     decoration: InputDecoration(
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent
-                                        ),
-                                        // borderRadius: BorderRadius.circular(10)
+                                      contentPadding: const EdgeInsets.only(left: 10),
+                                      hintText: '******',
+                                      hintStyle: const TextStyle(
+                                        color: Palette.gray,
+                                        fontSize: 11,
+                                        // fontFamily: 'carter'
+                                        fontFamily: 'notosans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Palette.lightblack
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
                                       ),
+                                      filled: true,
+                                      fillColor: Palette.lightyellow
                                     ),
+                                    
                                     onChanged: (value){},
                                   ),
                                 ),
@@ -129,21 +211,34 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 10,),
             // 버튼
             Container(
-              width: 230,
+              width: 235,
               height: 40,
-              decoration: BoxDecoration(
-                color: Palette.lightblack,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: const Center(
-                child: Text('Sign In',
+              child:ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Palette.lightblack,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )
+                ),
+                onHover: (hover){
+                  // setState(() {
+                    // hover
+                    // ? nextBtn='Next' 
+                    // : nextBtn='Sign In !';
+                  // });
+                },
+                onPressed: (){
+
+                }, 
+                child: Text('Go !',
                   style: TextStyle(
-                    fontSize: 23,
-                    color: Palette.white
+                    fontSize: 19,
+                    fontFamily: 'carter'
                   ),
                 )
-              ),
+              )
             ),
+            
           ],
         ); 
       }
