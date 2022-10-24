@@ -38,10 +38,30 @@ class _SignState extends State<Sign> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // 로고
-                SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Image.asset('assets/images/logo-large.png'),
+                // Container(
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 250),
+                  curve: Curves.easeIn,
+                  // width:isKeyboardVisible ? boxWidth : 200,
+                  height:isKeyboardVisible ?70 : 250,
+                  child: isKeyboardVisible
+                    ? Container(
+                      margin: EdgeInsets.all(10),
+
+                      child: Center(
+                        child: Text('Baking Weighing Assistant',
+                          textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'carter',
+                              fontSize: 22
+                            ),
+                          ),
+                      ),
+                    )
+                    : Container(
+                      margin: EdgeInsets.all(10),
+                        child: Image.asset('assets/images/logo-large.png')
+                      ),
                 ),
                 
                 // 내용
@@ -58,7 +78,7 @@ class _SignState extends State<Sign> {
                   height: isSigninScreen ? 380 : 450,
                   
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(30,20,30,30),
+                    margin: EdgeInsets.fromLTRB(30,0,30,30),
                     padding: EdgeInsets.fromLTRB(10,10,10,10),
                     decoration: BoxDecoration(
                       color: Palette.yellow,
@@ -77,14 +97,17 @@ class _SignState extends State<Sign> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
-                            style: TextStyle(
-                              fontFamily: 'carter',
-                              fontSize: 30
-                            ),
-                          )
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10,top: 10),
+                            child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
+                              style: TextStyle(
+                                fontFamily: 'carter',
+                                fontSize: 30
+                              ),
+                            )
+                          ),
                         ),
                         Expanded(
                           flex: 13,
@@ -103,9 +126,6 @@ class _SignState extends State<Sign> {
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'carter',
-                                  // fontFamily: 'notosans',
-                                  // fontWeight: FontWeight.w600,
-                                  // color: Palette.lightblack
                                 ),
                               ),
                               SizedBox(width: 5,),
@@ -120,8 +140,6 @@ class _SignState extends State<Sign> {
                                   style: TextStyle(
                                     fontSize: 11,
                                     fontFamily: 'carter',
-                                    // fontFamily: 'notosans',
-                                    // fontWeight: FontWeight.w600,
                                     color: Palette.red
                                   ),
                                 ),
