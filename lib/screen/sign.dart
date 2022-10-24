@@ -17,6 +17,7 @@ class Sign extends StatefulWidget {
 
 class _SignState extends State<Sign> {
   bool isSigninScreen = true;
+  bool isBtnHovered = false;
   late double boxWidth = MediaQuery.of(context).size.width;
   late double boxHeight = MediaQuery.of(context).size.height;
   
@@ -37,23 +38,21 @@ class _SignState extends State<Sign> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 // 로고
-                // Container(
                 AnimatedContainer(
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeIn,
-                  // width:isKeyboardVisible ? boxWidth : 200,
                   height:isKeyboardVisible ?70 : 250,
                   child: isKeyboardVisible
                     ? Container(
                       margin: EdgeInsets.all(10),
-
                       child: Center(
                         child: Text('Baking Weighing Assistant',
                           textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'carter',
-                              fontSize: 22
+                              fontSize: 20
                             ),
                           ),
                       ),
@@ -68,14 +67,8 @@ class _SignState extends State<Sign> {
                 AnimatedContainer(
                   duration: Duration(milliseconds: 600),
                   curve: Curves.linearToEaseOut,
-
-                  // width: GetPlatform.isMobile? boxWidth : 350,
-                  // height: 
-                  //   isSigninScreen 
-                  //   ? GetPlatform.isMobile? boxHeight*0.67 : 450
-                  //   : GetPlatform.isMobile? boxHeight*0.67 : 480,
                   width: 350,
-                  height: isSigninScreen ? 380 : 450,
+                  height: isSigninScreen ? 370 : 460,
                   
                   child: Container(
                     margin: EdgeInsets.fromLTRB(30,0,30,30),
@@ -83,41 +76,35 @@ class _SignState extends State<Sign> {
                     decoration: BoxDecoration(
                       color: Palette.yellow,
                       borderRadius: BorderRadius.circular(20),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Palette.lightgray,
-                      //     offset: Offset(2, 2),
-                      //     spreadRadius: 1,
-                      //     blurRadius: 2,
-                      //   )
-                      // ]
                     ),
                     
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.only(left: 10,top: 10),
+                        // 타이틀
+                        Container(
+                          height: 55,
+                            margin: EdgeInsets.only(left: 18,top: 10),
                             child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
                               style: TextStyle(
                                 fontFamily: 'carter',
                                 fontSize: 30
                               ),
                             )
-                          ),
                         ),
+                        // 텍스트폼필드
                         Expanded(
                           flex: 13,
                           child: isSigninScreen ? SignIn() : SignUp()
                         ),
                         SizedBox(height: 10),
+
+                        // 회원가입 / 로그인으로 가기 버튼
                         Expanded(
                           flex: 1,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 isSigninScreen
@@ -135,14 +122,13 @@ class _SignState extends State<Sign> {
                                     isSigninScreen = !isSigninScreen;
                                   });
                                 },
-                                child: Text(
-                                  isSigninScreen ? 'Sign Up!' : 'Sign In!',
+                                child : Text(isSigninScreen ?'Sign Up !' :'Sign In !',
                                   style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: 10,
                                     fontFamily: 'carter',
                                     color: Palette.red
                                   ),
-                                ),
+                                )
                               )
                             ],
                           ),

@@ -16,156 +16,236 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   String userEmail = '';
   String userPassword = '';
+  String userPasswordRepeat = '';
   String fontFamily = "NotoSansRegular";
   
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
       builder: (BuildContext , bool isKeyboardVisible) {
-        return SizedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 0),
-              
-              // 텍스트 폼 필드
-              Expanded(
+        return Column(  
+          children: [
+            !isKeyboardVisible ? const SizedBox(height: 20) : const SizedBox(height: 0),
+            // 텍스트 폼 필드
+            Expanded(
+              child: SingleChildScrollView(
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(20,10,20,0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // 이메일 입력 창
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 20,
-                                margin: const EdgeInsets.only(bottom: 5),
-                              ),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Palette.lightyellow,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: TextFormField(
-                                  key: const ValueKey(3),
-                                  keyboardType: TextInputType.emailAddress,
-                                  cursorColor: Palette.lightblack,
-                                  decoration: InputDecoration(
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Palette.lightblack
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                  padding: const EdgeInsets.fromLTRB(20,0,20,0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // 이메일 입력 창
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('E-Mail Address',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'carter',
+                                    color: Palette.lightblack
                                   ),
-                                  onChanged: (value){},
                                 ),
-                              ),
-                            ],
-                          ),
-                          
-                          const SizedBox(height: 10),
+                                SizedBox(height: 5),
+                                Container(
+                                  height: 40,
+                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: TextField(
+                                    key: const ValueKey(1),
+                                    keyboardType: TextInputType.emailAddress,
+                                    // autofocus: true,
+                                    cursorColor: Palette.lightblack,
+                                    cursorWidth: 2,
+                                    cursorHeight: 15,
+                                    autocorrect: false,
 
-                          // 비밀번호 입력 창
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 20,
-                                margin: const EdgeInsets.only(bottom: 5),
-                              ),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Palette.lightyellow,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: TextFormField(
-                                  key: const ValueKey(4),
-                                  obscureText: true,
-                                  cursorColor: Palette.lightblack,
-                                  decoration: InputDecoration(
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent
-                                      ),
-                                      // borderRadius: BorderRadius.circular(10)
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      // fontFamily: 'carter'
+                                      fontFamily: 'notosans',
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Palette.lightblack
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.only(left: 10),
+                                      hintText: 'abc@example.com',
+                                      hintStyle: const TextStyle(
+                                        color: Palette.gray,
+                                        fontSize: 11,
+                                        // fontFamily: 'carter'
+                                        fontFamily: 'notosans',
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      filled: true,
+                                      fillColor: Palette.lightyellow
                                     ),
+                                    
+                                    onChanged: (value){},
                                   ),
-                                  onChanged: (value){},
-                                ),
-                              ),
-                            ],
-                          ),
+                                )
+                              ],
+                            ),
+                            isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 10),
 
-                          const SizedBox(height: 10),
-
-                          // 비밀번호 확인 창
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 20,
-                                margin: const EdgeInsets.only(bottom: 5),
-                              ),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Palette.lightyellow,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: TextFormField(
-                                  key: const ValueKey(5),
-                                  obscureText: true,
-                                  cursorColor: Palette.lightblack,
-                                  decoration: InputDecoration(
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent
-                                      ),
-                                      // borderRadius: BorderRadius.circular(10)
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Palette.lightblack
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                            // 패스워드 입력창
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Password',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'carter',
+                                    color: Palette.lightblack
                                   ),
-                                  onChanged: (value){},
                                 ),
-                              ),
-                            ],
-                          ),
+                                SizedBox(height: 5),
+                                Container(
+                                  height: 40,
+                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: TextField(
+                                    key: const ValueKey(1),
+                                    keyboardType: TextInputType.emailAddress,
+                                    obscureText: true,
+                                    cursorColor: Palette.lightblack,
+                                    cursorWidth: 2,
+                                    cursorHeight: 15,
+                                    autocorrect: false,
 
-                          const SizedBox(height: 20),
-                        
-                          Container(
-                            height: 50,
-                            margin: const EdgeInsets.only(bottom: 10),
-                          ),
-                        ],
-                      ),
-                  ),
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      // fontFamily: 'carter'
+                                      fontFamily: 'notosans',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.only(left: 10),
+                                      hintText: '******',
+                                      hintStyle: const TextStyle(
+                                        color: Palette.gray,
+                                        fontSize: 11,
+                                        // fontFamily: 'carter'
+                                        fontFamily: 'notosans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      filled: true,
+                                      fillColor: Palette.lightyellow
+                                    ),
+                                    
+                                    onChanged: (value){},
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 10),
+
+                            // 패스워드 체크 입력창
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Password Repeat',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'carter',
+                                    color: Palette.lightblack
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Container(
+                                  height: 40,
+                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: TextField(
+                                    key: const ValueKey(1),
+                                    keyboardType: TextInputType.emailAddress,
+                                    obscureText: true,
+                                    cursorColor: Palette.lightblack,
+                                    cursorWidth: 2,
+                                    cursorHeight: 15,
+                                    autocorrect: false,
+
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      // fontFamily: 'carter'
+                                      fontFamily: 'notosans',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: const EdgeInsets.only(left: 10),
+                                      hintText: '******',
+                                      hintStyle: const TextStyle(
+                                        color: Palette.gray,
+                                        fontSize: 11,
+                                        // fontFamily: 'carter'
+                                        fontFamily: 'notosans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.transparent),
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      filled: true,
+                                      fillColor: Palette.lightyellow
+                                    ),
+                                    
+                                    onChanged: (value){},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 10,),
+            // 버튼
+            SizedBox(
+              width: 235,
+              height: 40,
+              child:ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Palette.lightblack,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )
+                ),
+                onHover: (hover){},
+                onPressed: (){
+
+                }, 
+                child: const Text('Next !',
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontFamily: 'carter'
+                  ),
+                )
+              )
+            ),
+            
+          ],
         ); 
       }
     );
