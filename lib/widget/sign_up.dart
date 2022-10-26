@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                                   height: 40,
                                   // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                                   child: TextField(
-                                    key: const ValueKey(1),
+                                    key: const ValueKey(4),
                                     keyboardType: TextInputType.emailAddress,
                                     obscureText: true,
                                     cursorColor: Palette.lightblack,
@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                                   height: 40,
                                   // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                                   child: TextField(
-                                    key: const ValueKey(1),
+                                    key: const ValueKey(5),
                                     keyboardType: TextInputType.emailAddress,
                                     obscureText: true,
                                     cursorColor: Palette.lightblack,

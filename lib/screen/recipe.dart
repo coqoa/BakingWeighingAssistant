@@ -16,17 +16,16 @@ class Recipe extends StatefulWidget {
 class _RecipeState extends State<Recipe> {
   
   // late double boxWidth = MediaQuery.of(context).size.width;
-  late double boxWidth = 1000;
   late double boxHeight = MediaQuery.of(context).size.height;
+  late double boxWidth = 1000;
   
   late bool moreBtnFolded;
-  // late bool listFolded;
 
 
   @override
   void initState() {
     moreBtnFolded = true;
-    // listFolded = false;
+
     super.initState();
   }
 
@@ -40,10 +39,14 @@ class _RecipeState extends State<Recipe> {
             // !isKeyboardVisible?
             Expanded(
               flex: 1,
-              child: SizedBox(
-                // height: boxHeight*0.15 ,
-                width: boxWidth * 0.6,
-                child: Image.asset('assets/images/appbar-logo.png') 
+              child: Center(
+                child: Text('Baking Weighing Assistant',
+                  textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'carter',
+                      fontSize: 35
+                    ),
+                  ),
               ),
             ),
             // 내용
@@ -122,73 +125,91 @@ class _RecipeState extends State<Recipe> {
                       ),
                       AnimatedPositioned(
                         duration: Duration(milliseconds: 500),
-                        // curve: Curves.linearToEaseOut,
                         curve: Curves.bounceOut,
-                        bottom: moreBtnFolded ? 10 : 90,
+                        bottom: moreBtnFolded ? 10 : 100,
                         right: 5,
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                child: Image.asset('assets/images/add-btn-s.png'),
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  moreBtnFolded = true;
-                                  print('ADD!!');
-                                });
-                              },
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Palette.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)
                             ),
-                          ],
-                        )
+                            fixedSize: Size(80, 35),
+                            padding: const EdgeInsets.all(0),
+                            // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            elevation: 0,
+                            shadowColor: Colors.transparent
+                          ),
+                          child: Text('Add',
+                            style: TextStyle(
+                              fontFamily: 'carter',
+                              fontSize: 16,
+                              color: Palette.white
+                            ),
+                          ),
+                          onPressed: (){
+                            print('ADD');
+                          },
+                        ),
                       ),
                       AnimatedPositioned(
                         duration: Duration(milliseconds: 500),
                         curve: Curves.bounceOut,
-                        bottom: moreBtnFolded ? 10 : 50,
+                        bottom: moreBtnFolded ? 10 : 55,
+
                         right: 5,
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                child: Image.asset('assets/images/update-btn-s.png'),
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  moreBtnFolded = true;
-                                  print('UPDATE!!');
-                                });
-                              },
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Palette.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)
                             ),
-                          ],
-                        )
+                            fixedSize: Size(80, 35),
+                            padding: const EdgeInsets.all(0),
+                            // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            elevation: 0,
+                            shadowColor: Colors.transparent
+                          ),
+                          child: Text('Update',
+                            style: TextStyle(
+                              fontFamily: 'carter',
+                              fontSize: 15,
+                              color: Palette.white
+                            ),
+                          ),
+                          onPressed: (){
+                            print('Update');
+                          },
+                        ),
                       ),
                       Positioned(
                         bottom: 10,
                         right: 5,
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                child: moreBtnFolded 
-                                ? Image.asset('assets/images/moreu-btn.png') 
-                                : Image.asset('assets/images/mored-btn.png'),
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  moreBtnFolded = !moreBtnFolded;
-                                });
-                              },
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Palette.middleblack,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)
                             ),
-                          ],
-                        )
-                      ),
+                            fixedSize: Size(80, 35),
+                            padding: const EdgeInsets.all(0),
+                            // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            elevation: 0,
+                            shadowColor: Colors.transparent
+                          ),
+                          child: Text(moreBtnFolded?'▲':'▼',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Palette.white
+                            ),
+                          ),
+                          onPressed: (){
+                            setState(() {
+                              moreBtnFolded = !moreBtnFolded;
+                            });
+                          },
+                        ),
+                      )
                     ],
                   ),
                         

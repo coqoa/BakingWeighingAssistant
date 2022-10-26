@@ -111,7 +111,7 @@ class _SignInState extends State<SignIn> {
                                   height: 40,
                                   // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                                   child: TextField(
-                                    key: const ValueKey(1),
+                                    key: const ValueKey(2),
                                     keyboardType: TextInputType.emailAddress,
                                     obscureText: true,
                                     cursorColor: Palette.lightblack,
