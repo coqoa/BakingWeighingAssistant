@@ -46,7 +46,8 @@ class _SignInState extends State<SignIn> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'carter',
-                                    color: Palette.lightblack
+                                    color: Palette.middleblack
+
                                   ),
                                 ),
                                 SizedBox(height: 5),
@@ -57,7 +58,7 @@ class _SignInState extends State<SignIn> {
                                     key: const ValueKey(1),
                                     keyboardType: TextInputType.emailAddress,
                                     // autofocus: true,
-                                    cursorColor: Palette.lightblack,
+                                    cursorColor: Palette.middleblack,
                                     cursorWidth: 2,
                                     cursorHeight: 15,
                                     autocorrect: false,
@@ -103,7 +104,7 @@ class _SignInState extends State<SignIn> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'carter',
-                                    color: Palette.lightblack
+                                    color: Palette.middleblack
                                   ),
                                 ),
                                 const SizedBox(height: 5),
@@ -114,7 +115,7 @@ class _SignInState extends State<SignIn> {
                                     key: const ValueKey(2),
                                     keyboardType: TextInputType.emailAddress,
                                     obscureText: true,
-                                    cursorColor: Palette.lightblack,
+                                    cursorColor: Palette.middleblack,
                                     cursorWidth: 2,
                                     cursorHeight: 15,
                                     autocorrect: false,
@@ -166,7 +167,7 @@ class _SignInState extends State<SignIn> {
               height: 40,
               child:ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Palette.lightblack,
+                  primary: Palette.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                   )

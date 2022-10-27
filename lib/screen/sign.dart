@@ -113,6 +113,7 @@ class _SignState extends State<Sign> {
                                 style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: 'carter',
+                                  color: Palette.middleblack
                                 ),
                               ),
                               SizedBox(width: 5,),
