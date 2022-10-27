@@ -14,13 +14,9 @@ class _AddState extends State<Add> {
 
   late double boxHeight = MediaQuery.of(context).size.height;
   late double boxWidth = GetPlatform.isMobile? MediaQuery.of(context).size.width : 1000;
-  
-  late bool moreBtnFolded;
-
 
   @override
   void initState() {
-    moreBtnFolded = true;
 
     super.initState();
   }
@@ -42,13 +38,36 @@ class _AddState extends State<Add> {
                   width: 50,
                   height: 50,
                   color: Colors.red,
+                  child: GestureDetector(
+                    onTap: (){
+                      // setState(() {
+                  //     });
+                      print('뒤로가기');
+                    },
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.transparent,
+                      // color: Colors.red,
+                      child: Center(
+                        child: Text('<',
+                          style: TextStyle(
+                            fontFamily: 'notosans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Palette.middleblack
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
                 ),
                 Center(
                   child: Text('ADD',
                     textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'carter',
-                        fontSize: GetPlatform.isMobile ? 20 : 35
+                        fontSize: GetPlatform.isMobile ? 25 : 35
                       ),
                     ),
                 ),
@@ -56,6 +75,29 @@ class _AddState extends State<Add> {
                   width: 50,
                   height: 50,
                   color: Colors.blue,
+                  child: GestureDetector(
+                    onTap: (){
+                      // setState(() {
+                  //     });
+                      print('새로고침');
+                    },
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.transparent,
+                      // color: Colors.red,
+                      child: Center(
+                        child: Text('⟳',
+                          style: TextStyle(
+                            fontFamily: 'notosans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Palette.middleblack
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
                 ),
               ],
             )
@@ -89,20 +131,20 @@ class _AddState extends State<Add> {
                       ),
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            width: 20,
-                            height: 20,
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.all(10),
+                          //   width: 20,
+                          //   height: 20,
+                          // ),
                           // !listFolded 
                           // ? 
+                          SizedBox(height: 10),
                           Expanded(
                               // 리스트
                               child: SingleChildScrollView(
                                 child: Column(
                                   // ignore: prefer_const_literals_to_create_immutables
                                   children: [
-                                    TextField(),
                                     Text('asd', style: TextStyle(fontSize: 20),),
                                     Text('asd', style: TextStyle(fontSize: 20),),
                                     Text('asd', style: TextStyle(fontSize: 20),),
@@ -129,35 +171,175 @@ class _AddState extends State<Add> {
                           color: Palette.lightyellow,
                           borderRadius: BorderRadius.circular(15)
                         ),
-                        child: SingleChildScrollView(
-                          child: Center(
-                            child: Column(
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Text('asdasd', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                                Text('asdasa', style: TextStyle(fontSize: 20),),
-                              ],
+                        child: Column(
+                          children: [
+                            // 레시피 이름
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10,0,10,0),
+                              child: TextField(
+                                style: TextStyle(
+                                  
+                                ),
+                              ),
                             ),
-                          ),
+                            // 레시피 내용
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  SingleChildScrollView(
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        // ignore: prefer_const_literals_to_create_immutables
+                                        children: [
+                                          // Container(
+                                          //   height: 60,
+                                          //   child: Row(
+                                          //     children: [
+                                          //        Expanded(
+                                          //         flex: 1,
+                                          //         child: TextField(
+                                          //           textAlign: TextAlign.center,
+                                                
+                                          //           decoration: InputDecoration(
+                                          //             border: OutlineInputBorder(
+                                          //               borderRadius: BorderRadius.circular(15), 
+                                          //               borderSide: BorderSide(
+                                          //                 width: 0,
+                                          //                 style: BorderStyle.none
+                                          //             )),
+                                          //             filled: true,
+                                          //             fillColor: Colors.white
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //       SizedBox(width: 5,),
+                                          //       Expanded(
+                                          //         flex: 1,
+                                          //         child: TextField(
+                                          //           textAlign: TextAlign.center,
+                                                
+                                          //           decoration: InputDecoration(
+                                          //             border: OutlineInputBorder(
+                                          //               borderRadius: BorderRadius.circular(15), 
+                                          //               borderSide: BorderSide(
+                                          //                 width: 0,
+                                          //                 style: BorderStyle.none
+                                          //             )),
+                                          //             filled: true,
+                                          //             fillColor: Colors.white
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
+                                          // 디자인 변경하기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                  
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 2,
+                                                color: Palette.darkgray,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                  
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 2,
+                                                color: Palette.darkgray,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                  
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 2,
+                                                color: Palette.darkgray,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextField(
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  // Add 버튼
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 5,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Palette.middleblack,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50)
+                                        ),
+                                        // fixedSize: Size(0, 0),
+                                        // padding: const EdgeInsets.all(0),
+                                        // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        elevation: 0,
+                                        shadowColor: Colors.transparent
+                                      ),
+                                      child: Text('Add',
+                                        style: TextStyle(
+                                          fontFamily: 'carter',
+                                          fontSize: 16,
+                                          color: Palette.white
+                                        ),
+                                      ),
+                                      onPressed: (){
+                                        setState(() {
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
