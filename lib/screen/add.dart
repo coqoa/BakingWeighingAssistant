@@ -106,8 +106,8 @@ class _AddState extends State<Add> {
           Expanded(
             flex: 10,
             child: Container(
-              height: GetPlatform.isMobile? boxHeight*0.67 : 450,
-              width: boxWidth,
+              height: GetPlatform.isMobile? boxHeight*0.67 : 350,
+              width: boxWidth*0.6,
               padding: EdgeInsets.fromLTRB(10,0,10,10),
               
               child: Container(
@@ -309,7 +309,7 @@ class _AddState extends State<Add> {
                                   ),
                                   // Add 버튼
                                   Positioned(
-                                    bottom: 0,
+                                    bottom: 5,
                                     right: 5,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
