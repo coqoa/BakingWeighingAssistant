@@ -107,7 +107,8 @@ class _AddState extends State<Add> {
             flex: 10,
             child: Container(
               height: GetPlatform.isMobile? boxHeight*0.67 : 350,
-              width: boxWidth*0.6,
+              // width: boxWidth*0.6,
+              width : GetPlatform.isMobile? boxWidth : boxWidth*0.6, // 웹에서 크기 조절 필요
               padding: EdgeInsets.fromLTRB(10,0,10,10),
               
               child: Container(
@@ -309,7 +310,7 @@ class _AddState extends State<Add> {
                                   ),
                                   // Add 버튼
                                   Positioned(
-                                    bottom: 5,
+                                    bottom: 0,//모바일은 0?
                                     right: 5,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bwa/config/palette.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,6 @@ class _RecipeState extends State<Recipe> {
   @override
   void initState() {
     moreBtnFolded = true;
-
     super.initState();
   }
 

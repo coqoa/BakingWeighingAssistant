@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "615225709175",
+    "project_id": "bakingweighingassistant",
+    "storage_bucket": "bakingweighingassistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615225709175:android:265319866b99568290ac72",
+        "android_client_info": {
+          "package_name": "com.example.bwa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615225709175-ahrmik8g0dunrh3qte30ud9tsq5ec5ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS1ODsxAXXL5jamVZWruAdwE3TnH92kDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615225709175-ahrmik8g0dunrh3qte30ud9tsq5ec5ea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "615225709175-68icujgk3tdj9u2i9kq7ole4fr3julhb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bwa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
