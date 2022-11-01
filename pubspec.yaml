@@ -37,7 +37,9 @@ dependencies:
   flutter_keyboard_visibility: ^5.4.0
   get: ^4.6.5
   flutter_svg: ^1.1.5
+  cloud_firestore: ^4.0.3
   firebase_core: ^2.1.1
+
 
 dev_dependencies:
   flutter_test:

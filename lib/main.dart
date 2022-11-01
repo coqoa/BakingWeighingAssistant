@@ -8,13 +8,15 @@ import 'package:bwa/screen/sign.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
+  // runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         // backgroundColor: Colors.white,
         // visualDensity: VisualDensity.adaptivePlatformDensity,
         // primaryColor: Colors.blueGrey,
-        // primarySwatch: Colors.blueGrey,
+        // primarySwatch: Colors.blueGrey, 
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(

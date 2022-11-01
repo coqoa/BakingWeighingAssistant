@@ -1,4 +1,0 @@
-#Wed Oct 19 09:56:18 KST 2022
-base.0=/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

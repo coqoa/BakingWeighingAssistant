@@ -44,7 +44,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        // multiDexEnabled true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -62,5 +62,5 @@ flutter {
 dependencies {
   implementation platform('com.google.firebase:firebase-bom:30.4.1') // 추가
   implementation 'com.google.firebase:firebase-analytics' // 추가
-//   implementation 'com.android.support:multidex:2.0.1' // 추가
+  implementation 'com.android.support:multidex:2.0.1' // 추가
 }
