@@ -22,9 +22,9 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' 
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services' 
 
 android {
     compileSdkVersion flutter.compileSdkVersion
@@ -40,11 +40,12 @@ android {
         applicationId "com.example.bwa"
         // You can update the following values to match your application needs. 
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        // minSdkVersion flutter.minSdkVersion
+        minSdkVersion 19      
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled true
+        multiDexEnabled true // 추가
     }
 
     buildTypes {
@@ -60,7 +61,7 @@ flutter {
     source '../..'
 }
 dependencies {
-  implementation platform('com.google.firebase:firebase-bom:30.4.1') // 추가
-  implementation 'com.google.firebase:firebase-analytics' // 추가
-  implementation 'com.android.support:multidex:2.0.1' // 추가
+    implementation platform('com.google.firebase:firebase-bom:31.0.2') // 추가
+    implementation 'com.google.firebase:firebase-analytics' // 추가
+    implementation 'com.android.support:multidex:2.0.1' // 추가
 }
