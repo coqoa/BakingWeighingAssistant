@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
+  final _authentication = FirebaseAuth.instance;
   late double boxHeight = MediaQuery.of(context).size.height;
 
   final _formKey = GlobalKey<FormState>();
@@ -20,6 +22,10 @@ class _SignInState extends State<SignIn> {
   String userPassword = '';
   String fontFamily = "NotoSansRegular";
 
+  void signinBtnClick(){
+    print(userEmail);
+    print(userPassword);
+  }
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
@@ -35,10 +41,10 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // 이메일 입력 창
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            // 이메일 입력 창
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -91,12 +97,15 @@ class _SignInState extends State<SignIn> {
                                       fillColor: Palette.lightyellow
                                     ),
                                     
-                                    onChanged: (value){},
+                                    onChanged: (value){
+                                      userEmail = value;
+                                    },
                                   ),
                                 )
                               ],
                             ),
                             isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 10),
+                            // 비밀번호
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -148,7 +157,9 @@ class _SignInState extends State<SignIn> {
                                       fillColor: Palette.lightyellow
                                     ),
                                     
-                                    onChanged: (value){},
+                                    onChanged: (value){
+                                      userPassword = value;
+                                    },
                                   ),
                                 ),
                               ],
@@ -167,7 +178,7 @@ class _SignInState extends State<SignIn> {
               height: 40,
               child:ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Palette.black,
+                  backgroundColor: Palette.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                   )
@@ -175,7 +186,7 @@ class _SignInState extends State<SignIn> {
                 onHover: (hover){
 },
                 onPressed: (){
-
+                  signinBtnClick();
                 }, 
                 child: const Text('Go !',
                   style: TextStyle(

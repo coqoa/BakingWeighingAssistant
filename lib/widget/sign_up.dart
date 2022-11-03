@@ -1,7 +1,10 @@
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -10,15 +13,46 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
+  final _authentication = FirebaseAuth.instance;
+  String authErrorMsg = '';
   late double boxHeight = MediaQuery.of(context).size.height;
 
   final _formKey = GlobalKey<FormState>();
   String userEmail = '';
   String userPassword = '';
   String userPasswordRepeat = '';
-  String fontFamily = "NotoSansRegular";
+  // String fontFamily = "NotoSansRegular";
   
+  void signupBtnClick()async{
+    print(userEmail);
+    print(userPassword);
+    print(userPasswordRepeat);
+
+    // 회원가입검증
+    try{
+      final newUser = await _authentication.createUserWithEmailAndPassword(
+        email: userEmail, 
+        password: userPassword
+      );
+      if(newUser.user != null){
+        Get.to(()=>Recipe());
+      }
+    }catch(e){
+      print(e);
+      setState(() {
+        authErrorMsg = e.toString();
+      });
+      Get.snackbar(
+        authErrorMsg, 
+        '',
+        snackPosition: SnackPosition.BOTTOM,
+        forwardAnimationCurve: Curves.elasticInOut,
+        reverseAnimationCurve: Curves.easeOut,
+        duration: const Duration(milliseconds: 1500),
+      );
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
@@ -89,7 +123,9 @@ class _SignUpState extends State<SignUp> {
                                       fillColor: Palette.lightyellow
                                     ),
                                     
-                                    onChanged: (value){},
+                                    onChanged: (value){
+                                      userEmail = value;
+                                    },
                                   ),
                                 )
                               ],
@@ -148,7 +184,9 @@ class _SignUpState extends State<SignUp> {
                                       fillColor: Palette.lightyellow
                                     ),
                                     
-                                    onChanged: (value){},
+                                    onChanged: (value){
+                                      userPassword = value;
+                                    },
                                   ),
                                 ),
                               ],
@@ -208,7 +246,9 @@ class _SignUpState extends State<SignUp> {
                                       fillColor: Palette.lightyellow
                                     ),
                                     
-                                    onChanged: (value){},
+                                    onChanged: (value){
+                                      userPasswordRepeat = value;
+                                    },
                                   ),
                                 ),
                               ],
@@ -227,14 +267,14 @@ class _SignUpState extends State<SignUp> {
               height: 40,
               child:ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Palette.black,
+                  backgroundColor: Palette.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                   )
                 ),
                 onHover: (hover){},
                 onPressed: (){
-
+                  signupBtnClick();
                 }, 
                 child: const Text('Next !',
                   style: TextStyle(

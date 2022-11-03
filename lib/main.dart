@@ -16,10 +16,10 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  // runApp(MyApp());
   // runApp(const MyApp());
   // 가로만 되도록
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,14 +43,7 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Palette.lightyellow,
-          body: Center(
-            // child:Add()
-            child:Recipe()
-            // child: Sign(boxRadius:25)
-          ),
-        ),
+        child: Sign(boxRadius:25),
       ),
     );
   }
