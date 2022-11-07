@@ -1,6 +1,7 @@
 
 // ignore_for_file: avoid_print
 
+import 'package:bwa/apikey.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/add.dart';
 import 'package:bwa/screen/recipe.dart';
@@ -15,7 +16,23 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
+
+  try{
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+         apiKey: firebaseOptions.apiKey,
+        authDomain: firebaseOptions.authDomain,
+        projectId: firebaseOptions.projectId,
+        storageBucket: firebaseOptions.storageBucket,
+        messagingSenderId: firebaseOptions.messagingSenderId,
+        appId: firebaseOptions.appId,
+        measurementId: firebaseOptions.measurementId
+      ),
+    );
+  }catch(e){
+    print(e);
+  }
   // runApp(MyApp());
   // runApp(const MyApp());
   // 가로만 되도록
