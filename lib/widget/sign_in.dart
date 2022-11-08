@@ -1,4 +1,5 @@
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -22,9 +23,34 @@ class _SignInState extends State<SignIn> {
   String userPassword = '';
   String fontFamily = "NotoSansRegular";
 
-  void signinBtnClick(){
+  void signinBtnClick()async{
     print(userEmail);
     print(userPassword);
+    // try{
+    //   final signinBtnClicked = await _authentication.signInWithEmailAndPassword(
+    //     email: userEmail, 
+    //     password: userPassword
+    //   );
+    //   if(signinBtnClicked.user != null){
+    //     Get.to(Recipe());
+    //   }
+    // }catch(e){
+    //   print(e);
+    // }
+    // e.message를 잡기 위해선 아래와 같은 형식으로 
+    // 참고 https://github.com/firebase/snippets-web/blob/36740fb2c39383621c0c0a948236e9eab8a71516/snippets/auth-next/email/auth_signin_password.js#L8-L20
+    final signinBtnClicked = await _authentication.signInWithEmailAndPassword(
+      email: userEmail, 
+      password: userPassword
+    ).then((value) {
+      if(value.user != null){
+        print(value.user);
+      }
+    }).catchError((e){
+      print(e);
+      print(e.message);
+    });
+    
   }
   @override
   Widget build(BuildContext context) {

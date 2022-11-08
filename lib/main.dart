@@ -33,9 +33,6 @@ void main() async {
   }catch(e){
     print(e);
   }
-  // runApp(MyApp());
-  // runApp(const MyApp());
-  // 가로만 되도록
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
 }
 
