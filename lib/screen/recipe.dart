@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class Recipe extends StatefulWidget {
 
 class _RecipeState extends State<Recipe> {
   
+  final _repo = Repository();
+
   late double boxHeight = MediaQuery.of(context).size.height;
   late double boxWidth = GetPlatform.isMobile? MediaQuery.of(context).size.width : 1000;
   
@@ -25,6 +28,7 @@ class _RecipeState extends State<Recipe> {
   void initState() {
     moreBtnFolded = true;
     super.initState();
+    _repo.getRecipeList();
   }
 
   @override

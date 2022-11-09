@@ -17,6 +17,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _authentication = FirebaseAuth.instance;
   late double boxHeight = MediaQuery.of(context).size.height;
+  
 
   final _formKey = GlobalKey<FormState>();
   String userEmail = '';
@@ -44,7 +45,9 @@ class _SignInState extends State<SignIn> {
       password: userPassword
     ).then((value) {
       if(value.user != null){
-        print(value.user);
+        // print(value.user);
+        Get.to(()=>Recipe());
+        
       }
     }).catchError((e){
       print(e);
