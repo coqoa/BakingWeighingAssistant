@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bwa/config/palette.dart';
-import 'package:bwa/repository/repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+
+enum RequestStatus {LOADING, SUCCESS, ERROR, EMPTY, LOADINGMORE}
 
 class Recipe extends StatefulWidget {
   const Recipe({Key? key}) : super(key: key);
@@ -15,25 +17,50 @@ class Recipe extends StatefulWidget {
 }
 
 class _RecipeState extends State<Recipe> {
-  
-  final _repo = Repository();
+
+  var appStatus = RequestStatus.EMPTY.obs;
 
   late double boxHeight = MediaQuery.of(context).size.height;
   late double boxWidth = GetPlatform.isMobile? MediaQuery.of(context).size.width : 1000;
   
   late bool moreBtnFolded;
 
+  // Firebase
+  List recipeList = [];
+  List values = [];
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<void> getRecipeList() async {
+
+    appStatus.value=RequestStatus.LOADING;
+
+    await firestore.collection('web@admin.com').doc('recipeList').get().then((value){
+      value.data()?.keys.forEach((element) {
+        setState(() {
+          recipeList.add(element);
+        });
+      });
+      // value.data()?.keys.forEach((element) {keys.add(element);});
+      print(recipeList);
+    });
+    appStatus.value=RequestStatus.SUCCESS;
+  }
+
+
 
   @override
   void initState() {
     moreBtnFolded = true;
     super.initState();
-    _repo.getRecipeList();
+    getRecipeList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardVisibilityBuilder(
+    return appStatus.value != RequestStatus.SUCCESS 
+    ? SizedBox()
+    : KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
         return Scaffold(
           backgroundColor: Palette.lightyellow,
@@ -97,16 +124,9 @@ class _RecipeState extends State<Recipe> {
                                       // ignore: prefer_const_literals_to_create_immutables
                                       children: [
                                         TextField(),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
-                                        Text('asd', style: TextStyle(fontSize: 20),),
+                                        Text(recipeList[0], style: TextStyle(fontSize: 20),),
+                                        Text(recipeList[1], style: TextStyle(fontSize: 20),),
+                                        Text(recipeList[2], style: TextStyle(fontSize: 20),),
                                       ],
                                     ),
                                   ),

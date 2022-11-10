@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
     ).then((value) {
       if(value.user != null){
         // print(value.user);
-        Get.to(()=>Recipe());
+        Get.to(transition: Transition.rightToLeft, Recipe());
         
       }
     }).catchError((e){

@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         password: userPassword
       );
       if(newUser.user != null){
-        Get.to(()=>Recipe());
+        Get.to(transition: Transition.rightToLeft, Recipe());
       }
     }catch(e){
       print(e);
