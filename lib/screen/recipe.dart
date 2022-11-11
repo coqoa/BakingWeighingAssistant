@@ -2,11 +2,12 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import '../config/enum.dart';
 
-enum RequestStatus {LOADING, SUCCESS, ERROR, EMPTY, LOADINGMORE}
 
 class Recipe extends StatefulWidget {
   const Recipe({Key? key}) : super(key: key);
@@ -25,24 +26,29 @@ class _RecipeState extends State<Recipe> {
   
   late bool moreBtnFolded;
 
-  // Firebase
+  // firebase Auth
+  final _authentication = FirebaseAuth.instance;
+  String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
+
+  // Firestore
   List recipeList = [];
-  List values = [];
+  List values = []; // 삭제예정
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> getRecipeList() async {
+  Future<void> getRecipeList({required String email}) async {
 
     appStatus.value=RequestStatus.LOADING;
 
-    await firestore.collection('web@admin.com').doc('recipeList').get().then((value){
+    await firestore.collection(email).doc('recipeList').get().then((value){
       value.data()?.keys.forEach((element) {
         setState(() {
           recipeList.add(element);
         });
       });
-      // value.data()?.keys.forEach((element) {keys.add(element);});
-      print(recipeList);
+      // value.data()?.keys.forEach((element) {keys.add(element);}); // 삭제예정
+      print('recipeList - $recipeList');
+      print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
     });
     appStatus.value=RequestStatus.SUCCESS;
   }
@@ -53,7 +59,9 @@ class _RecipeState extends State<Recipe> {
   void initState() {
     moreBtnFolded = true;
     super.initState();
-    getRecipeList();
+    getRecipeList(
+      email: currentUserEmail
+    );
   }
 
   @override
@@ -182,7 +190,7 @@ class _RecipeState extends State<Recipe> {
                                     right: 5,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Palette.black,
+                                        backgroundColor: Palette.black,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50)
                                         ),
@@ -212,7 +220,7 @@ class _RecipeState extends State<Recipe> {
                                     right: 5,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Palette.black,
+                                        backgroundColor: Palette.black,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50)
                                         ),
@@ -239,7 +247,7 @@ class _RecipeState extends State<Recipe> {
                                     right: 5,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: Palette.middleblack,
+                                        backgroundColor: Palette.middleblack,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(50)
                                         ),
