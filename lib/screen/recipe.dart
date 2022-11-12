@@ -27,40 +27,67 @@ class _RecipeState extends State<Recipe> {
   late bool moreBtnFolded;
 
   // firebase Auth
-  final _authentication = FirebaseAuth.instance;
   String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
+  // final _authentication = FirebaseAuth.instance;
 
   // Firestore
   List recipeList = [];
-  List values = []; // 삭제예정
-
+  List recipeDetailList = ['Touch Please'];
+  // List values = []; // 삭제예정
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> getRecipeList({required String email}) async {
-
     appStatus.value=RequestStatus.LOADING;
-
     await firestore.collection(email).doc('recipeList').get().then((value){
-      value.data()?.keys.forEach((element) {
-        setState(() {
-          recipeList.add(element);
-        });
-      });
-      // value.data()?.keys.forEach((element) {keys.add(element);}); // 삭제예정
-      print('recipeList - $recipeList');
-      print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
+      value.data()?.keys.forEach((element) =>
+        setState(() => 
+          recipeList.add(element)
+        )
+      );
+      // print('recipeList - $recipeList');
+      // print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
     });
     appStatus.value=RequestStatus.SUCCESS;
   }
 
-
+  Future<void> getRecipeDetail({required String email, required String title})async {
+    appStatus.value=RequestStatus.LOADING;
+    try{
+      CollectionReference<Map<String, dynamic>> test = firestore.collection(email).doc('recipe').collection(title);
+      // doc 갯수 알아내서 for문에 넣기위한 메솓,
+      await test.get().then((value){
+        // print(value.docs.length); // doc갯수
+        for(int i=0; i<value.docs.length; i++){
+          test.doc('$i').get().then((value) {
+            setState(() {
+              recipeDetailList.clear();
+              recipeDetailList.add(value.data());       
+            });
+          });
+        }
+      });
+      print('recipeDetailList = ');
+      print(recipeDetailList);
+      print('recipeDetailList = ');
+    }catch(e){
+      print('ERROR');
+      print(e);
+    }
+    appStatus.value=RequestStatus.SUCCESS;
+  }
 
   @override
   void initState() {
     moreBtnFolded = true;
     super.initState();
+    
     getRecipeList(
       email: currentUserEmail
+    );
+    // getRecipeList 이후에 실행되게 하려면?
+    getRecipeDetail(
+      email: currentUserEmail,
+      title: 'recipeList[0]'
     );
   }
 
@@ -126,18 +153,40 @@ class _RecipeState extends State<Recipe> {
                               // !listFolded 
                               // ? 
                               Expanded(
-                                  // 리스트
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      // ignore: prefer_const_literals_to_create_immutables
-                                      children: [
-                                        TextField(),
-                                        Text(recipeList[0], style: TextStyle(fontSize: 20),),
-                                        Text(recipeList[1], style: TextStyle(fontSize: 20),),
-                                        Text(recipeList[2], style: TextStyle(fontSize: 20),),
-                                      ],
-                                    ),
-                                  ),
+
+                                // 리스트
+                                child: Column(
+                                  // ignore: prefer_co
+                                  //nst_literals_to_create_immutables
+                                  children: [
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: recipeList.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          onTap: () => {
+                                            getRecipeDetail(
+                                              email: currentUserEmail,
+                                              title: recipeList[index]
+                                            ),
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            color: Colors.amber,
+                                            child: Center(
+                                              child: Text(recipeList[index])
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    )
+                                    // TextField(),
+                                    // Text(recipeList.length.toString(), style: TextStyle(fontSize: 20),),
+                                    // Text(recipeList[0], style: TextStyle(fontSize: 20),),
+                                    // Text(recipeList[1], style: TextStyle(fontSize: 20),),
+                                    // Text(recipeList[2], style: TextStyle(fontSize: 20),),
+                                  ],
+                                ),
                               )
                               // : SizedBox()
                             ],
@@ -158,27 +207,9 @@ class _RecipeState extends State<Recipe> {
                                     child: Column(
                                       // ignore: prefer_const_literals_to_create_immutables
                                       children: [
-                                        Text('asdasd', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
-                                        Text('asdasa', style: TextStyle(fontSize: 20),),
+                                        Text(recipeDetailList[0].toString(), style: TextStyle(fontSize: 20),),
+                                        Text(recipeDetailList[1].keys.toString(), style: TextStyle(fontSize: 20),),
+                                        // Text(recipeDetailList[].values.toString(), style: TextStyle(fontSize: 20),),
                                       ],
                                     ),
                                   ),
