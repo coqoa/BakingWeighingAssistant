@@ -33,6 +33,8 @@ class _RecipeState extends State<Recipe> {
   // Firestore
   List recipeList = [];
   List recipeDetailList = ['Touch Please'];
+  List recipeKeyList = ['KEY'];
+  List reciperValueList = ['VALUE'];
   // List values = []; // 삭제예정
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -54,24 +56,24 @@ class _RecipeState extends State<Recipe> {
     appStatus.value=RequestStatus.LOADING;
     try{
       CollectionReference<Map<String, dynamic>> test = firestore.collection(email).doc('recipe').collection(title);
-      // doc 갯수 알아내서 for문에 넣기위한 메솓,
       await test.get().then((value){
-        // print(value.docs.length); // doc갯수
-        for(int i=0; i<value.docs.length; i++){
-          test.doc('$i').get().then((value) {
-            setState(() {
-              recipeDetailList.clear();
-              recipeDetailList.add(value.data());       
+        int docLength = value.docs.length; // doc갯수
+        bool notEmptyList = value.docs.isNotEmpty; // 빈 리스트인지 확인
+        // 예외처리
+        if(notEmptyList){
+          recipeKeyList.clear();
+          for(int i=0; i<docLength; i++){
+            test.doc('$i').get().then((value) {
+              setState(() => recipeKeyList.add(value.data()?.keys.first)); // 여기 불필요한 () 제거 해결
             });
-          });
+          }
+        }else{
+          setState(() => recipeKeyList.clear());
         }
+        
       });
-      print('recipeDetailList = ');
-      print(recipeDetailList);
-      print('recipeDetailList = ');
     }catch(e){
-      print('ERROR');
-      print(e);
+      print('ERROR = $e');
     }
     appStatus.value=RequestStatus.SUCCESS;
   }
@@ -205,11 +207,28 @@ class _RecipeState extends State<Recipe> {
                                 SingleChildScrollView(
                                   child: Center(
                                     child: Column(
-                                      // ignore: prefer_const_literals_to_create_immutables
                                       children: [
-                                        Text(recipeDetailList[0].toString(), style: TextStyle(fontSize: 20),),
-                                        Text(recipeDetailList[1].keys.toString(), style: TextStyle(fontSize: 20),),
-                                        // Text(recipeDetailList[].values.toString(), style: TextStyle(fontSize: 20),),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: recipeKeyList.length,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return GestureDetector(
+                                              child: Container(
+                                                width: 150,
+                                                height: 50,
+                                                // child: Text(recipeDetailList[index].toString()),
+                                                child: Row(
+                                                  children: [
+                                                    Text(recipeKeyList[index].toString()),
+                                                    // Text(recipeDetailList[index].keys.toString()),
+                                                    // Text(recipeDetailList[index].values.toString()),
+                                                  ],
+                                                )
+                                                // 여기 : () 없애기 // replace?? 
+                                              )
+                                            );
+                                        }
+                                        )
                                       ],
                                     ),
                                   ),
