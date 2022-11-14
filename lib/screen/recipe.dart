@@ -34,7 +34,7 @@ class _RecipeState extends State<Recipe> {
   List recipeList = [];
   List recipeDetailList = ['Touch Please'];
   List recipeKeyList = ['KEY'];
-  List reciperValueList = ['VALUE'];
+  List recipeValueList = ['VALUE'];
   // List values = []; // 삭제예정
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -62,9 +62,13 @@ class _RecipeState extends State<Recipe> {
         // 예외처리
         if(notEmptyList){
           recipeKeyList.clear();
+          recipeValueList.clear();
           for(int i=0; i<docLength; i++){
             test.doc('$i').get().then((value) {
-              setState(() => recipeKeyList.add(value.data()?.keys.first)); // 여기 불필요한 () 제거 해결
+              setState(() {
+                recipeKeyList.add(value.data()?.keys.first);
+                recipeValueList.add(value.data()?.values.first);
+              }); // 여기 불필요한 () 제거 해결
             });
           }
         }else{
@@ -212,7 +216,11 @@ class _RecipeState extends State<Recipe> {
                                           shrinkWrap: true,
                                           itemCount: recipeKeyList.length,
                                           itemBuilder: (BuildContext context, int index) {
-                                            return GestureDetector(
+                                            return 
+                                            appStatus.value != RequestStatus.SUCCESS 
+                                            ? SizedBox()
+                                            :
+                                            GestureDetector(
                                               child: Container(
                                                 width: 150,
                                                 height: 50,
@@ -220,6 +228,7 @@ class _RecipeState extends State<Recipe> {
                                                 child: Row(
                                                   children: [
                                                     Text(recipeKeyList[index].toString()),
+                                                    Text(recipeValueList[index].toString()),
                                                     // Text(recipeDetailList[index].keys.toString()),
                                                     // Text(recipeDetailList[index].values.toString()),
                                                   ],
