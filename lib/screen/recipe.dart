@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/controller/recipe_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class Recipe extends StatefulWidget {
 
 class _RecipeState extends State<Recipe> {
 
+  RecipeController _controller = RecipeController();
+
   var appStatus = RequestStatus.EMPTY.obs;
 
   late double boxHeight = MediaQuery.of(context).size.height;
@@ -31,26 +34,26 @@ class _RecipeState extends State<Recipe> {
   // final _authentication = FirebaseAuth.instance;
 
   // Firestore
-  List recipeList = [];
+  // List recipeList = [];
   List recipeDetailList = ['Touch Please'];
   List recipeKeyList = ['KEY'];
   List recipeValueList = ['VALUE'];
   // List values = []; // 삭제예정
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> getRecipeList({required String email}) async {
-    appStatus.value=RequestStatus.LOADING;
-    await firestore.collection(email).doc('recipeList').get().then((value){
-      value.data()?.keys.forEach((element) =>
-        setState(() => 
-          recipeList.add(element)
-        )
-      );
-      // print('recipeList - $recipeList');
-      // print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
-    });
-    appStatus.value=RequestStatus.SUCCESS;
-  }
+  // Future<void> getRecipeList({required String email}) async {
+  //   appStatus.value=RequestStatus.LOADING;
+  //   await firestore.collection(email).doc('recipeList').get().then((value){
+  //     value.data()?.keys.forEach((element) =>
+  //       setState(() => 
+  //         recipeList.add(element)
+  //       )
+  //     );
+  //     // print('recipeList - $recipeList');
+  //     // print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
+  //   });
+  //   appStatus.value=RequestStatus.SUCCESS;
+  // }
 
   Future<void> getRecipeDetail({required String email, required String title})async {
     appStatus.value=RequestStatus.LOADING;
@@ -87,9 +90,7 @@ class _RecipeState extends State<Recipe> {
     moreBtnFolded = true;
     super.initState();
     
-    getRecipeList(
-      email: currentUserEmail
-    );
+    _controller.getRecipeList(email: currentUserEmail);
     // getRecipeList 이후에 실행되게 하려면?
     getRecipeDetail(
       email: currentUserEmail,
@@ -99,7 +100,7 @@ class _RecipeState extends State<Recipe> {
 
   @override
   Widget build(BuildContext context) {
-    return appStatus.value != RequestStatus.SUCCESS 
+    return _controller.appStatus.value != RequestStatus.SUCCESS 
     ? SizedBox()
     : KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
@@ -161,38 +162,40 @@ class _RecipeState extends State<Recipe> {
                               Expanded(
 
                                 // 리스트
-                                child: Column(
-                                  // ignore: prefer_co
-                                  //nst_literals_to_create_immutables
-                                  children: [
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: recipeList.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return GestureDetector(
-                                          onTap: () => {
-                                            getRecipeDetail(
-                                              email: currentUserEmail,
-                                              title: recipeList[index]
+                                child: Obx(()=>
+                                  Column(
+                                    // ignore: prefer_co
+                                    //nst_literals_to_create_immutables
+                                    children: [
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: _controller.recipeList.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return GestureDetector(
+                                            onTap: () => {
+                                              getRecipeDetail(
+                                                email: currentUserEmail,
+                                                title: _controller.recipeList[index]
+                                              ),
+                                            },
+                                            child: Container(
+                                              height: 50,
+                                              color: Colors.amber,
+                                              child: Center(
+                                                child: Text(_controller.recipeList[index])
+                                              ),
                                             ),
-                                          },
-                                          child: Container(
-                                            height: 50,
-                                            color: Colors.amber,
-                                            child: Center(
-                                              child: Text(recipeList[index])
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    )
-                                    // TextField(),
-                                    // Text(recipeList.length.toString(), style: TextStyle(fontSize: 20),),
-                                    // Text(recipeList[0], style: TextStyle(fontSize: 20),),
-                                    // Text(recipeList[1], style: TextStyle(fontSize: 20),),
-                                    // Text(recipeList[2], style: TextStyle(fontSize: 20),),
-                                  ],
-                                ),
+                                          );
+                                        }
+                                      )
+                                      // TextField(),
+                                      // Text(recipeList.length.toString(), style: TextStyle(fontSize: 20),),
+                                      // Text(recipeList[0], style: TextStyle(fontSize: 20),),
+                                      // Text(recipeList[1], style: TextStyle(fontSize: 20),),
+                                      // Text(recipeList[2], style: TextStyle(fontSize: 20),),
+                                    ],
+                                  ),
+                                )
                               )
                               // : SizedBox()
                             ],
@@ -217,7 +220,7 @@ class _RecipeState extends State<Recipe> {
                                           itemCount: recipeKeyList.length,
                                           itemBuilder: (BuildContext context, int index) {
                                             return 
-                                            appStatus.value != RequestStatus.SUCCESS 
+                                            _controller.appStatus.value != RequestStatus.SUCCESS 
                                             ? SizedBox()
                                             :
                                             GestureDetector(
