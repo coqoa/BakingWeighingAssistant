@@ -22,7 +22,7 @@ class _RecipeState extends State<Recipe> {
 
   RecipeController _controller = RecipeController();
 
-  var appStatus = RequestStatus.EMPTY.obs;
+  // var appStatus = RequestStatus.EMPTY.obs;
 
   late double boxHeight = MediaQuery.of(context).size.height;
   late double boxWidth = GetPlatform.isMobile? MediaQuery.of(context).size.width : 1000;
@@ -31,59 +31,7 @@ class _RecipeState extends State<Recipe> {
 
   // firebase Auth
   String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
-  // final _authentication = FirebaseAuth.instance;
 
-  // Firestore
-  // List recipeList = [];
-  List recipeDetailList = ['Touch Please'];
-  List recipeKeyList = ['KEY'];
-  List recipeValueList = ['VALUE'];
-  // List values = []; // 삭제예정
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // Future<void> getRecipeList({required String email}) async {
-  //   appStatus.value=RequestStatus.LOADING;
-  //   await firestore.collection(email).doc('recipeList').get().then((value){
-  //     value.data()?.keys.forEach((element) =>
-  //       setState(() => 
-  //         recipeList.add(element)
-  //       )
-  //     );
-  //     // print('recipeList - $recipeList');
-  //     // print('Auth Email : ${currentUserEmail} - recipe.dart 50 line');
-  //   });
-  //   appStatus.value=RequestStatus.SUCCESS;
-  // }
-
-  Future<void> getRecipeDetail({required String email, required String title})async {
-    appStatus.value=RequestStatus.LOADING;
-    try{
-      CollectionReference<Map<String, dynamic>> test = firestore.collection(email).doc('recipe').collection(title);
-      await test.get().then((value){
-        int docLength = value.docs.length; // doc갯수
-        bool notEmptyList = value.docs.isNotEmpty; // 빈 리스트인지 확인
-        // 예외처리
-        if(notEmptyList){
-          recipeKeyList.clear();
-          recipeValueList.clear();
-          for(int i=0; i<docLength; i++){
-            test.doc('$i').get().then((value) {
-              setState(() {
-                recipeKeyList.add(value.data()?.keys.first);
-                recipeValueList.add(value.data()?.values.first);
-              }); // 여기 불필요한 () 제거 해결
-            });
-          }
-        }else{
-          setState(() => recipeKeyList.clear());
-        }
-        
-      });
-    }catch(e){
-      print('ERROR = $e');
-    }
-    appStatus.value=RequestStatus.SUCCESS;
-  }
 
   @override
   void initState() {
@@ -91,10 +39,10 @@ class _RecipeState extends State<Recipe> {
     super.initState();
     
     _controller.getRecipeList(email: currentUserEmail);
-    // getRecipeList 이후에 실행되게 하려면?
-    getRecipeDetail(
+    // getRecipeList 이후에 실행되게 하려면?? controller.dart의 getRecipeList 내부에서 한번 실행되도록 구현할까
+    _controller.getRecipeDetail(
       email: currentUserEmail,
-      title: 'recipeList[0]'
+      title: '인자로 필요한 타이틀?'
     );
   }
 
@@ -173,7 +121,7 @@ class _RecipeState extends State<Recipe> {
                                         itemBuilder: (BuildContext context, int index) {
                                           return GestureDetector(
                                             onTap: () => {
-                                              getRecipeDetail(
+                                              _controller.getRecipeDetail(
                                                 email: currentUserEmail,
                                                 title: _controller.recipeList[index]
                                               ),
@@ -217,7 +165,7 @@ class _RecipeState extends State<Recipe> {
                                       children: [
                                         ListView.builder(
                                           shrinkWrap: true,
-                                          itemCount: recipeKeyList.length,
+                                          itemCount: _controller.recipeKeyList.length,
                                           itemBuilder: (BuildContext context, int index) {
                                             return 
                                             _controller.appStatus.value != RequestStatus.SUCCESS 
@@ -230,8 +178,8 @@ class _RecipeState extends State<Recipe> {
                                                 // child: Text(recipeDetailList[index].toString()),
                                                 child: Row(
                                                   children: [
-                                                    Text(recipeKeyList[index].toString()),
-                                                    Text(recipeValueList[index].toString()),
+                                                    Text(_controller.recipeKeyList[index].toString()),
+                                                    Text(_controller.recipeValueList[index].toString()),
                                                     // Text(recipeDetailList[index].keys.toString()),
                                                     // Text(recipeDetailList[index].values.toString()),
                                                   ],
