@@ -62,7 +62,7 @@ class _RecipeState extends State<Recipe> {
               Expanded(
                 flex: 1,
                 child: Center(
-                  child: Text('Baking Weighing Assistant',
+                  child: Text('gramming',
                     textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'carter',
