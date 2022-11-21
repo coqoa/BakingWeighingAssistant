@@ -52,7 +52,7 @@ class _SignState extends State<Sign> {
                         ? Container(
                           margin: EdgeInsets.all(10),
                           child: Center(
-                            child: Text('Baking Weighing Assistant',
+                            child: Text('gramming',
                               textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'carter',
@@ -64,6 +64,13 @@ class _SignState extends State<Sign> {
                         : Container(
                           margin: EdgeInsets.all(10),
                             child: Image.asset('assets/images/logo-large.png')
+                            // child: Text('gramming',
+                            //   textAlign: TextAlign.center,
+                            //     style: TextStyle(
+                            //       fontFamily: 'carter',
+                            //       fontSize: 20
+                            //     ),
+                            //   ),
                           ),
                     ),
                     
