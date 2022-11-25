@@ -14,6 +14,34 @@
 
 ![update-1](https://user-images.githubusercontent.com/81023768/203770223-41091a17-87dc-4ded-ba25-b9ed6af216c2.png)  
 
+### DB구조
 
+- e-mail `collection`
+	- menu 
+		- [recipe1, recipe2, recipe3 ...]
+		- recipe collection
+			- recipe1
+				- [{key:value}...]
+			- recipe2
+				- [{key:value}...]
+			- recipe3
+				- [{key:value}...]
+- menu page
+: menu를 선택해서 main page로 이동한다
+
+- main page
+  - initState할 때 recipe list만 불러오고 리스트의 첫번 째 요소의 String를 키값으로 recipe를 찾아와서 배치한다
+	- 레시피의 이름(String)을 키값으로 recipe list에서 개별 레시피를 불러오는 event를 수행한다
+
+- add page  
+: 해당 페이지의 menu list `collection`에 recipe list `doc`, recipe `doc`을 더한다
+
+- update page  
+	- ReorderableListView 위젯을 통해 recipe list를 정리할 수 있다
+	- 상세 레시피 내용도 ReorderableListView 위젯을 통해 드래그앤 드롭이 가능하도록 하고 `List<Map<String, dynamic>>` 형태로  관리한다
+	- 레시피 삭제 기능도 여기서 수행한다
+
+
+- 
 
 
