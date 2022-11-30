@@ -7,7 +7,8 @@
 ![signUp](https://user-images.githubusercontent.com/81023768/203576359-689686c5-a29d-40ca-a82d-1199935f373e.png)  
 
 ![main-1](https://user-images.githubusercontent.com/81023768/204557162-1ef2e913-1040-4869-8029-9e687d003f19.png)
-![main-1 – 1](https://user-images.githubusercontent.com/81023768/204825842-4bd86cfa-6a18-4e37-9551-f185e85e852b.png)
+![main-1 – 1](https://user-images.githubusercontent.com/81023768/204833421-ab609257-5881-4cc8-8026-5d3bc0c9dd14.png)
+
 
 
 ![add-1 – 1](https://user-images.githubusercontent.com/81023768/204557216-a7265396-6889-4b7b-9c6c-469cc3e511eb.png)
