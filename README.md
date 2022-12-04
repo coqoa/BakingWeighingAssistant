@@ -1,23 +1,37 @@
 # Gramming
+
+- Splash Screen  
+![splashScreen – 1](https://user-images.githubusercontent.com/81023768/205496489-c936c9b9-a375-4dbb-9c3d-d897b0bcfaac.png)  
+
+- Sign In / Sign Up  
+![signIn – 1](https://user-images.githubusercontent.com/81023768/205496498-1d36da0e-1453-49ec-8bc9-7537615a1d7b.png)
+![signUp – 1](https://user-images.githubusercontent.com/81023768/205496496-ff0dd648-bf42-4c0f-9a1d-a59bea9af82b.png)  
+
+- Menu  
+![menu – 1](https://user-images.githubusercontent.com/81023768/205496524-628b561b-715b-479c-9983-f5124626f879.png)
+![menu – 4](https://user-images.githubusercontent.com/81023768/205496526-f216f1b7-fc10-40bd-aacc-26df6c2873a2.png)
+![menu – 3](https://user-images.githubusercontent.com/81023768/205496527-f4dcb23f-094c-4e66-9fa8-5e3d5d096e58.png)
+![menu – 5](https://user-images.githubusercontent.com/81023768/205496529-a1a4a970-2907-4efd-a1ad-2f97271b0668.png)  
+
+- Main  
+![main-1 – 2](https://user-images.githubusercontent.com/81023768/205496584-16dae22f-3a0e-4f04-85d7-9de8d42a3a10.png)
+![main-1 – 4](https://user-images.githubusercontent.com/81023768/205496586-8108056a-dca3-42a5-97f4-e2252de0744b.png)  
+
+- Memo  
+![main-1 – 3](https://user-images.githubusercontent.com/81023768/205496622-cd6e2966-f2d4-4986-9726-965904367357.png)
+![main-1 – 6](https://user-images.githubusercontent.com/81023768/205496625-f49acee8-c1e1-4018-8e54-56a92fd45d31.png)  
+
+- Add  
+![main-1 – 5](https://user-images.githubusercontent.com/81023768/205496636-6374037e-8ecb-4fe0-bf06-1afe6b5e8684.png)
+![main-1 – 12](https://user-images.githubusercontent.com/81023768/205496641-9d23ef14-b408-405f-9946-fd06964654d7.png)
+![main-1 – 13](https://user-images.githubusercontent.com/81023768/205496642-45bd7f62-3054-403e-8464-46a5f51dd49c.png)  
+
+- Update  
+![main-1 – 8](https://user-images.githubusercontent.com/81023768/205496660-5b4a307c-a12d-4a56-b816-f47facc9d623.png)
+![main-1 – 11](https://user-images.githubusercontent.com/81023768/205496662-b15f3277-33a9-447e-b509-bb174af8d5f0.png)
+![main-1 – 14](https://user-images.githubusercontent.com/81023768/205496664-63392194-ce5c-46a2-8af2-703fa4bb1a76.png)
+![main-1 – 10](https://user-images.githubusercontent.com/81023768/205496666-f800ca84-400f-4edb-b21e-260155db6ed7.png)  
   
-![splashScreen](https://user-images.githubusercontent.com/81023768/203576310-af2b0652-81cf-4eda-a8ce-c7b1c6131dd2.png)  
-
-
-![signIn](https://user-images.githubusercontent.com/81023768/203576344-32aedb81-f5ef-479d-8acd-6c97a8d7994c.png)
-![signUp](https://user-images.githubusercontent.com/81023768/203576359-689686c5-a29d-40ca-a82d-1199935f373e.png)  
-
-![menu – 1](https://user-images.githubusercontent.com/81023768/205443293-df2c76ee-66be-486a-a583-18057c73b6af.png)  
-![menu – 2](https://user-images.githubusercontent.com/81023768/205443297-0fa66532-1940-4602-ac2d-40b204a425d0.png)  
-![menu – 3](https://user-images.githubusercontent.com/81023768/205443298-de5227e9-d551-495e-96d6-fd7d2cd94a4a.png)  
-
-![main-1 – 1](https://user-images.githubusercontent.com/81023768/205443316-7ae676ef-6882-4330-9206-7e0aa6afc310.png)  
-![main-1 – 2](https://user-images.githubusercontent.com/81023768/205443314-3bb258a0-f293-4054-85f8-9973259d484b.png)  
-
-
-![memo-1](https://user-images.githubusercontent.com/81023768/205443323-b692046d-1380-4853-af0e-822a2ff05297.png)  
-
-![add 1](https://user-images.githubusercontent.com/81023768/205443328-8ed200a4-c5c0-43a0-a9c9-a0a6a688f726.png)  
-
 
 
   
