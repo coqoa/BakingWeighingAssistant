@@ -101,8 +101,16 @@ flutter:
           weight: 200
         - asset: assets/font/NotoSansKR-Thin.otf
           weight: 100
-        # - asset: assets/font/CarterOne-Regular.otf
-        # - asset: assets/font/CarterOne-Regular.woff
+    - family: nanumSquareRound
+      fonts:
+        - asset: assets/font/NanumSquareRoundEB.ttf
+          weight: 400
+        - asset: assets/font/NanumSquareRoundB.ttf
+          weight: 300
+        - asset: assets/font/NanumSquareRoundR.ttf
+          weight: 200
+        - asset: assets/font/NanumSquareRoundL.ttf
+          weight: 100
 
     # - family: Schyler
   #     fonts:

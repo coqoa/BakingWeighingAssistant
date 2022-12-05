@@ -47,31 +47,15 @@ class _SignState extends State<Sign> {
                     AnimatedContainer(
                       duration: Duration(milliseconds: 250),
                       curve: Curves.easeIn,
-                      height:isKeyboardVisible ?70 : 250,
-                      child: isKeyboardVisible
-                        ? Container(
+                      height:isKeyboardVisible ?70 : boxHeight*0.4,
+                      child: Container(
                           margin: EdgeInsets.all(10),
                           child: Center(
-                            child: Text('gramming',
-                              textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'carter',
-                                  fontSize: 20
-                                ),
-                              ),
+                            child: isKeyboardVisible 
+                              ? Text('gramming',) 
+                              : Text('이미지')
                           ),
                         )
-                        : Container(
-                          margin: EdgeInsets.all(10),
-                            child: Image.asset('assets/images/logo-large.png')
-                            // child: Text('gramming',
-                            //   textAlign: TextAlign.center,
-                            //     style: TextStyle(
-                            //       fontFamily: 'carter',
-                            //       fontSize: 20
-                            //     ),
-                            //   ),
-                          ),
                     ),
                     
                     // 내용
@@ -79,13 +63,21 @@ class _SignState extends State<Sign> {
                       duration: Duration(milliseconds: 600),
                       curve: Curves.linearToEaseOut,
                       width: 350,
-                      height: isSigninScreen ? 370 : 460,
+                      height: isSigninScreen ? boxHeight*0.6 : 460,
                       
                       child: Container(
                         margin: EdgeInsets.fromLTRB(30,0,30,30),
                         padding: EdgeInsets.fromLTRB(10,10,10,10),
                         decoration: BoxDecoration(
-                          color: Palette.yellow,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.16),
+                              spreadRadius: 1,
+                              blurRadius: 20,
+                              offset: Offset(3, 16), // changes position of shadow
+                            ),
+                          ],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         
@@ -98,7 +90,8 @@ class _SignState extends State<Sign> {
                                 margin: EdgeInsets.only(left: 18,top: 10),
                                 child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
                                   style: TextStyle(
-                                    fontFamily: 'carter',
+                                    fontFamily: 'nanumSquareRound',
+                                    fontWeight: FontWeight.w900,
                                     fontSize: 30
                                   ),
                                 )
@@ -122,8 +115,9 @@ class _SignState extends State<Sign> {
                                     ?'Don’t you have an account?'
                                     : 'Do you have an account?',
                                     style: TextStyle(
-                                      fontSize: 10,
-                                      fontFamily: 'carter',
+                                      fontSize: 12,
+                                      fontFamily: 'nanumSquareRound',
+                                      fontWeight: FontWeight.w500,
                                       color: Palette.middleblack
                                     ),
                                   ),
@@ -136,9 +130,10 @@ class _SignState extends State<Sign> {
                                     },
                                     child : Text(isSigninScreen ?'Sign Up !' :'Sign In !',
                                       style: TextStyle(
-                                        fontSize: 10,
-                                        fontFamily: 'carter',
-                                        color: Palette.red
+                                        fontSize: 12,
+                                        fontFamily: 'nanumSquareRound',
+                                        fontWeight: FontWeight.w800,
+                                        // color: Palette.red
                                       ),
                                     )
                                   )

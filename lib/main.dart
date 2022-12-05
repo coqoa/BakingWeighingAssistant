@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       home: SafeArea(
         // child: Sign(boxRadius:25),
         child: Sign(boxRadius:25),
+        // child: ,
       ),
     );
   }
