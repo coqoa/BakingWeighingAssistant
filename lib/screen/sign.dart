@@ -45,7 +45,7 @@ class _SignState extends State<Sign> {
                 AnimatedContainer(
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeIn,
-                  height:isKeyboardVisible ?70 : boxHeight*0.4 - 30,
+                  height:isKeyboardVisible ?boxHeight*0.1 : boxHeight*0.4,
                   // color: Colors.red,
                   child: Container(
                     color: Colors.red,
@@ -64,8 +64,8 @@ class _SignState extends State<Sign> {
                   curve: Curves.linearToEaseOut,
 
                   width: 350,
-                  height: isSigninScreen ? boxHeight*0.6 - 30 : 460,
-                  
+                  height: isKeyboardVisible ? boxHeight*0.55 :   boxHeight*0.6,
+                  //  이쪽 진행중 
                   child: Container(
                     padding: EdgeInsets.fromLTRB(10,10,10,10),
                     decoration: BoxDecoration(
@@ -86,22 +86,310 @@ class _SignState extends State<Sign> {
                       children: [
                         // Title
                         Container(
-                          height: 55,
-                            margin: EdgeInsets.only(left: 18,top: 10),
+                          width: 300,
+                          height: 50,
+                            // margin: EdgeInsets.only(left: 18,top: 10),
                             child: Text(isSigninScreen? 'Sign In' : 'Sign Up',
+                            textAlign: TextAlign.left,
                               style: TextStyle(
                                 color: Palette.navy,
                                 fontFamily: 'nanumSquareRound',
                                 fontWeight: FontWeight.w900,
                                 fontSize: 30
+                                
                               ),
                             )
                         ),
-                        
+                        // 상단 / 하단 크기 정하고 가운데만 Expanded 적용하기
+
                         // 텍스트폼필드
                         Expanded(
                           flex: 13,
-                          child: isSigninScreen ? SignIn() : SignUp()
+                          // child: isSigninScreen ? SignIn() : SignUp()
+                          child: Column(  
+                              children: [
+                                // !isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 0),
+                                // 텍스트 폼 필드
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    child: Container(
+                                      color: Colors.orange,
+                                      padding: const EdgeInsets.fromLTRB(20,0,20,0),
+                                      child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            // const Text('E-Mail Address',
+                                            //   style: TextStyle(
+                                            //     fontSize: 13,
+                                            //     fontWeight: FontWeight.w300,
+                                            //     color: Palette.black
+                                            //   ),
+                                            // ),
+                                            // SizedBox(height: 5),
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  height: 40,
+                                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                                  child: TextField(
+                                                    key: const ValueKey(1),
+                                                    keyboardType: TextInputType.emailAddress,
+
+                                                    cursorColor: Palette.gray,
+                                                    cursorWidth: 2,
+                                                    cursorHeight: 15,
+                                                    autocorrect: false,
+
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                    decoration: InputDecoration(
+                                                      contentPadding: const EdgeInsets.only(left: 20),
+                                                      hintText: 'E-mail Address',
+                                                      hintStyle: const TextStyle(
+                                                        color: Palette.gray,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                      enabledBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Palette.gray),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Colors.black),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Palette.white
+                                                    ),
+                                                    
+                                                    onChanged: (value){
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  // height: 30,
+                                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                                  color: Colors.blue,
+                                                  child: Text('에러메시지출력',
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Palette.red
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            // isKeyboardVisible ? const SizedBox(height: 10) : const SizedBox(height: 10),
+                                            // 비밀번호
+                                            // const Text('Password',
+                                            //   style: TextStyle(
+                                            //     fontSize: 13,
+                                            //     fontWeight: FontWeight.w300,
+                                            //     color: Palette.black
+                                            //   ),
+                                            // ),
+                                            // const SizedBox(height: 5),
+                                            // Container(
+                                            //   height: 40,
+                                            //   // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                            //   child: TextField(
+                                            //     key: const ValueKey(2),
+                                            //     keyboardType: TextInputType.emailAddress,
+                                            //     obscureText: true,
+                                            //     cursorColor: Palette.middleblack,
+                                            //     cursorWidth: 2,
+                                            //     cursorHeight: 15,
+                                            //     autocorrect: false,
+
+                                            //     style: const TextStyle(
+                                            //       fontSize: 11,
+                                            //       // fontFamily: 'carter'
+                                            //       fontFamily: 'notosans',
+                                            //       fontWeight: FontWeight.w600,
+                                            //     ),
+                                            //     decoration: InputDecoration(
+                                            //       contentPadding: const EdgeInsets.only(left: 10),
+                                            //       hintText: '******',
+                                            //       hintStyle: const TextStyle(
+                                            //         color: Palette.gray,
+                                            //         fontSize: 11,
+                                            //         // fontFamily: 'carter'
+                                            //         fontFamily: 'notosans',
+                                            //         fontWeight: FontWeight.w600,
+                                            //       ),
+                                            //       enabledBorder: OutlineInputBorder(
+                                            //         borderSide: const BorderSide(color: Colors.transparent),
+                                            //         borderRadius: BorderRadius.circular(10)
+                                            //       ),
+                                            //       focusedBorder: OutlineInputBorder(
+                                            //         borderSide: const BorderSide(color: Colors.transparent),
+                                            //         borderRadius: BorderRadius.circular(10)
+                                            //       ),
+                                            //       filled: true,
+                                            //       fillColor: Palette.lightyellow
+                                            //     ),
+                                                
+                                            //     onChanged: (value){
+                                            //       // userPassword = value;
+                                            //     },
+                                            //   ),
+                                            // ),
+
+
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  height: 40,
+                                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                                  child: TextField(
+                                                    key: const ValueKey(2),
+                                                    keyboardType: TextInputType.emailAddress,
+                                                    obscureText: true,
+                                                    cursorColor: Palette.gray,
+                                                    cursorWidth: 2,
+                                                    cursorHeight: 15,
+                                                    autocorrect: false,
+
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                    decoration: InputDecoration(
+                                                      contentPadding: const EdgeInsets.only(left: 20),
+                                                      hintText: 'Password',
+                                                      hintStyle: const TextStyle(
+                                                        color: Palette.gray,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                      enabledBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Palette.gray),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Colors.black),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Palette.white
+                                                    ),
+                                                    
+                                                    onChanged: (value){
+                                                    },
+
+                                                  ),
+                                                ),
+                                                Container(
+                                                  color: Colors.blue,
+                                                  // height: 30,
+                                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                                  // color: Colors.red,
+                                                  child: Text('에러메시지출력',
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Palette.red
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+
+                                                                                        Column(
+                                              children: [
+                                                Container(
+                                                  height: 40,
+                                                  // padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                                  child: TextField(
+                                                    key: const ValueKey(2),
+                                                    keyboardType: TextInputType.emailAddress,
+                                                    obscureText: true,
+                                                    cursorColor: Palette.gray,
+                                                    cursorWidth: 2,
+                                                    cursorHeight: 15,
+                                                    autocorrect: false,
+
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                    decoration: InputDecoration(
+                                                      contentPadding: const EdgeInsets.only(left: 20),
+                                                      hintText: 'Password',
+                                                      hintStyle: const TextStyle(
+                                                        color: Palette.gray,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                      enabledBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Palette.gray),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                        borderSide: const BorderSide(color: Colors.black),
+                                                        borderRadius: BorderRadius.circular(50)
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Palette.white
+                                                    ),
+                                                    
+                                                    onChanged: (value){
+                                                    },
+
+                                                  ),
+                                                ),
+                                                Container(
+                                                  color: Colors.blue,
+                                                  // height: 30,
+                                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                                  // color: Colors.red,
+                                                  child: Text('에러메시지출력',
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Palette.red
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                // 버튼
+                                SizedBox(
+                                  width: 235,
+                                  height: 40,
+                                  child:ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Palette.navy,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(50)
+                                      )
+                                    ),
+                                    onHover: (hover){
+                    },
+                                    onPressed: (){
+                                      // signinBtnClick();
+                                    }, 
+                                    child: const Text('Next',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w900
+                                      ),
+                                    )
+                                  )
+                                ),
+                                
+                              ],
+                            ),
                         ),
                         SizedBox(height: 10),
         
