@@ -114,7 +114,7 @@ class _SignState extends State<Sign> {
                                     // 이메일
                                     Container(
                                       height: 80,
-                                      color: Colors.red,
+                                      // color: Colors.red,
                                       child: Stack(
                                         alignment: Alignment.center,
                                         children: [
@@ -170,13 +170,13 @@ class _SignState extends State<Sign> {
                                             bottom: 0,
                                             child: Container(
                                               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                              color: Colors.blue,
+                                              // color: Colors.blue,
                                               child: Text('에러메시지출력',
                                               textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Palette.red
+                                                  color: Colors.red.withOpacity(0.7)
                                                 ),
                                               ),
                                             ),
@@ -243,13 +243,13 @@ class _SignState extends State<Sign> {
                                             bottom: 0,
                                             child: Container(
                                               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                              color: Colors.blue,
+                                              // color: Colors.blue,
                                               child: Text('에러메시지출력',
                                               textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Palette.red
+                                                  color: Colors.red.withOpacity(0.7)
                                                 ),
                                               ),
                                             ),
@@ -316,13 +316,13 @@ class _SignState extends State<Sign> {
                                             bottom: 0,
                                             child: Container(
                                               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                              color: Colors.blue,
+                                              // color: Colors.blue,
                                               child: Text('에러메시지출력',
                                               textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Palette.red
+                                                  color: Colors.red.withOpacity(0.7)
                                                 ),
                                               ),
                                             ),
