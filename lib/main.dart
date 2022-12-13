@@ -12,8 +12,6 @@ import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
