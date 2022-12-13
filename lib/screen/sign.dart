@@ -50,14 +50,14 @@ class _SignState extends State<Sign> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // Logo
+                  // LOGO
                   Positioned(
                     top: 0,
                     child: AnimatedContainer(
                         duration: Duration(milliseconds: 250),
                         curve: Curves.easeIn,
                         width: 300,
-                        height: isKeyboardVisible ? 0 :210,
+                        height: isKeyboardVisible ? 0 :boxHeight-365,
                         // color: Colors.red,
                         child: Container(
                           color: Colors.red.withOpacity(0.5),
@@ -70,14 +70,74 @@ class _SignState extends State<Sign> {
                       ),
 
                   ),
-
+                  
+                  // SIGN BOX 
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      width: 300,
-                      height: 365,
+                      // width: 375, // web이라면?
+                      width: boxWidth,
+                      height: 365, // fix?
                       color: Colors.red,
-                      child: ,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            width: 300,
+                            color: Colors.orange,
+                            
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Palette.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.16),
+                                    spreadRadius: 1,
+                                    blurRadius: 20,
+                                    offset: Offset(3, 16), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+
+
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // TITLE FIELD
+                                  Container(
+                                    width: 300,
+                                    height: 50,
+                                    color: Colors.red.withOpacity(0.5),
+                                    child: Text('SIGN'),
+                                  ),
+
+                                  // TEXT FIELD
+                                  Container(
+                                    width: 300,
+                                    height: 215,
+                                    color: Colors.red[200],
+                                  ),
+
+                                  // BUTTON FIELD
+                                  Container(
+                                    width: 300,
+                                    height: 50,
+                                    color: Colors.red.withOpacity(0.5),
+                                    child: Text('BUTTON & GET.TO'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            // width: 375,
+                            width: boxWidth,
+                            height: 30,
+                            color: Colors.black54,
+                          )
+                        ],
+                      ),
                     ),
                   )
                   
