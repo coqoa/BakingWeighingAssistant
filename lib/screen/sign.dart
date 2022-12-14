@@ -43,9 +43,9 @@ class _SignState extends State<Sign> {
             child: Container(
               height: boxHeight,
               width: boxWidth,
-              // padding: EdgeInsets.only(left: 30, right: 30),
-              // height: boxHeight, 앱일때만 설정하기
-              color: Colors.amber,
+              color: Colors.white,
+              // color: Colors.amber,
+              
 
               child: Stack(
                 alignment: Alignment.center,
@@ -58,9 +58,8 @@ class _SignState extends State<Sign> {
                         curve: Curves.easeIn,
                         width: 300,
                         height: isKeyboardVisible ? 0 :boxHeight-365,
-                        // color: Colors.red,
                         child: Container(
-                          color: Colors.red.withOpacity(0.5),
+                          // color: Colors.red.withOpacity(0.5),
                             child: Center(
                               child: isKeyboardVisible 
                                 ? Text('gramming',) 
@@ -77,15 +76,17 @@ class _SignState extends State<Sign> {
                     child: Container(
                       // width: 375, // web이라면?
                       width: boxWidth,
-                      height: 365, // fix?
-                      color: Colors.red,
+                      height: 365, // fix ?
+                      // color: Colors.red,
                       child: Column(
                         children: [
+                          // SIGN BOX
                           Container(
-                            padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                             width: 300,
-                            color: Colors.orange,
+                            // color: Colors.orange,
                             
+                            // SHELL
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Palette.white,
@@ -108,28 +109,167 @@ class _SignState extends State<Sign> {
                                   Container(
                                     width: 300,
                                     height: 50,
-                                    color: Colors.red.withOpacity(0.5),
-                                    child: Text('SIGN'),
+                                    padding: EdgeInsets.only(left: 15),
+                                    // color: Colors.red.withOpacity(0.5),
+                                    child:  Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(isSignin? 'Sign In' : 'Sign Up',
+                                        style: TextStyle(
+                                          fontFamily: 'nanumSquareRound',
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 30
+                                        )
+                                      ),
+                                    ),
                                   ),
 
                                   // TEXT FIELD
                                   Container(
                                     width: 300,
-                                    height: 215,
-                                    color: Colors.red[200],
+                                    height: 165,
+                                    // color: Colors.red[200],
+                                    padding: EdgeInsets.only(left: 15,right: 15),
+                                    child: isSignin 
+
+                                    // SIGN IN
+                                    ?Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        SignTextField(
+                                          type: controller.signInUserEmail.value,
+                                          valueKey: const ValueKey(1), 
+                                          obscureText: false, 
+                                          hintText: 'E-Mail Address', 
+                                        ),
+                                        SignTextField(
+                                          type: controller.signInUserPassword.value,
+                                          valueKey: const ValueKey(2), 
+                                          obscureText: true, 
+                                          hintText: 'Password', 
+                                        ),
+                                      ],
+                                    )
+
+                                    // SIGN UP
+                                    :Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        SignTextField(
+                                          type: controller.signUpUserEmail.value,
+                                          valueKey: const ValueKey(3), 
+                                          obscureText: false, 
+                                          hintText: 'E-Mail Address', 
+                                        ),
+                                        SignTextField(
+                                          type: controller.signUpUserPassword.value,
+                                          valueKey: const ValueKey(4), 
+                                          obscureText: true, 
+                                          hintText: 'Password', 
+                                        ),
+                                        SignTextField(
+                                          type: controller.signUpUserPasswordRepeat.value,
+                                          valueKey: const ValueKey(5), 
+                                          obscureText: true, 
+                                          hintText: 'Password Repeat', 
+                                        ),
+                                      ],
+                                    ),
                                   ),
 
                                   // BUTTON FIELD
                                   Container(
                                     width: 300,
-                                    height: 50,
-                                    color: Colors.red.withOpacity(0.5),
-                                    child: Text('BUTTON & GET.TO'),
+                                    height: 100,
+                                    // color: Colors.red,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+
+                                        // ERROR MESSAGE
+                                        Container(
+                                          height: 20,
+                                          // color: Colors.blue[300],
+                                          child: Center(
+                                            child: Text('ERROR MESSAGE',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.red
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        // NEXT BUTTON
+                                        InkWell(
+                                          onTap: () {
+                                            controller.signIn();
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: Palette.navy,
+                                              borderRadius: BorderRadius.circular(50)
+                                              // boxShadow: 
+                                            ),
+                                            child: Center(
+                                              child: Text('Next',
+                                              style: TextStyle(
+                                                color: Palette.white,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 16
+                                              ),),
+                                            ), 
+                                          ),
+                                        ),
+
+                                        // SIGN PAGE TOGGLE
+                                        Container(
+                                          height: 30,
+                                          // color: Colors.red[400],
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                setState(() {
+                                                  isSignin = !isSignin;
+                                                });
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    isSignin
+                                                    ? 'Don’t you have an account?'
+                                                    : 'Do you have an account?',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Palette.middleblack
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  Text(isSignin ?'Sign Up !' :'Sign In !',
+                                                    style: TextStyle(
+                                                      // color: Palette.navy,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontStyle: FontStyle.italic
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                        )
+                                      ],
+                                    )
                                   ),
                                 ],
                               ),
                             ),
                           ),
+
+                          // BOTTOM ADS
                           Container(
                             // width: 375,
                             width: boxWidth,
@@ -555,6 +695,70 @@ class _SignState extends State<Sign> {
           ),
         );
       },
+    );
+  }
+}
+
+class SignTextField extends StatefulWidget {
+  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type});
+
+  final ValueKey valueKey;
+  final bool obscureText;
+  final String hintText;
+  late final dynamic type;
+
+  @override
+  State<SignTextField> createState() => _SignTextFieldState();
+}
+
+class _SignTextFieldState extends State<SignTextField> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // color: Colors.grey,
+      child: TextField(
+        key: widget.valueKey, // 
+        keyboardType: TextInputType.emailAddress,
+        obscureText: widget.obscureText,
+      
+        cursorColor: Palette.black,
+        cursorWidth: 2,
+        cursorHeight: 15,
+        autocorrect: false, // 
+      
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        decoration: InputDecoration(
+          hintText: widget.hintText,
+          hintStyle: const TextStyle(
+              color: Palette.gray,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Palette.gray),
+            borderRadius: BorderRadius.circular(50)
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(50)
+          ),
+          filled: true,
+          fillColor: Palette.white,
+          isDense: true,
+          contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
+        ),
+        
+        onChanged: (value){
+          setState(() {
+            widget.type = value;
+          });
+          // controller.signInUserEmail.value = value;
+        },
+      ),
     );
   }
 }

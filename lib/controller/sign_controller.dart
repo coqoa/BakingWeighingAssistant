@@ -15,7 +15,7 @@ class SignController extends GetxController{
   
   RxString signUpUserEmail = ''.obs;
   RxString signUpUserPassword = ''.obs;
-  RxString userPasswordRepeat = ''.obs;
+  RxString signUpUserPasswordRepeat = ''.obs;
 
   RxString signInUserEmailValidationResult = ''.obs;
   RxString signInUserPasswordValidationResult = ''.obs;
