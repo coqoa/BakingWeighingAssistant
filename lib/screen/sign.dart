@@ -20,8 +20,10 @@ class Sign extends StatefulWidget {
 class _SignState extends State<Sign> {
   bool isSignin = true;
   bool isBtnHovered = false;
+  late double statusBarHeight = MediaQuery.of(context).padding.top; // 상단 바
   late double boxWidth = MediaQuery.of(context).size.width; //
   late double boxHeight = MediaQuery.of(context).size.height;
+  double bottomAdHeight = 50;
 
   final SignController controller = SignController(); 
 
@@ -44,6 +46,7 @@ class _SignState extends State<Sign> {
               height: boxHeight,
               width: boxWidth,
               color: Colors.white,
+              padding: EdgeInsets.only(top: statusBarHeight),
               // color: Colors.amber,
               
 
@@ -54,15 +57,15 @@ class _SignState extends State<Sign> {
                   Positioned(
                     top: 0,
                     child: AnimatedContainer(
-                        duration: Duration(milliseconds: 250),
-                        curve: Curves.easeIn,
+                        duration: Duration(milliseconds: 150),
+                        curve: Curves.linear,
                         width: 300,
                         height: isKeyboardVisible ? 0 :boxHeight-365,
                         child: Container(
-                          // color: Colors.red.withOpacity(0.5),
+                          color: Colors.red.withOpacity(0.5),
                             child: Center(
                               child: isKeyboardVisible 
-                                ? Text('gramming',) 
+                                ? Text('',) 
                                 : Text('이미지')
                             ),
                           )
@@ -70,23 +73,28 @@ class _SignState extends State<Sign> {
 
                   ),
                   
-                  // SIGN BOX 
+                  // SIGN SECTION 
                   Positioned(
                     bottom: 0,
                     child: Container(
                       // width: 375, // web이라면?
                       width: boxWidth,
-                      height: 365, // fix ?
+                      height: isKeyboardVisible 
+                      ? MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom
+                      : 365, // fix ?
                       // color: Colors.red,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          SizedBox(),
                           // SIGN BOX
                           Container(
-                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            width: 300,
-                            // color: Colors.orange,
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            margin: EdgeInsets.fromLTRB(30 , 0, 30, 0),
+                            color: Colors.orange,
+                            // height: 365-50,
                             
-                            // SHELL
+                            // SIGN SHELL
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Palette.white,
@@ -108,12 +116,12 @@ class _SignState extends State<Sign> {
                                   // TITLE FIELD
                                   Container(
                                     width: 300,
-                                    height: 50,
-                                    padding: EdgeInsets.only(left: 15),
+                                    height: 60,
+                                    padding: EdgeInsets.only(left: 25),
                                     // color: Colors.red.withOpacity(0.5),
                                     child:  Align(
                                       alignment: Alignment.bottomLeft,
-                                      child: Text(isSignin? 'Sign In' : 'Sign Up',
+                                      child: Text(isSignin? 'Sign In ${MediaQuery.of(context).viewInsets.bottom}' : 'Sign Up',
                                         style: TextStyle(
                                           fontFamily: 'nanumSquareRound',
                                           fontWeight: FontWeight.w800,
@@ -126,66 +134,65 @@ class _SignState extends State<Sign> {
                                   // TEXT FIELD
                                   Container(
                                     width: 300,
-                                    height: 165,
+                                    
                                     // color: Colors.red[200],
                                     padding: EdgeInsets.only(left: 15,right: 15),
-                                    child: isSignin 
-
-                                    // SIGN IN
-                                    ?Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SignTextField(
-                                          type: controller.signInUserEmail.value,
-                                          valueKey: const ValueKey(1), 
-                                          obscureText: false, 
-                                          hintText: 'E-Mail Address', 
-                                        ),
-                                        SignTextField(
-                                          type: controller.signInUserPassword.value,
-                                          valueKey: const ValueKey(2), 
-                                          obscureText: true, 
-                                          hintText: 'Password', 
-                                        ),
-                                      ],
-                                    )
-
-                                    // SIGN UP
-                                    :Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SignTextField(
-                                          type: controller.signUpUserEmail.value,
-                                          valueKey: const ValueKey(3), 
-                                          obscureText: false, 
-                                          hintText: 'E-Mail Address', 
-                                        ),
-                                        SignTextField(
-                                          type: controller.signUpUserPassword.value,
-                                          valueKey: const ValueKey(4), 
-                                          obscureText: true, 
-                                          hintText: 'Password', 
-                                        ),
-                                        SignTextField(
-                                          type: controller.signUpUserPasswordRepeat.value,
-                                          valueKey: const ValueKey(5), 
-                                          obscureText: true, 
-                                          hintText: 'Password Repeat', 
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // BUTTON FIELD
-                                  Container(
-                                    width: 300,
-                                    height: 100,
-                                    // color: Colors.red,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
+                                        SizedBox(),
+                                        
+                                        Container(
+                                          height: 160,
+                                          child:  
+                                            isSignin 
+                                            // SIGN IN
+                                            ? Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                SignTextField(
+                                                  type: controller.signInUserEmail.value,
+                                                  valueKey: const ValueKey(1), 
+                                                  obscureText: false, 
+                                                  hintText: 'E-Mail Address', 
+                                                ),
+                                                SignTextField(
+                                                  type: controller.signInUserPassword.value,
+                                                  valueKey: const ValueKey(2), 
+                                                  obscureText: true, 
+                                                  hintText: 'Password', 
+                                                ),
+                                                
+                                              ],
+                                            )
 
-                                        // ERROR MESSAGE
+                                            // SIGN UP
+                                            : Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                SignTextField(
+                                                  type: controller.signUpUserEmail.value,
+                                                  valueKey: const ValueKey(3), 
+                                                  obscureText: false, 
+                                                  hintText: 'E-Mail Address', 
+                                                ),
+                                                SignTextField(
+                                                  type: controller.signUpUserPassword.value,
+                                                  valueKey: const ValueKey(4), 
+                                                  obscureText: true, 
+                                                  hintText: 'Password', 
+                                                ),
+                                                SignTextField(
+                                                  type: controller.signUpUserPasswordRepeat.value,
+                                                  valueKey: const ValueKey(5), 
+                                                  obscureText: true, 
+                                                  hintText: 'Password Repeat', 
+                                                ),
+                                              ],
+                                            ),
+                                        ),
+                                       
+                                        // ERROR MESSAGE => 위로 올리자
                                         Container(
                                           height: 20,
                                           // color: Colors.blue[300],
@@ -199,14 +206,26 @@ class _SignState extends State<Sign> {
                                             ),
                                           ),
                                         ),
-
+                                      ],
+                                    )
+                                  ),
+                                  
+                                  // BUTTON FIELD
+                                  Container(
+                                    width: 300,
+                                    height: 75,
+                                    padding: EdgeInsets.only(top: 5),
+                                    // color: Colors.red,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
                                         // NEXT BUTTON
                                         InkWell(
                                           onTap: () {
                                             controller.signIn();
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                            margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color: Palette.navy,
@@ -280,417 +299,8 @@ class _SignState extends State<Sign> {
                       ),
                     ),
                   )
-                  
-                    // Sign Box
-                  //   Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     AnimatedContainer(
-                  //       duration: Duration(milliseconds: 250),
-                  //       curve: Curves.easeIn,
-                  //       margin: EdgeInsets.only(top: isKeyboardVisible? 0 : 160),
-                  //       padding: EdgeInsets.fromLTRB(0,10,0,10),
-                  //       child: Container(
-                  //       height: 365,
-                  //         // margin: EdgeInsets.only(top: 10),
-                  //         padding: EdgeInsets.fromLTRB(10,0,10,0),
-                  //         decoration: BoxDecoration(
-                  //           color: Palette.white,
-                  //           boxShadow: [
-                  //             BoxShadow(
-                  //               color: Colors.black.withOpacity(0.16),
-                  //               spreadRadius: 1,
-                  //               blurRadius: 20,
-                  //               offset: Offset(3, 16), // changes position of shadow
-                  //             ),
-                  //           ],
-                  //           borderRadius: BorderRadius.circular(20),
-                  //         ),
-                          
-                  //         child: Column(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             // 타이틀
-                  //             Container(
-                  //               height: 55,
-                  //               color: Colors.green,
-                  //               padding: EdgeInsets.only(left: 20, right: 0),
-                  //               child: Row(
-                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //                 children: [
-                  //                   // Title    
-                  //                   Text(isSignin? 'Sign In' : 'Sign Up',
-                  //                   style: TextStyle(
-                  //                     fontFamily: 'nanumSquareRound',
-                  //                     fontWeight: FontWeight.w800,
-                  //                     fontSize: 30
-                  //                   )),
-                  //                 ],
-                  //               )
-                  //             ),
-                                            
-                  //             // 텍스트폼필드
-                  //             Container(
-                  //               padding: EdgeInsets.only(left: 20, right: 20),
-                  //               height: 210,
-                  //               color: Colors.blue,
-                  //               child: 
-                                          
-                  //               isSignin
-                  //               // 로그인 화면
-                  //               ? Column(  
-                  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //                   children: [
-                  //                     // 텍스트 폼 필드
-                  //                     // TODO SIGNIN
-                  //                     // 이메일
-                  //                     Container(
-                  //                       // height: 50,
-                  //                       color: Colors.grey,
-                  //                       child: TextField(
-                  //                         key: const ValueKey(1),
-                  //                         keyboardType: TextInputType.emailAddress,
-                                        
-                  //                         cursorColor: Palette.black,
-                  //                         cursorWidth: 2,
-                  //                         cursorHeight: 15,
-                  //                         autocorrect: false,
-                                        
-                  //                         style: const TextStyle(
-                  //                           fontSize: 16,
-                  //                           fontWeight: FontWeight.w600,
-                  //                         ),
-                  //                         // textAlign: TextAlign.center,
-                  //                         decoration: InputDecoration(
-                  //                           // contentPadding: const EdgeInsets.only(left: 20),
-                  //                           hintText: 'E-mail Address',
-                  //                           hintStyle: const TextStyle(
-                  //                               color: Palette.gray,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w400,
-                  //                           ),
-                  //                           enabledBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Palette.gray),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           focusedBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Colors.black),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           filled: true,
-                  //                           fillColor: Palette.white,
-                  //                           isDense: true,
-                  //                           contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
-                  //                         ),
-                                          
-                  //                         onChanged: (value){
-                  //                           controller.signInUserEmail.value = value;
-                  //                         },
-                  //                       ),
-                  //                     ),
-                                
-                  //                     // 비밀번호
-                  //                     Container(
-                  //                       color: Colors.grey,
-                  //                       child: TextField(
-                  //                         key: const ValueKey(2),
-                  //                         keyboardType: TextInputType.emailAddress,
-                                          
-                  //                         obscureText: true,
-                                          
-                  //                         cursorColor: Palette.black,
-                  //                         cursorWidth: 2,
-                  //                         cursorHeight: 15,
-                  //                         autocorrect: false,
-                                        
-                  //                         style: const TextStyle(
-                  //                           fontSize: 16,
-                  //                           fontWeight: FontWeight.w600,
-                  //                         ),
-                  //                         decoration: InputDecoration(
-                  //                           // contentPadding: const EdgeInsets.only(left: 20),
-                  //                           hintText: 'Password',
-                  //                           hintStyle: const TextStyle(
-                  //                             color: Palette.gray,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w400,
-                  //                           ),
-                  //                           enabledBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Palette.gray),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           focusedBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Colors.black),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           filled: true,
-                  //                           fillColor: Palette.white,
-                  //                           isDense: true,
-                  //                           contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
-                  //                         ),
-                                          
-                  //                         onChanged: (value){
-                  //                           controller.signInUserPassword.value = value;
-                  //                         },
-                  //                       ),
-                  //                     ),
-                  //                   ],
-                  //                 )
-                  //                 // 회원가입 화면
-                  //                 : Column(
-                  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //                   children: [
-                  //                     // 이메일
-                  //                     Container(
-                  //                       color: Colors.grey,
-                  //                       child: TextField(
-                  //                         key: const ValueKey(3),
-                  //                         keyboardType: TextInputType.emailAddress,
-                                    
-                  //                         cursorColor: Palette.black,
-                  //                         cursorWidth: 2,
-                  //                         cursorHeight: 15,
-                  //                         autocorrect: false,
-                                    
-                  //                         style: const TextStyle(
-                  //                           fontSize: 16,
-                  //                           fontWeight: FontWeight.w600,
-                  //                         ),
-                  //                         decoration: InputDecoration(
-                  //                           hintText: 'E-mail Address',
-                  //                           hintStyle: const TextStyle(
-                  //                             color: Palette.gray,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w400,
-                                              
-                  //                           ),
-                  //                           enabledBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Palette.gray),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           focusedBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Colors.black),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           filled: true,
-                  //                           fillColor: Palette.white,
-                  //                           isDense: true,
-                  //                           contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
-                  //                         ),
-                                          
-                  //                         onChanged: (value){
-                  //                           controller.signUpUserEmail.value = value;
-                  //                         },
-                  //                       ),
-                  //                     ),
-                                          
-                  //                     // 비밀번호
-                  //                     Container(
-                  //                       color: Colors.grey,
-                  //                       child: TextField(
-                  //                         key: const ValueKey(4),
-                  //                         keyboardType: TextInputType.emailAddress,
-                                          
-                  //                         obscureText: true,
-                  //                         cursorColor: Palette.black,
-                  //                         cursorWidth: 2,
-                  //                         cursorHeight: 15,
-                  //                         autocorrect: false,
-                                        
-                  //                         style: const TextStyle(
-                  //                           fontSize: 16,
-                  //                           fontWeight: FontWeight.w600,
-                  //                         ),
-                  //                         decoration: InputDecoration(
-                  //                           // contentPadding: const EdgeInsets.only(left: 20),
-                  //                           hintText: 'Password',
-                  //                           hintStyle: const TextStyle(
-                  //                             color: Palette.gray,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w400,
-                  //                           ),
-                  //                           enabledBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Palette.gray),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           focusedBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Colors.black),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           filled: true,
-                  //                           fillColor: Palette.white,
-                  //                           isDense: true,
-                  //                           contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
-                  //                         ),
-                  //                         onChanged: (value){
-                  //                           controller.signUpUserPassword.value = value;
-                  //                         },
-                  //                       ),
-                  //                     ),
-                                
-                  //                     // 비밀번호 체크
-                  //                     Container(
-                  //                       color: Colors.grey,
-                  //                       child: TextField(
-                  //                         key: const ValueKey(5),
-                  //                         keyboardType: TextInputType.emailAddress,
-                  //                         obscureText: true,
-                  //                         cursorColor: Palette.black,
-                  //                         cursorWidth: 2,
-                  //                         cursorHeight: 15,
-                  //                         autocorrect: false,
-                                        
-                  //                         style: const TextStyle(
-                  //                           fontSize: 16,
-                  //                           fontWeight: FontWeight.w600,
-                  //                         ),
-                  //                         decoration: InputDecoration(
-                  //                           hintText: 'Password Check',
-                  //                           hintStyle: const TextStyle(
-                  //                             color: Palette.gray,
-                  //                             fontSize: 14,
-                  //                             fontWeight: FontWeight.w400,
-                  //                           ),
-                  //                           enabledBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Palette.gray),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           focusedBorder: OutlineInputBorder(
-                  //                             borderSide: const BorderSide(color: Colors.black),
-                  //                             borderRadius: BorderRadius.circular(50)
-                  //                           ),
-                  //                           filled: true,
-                  //                           fillColor: Palette.white,
-                  //                           isDense: true,
-                  //                           contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
-                  //                         ),
-                                          
-                  //                         onChanged: (value){
-                  //                           controller.userPasswordRepeat.value = value;
-                  //                         },
-                  //                       ),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //             ),
-                                  
-                  //             // // if(isSignin)
-                  //             Container(
-                  //               height: 100,
-                  //               color: Colors.red[200],
-                  //               child: Column(
-                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //                 children: [
-                  //                   Container(
-                  //                     height: 25,
-                  //                     color: Colors.blue[300],
-                  //                     child: Center(
-                  //                       child: Text('ERROR MESSAGE',
-                  //                         style: TextStyle(
-                  //                           fontSize: 12,
-                  //                           fontWeight: FontWeight.w400,
-                  //                           color: Colors.red
-                  //                         ),
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                   // 버튼
-                  //                   InkWell(
-                  //                     onTap: () {
-                  //                       controller.signIn();
-                  //                     },
-                  //                     child: Container(
-                  //                       margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  //                       height: 45,
-                  //                       decoration: BoxDecoration(
-                  //                         color: Palette.navy,
-                  //                         borderRadius: BorderRadius.circular(50)
-                  //                         // boxShadow: 
-                  //                       ),
-                  //                       child: Center(
-                  //                         child: Text('Next',
-                  //                         style: TextStyle(
-                  //                           color: Palette.white,
-                  //                           fontWeight: FontWeight.w700,
-                  //                           fontSize: 16
-                  //                         ),),
-                  //                       ), 
-                  //                     ),
-                  //                   ),
-                                    
-                  //                   // 회원가입 / 로그인으로 가기 버튼
-                  //                   Container(
-                  //                     height: 25,
-                  //                     color: Colors.red[400],
-                  //                       child: GestureDetector(
-                  //                         onTap: (){
-                  //                           setState(() {
-                  //                             isSignin = !isSignin;
-                  //                           });
-                  //                         },
-                  //                         child: Row(
-                  //                         mainAxisAlignment: MainAxisAlignment.center,
-                  //                         crossAxisAlignment: CrossAxisAlignment.center,
-                  //                         children: [
-                  //                           Text(
-                  //                             isSignin
-                  //                             ? 'Don’t you have an account?'
-                  //                             : 'Do you have an account?',
-                  //                             style: TextStyle(
-                  //                               fontSize: 12,
-                  //                               fontWeight: FontWeight.w600,
-                  //                               color: Palette.middleblack
-                  //                             ),
-                  //                           ),
-                  //                           SizedBox(width: 5),
-                  //                           Text(isSignin ?'Sign Up !' :'Sign In !',
-                  //                             style: TextStyle(
-                  //                               // color: Palette.navy,
-                  //                               fontSize: 12,
-                  //                               fontWeight: FontWeight.w600,
-                  //                               fontStyle: FontStyle.italic
-                  //                             ),
-                  //                           )
-                  //                         ],
-                  //                                                             ),
-                  //                       ),
-                  //                   )
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     // Container(
-                  //     //   // margin: EdgeInsets.only(top: 10),
-                  //     //   height: 50,
-                  //     //   width: 360,
-                  //     //   color: Colors.blue.withOpacity(0.5),
-                  //     //   child: Center(child: Text('Admob Banner',)),
-                  //     // )
-                            
-                      
-                  //   ],
-                  // ),
-                  // admob
-                  // if(!isKeyboardVisible)
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: AnimatedContainer(
-                  //     // margin: EdgeInsets.only(top: 10),
-                  //     duration: Duration(milliseconds: 150),
-                  //     curve: Curves.easeIn,
-                  //     width: 360,
-                  //     height: 50,
-                  //     // height: isKeyboardVisible ? 0 :50,
-                  //     color: Colors.blue.withOpacity(0.5),
-                  //     child: Center(child: Text('Admob Banner',)),
-                  //   )
-                  // )
                 ],
               ),
-
             ),
           ),
         );
@@ -717,6 +327,7 @@ class _SignTextFieldState extends State<SignTextField> {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.grey,
+      padding: EdgeInsets.only(left: 20, right: 20),
       child: TextField(
         key: widget.valueKey, // 
         keyboardType: TextInputType.emailAddress,
@@ -734,22 +345,24 @@ class _SignTextFieldState extends State<SignTextField> {
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: const TextStyle(
-              color: Palette.gray,
+            color: Palette.gray,
             fontSize: 14,
             fontWeight: FontWeight.w400,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Palette.gray),
-            borderRadius: BorderRadius.circular(50)
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(50)
-          ),
+          // enabledBorder: OutlineInputBorder(
+          //   borderSide: const BorderSide(color: Palette.gray),
+          //   borderRadius: BorderRadius.circular(50)
+          // ),
+          // focusedBorder: OutlineInputBorder(
+          //   borderSide: const BorderSide(color: Colors.black),
+          //   borderRadius: BorderRadius.circular(50)
+          // ),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
           filled: true,
           fillColor: Palette.white,
           isDense: true,
-          contentPadding: EdgeInsets.fromLTRB(20,13,13,13)
+          contentPadding: EdgeInsets.fromLTRB(5,15,0,5)
         ),
         
         onChanged: (value){

@@ -45,12 +45,7 @@
 //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                         children: [
 //                           // Title    
-//                           Text(isSignin? 'Sign In' : 'Sign Up',
-//                           style: TextStyle(
-//                             fontFamily: 'nanumSquareRound',
-//                             fontWeight: FontWeight.w800,
-//                             fontSize: 30
-//                           )),
+                         
 //                         ],
 //                       )
 //                     ),
