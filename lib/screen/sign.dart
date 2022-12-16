@@ -91,7 +91,7 @@ class _SignState extends State<Sign> {
                           Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             margin: EdgeInsets.fromLTRB(30 , 0, 30, 0),
-                            color: Colors.orange,
+                            // color: Colors.orange,
                             // height: 365-50,
                             
                             // SIGN SHELL
@@ -106,7 +106,8 @@ class _SignState extends State<Sign> {
                                     offset: Offset(3, 16), // changes position of shadow
                                   ),
                                 ],
-                                borderRadius: BorderRadius.circular(20),
+                                // borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(5),
                               ),
 
 
@@ -225,18 +226,21 @@ class _SignState extends State<Sign> {
                                             controller.signIn();
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                                            // margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                                            width: 120,
                                             height: 40,
                                             decoration: BoxDecoration(
                                               color: Palette.navy,
-                                              borderRadius: BorderRadius.circular(50)
+                                              // borderRadius: BorderRadius.circular(50)
+                                              borderRadius: BorderRadius.circular(5)
                                               // boxShadow: 
                                             ),
                                             child: Center(
                                               child: Text('Next',
                                               style: TextStyle(
+                                                fontFamily: 'Carter',
                                                 color: Palette.white,
-                                                fontWeight: FontWeight.w700,
+                                                // fontWeight: FontWeight.w700,
                                                 fontSize: 16
                                               ),),
                                             ), 

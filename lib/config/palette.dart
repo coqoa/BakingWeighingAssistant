@@ -14,6 +14,6 @@ class Palette{
 
   static const Color white= Color.fromRGBO(255, 255, 255, 1);
   static const Color backgroundColor= Color.fromRGBO(244, 244, 244, 1);
-  static const Color navy= Color.fromRGBO(63, 83, 150, 1);
+  static const Color navy= Color.fromRGBO(0, 0, 50, 1);
   static const Color gray = Color.fromRGBO(208, 208, 208, 1);
 }
