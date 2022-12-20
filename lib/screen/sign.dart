@@ -89,23 +89,24 @@ class _SignState extends State<Sign> {
                           SizedBox(),
                           // SIGN BOX
                           Container(
-                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            margin: EdgeInsets.fromLTRB(30 , 0, 30, 0),
+                            // padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            // margin: EdgeInsets.fromLTRB(30 , 0, 30, 0),
                             // color: Colors.orange,
                             // height: 365-50,
                             
                             // SIGN SHELL
                             child: Container(
+                              width: 214,
                               decoration: BoxDecoration(
                                 color: Palette.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.16),
-                                    spreadRadius: 1,
-                                    blurRadius: 20,
-                                    offset: Offset(3, 16), // changes position of shadow
-                                  ),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.black.withOpacity(0.16),
+                                //     spreadRadius: 1,
+                                //     blurRadius: 20,
+                                //     offset: Offset(3, 16), // changes position of shadow
+                                //   ),
+                                // ],
                                 // borderRadius: BorderRadius.circular(20),
                                 borderRadius: BorderRadius.circular(5),
                               ),
@@ -137,7 +138,7 @@ class _SignState extends State<Sign> {
                                     width: 300,
                                     
                                     // color: Colors.red[200],
-                                    padding: EdgeInsets.only(left: 15,right: 15),
+                                    // padding: EdgeInsets.only(left: 15,right: 15),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -236,7 +237,7 @@ class _SignState extends State<Sign> {
                                               // boxShadow: 
                                             ),
                                             child: Center(
-                                              child: Text('Next',
+                                              child: Text(isSignin ?'Sign In' :'Sign Up',
                                               style: TextStyle(
                                                 fontFamily: 'Carter',
                                                 color: Palette.white,
@@ -331,7 +332,8 @@ class _SignTextFieldState extends State<SignTextField> {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.grey,
-      padding: EdgeInsets.only(left: 20, right: 20),
+      // padding: EdgeInsets.only(left: 20, right: 20),
+      width: 214,
       child: TextField(
         key: widget.valueKey, // 
         keyboardType: TextInputType.emailAddress,
@@ -343,15 +345,17 @@ class _SignTextFieldState extends State<SignTextField> {
         autocorrect: false, // 
       
         style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: const TextStyle(
             color: Palette.gray,
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.bold,
+            
           ),
           // enabledBorder: OutlineInputBorder(
           //   borderSide: const BorderSide(color: Palette.gray),
