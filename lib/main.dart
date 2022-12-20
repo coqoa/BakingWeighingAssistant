@@ -55,8 +55,7 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(
-        // child: Sign(boxRadius:25),
-        child: Sign(boxRadius:25),
+        child: Sign(),
         // child: ,
       ),
     );

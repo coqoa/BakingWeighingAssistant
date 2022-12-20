@@ -16,29 +16,30 @@ class SignController extends GetxController{
   RxString signUpUserEmail = ''.obs;
   RxString signUpUserPassword = ''.obs;
   RxString signUpUserPasswordRepeat = ''.obs;
+  RxString validation = ''.obs;
 
-  RxString signInUserEmailValidationResult = ''.obs;
-  RxString signInUserPasswordValidationResult = ''.obs;
+  // RxString signInUserEmailValidationResult = ''.obs;
+  // RxString signInUserPasswordValidationResult = ''.obs;
 
-  RxString signUpUserEmailValidationResult = ''.obs;
-  RxString signUpUserPasswordValidationResult = ''.obs;
-  RxString signUpUserPasswordRepeatValidationResult = ''.obs;
+  // RxString signUpUserEmailValidationResult = ''.obs;
+  // RxString signUpUserPasswordValidationResult = ''.obs;
+  // RxString signUpUserPasswordRepeatValidationResult = ''.obs;
 
-  RxString passwordValidationResult = 'Fail'.obs;
+  // RxString passwordValidationResult = 'Fail'.obs;
   // RxBool validationResult = false as RxBool;
 
   // TODO : validation은 회원가입시에만 하기
-  Future<void> userEmailValidation({email})async {
+  // Future<void> userEmailValidation({email})async {
     
-  }
+  // }
 
-  Future<void> passwordValidation({password})async {
-    if(password.length > 5){
-      passwordValidationResult.value = 'Pass';
-    }else{
-      passwordValidationResult.value = 'Fail';
-    }
-  }
+  // Future<void> passwordValidation({password})async {
+  //   if(password.length > 5){
+  //     passwordValidationResult.value = 'Pass';
+  //   }else{
+  //     passwordValidationResult.value = 'Fail';
+  //   }
+  // }
   Future<void> passwordRepeatValidation({passwordRepeat})async {
     
   }
