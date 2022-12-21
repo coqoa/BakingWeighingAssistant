@@ -142,16 +142,18 @@ class _SignState extends State<Sign> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SignTextField(
-                                            type: controller.signInUserEmail.value,
+                                            type: 'userEmail',
                                             valueKey: const ValueKey(1), 
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
+                                            controller: controller,
                                           ),
                                           SignTextField(
-                                            type: controller.signInUserPassword.value,
+                                            type: 'userPassword',
                                             valueKey: const ValueKey(2), 
                                             obscureText: true, 
                                             hintText: 'Password', 
+                                            controller: controller,
                                           ),
                                           
                                         ],
@@ -162,22 +164,25 @@ class _SignState extends State<Sign> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SignTextField(
-                                            type: controller.signUpUserEmail.value,
+                                            type: 'userEmail',
                                             valueKey: const ValueKey(3), 
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
+                                            controller: controller,
                                           ),
                                           SignTextField(
-                                            type: controller.signUpUserPassword.value,
+                                            type: 'userPassword',
                                             valueKey: const ValueKey(4), 
                                             obscureText: true, 
                                             hintText: 'Password', 
+                                            controller: controller,
                                           ),
                                           SignTextField(
-                                            type: controller.signUpUserPasswordRepeat.value,
+                                            type: 'userPasswordRepeat',
                                             valueKey: const ValueKey(5), 
                                             obscureText: true, 
                                             hintText: 'Password Repeat', 
+                                            controller: controller,
                                           ),
                                         ],
                                       ),
@@ -194,24 +199,26 @@ class _SignState extends State<Sign> {
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       // ERROR MESSAGE 
-                                      Container(
-                                        height: 15,
-                                        // color: Colors.blue[300],
-                                        child: Center(
-                                          child: Text('ERROR MESSAGE',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.red
+                                      Obx(()=>
+                                        Container(
+                                          height: 15,
+                                          // color: Colors.blue[300],
+                                          child: Center(
+                                            child: Text(controller.validationResult.value,
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.red
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        )
                                       ),
                                       SizedBox(height: 10,),
                                       // NEXT BUTTON
                                       InkWell(
                                         onTap: () {
-                                          controller.signIn();
+                                          isSignin ? controller.signIn() : controller.signUp();
                                         },
                                         child: Container(
                                           height: 35,
@@ -239,6 +246,7 @@ class _SignState extends State<Sign> {
                                           onTap: (){
                                             setState(() {
                                               isSignin = !isSignin;
+                                              controller.initValidation();
                                             });
                                           },
                                           child: Row(
@@ -293,12 +301,15 @@ class _SignState extends State<Sign> {
 }
 
 class SignTextField extends StatefulWidget {
-  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type});
+  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type, required this.controller});
+
+  final SignController controller;
+ 
 
   final ValueKey valueKey;
   final bool obscureText;
   final String hintText;
-  late final dynamic type;
+  late String type;
 
   @override
   State<SignTextField> createState() => _SignTextFieldState();
@@ -340,9 +351,7 @@ class _SignTextFieldState extends State<SignTextField> {
       ),
       
       onChanged: (value){
-        setState(() {
-          widget.type = value;
-        });
+          widget.controller.textFieldChanged(widget.type, value);
         // controller.signInUserEmail.value = value;
       },
     );
