@@ -147,6 +147,9 @@ class _SignState extends State<Sign> {
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
                                             controller: controller,
+                                            textInputAction: TextInputAction.next,
+                                            sign: isSignin,
+                                            nextEvent: true,
                                           ),
                                           SignTextField(
                                             type: 'userPassword',
@@ -154,6 +157,9 @@ class _SignState extends State<Sign> {
                                             obscureText: true, 
                                             hintText: 'Password', 
                                             controller: controller,
+                                            textInputAction: TextInputAction.done,
+                                            sign: isSignin,
+                                            nextEvent: false
                                           ),
                                           
                                         ],
@@ -169,6 +175,9 @@ class _SignState extends State<Sign> {
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
                                             controller: controller,
+                                            textInputAction: TextInputAction.next,
+                                            sign: isSignin,
+                                            nextEvent: true,
                                           ),
                                           SignTextField(
                                             type: 'userPassword',
@@ -176,6 +185,9 @@ class _SignState extends State<Sign> {
                                             obscureText: true, 
                                             hintText: 'Password', 
                                             controller: controller,
+                                            textInputAction: TextInputAction.next,
+                                            sign: isSignin,
+                                            nextEvent: true,
                                           ),
                                           SignTextField(
                                             type: 'userPasswordRepeat',
@@ -183,6 +195,9 @@ class _SignState extends State<Sign> {
                                             obscureText: true, 
                                             hintText: 'Password Repeat', 
                                             controller: controller,
+                                            textInputAction: TextInputAction.done,
+                                            sign: isSignin,
+                                            nextEvent: false
                                           ),
                                         ],
                                       ),
@@ -206,7 +221,7 @@ class _SignState extends State<Sign> {
                                           child: Center(
                                             child: Text(controller.validationResult.value,
                                               style: TextStyle(
-                                                fontSize: 10,
+                                                fontSize: 13,
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.red
                                               ),
@@ -249,14 +264,14 @@ class _SignState extends State<Sign> {
                                         child: Container(
                                           height: 30,
                                           margin: EdgeInsets.only(top: 5),
-                                          color: Colors.red[400],
+                                          // color: Colors.red[400],
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 isSignin ? 'Don’t you have an account? ' : 'Do you have an account? ',
                                                 style: TextStyle(
-                                                  fontSize: 10,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                   color: Palette.middleblack
                                                 ),
@@ -264,7 +279,7 @@ class _SignState extends State<Sign> {
                                               Text(isSignin ?'Sign Up !' :'Sign In !',
                                                 style: TextStyle(
                                                   color: Palette.black,
-                                                  fontSize: 10,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle: FontStyle.italic
                                                 ),
@@ -302,16 +317,17 @@ class _SignState extends State<Sign> {
 }
 
 class SignTextField extends StatefulWidget {
-  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type, required this.controller});
+  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type, required this.controller, required this.textInputAction, required this.nextEvent, required this.sign});
 
   final SignController controller;
  
-
   final ValueKey valueKey;
   final bool obscureText;
   final String hintText;
   late String type;
-
+  final TextInputAction textInputAction;
+  final bool sign;
+  final bool nextEvent;
   @override
   State<SignTextField> createState() => _SignTextFieldState();
 }
@@ -327,11 +343,13 @@ class _SignTextFieldState extends State<SignTextField> {
     
       cursorColor: Palette.black,
       cursorWidth: 2,
-      cursorHeight: 15,
+      cursorHeight: 20,
       autocorrect: false, // 
+
+      textInputAction: widget.textInputAction,
     
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
 
@@ -340,7 +358,7 @@ class _SignTextFieldState extends State<SignTextField> {
         hintText: widget.hintText,
         hintStyle: const TextStyle(
           color: Palette.gray,
-          fontSize: 14,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
         enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
@@ -354,6 +372,18 @@ class _SignTextFieldState extends State<SignTextField> {
       onChanged: (value){
           widget.controller.textFieldChanged(widget.type, value);
         // controller.signInUserEmail.value = value;
+      },
+      onSubmitted: (_){
+        if(widget.nextEvent){
+          // next 스코프 이벤트
+        }else{
+          if(widget.sign){
+            widget.controller.signIn('SignIn');
+          }else{
+            widget.controller.signIn('SignUp');
+          }
+        }
+        // print(widget.nextEvent.toString());
       },
     );
   }
