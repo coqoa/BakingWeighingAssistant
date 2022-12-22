@@ -62,50 +62,56 @@ class SignController extends GetxController{
     }
   }
 
-  Future<void> validation(errMsg)async {
+  Future<void> validation(errMsg, sign)async {
     print('----------');
     print(errMsg);
     print(validationResult.value);
+    print(sign);
     print('==========');
 
-    // signin인지 signup인지 검증하는 과정 한번 거치고 , 그 이후 에 조건문으로 분기 (2개의 if문으로 signin signup 분기 -> 
-    // sign up은 password 와 passwordRepeat 먼저 비교하고 나머지 검증)
-    // 전체적으로 디자인조절 (폰트크기 +@)
+    if(sign == 'SignIn'){
+      //SIGN IN
+      // 패스워드 오류
+      if(errMsg == 'The password is invalid or the user does not have a password.'){
+        validationResult.value = 'password invalid';
+      }
+      // 이메일 형식 오류
+      else if(errMsg == 'The email address is badly formatted.'){
+        validationResult.value = 'badly format email.';
+      }
+      // 없는 이메일
+      else if(errMsg == 'There is no user record corresponding to this identifier. The user may have been deleted.'){
+        validationResult.value = 'There is no user record';
+      }
 
-    //SIGN IN
-    // 패스워드 오류
-    if(errMsg == 'The password is invalid or the user does not have a password.'){
-      validationResult.value = 'password invalid';
-    }
-    // 이메일 형식 오류
-    else if(errMsg == 'The email address is badly formatted.'){
-      validationResult.value = 'badly format email.';
-    }
-    // 없는 이메일
-    else if(errMsg == 'There is no user record corresponding to this identifier. The user may have been deleted.'){
-      validationResult.value = 'There is no user record';
-    }
-    // SIGN UP
-    // 이메일 형식 오류
-    else if(errMsg == '[firebase_auth/invalid-email] The email address is badly formatted.'){
-      validationResult.value = 'badly format email.';
-    }
-    // 사용중인 이메일
-    else if(errMsg == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
-      validationResult.value = 'already in use email.';
-    }
-    // 비밀번호 길이
-    else if(errMsg == '[firebase_auth/weak-password] Password should be at least 6 characters'){
-      validationResult.value = 'at least 6 characters password';
+    }else{
+      // SIGN UP
+      if(userPassword == userPasswordRepeat){
+        // 이메일 형식 오류
+        if(errMsg == '[firebase_auth/invalid-email] The email address is badly formatted.'){
+          validationResult.value = 'badly format email.';
+        }
+        // 사용중인 이메일
+        else if(errMsg == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
+          validationResult.value = 'already in use email.';
+        }
+        // 비밀번호 길이
+        else if(errMsg == '[firebase_auth/weak-password] Password should be at least 6 characters'){
+          validationResult.value = 'at least 6 characters password';
+        }
+      }else{
+        validationResult.value = 'Passwords do not match';
+      }
+      
     }
     
-    else if(errMsg == ''){
-      validationResult.value = '';
-    }
+    // else if(errMsg == ''){
+    //   validationResult.value = '';
+    // }
     
   }
 
-  Future<void> signIn()async {
+  Future<void> signIn(sign)async {
     final signinBtnClicked = await _authentication.signInWithEmailAndPassword(
       email: userEmail.value, 
       password: userPassword.value
@@ -116,7 +122,7 @@ class SignController extends GetxController{
         // Get.to(transition: Transition.rightToLeft, Recipe());
       }
     }).catchError((e)async{
-      await validation(e.message);
+      await validation(e.message, sign);
 
       // Get.snackbar(
       //   authErrorMsg.value, 
@@ -133,7 +139,7 @@ class SignController extends GetxController{
 
   }
 
-  Future<void> signUp()async {
+  Future<void> signUp(sign)async {
     // 회원가입검증
     try{
       final newUser = await _authentication.createUserWithEmailAndPassword(
@@ -144,7 +150,7 @@ class SignController extends GetxController{
         print('가입완료 -> 이동할 페이지 넣기');
       }
     }catch(e){
-      await validation(e.toString());
+      await validation(e.toString(), sign);
     }
     print('user email = ${userEmail.value}');
     print('user password = ${userPassword.value}');

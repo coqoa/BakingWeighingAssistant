@@ -218,7 +218,7 @@ class _SignState extends State<Sign> {
                                       // NEXT BUTTON
                                       InkWell(
                                         onTap: () {
-                                          isSignin ? controller.signIn() : controller.signUp();
+                                          isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
                                         },
                                         child: Container(
                                           height: 35,
@@ -230,25 +230,26 @@ class _SignState extends State<Sign> {
                                           child: Center(
                                             child: Text(isSignin ?'Sign In' :'Sign Up',
                                             style: TextStyle(
-                                              color: Palette.white,
+                                              color: Colors.white,
                                               fontWeight: FontWeight.w900,
-                                              fontSize: 18
+                                              fontSize: 20
                                             ),),
                                           ), 
                                         ),
                                       ),
 
                                       // SIGN PAGE TOGGLE
-                                      Container(
-                                        height: 30,
-                                        // color: Colors.red[400],
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            setState(() {
-                                              isSignin = !isSignin;
-                                              controller.initValidation();
-                                            });
-                                          },
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            isSignin = !isSignin;
+                                            controller.initValidation();
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          margin: EdgeInsets.only(top: 5),
+                                          color: Colors.red[400],
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
