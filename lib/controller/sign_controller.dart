@@ -63,11 +63,11 @@ class SignController extends GetxController{
   }
 
   Future<void> validation(errMsg, sign)async {
-    print('----------');
-    print(errMsg);
-    print(validationResult.value);
-    print(sign);
-    print('==========');
+    // print('----------');
+    // print(errMsg);
+    // print(validationResult.value);
+    // print(sign);
+    // print('==========');
 
     if(sign == 'SignIn'){
       //SIGN IN
@@ -150,6 +150,8 @@ class SignController extends GetxController{
         print('가입완료 -> 이동할 페이지 넣기');
       }
     }catch(e){
+      print('e');
+      print(e);
       await validation(e.toString(), sign);
     }
     print('user email = ${userEmail.value}');

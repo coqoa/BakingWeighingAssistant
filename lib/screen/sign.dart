@@ -39,13 +39,29 @@ class _SignState extends State<Sign> {
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
         return Scaffold(
-          backgroundColor: Palette.backgroundColor,
+          // backgroundColor: Palette.backgroundColor,
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           body: Center(
             child: Container(
-              height: boxHeight, // 웹이면 변경
-              width: boxWidth, // 웹이면 변경
-              // color: Colors.amber,
-              color: Palette.white,
+              height: GetPlatform.isMobile? boxHeight: 667, // 웹이면 변경
+              width: GetPlatform.isMobile ? boxWidth : 375, // 웹이면 변경
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                // border: Border.all(
+                //   color:  GetPlatform.isMobile?Colors.transparent : Palette.gray,
+                //   width: 2.0,
+                // ),
+                // color: Colors.amber,
+                color: Palette.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.6),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: Offset(0, 1), // changes position of shadow
+                  ),
+                ],
+              ),
               padding: EdgeInsets.only(top: statusBarHeight),
               
 
@@ -142,24 +158,24 @@ class _SignState extends State<Sign> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SignTextField(
-                                            type: 'userEmail',
+                                            controller: controller,
                                             valueKey: const ValueKey(1), 
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
-                                            controller: controller,
+                                            type: 'userEmail',
                                             textInputAction: TextInputAction.next,
-                                            sign: isSignin,
                                             nextEvent: true,
+                                            sign: isSignin,
                                           ),
                                           SignTextField(
-                                            type: 'userPassword',
+                                            controller: controller,
                                             valueKey: const ValueKey(2), 
                                             obscureText: true, 
                                             hintText: 'Password', 
-                                            controller: controller,
+                                            type: 'userPassword',
                                             textInputAction: TextInputAction.done,
+                                            nextEvent: false,
                                             sign: isSignin,
-                                            nextEvent: false
                                           ),
                                           
                                         ],
@@ -170,34 +186,34 @@ class _SignState extends State<Sign> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           SignTextField(
-                                            type: 'userEmail',
+                                            controller: controller,
                                             valueKey: const ValueKey(3), 
                                             obscureText: false, 
                                             hintText: 'E-Mail Address', 
-                                            controller: controller,
+                                            type: 'userEmail',
                                             textInputAction: TextInputAction.next,
-                                            sign: isSignin,
                                             nextEvent: true,
+                                            sign: isSignin,
                                           ),
                                           SignTextField(
-                                            type: 'userPassword',
+                                            controller: controller,
                                             valueKey: const ValueKey(4), 
                                             obscureText: true, 
                                             hintText: 'Password', 
-                                            controller: controller,
+                                            type: 'userPassword',
                                             textInputAction: TextInputAction.next,
-                                            sign: isSignin,
                                             nextEvent: true,
+                                            sign: isSignin,
                                           ),
                                           SignTextField(
-                                            type: 'userPasswordRepeat',
+                                            controller: controller,
                                             valueKey: const ValueKey(5), 
                                             obscureText: true, 
                                             hintText: 'Password Repeat', 
-                                            controller: controller,
+                                            type: 'userPasswordRepeat',
                                             textInputAction: TextInputAction.done,
+                                            nextEvent: false,
                                             sign: isSignin,
-                                            nextEvent: false
                                           ),
                                         ],
                                       ),
@@ -233,6 +249,9 @@ class _SignState extends State<Sign> {
                                       // NEXT BUTTON
                                       InkWell(
                                         onTap: () {
+                                          print('isSignin');
+                                          print(isSignin);
+                                          print('isSignin');
                                           isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
                                         },
                                         child: Container(
@@ -296,12 +315,14 @@ class _SignState extends State<Sign> {
                           ),
 
                           // BOTTOM ADS
-                          Container(
+                          GetPlatform.isMobile 
+                          ? Container(
                             // width: 375,
                             width: boxWidth,
                             height: 30,
                             color: Colors.black54,
                           )
+                          : SizedBox()
                         ],
                       ),
                     ),
@@ -317,7 +338,17 @@ class _SignState extends State<Sign> {
 }
 
 class SignTextField extends StatefulWidget {
-  SignTextField({super.key, required this.valueKey, required this.obscureText, required this.hintText, required this.type, required this.controller, required this.textInputAction, required this.nextEvent, required this.sign});
+  SignTextField({
+    super.key, 
+    required this.controller, 
+    required this.valueKey, 
+    required this.obscureText, 
+    required this.hintText, 
+    required this.type, 
+    required this.textInputAction, 
+    required this.nextEvent, 
+    required this.sign
+  });
 
   final SignController controller;
  
@@ -326,8 +357,8 @@ class SignTextField extends StatefulWidget {
   final String hintText;
   late String type;
   final TextInputAction textInputAction;
-  final bool sign;
   final bool nextEvent;
+  final bool sign;
   @override
   State<SignTextField> createState() => _SignTextFieldState();
 }
@@ -371,7 +402,6 @@ class _SignTextFieldState extends State<SignTextField> {
       
       onChanged: (value){
           widget.controller.textFieldChanged(widget.type, value);
-        // controller.signInUserEmail.value = value;
       },
       onSubmitted: (_){
         if(widget.nextEvent){
@@ -380,7 +410,7 @@ class _SignTextFieldState extends State<SignTextField> {
           if(widget.sign){
             widget.controller.signIn('SignIn');
           }else{
-            widget.controller.signIn('SignUp');
+            widget.controller.signUp('SignUp');
           }
         }
         // print(widget.nextEvent.toString());
