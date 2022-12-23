@@ -8,49 +8,17 @@ class SignController extends GetxController{
 
   final _authentication = FirebaseAuth.instance;
 
-
-  // RxString signInUserEmail = ''.obs;
-  // RxString signInUserPassword = ''.obs;
-  
-  // RxString signUpUserEmail = ''.obs;
-  // RxString signUpUserPassword = ''.obs;
-  // RxString signUpUserPasswordRepeat = ''.obs;
-
   RxString userEmail = ''.obs;
   RxString userPassword = ''.obs;
   RxString userPasswordRepeat = ''.obs;
 
-
   RxString validationResult = ''.obs;
 
-  // RxString signInUserEmailValidationResult = ''.obs;
-  // RxString signInUserPasswordValidationResult = ''.obs;
-
-  // RxString signUpUserEmailValidationResult = ''.obs;
-  // RxString signUpUserPasswordValidationResult = ''.obs;
-  // RxString signUpUserPasswordRepeatValidationResult = ''.obs;
-
-  // RxString passwordValidationResult = 'Fail'.obs;
-  // RxBool validationResult = false as RxBool;
-
-  // TODO : validation은 회원가입시에만 하기
-  // Future<void> userEmailValidation({email})async {
-    
-  // }
-
-  // Future<void> passwordValidation({password})async {
-  //   if(password.length > 5){
-  //     passwordValidationResult.value = 'Pass';
-  //   }else{
-  //     passwordValidationResult.value = 'Fail';
-  //   }
-  // }
   Future<void> initValidation()async {
     validationResult.value = '';
   }
 
   Future<void> textFieldChanged(type, value)async {
-
     validationResult.value = '';
 
     if(type == 'userEmail'){ 
@@ -63,12 +31,6 @@ class SignController extends GetxController{
   }
 
   Future<void> validation(errMsg, sign)async {
-    // print('----------');
-    // print(errMsg);
-    // print(validationResult.value);
-    // print(sign);
-    // print('==========');
-
     if(sign == 'SignIn'){
       //SIGN IN
       // 패스워드 오류

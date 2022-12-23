@@ -4,6 +4,7 @@
 import 'package:bwa/apikey.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/add.dart';
+import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,11 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(
-        child: Sign(),
-        // child: ,
+        child: Scaffold(
+          backgroundColor: Color.fromARGB(250, 235, 235, 235),
+          // body: Sign()
+          body: Menu()
+        ),
       ),
     );
   }

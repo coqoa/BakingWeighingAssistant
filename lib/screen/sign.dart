@@ -3,8 +3,6 @@
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/sign_controller.dart';
 import 'package:bwa/screen/recipe.dart';
-import 'package:bwa/widget/sign_in.dart';
-import 'package:bwa/widget/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -38,12 +36,9 @@ class _SignState extends State<Sign> {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
-        return Scaffold(
-          // backgroundColor: Palette.backgroundColor,
-          backgroundColor: Color.fromARGB(250, 235, 235, 235),
-          body: Center(
+        return Center(
             child: Container(
-              height: GetPlatform.isMobile? boxHeight: 667, // 웹이면 변경
+              height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
               width: GetPlatform.isMobile ? boxWidth : 375, // 웹이면 변경
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -249,9 +244,6 @@ class _SignState extends State<Sign> {
                                       // NEXT BUTTON
                                       InkWell(
                                         onTap: () {
-                                          print('isSignin');
-                                          print(isSignin);
-                                          print('isSignin');
                                           isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
                                         },
                                         child: Container(
@@ -259,7 +251,7 @@ class _SignState extends State<Sign> {
                                           decoration: BoxDecoration(
                                             color: Palette.black,
                                             // borderRadius: BorderRadius.circular(50)
-                                            borderRadius: BorderRadius.circular(5)
+                                            borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Center(
                                             child: Text(isSignin ?'Sign In' :'Sign Up',
@@ -330,8 +322,7 @@ class _SignState extends State<Sign> {
                 ],
               ),
             ),
-          ),
-        );
+          );
       },
     );
   }
