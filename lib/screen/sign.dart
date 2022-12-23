@@ -40,7 +40,7 @@ class _SignState extends State<Sign> {
       builder: (context, isKeyboardVisible) { 
         return Scaffold(
           // backgroundColor: Palette.backgroundColor,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: Color.fromARGB(250, 235, 235, 235),
           body: Center(
             child: Container(
               height: GetPlatform.isMobile? boxHeight: 667, // 웹이면 변경
@@ -55,10 +55,10 @@ class _SignState extends State<Sign> {
                 color: Palette.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.6),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: Offset(0, 1), // changes position of shadow
+                    color: Colors.grey.withOpacity(0.03),
+                    spreadRadius: 18,
+                    blurRadius: 18,
+                    offset: Offset(1, 1), // changes position of shadow
                   ),
                 ],
               ),
@@ -397,7 +397,7 @@ class _SignTextFieldState extends State<SignTextField> {
         filled: true,
         fillColor: Palette.white,
         isDense: true,
-        contentPadding: EdgeInsets.fromLTRB(5,15,0,3)
+        contentPadding: EdgeInsets.fromLTRB(5,15,0,5)
       ),
       
       onChanged: (value){
