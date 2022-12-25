@@ -20,7 +20,6 @@ class _SignState extends State<Sign> {
   late double statusBarHeight = MediaQuery.of(context).padding.top; // 상단 바
   late double boxWidth = MediaQuery.of(context).size.width; //
   late double boxHeight = MediaQuery.of(context).size.height;
-  double bottomAdHeight = 50;
 
   final SignController controller = SignController(); 
 
@@ -38,22 +37,23 @@ class _SignState extends State<Sign> {
       builder: (context, isKeyboardVisible) { 
         return Center(
             child: Container(
-              height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
-              width: GetPlatform.isMobile ? boxWidth : 375, // 웹이면 변경
+              height: GetPlatform.isMobile? boxHeight: 637, // 웹 / 모바일 height 분기
+              width: GetPlatform.isMobile ? boxWidth : 375, // 웹 / 모바일 width 분기
               decoration: BoxDecoration(
+                color: Palette.white,
                 borderRadius: BorderRadius.circular(15),
+                // 컨테이너 테두리 선
                 // border: Border.all(
                 //   color:  GetPlatform.isMobile?Colors.transparent : Palette.gray,
                 //   width: 2.0,
                 // ),
-                // color: Colors.amber,
-                color: Palette.white,
+                // 그림자
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.03),
                     spreadRadius: 18,
                     blurRadius: 18,
-                    offset: Offset(1, 1), // changes position of shadow
+                    offset: Offset(1, 1), 
                   ),
                 ],
               ),
@@ -63,66 +63,70 @@ class _SignState extends State<Sign> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // LOGO
+                  // 상단 로고
                   Positioned(
                     top: 0,
                     child: AnimatedContainer(
-                        duration: Duration(milliseconds: 150),
-                        curve: Curves.linear,
-                        width: 300,
-                        height: isKeyboardVisible ? 0 :350,
-                        child: Container(
-                          // color: Colors.red.withOpacity(0.5),
-                            child: Center(
-                              child: 
-                                // TITLE
-                                Stack(
-                                  children: <Widget>[
-                                    Text(
-                                      'Gramming',
-                                      style: TextStyle(
-                                        fontFamily: 'carter',
-                                        fontSize: 50,
-                                        foreground: Paint()
-                                          ..style = PaintingStyle.stroke
-                                          ..strokeWidth = 4
-                                          ..color = Colors.black,
-                                        letterSpacing: 2,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Gramming',
-                                      style: TextStyle(
-                                        fontFamily: 'carter',
-                                        fontSize: 50,
-                                        color: Palette.white,
-                                        letterSpacing: 2,
-                                        shadows: const <Shadow>[
-                                          Shadow(
-                                            offset: Offset(6.0, 2.0),
-                                            blurRadius: 0,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                          ),
-                                        ],
-                                      ),
+                      duration: Duration(milliseconds: 150),
+                      curve: Curves.linear,
+                      width: 300,
+                      height: isKeyboardVisible ? 0 :350,
+                      child: Container(
+                        // color: Colors.red.withOpacity(0.5),
+                        child: Center(
+                          child: 
+                          // TITLE
+                          Stack(
+                            children: <Widget>[
+                              // 
+                              Text(
+                                'Gramming',
+                                style: TextStyle(
+                                  fontFamily: 'carter',
+                                  fontSize: 50,
+                                  // 텍스트 테두리 선
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 4
+                                    ..color = Colors.black,
+                                  // 자간
+                                  letterSpacing: 2,
+                                ),
+                              ),
+                              Text(
+                                'Gramming',
+                                style: TextStyle(
+                                  fontFamily: 'carter',
+                                  fontSize: 50,
+                                  color: Palette.white,
+                                  letterSpacing: 2,
+                                  // TODO 텍스트 그림자 꼭 필요한가/.
+                                  shadows: const <Shadow>[
+                                    Shadow(
+                                      offset: Offset(6.0, 2.0),
+                                      blurRadius: 0,
+                                      color: Color.fromARGB(255, 0, 0, 0),
                                     ),
                                   ],
-                                )
-                            ),
+                                ),
+                              ),
+                            ],
                           )
-                      ),
+                        ),
+                      )
+                    ),
 
                   ),
                   
-                  // SIGN SECTION 
+                  // 로그인 / 회원가입 + 애드몹 섹션
                   Positioned(
                     bottom: 0,
                     child: Container(
                       // width: 375, // web이라면?
-                      width: boxWidth,
+                      width: boxWidth, // TODO 디자인 체크 필요 : boxWidth 변수자체에 initState할때 값을 지정? (웹 / 모바일에 따라), 이 아래에 width, height 모두 변경해야할 필요성?
                       height: isKeyboardVisible 
                       ? MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom
-                      : 365, // fix ?
+                      : 365, // fix ? // TODO 삭제하거나 수정해도될지?
                       // color: Colors.red,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,7 +176,6 @@ class _SignState extends State<Sign> {
                                             nextEvent: false,
                                             sign: isSignin,
                                           ),
-                                          
                                         ],
                                       )
 
@@ -396,7 +399,7 @@ class _SignTextFieldState extends State<SignTextField> {
       },
       onSubmitted: (_){
         if(widget.nextEvent){
-          // next 스코프 이벤트
+          // next Scope 이벤트
         }else{
           if(widget.sign){
             widget.controller.signIn('SignIn');
