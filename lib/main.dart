@@ -56,10 +56,8 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Color.fromARGB(250, 235, 235, 235),
+        child: Menu(
           // body: Sign()
-          body: Menu()
         ),
       ),
     );

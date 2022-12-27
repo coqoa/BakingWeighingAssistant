@@ -31,276 +31,202 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: Container(
-        height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
-        width: GetPlatform.isMobile ? boxWidth : 375, 
-        color: Colors.amber,
-
-        child: Stack(
-          children: [
-            // 상단 바
-            Positioned(
-              top: 0,
-              child: Container(
-                width: boxWidth,
-                height: 56,
-                color: Colors.red,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(width: 56,),
-                    Text('folder'),
-                    GestureDetector(
-                      onTap: (){
-                        print('+++++++++++++++++++++++++++++++');
-                        Get.dialog(
-                          // // 커스텀 다이얼로그
-                          // Material(
-                          //   type: MaterialType.transparency,
-                          //   child: Center(
-                          //     child: Container(
-                          //       width: 250,
-                          //       height: 150,
-                          //       padding: EdgeInsets.all(5),
-                          //       color: Colors.white,
-                          //       child: Stack(
-                          //         children: [
-                          //           Positioned(
-                          //             top: 0,
-                          //             right: 0,
-                          //             child: GestureDetector(
-                          //               onTap: () => Get.back(),
-                          //               child: Container(
-                          //                 width: 20,
-                          //                 height: 20,
-                          //                 color: Colors.green,
-                          //                 child: Center(child: Text('x',style: TextStyle(color: Colors.white),)),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           const Center(
-                          //             child: Text('텍스트필드 여기',
-                          //               style: TextStyle(
-                          //                 fontSize: 15,
-                          //                 color: Colors.black,
-                          //               ),
-                          //             )
-                          //           ),
-                          //           Align(
-                          //             alignment: Alignment.bottomCenter,
-                          //             child:InkWell(
-                          //               onTap: (){
-                          //                 print('리스트 추가 이벤트');
-                          //               },
-                          //               child: Container(
-                          //                 width: 80,
-                          //                 height: 30,
-                          //                 margin: EdgeInsets.only(bottom: 5),
-                          //                 decoration: BoxDecoration(
-                          //                   borderRadius: BorderRadius.circular(15),
-                          //                   color: Colors.blue
-                          //                 ),
-                          //                 child: Center(child: Text('추가', style: TextStyle(color: Colors.white),)),
-                          //               ),
-                          //             )
-                          //           )
-                          //         ],
-                          //       ),
-                          //     ),
-                              
-                          //   ),
-                          // )
-                          CustomDialog(customWidget: Container(width: 100, height: 50, color: Colors.amber,),)
-                        );
-                      },
-                      child: Container(
-                        width: 56,
-                        color: Colors.green,
-                        child: Center(child: Text('+')),
-                      ),
-                    )
-                  ],
+    return Scaffold(
+      // backgroundColor: Color.fromARGB(250, 235, 235, 235),
+      
+      body: Stack(
+        children: [
+          Container(
+            height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
+            width: GetPlatform.isMobile ? boxWidth : 375, 
+            color: Colors.white,
+            // color: Colors.amber,
+            
+            child: Obx(()=>
+              Theme(
+                // 드래그 디자인 지우기
+                data: Theme.of(context).copyWith(
+                  canvasColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
                 ),
-              ),
-            ),
-            // 리스트
-            Center(
-              child: Container(
-                height: 500,
-                width: 287,
-                color: Colors.blue,
-                child: Obx(()=>
-                  ReorderableListView(
-                    
-                    onReorder: (int oldIndex, int newIndex) {
-                      // setState(() {
-                        if (newIndex > oldIndex) {
-                          newIndex -= 1;
-                        }
-                        final moveItem = controller.testList.removeAt(oldIndex);
-                        controller.testList.insert(newIndex, moveItem);
-
-                        print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
-                      // });
-                    },
-                    onReorderStart: (index) {
-
-                    },
-                    onReorderEnd: (index) async{
-                      print(index); // 놓여지는 위치
-                    },
-
-                    children: controller.testList.map((item) => 
-                      Column(
-                        key: Key(item),// ReorderableListView 자식 요소로 필수 
+                
+                child: ReorderableListView(
+                  onReorder: (int oldIndex, int newIndex) {
+                    // setState(() {
+                      if (newIndex > oldIndex) {
+                        newIndex -= 1;
+                      }
+                      final moveItem = controller.testList.removeAt(oldIndex);
+                      controller.testList.insert(newIndex, moveItem);
+              
+                      print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
+                    // });
+                  },
+                  onReorderStart: (index) {
+              
+                  },
+                  onReorderEnd: (index) async{
+                    print(index); // 놓여지는 위치
+                  },
+              
+                  children: controller.testList.map((item) => 
+                    Container(
+                      key: Key(item),// ReorderableListView 자식 요소로 필수 
+                      // width: 300,
+                      height: 180,
+                      margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                      padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        boxShadow: [
+                          const BoxShadow(
+                            blurRadius: 12,
+                            offset: Offset(3.0, 6.0),
+                            color: Color.fromRGBO(0, 0, 0, .10),
+                          )
+                        ]
+                      ),
+                      child: Stack(
                         children: [
-                          Container(
-                            width: 300,
-                            height: 150,
-                            color: Colors.white.withOpacity(1),
-                            child: Stack(
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
                               children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: [
-                                      Text(item,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          decoration: TextDecoration.underline,
-                                          decorationThickness: 2,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ),
-                                Positioned(
-                                  top: 5,
-                                  right: 5,
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          print('$item 수정!?');
-                                        },
-                                        child: const Text('수정',
-                                          style: TextStyle(
-                                            color: Palette.lightgray,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 5,),
-                                      InkWell(
-                                        onTap: () {
-                                          print('$item 삭제!?');
-                                        },
-                                        child: const Text('삭제',
-                                          style: TextStyle(
-                                            color: Palette.lightgray
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                Text(item,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30,
+                                    decoration: TextDecoration.underline,
+                                    decorationThickness: 2,
+                                  ),
                                 ),
                               ],
-                            ),
+                            )
                           ),
-                          const SizedBox(height: 5,)
+                          Positioned(
+                            top: 5,
+                            right: 5,
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    print('$item 수정!?');
+                                  },
+                                  child: const Text('수정',
+                                    style: TextStyle(
+                                      color: Palette.lightgray,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 5,),
+                                InkWell(
+                                  onTap: () {
+                                    print('$item 삭제!?');
+                                  },
+                                  child: const Text('삭제',
+                                    style: TextStyle(
+                                      color: Palette.lightgray
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ),
                         ],
-                      )
-                    ).toList(),
-                  )
+                      ),
+                    )
+                  ).toList(),
                 ),
-              ),
-            ),
-            // 광고 섹션
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: boxWidth,
-                height: adHeight,
-                color: Colors.green,
-                child: Text('ADS SECTION'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// TODO 커스텀 다이얼로그 기초 틀 짜고 크기, 내용, 버튼 텍스트 & 함수는 파라미터로 넣어서 사용하도록 구현
-class CustomDialog extends StatefulWidget {
-  const CustomDialog({super.key, required this.customWidget});
-
-  final Widget customWidget;
-
-  @override
-  State<CustomDialog> createState() => _CustomDialogState();
-}
-
-class _CustomDialogState extends State<CustomDialog> {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.transparency,
-      child: Center(
-        child: Container(
-          width: 250,
-          height: 150,
-          padding: EdgeInsets.all(5),
-          color: Colors.white,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    color: Colors.green,
-                    child: Center(child: Text('x',style: TextStyle(color: Colors.white),)),
-                  ),
-                ),
-              ),
-              const Center(
-                child: Text('텍스트필드 여기',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
-                )
-              ),
-              widget.customWidget,
-              Align(
-                alignment: Alignment.bottomCenter,
-                child:InkWell(
-                  onTap: (){
-                    print('리스트 추가 이벤트');
-                  },
-                  child: Container(
-                    width: 80,
-                    height: 30,
-                    margin: EdgeInsets.only(bottom: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.blue
-                    ),
-                    child: Center(child: Text('추가', style: TextStyle(color: Colors.white),)),
-                  ),
-                )
               )
-            ],
+            ),
           ),
-        ),
-        
+          Positioned(
+            right: 20,
+            bottom: 20,
+            child: FloatingActionButton(
+              backgroundColor: Palette.black,
+              child: Icon(Icons.add,),
+              onPressed: (){
+          
+            }),
+          )
+        ],
       ),
     );
   }
 }
+
+// // TODO 커스텀 다이얼로그 기초 틀 짜고 크기, 내용, 버튼 텍스트 & 함수는 파라미터로 넣어서 사용하도록 구현
+// // 카톡 나와의 채팅에 보낸 링크 참고해서 폰트 정하기
+// class CustomDialog extends StatefulWidget {
+//   const CustomDialog({super.key, required this.customWidget});
+
+//   final Widget customWidget;
+
+//   @override
+//   State<CustomDialog> createState() => _CustomDialogState();
+// }
+
+// class _CustomDialogState extends State<CustomDialog> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       type: MaterialType.transparency,
+//       child: Center(
+//         child: Container(
+//           width: 250,
+//           height: 150,
+//           padding: EdgeInsets.all(5),
+//           color: Colors.white,
+//           child: Stack(
+//             children: [
+//               Positioned(
+//                 top: 0,
+//                 right: 0,
+//                 child: GestureDetector(
+//                   onTap: () => Get.back(),
+//                   child: Container(
+//                     width: 20,
+//                     height: 20,
+//                     color: Colors.green,
+//                     child: Center(child: Text('x',style: TextStyle(color: Colors.white),)),
+//                   ),
+//                 ),
+//               ),
+//               const Center(
+//                 child: Text('텍스트필드 여기',
+//                   style: TextStyle(
+//                     fontSize: 15,
+//                     color: Colors.black,
+//                   ),
+//                 )
+//               ),
+//               widget.customWidget,
+//               Align(
+//                 alignment: Alignment.bottomCenter,
+//                 child:InkWell(
+//                   onTap: (){
+//                     print('리스트 추가 이벤트');
+//                   },
+//                   child: Container(
+//                     width: 80,
+//                     height: 30,
+//                     margin: EdgeInsets.only(bottom: 5),
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(15),
+//                       color: Colors.blue
+//                     ),
+//                     child: Center(child: Text('추가', style: TextStyle(color: Colors.white),)),
+//                   ),
+//                 )
+//               )
+//             ],
+//           ),
+//         ),
+        
+//       ),
+//     );
+//   }
+// }
