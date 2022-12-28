@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controller/menu_controller.dart';
 import '../widget/default_alert_dialog_onebutton.dart';
@@ -101,14 +102,11 @@ class _MenuState extends State<Menu> {
                                   style: const TextStyle(
                                     fontFamily: 'jalnan',
                                     color: Palette.lightblack,
-                                    // fontWeight: FontWeight.bold,
                                     fontSize: 25,
-                                    // decoration: TextDecoration.underline,
-                                    // decorationThickness: 2,
                                   ),
                                 ),
                               ],
-                            )
+                            ) 
                           ),
                           
                           Positioned(
@@ -118,22 +116,36 @@ class _MenuState extends State<Menu> {
                               children: [
                                 InkWell(
                                   child: Container(
-                                    width: 27,
-                                    height: 30,
-                                    // color: Colors.red,
-                                    child: Icon(Icons.edit,color: Palette.gray,size: 23,)
+                                    width: 35,
+                                    height: 35,
+
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        'assets/images/pencil-solid.svg',
+                                        color: Palette.gray,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ),
                                   ),
                                   onTap: () {
                                     print('$item 수정!?');
                                   },
                                 ),
-                                SizedBox(width: 10,),
+                                SizedBox(width: 5,),
                                 InkWell(
                                   child: Container(
-                                    width: 27,
-                                    height: 30,
+                                    width: 35,
+                                    height: 35,
                                     // color: Colors.blue,
-                                    child: Icon(Icons.delete,color: Palette.gray,size: 23,)
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        'assets/images/eraser-solid.svg',
+                                        color: Palette.gray,
+                                        width: 24,
+                                        height: 24,
+                                      ),
+                                    ),
                                   ),
                                   onTap: () {
                                     print('$item 삭제!?');
@@ -151,13 +163,28 @@ class _MenuState extends State<Menu> {
             ),
           ),
           Positioned(
-            right: 20,
-            bottom: 20,
-            child: FloatingActionButton(
-              backgroundColor: Palette.black,
-              child: Icon(Icons.add,),
-              onPressed: (){
-                // 투버튼
+            right: 0,
+            bottom: 0,
+            child: GestureDetector(
+              child: Container(
+                width: 90,
+                height: 90,
+                child: Lottie.asset('assets/lotties/plus-lottie.json',),
+              ),
+              onTap: (){
+                // 원버튼
+                showDialog(
+                  context: context, 
+                  builder: (_){
+                    return DefaultAlertDialogOneButton(
+                      title: 'title', 
+                      contents: Text('contents'), 
+                      buttonTitle: 'BTN',
+                      confirmFunction: (){},
+                    );
+                  }
+                );
+                // // 투버튼
                 // showDialog(
                 //   context: context, 
                 //   builder: (_){
@@ -171,20 +198,7 @@ class _MenuState extends State<Menu> {
                 //     );
                 //   }
                 // );
-
-                // 원버튼
-                showDialog(
-                  context: context, 
-                  builder: (_){
-                    return DefaultAlertDialogOneButton(
-                      title: 'title', 
-                      contents: Text('contents'), 
-                      buttonTitle: 'BTN',
-                      confirmFunction: (){},
-                    );
-                  }
-                );
-              }
+              },
             ),
           )
         ],
