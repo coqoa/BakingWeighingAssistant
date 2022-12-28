@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../controller/menu_controller.dart';
+import '../widget/default_alert_dialog_onebutton.dart';
+import '../widget/default_alert_dialog_twobutton.dart';
 
 
 class Menu extends StatefulWidget {
@@ -90,46 +92,52 @@ class _MenuState extends State<Menu> {
                       ),
                       child: Stack(
                         children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
+                          Center(
+                            // alignment: Alignment.center,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(item,
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30,
-                                    decoration: TextDecoration.underline,
-                                    decorationThickness: 2,
+                                    fontFamily: 'jalnan',
+                                    color: Palette.lightblack,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    // decoration: TextDecoration.underline,
+                                    // decorationThickness: 2,
                                   ),
                                 ),
                               ],
                             )
                           ),
+                          
                           Positioned(
-                            top: 5,
-                            right: 5,
+                            bottom: 0,
+                            right: 0,
                             child: Row(
                               children: [
                                 InkWell(
+                                  child: Container(
+                                    width: 27,
+                                    height: 30,
+                                    // color: Colors.red,
+                                    child: Icon(Icons.edit,color: Palette.gray,size: 23,)
+                                  ),
                                   onTap: () {
                                     print('$item 수정!?');
                                   },
-                                  child: const Text('수정',
-                                    style: TextStyle(
-                                      color: Palette.lightgray,
-                                    ),
-                                  ),
                                 ),
-                                SizedBox(width: 5,),
+                                SizedBox(width: 10,),
                                 InkWell(
+                                  child: Container(
+                                    width: 27,
+                                    height: 30,
+                                    // color: Colors.blue,
+                                    child: Icon(Icons.delete,color: Palette.gray,size: 23,)
+                                  ),
                                   onTap: () {
                                     print('$item 삭제!?');
                                   },
-                                  child: const Text('삭제',
-                                    style: TextStyle(
-                                      color: Palette.lightgray
-                                    ),
-                                  ),
                                 ),
                               ],
                             )
@@ -149,84 +157,38 @@ class _MenuState extends State<Menu> {
               backgroundColor: Palette.black,
               child: Icon(Icons.add,),
               onPressed: (){
-          
-            }),
+                // 투버튼
+                // showDialog(
+                //   context: context, 
+                //   builder: (_){
+                //     return DefaultAlertDialogTwoButton(
+                //       title: '',
+                //       contents: Text('data'), 
+                //       leftButtonFunction: (){}, 
+                //       leftButtonName: 'L', 
+                //       rightButtonFuction: (){}, 
+                //       rightButtonName: 'R', 
+                //     );
+                //   }
+                // );
+
+                // 원버튼
+                showDialog(
+                  context: context, 
+                  builder: (_){
+                    return DefaultAlertDialogOneButton(
+                      title: 'title', 
+                      contents: Text('contents'), 
+                      buttonTitle: 'BTN',
+                      confirmFunction: (){},
+                    );
+                  }
+                );
+              }
+            ),
           )
         ],
       ),
     );
   }
 }
-
-// // TODO 커스텀 다이얼로그 기초 틀 짜고 크기, 내용, 버튼 텍스트 & 함수는 파라미터로 넣어서 사용하도록 구현
-// // 카톡 나와의 채팅에 보낸 링크 참고해서 폰트 정하기
-// class CustomDialog extends StatefulWidget {
-//   const CustomDialog({super.key, required this.customWidget});
-
-//   final Widget customWidget;
-
-//   @override
-//   State<CustomDialog> createState() => _CustomDialogState();
-// }
-
-// class _CustomDialogState extends State<CustomDialog> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       type: MaterialType.transparency,
-//       child: Center(
-//         child: Container(
-//           width: 250,
-//           height: 150,
-//           padding: EdgeInsets.all(5),
-//           color: Colors.white,
-//           child: Stack(
-//             children: [
-//               Positioned(
-//                 top: 0,
-//                 right: 0,
-//                 child: GestureDetector(
-//                   onTap: () => Get.back(),
-//                   child: Container(
-//                     width: 20,
-//                     height: 20,
-//                     color: Colors.green,
-//                     child: Center(child: Text('x',style: TextStyle(color: Colors.white),)),
-//                   ),
-//                 ),
-//               ),
-//               const Center(
-//                 child: Text('텍스트필드 여기',
-//                   style: TextStyle(
-//                     fontSize: 15,
-//                     color: Colors.black,
-//                   ),
-//                 )
-//               ),
-//               widget.customWidget,
-//               Align(
-//                 alignment: Alignment.bottomCenter,
-//                 child:InkWell(
-//                   onTap: (){
-//                     print('리스트 추가 이벤트');
-//                   },
-//                   child: Container(
-//                     width: 80,
-//                     height: 30,
-//                     margin: EdgeInsets.only(bottom: 5),
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(15),
-//                       color: Colors.blue
-//                     ),
-//                     child: Center(child: Text('추가', style: TextStyle(color: Colors.white),)),
-//                   ),
-//                 )
-//               )
-//             ],
-//           ),
-//         ),
-        
-//       ),
-//     );
-//   }
-// }

@@ -85,8 +85,9 @@ flutter:
     - family: carter
       fonts:
         - asset: assets/font/CarterOne-Regular.ttf
-        # - asset: assets/font/CarterOne-Regular.otf
-        # - asset: assets/font/CarterOne-Regular.woff
+    - family: jalnan
+      fonts:
+        - asset: assets/font/JalnanOTF.otf
     - family: notosans
       fonts:
         - asset: assets/font/NotoSansKR-Black.otf
