@@ -34,6 +34,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
 
+    
     return Scaffold(
       // backgroundColor: Color.fromARGB(250, 235, 235, 235),
       
@@ -43,8 +44,8 @@ class _MenuState extends State<Menu> {
             height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
             width: GetPlatform.isMobile ? boxWidth : 375, 
             color: Colors.white,
-            // color: Colors.amber,
-            
+            padding: const EdgeInsets.only(bottom: 30),
+
             child: Obx(()=>
               Theme(
                 // 드래그 디자인 지우기
@@ -66,7 +67,6 @@ class _MenuState extends State<Menu> {
                     // });
                   },
                   onReorderStart: (index) {
-              
                   },
                   onReorderEnd: (index) async{
                     print(index); // 놓여지는 위치
@@ -77,16 +77,16 @@ class _MenuState extends State<Menu> {
                       key: Key(item),// ReorderableListView 자식 요소로 필수 
                       // width: 300,
                       height: 180,
-                      margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
-                      padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+                      margin: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                         // ignore: prefer_const_literals_to_create_immutables
                         boxShadow: [
-                          const BoxShadow(
+                          BoxShadow(
                             blurRadius: 12,
-                            offset: Offset(3.0, 6.0),
+                            offset: const Offset(3.0, 6.0),
                             color: Color.fromRGBO(0, 0, 0, .10),
                           )
                         ]
@@ -115,10 +115,9 @@ class _MenuState extends State<Menu> {
                             child: Row(
                               children: [
                                 InkWell(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 35,
                                     height: 35,
-
                                     child: Center(
                                       child: SvgPicture.asset(
                                         'assets/images/pencil-solid.svg',
@@ -129,12 +128,90 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                   onTap: () {
-                                    print('$item 수정!?');
+                                    showDialog(
+                                      context: context, 
+                                      builder: (_){
+                                        return DefaultAlertDialogOneButton(
+                                          title: 'EDIT', 
+                                          contents: Container(
+                                            width: 250,
+                                            height: 100,
+                                            // color: Colors.red,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const SizedBox(),
+                                                TextField(
+                                                  key: GlobalKey(), // 
+                                                  keyboardType: TextInputType.emailAddress,
+                                                
+                                                  cursorColor: Palette.lightblack,
+                                                  cursorWidth: 2,
+                                                  cursorHeight: 20,
+                                                  autofocus: true,
+                                                  autocorrect: false, // 
+
+                                                  // textInputAction: widget.textInputAction,
+                                                
+                                                  style: const TextStyle(
+                                                    fontSize: 30,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+
+                                                  decoration: const InputDecoration(
+                                                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                    filled: true,
+                                                    fillColor: Palette.white,
+                                                    isDense: true,
+                                                    contentPadding: EdgeInsets.fromLTRB(10,0,10,5)
+                                                  ),
+                                                  
+                                                  onChanged: (value){
+                                                      // widget.controller.textFieldChanged(widget.type, value);
+                                                  },
+                                                  onSubmitted: (_){
+                                                    // if(widget.nextEvent){
+                                                    //   // next Scope 이벤트
+                                                    // }else{
+                                                    //   if(widget.sign){
+                                                    //     widget.controller.signIn('SignIn');
+                                                    //   }else{
+                                                    //     widget.controller.signUp('SignUp');
+                                                    //   }
+                                                    // }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          buttonTitle: 'Ok',
+                                          confirmFunction: (){
+
+                                          },
+                                        );
+                                      }
+                                    );
+
+                                    // // // 투버튼
+                                    // showDialog(
+                                    //   context: context, 
+                                    //   builder: (_){
+                                    //     return DefaultAlertDialogTwoButton(
+                                    //       title: 'EDIT',
+                                    //       contents: Text('수정창'), 
+                                    //       leftButtonFunction: (){}, 
+                                    //       leftButtonName: 'No', 
+                                    //       rightButtonFuction: (){}, 
+                                    //       rightButtonName: 'Ok', 
+                                    //     );
+                                    //   }
+                                    // );
                                   },
                                 ),
-                                SizedBox(width: 5,),
+                                const SizedBox(width: 5,),
                                 InkWell(
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 35,
                                     height: 35,
                                     // color: Colors.blue,
@@ -167,8 +244,11 @@ class _MenuState extends State<Menu> {
             bottom: 0,
             child: GestureDetector(
               child: Container(
-                width: 90,
-                height: 90,
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50)
+                ),
                 child: Lottie.asset('assets/lotties/plus-lottie.json',),
               ),
               onTap: (){
@@ -200,9 +280,36 @@ class _MenuState extends State<Menu> {
                 // );
               },
             ),
-          )
+          ),
+          // ParameterTestWidget(param1: 'param1',param2: 'param2', param3:'param3', param4:4)
         ],
       ),
     );
   }
 }
+
+// class ParameterTestWidget extends StatefulWidget {
+//   ParameterTestWidget({super.key, required this.param1, required this.param2, this.param3, this.param4});
+//   final String param1; // required
+//   final String param2; // required
+//   dynamic param3; // optinal
+//   var param4; // optinal
+  
+
+//   @override
+//   State<ParameterTestWidget> createState() => _ParameterTestWidgetState();
+// }
+
+// class _ParameterTestWidgetState extends State<ParameterTestWidget> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Text(widget.param1),
+//         Text(widget.param2),
+//         Text(widget.param3),
+//         Text(widget.param4),
+//       ],
+//     );
+//   }
+// }

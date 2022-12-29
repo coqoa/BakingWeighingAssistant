@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 class DefaultAlertDialogOneButton extends StatelessWidget{
 
   late String title;
-  late String buttonTitle;
   late Widget contents;
+  late String buttonTitle;
   late Function? confirmFunction;
   DefaultAlertDialogOneButton({required this.title, required this.contents,required this.buttonTitle, this.confirmFunction});
 
@@ -18,7 +18,7 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22.0),
       ),
-      title: Center(child: Text(title,style: TextStyle(fontFamily:'NotoSansBold',fontSize: 22))),
+      title: Center(child: Text(title,style: TextStyle(fontFamily:'jalnan',fontSize: 22, color: Palette.lightblack))),
       content: Container(
         height: 188,
         width: 328,
@@ -49,16 +49,19 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                   },
                     child: Container(
                         height: 44,
-                        width: 296,
+                        width: 200,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Palette.black,
+                          color: Palette.lightblack,
                         ),    
                         padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 3),
                         child: Center(
-                          child: Text(
-                            buttonTitle
-                            ,style: TextStyle(color: Palette.white,fontFamily:'NotoSansBold',fontSize: 13)
+                          child: Text(buttonTitle
+                            ,style: const TextStyle(
+                              color: Palette.white,
+                              fontFamily: 'jalnan',
+                              fontSize: 17
+                            )
                           ),
                         )
                     )

@@ -34,7 +34,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
             Container(
               height: 72,
               decoration: BoxDecoration(
-                color: Palette.gray,
+                color: Palette.lightgray,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(22),bottomRight: Radius.circular(22))
               ),
               
@@ -51,11 +51,11 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                         color: Palette.white,
                         border: Border.all(color: Palette.lightgray)
                       ),
-                      padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 3),
+                      padding: const EdgeInsets.only(right: 15.0,left: 15.0),
                       child: Center(
                         child: 
                         Text(leftButtonName,
-                            style: TextStyle(color:Palette.lightblack,fontFamily:'NotoSansBold',fontSize: 13)
+                            style: TextStyle(color:Palette.darkgray,fontFamily:'NotoSansBold',fontSize: 13)
                         ),
                       )
                   )
@@ -70,14 +70,18 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                         margin: EdgeInsets.only(right: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Palette.lightgray,
+                          color: Palette.lightblack,
                         ),  
-                        padding: const EdgeInsets.only(right: 15.0,left: 15.0,bottom: 3),
+                        padding: const EdgeInsets.only(right: 15.0,left: 15.0),
                         child: Center(
                           child: 
                           Text(
                             rightButtonName
-                            ,style: TextStyle(color: Palette.white,fontFamily:'NotoSansBold',fontSize: 13)
+                            ,style: TextStyle(
+                              color: Palette.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13
+                            )
                           ),
                         )
                     )
