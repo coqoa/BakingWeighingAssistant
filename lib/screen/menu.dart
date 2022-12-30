@@ -21,14 +21,17 @@ class _MenuState extends State<Menu> {
   late double boxWidth = MediaQuery.of(context).size.width; //
   late double boxHeight = MediaQuery.of(context).size.height;
   double adHeight = 56.0;
+  String title = '';
   
-
   MenuController controller = MenuController();
+  late TextEditingController _textController;
+
   // late List changedList = controller.testList;
 
   @override
   void initState() {
     super.initState();
+
   }
   
   @override
@@ -128,35 +131,31 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                   onTap: () {
+                                    title = item;
+                                    _textController = new TextEditingController(text: title);
                                     showDialog(
                                       context: context, 
                                       builder: (_){
                                         return DefaultAlertDialogOneButton(
-                                          title: 'EDIT', 
-                                          contents: Container(
+                                          title: 'Edit',
+                                          contents: SizedBox(
                                             width: 250,
                                             height: 100,
-                                            // color: Colors.red,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 const SizedBox(),
                                                 TextField(
                                                   key: GlobalKey(), // 
-                                                  keyboardType: TextInputType.emailAddress,
-                                                
-                                                  cursorColor: Palette.lightblack,
-                                                  cursorWidth: 2,
-                                                  cursorHeight: 20,
-                                                  autofocus: true,
-                                                  autocorrect: false, // 
+                                                  controller: _textController, // 텍스트 기본값 설정 컨트롤러
 
-                                                  // textInputAction: widget.textInputAction,
-                                                
                                                   style: const TextStyle(
-                                                    fontSize: 30,
-                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
                                                   ),
+                                                  textAlign: TextAlign.center,
+                                                  cursorColor: Palette.lightblack,
+                                                  cursorHeight: 25,
+                                                  maxLength: 20,
 
                                                   decoration: const InputDecoration(
                                                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
@@ -164,22 +163,24 @@ class _MenuState extends State<Menu> {
                                                     filled: true,
                                                     fillColor: Palette.white,
                                                     isDense: true,
-                                                    contentPadding: EdgeInsets.fromLTRB(10,0,10,5)
+                                                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
                                                   ),
                                                   
                                                   onChanged: (value){
-                                                      // widget.controller.textFieldChanged(widget.type, value);
+                                                      setState(() {
+                                                        title = value;
+                                                      });
                                                   },
-                                                  onSubmitted: (_){
-                                                    // if(widget.nextEvent){
-                                                    //   // next Scope 이벤트
-                                                    // }else{
-                                                    //   if(widget.sign){
-                                                    //     widget.controller.signIn('SignIn');
-                                                    //   }else{
-                                                    //     widget.controller.signUp('SignUp');
-                                                    //   }
-                                                    // }
+                                                  onSubmitted: (value){
+                                                    if(item != value){
+                                                      Navigator.of(context).pop();
+                                                      setState(() {
+                                                        title = value;
+                                                        // db변경 메소드
+                                                      });
+                                                    }else{
+                                                      print('똑같으니까 쇼바텀시트로 알려주기');
+                                                    }
                                                   },
                                                 ),
                                               ],
@@ -187,7 +188,7 @@ class _MenuState extends State<Menu> {
                                           ),
                                           buttonTitle: 'Ok',
                                           confirmFunction: (){
-
+                                            // 위의 onSubmitted 완성 후 붙여넣기
                                           },
                                         );
                                       }
@@ -225,7 +226,8 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                   onTap: () {
-                                    print('$item 삭제!?');
+                                    print(controller.testList.indexOf(item));
+                                    print(item);
                                   },
                                 ),
                               ],
@@ -281,35 +283,71 @@ class _MenuState extends State<Menu> {
               },
             ),
           ),
-          // ParameterTestWidget(param1: 'param1',param2: 'param2', param3:'param3', param4:4)
         ],
       ),
     );
   }
 }
 
-// class ParameterTestWidget extends StatefulWidget {
-//   ParameterTestWidget({super.key, required this.param1, required this.param2, this.param3, this.param4});
-//   final String param1; // required
-//   final String param2; // required
-//   dynamic param3; // optinal
-//   var param4; // optinal
-  
+// class OneLineTextField extends StatefulWidget {
+//   OneLineTextField({super.key, required this.defaultText, required this.controller, required this.title});
+
+//   late final String defaultText;
+//   final MenuController controller;
+//   String title;
 
 //   @override
-//   State<ParameterTestWidget> createState() => _ParameterTestWidgetState();
+//   State<OneLineTextField> createState() => _OneLineTextFieldState();
 // }
 
-// class _ParameterTestWidgetState extends State<ParameterTestWidget> {
+// class _OneLineTextFieldState extends State<OneLineTextField> {
+//   late TextEditingController _textController;
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     _textController = new TextEditingController(text: widget.defaultText);
+//   }
 //   @override
 //   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Text(widget.param1),
-//         Text(widget.param2),
-//         Text(widget.param3),
-//         Text(widget.param4),
-//       ],
+//     return SizedBox(
+//       width: 250,
+//       height: 100,
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           const SizedBox(),
+//           TextField(
+//             key: GlobalKey(), // 
+//             controller: _textController,
+//             //TODO 기본텍스트 어케설정?, carter 폰트사용?
+//             style: const TextStyle(
+//               fontSize: 25,
+//               fontWeight: FontWeight.bold,
+//             ),
+
+//             cursorColor: Palette.lightblack,
+//             cursorHeight: 25,
+//             maxLength: 20,
+
+//             decoration: const InputDecoration(
+//               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+//               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+//               filled: true,
+//               fillColor: Palette.white,
+//               isDense: true,
+//               contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+//             ),
+            
+//             onChanged: (value){
+//               widget.title = value;
+//             },
+//             onSubmitted: (_){
+
+//             },
+//           ),
+//         ],
+//       ),
 //     );
 //   }
 // }
