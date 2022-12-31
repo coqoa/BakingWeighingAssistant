@@ -48,9 +48,7 @@ class _RecipeState extends State<Recipe> {
 
   @override
   Widget build(BuildContext context) {
-    return _controller.appStatus.value != RequestStatus.SUCCESS 
-    ? SizedBox()
-    : KeyboardVisibilityBuilder(
+    return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) { 
         return Scaffold(
           backgroundColor: Palette.lightyellow,

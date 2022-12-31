@@ -56,9 +56,9 @@ class MyApp extends StatelessWidget {
         // scaffoldBackgroundColor: Colors.white,
       ),
       home: SafeArea(
-        child: Menu(
-          // body: Sign()
-        ),
+        // child: Sign(),
+        // child: Menu(),
+        child: Recipe(),
       ),
     );
   }

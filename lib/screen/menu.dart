@@ -37,17 +37,13 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
 
-    
     return Scaffold(
-      // backgroundColor: Color.fromARGB(250, 235, 235, 235),
-      
       body: Stack(
         children: [
           Container(
             height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
             width: GetPlatform.isMobile ? boxWidth : 375, 
             color: Colors.white,
-            padding: const EdgeInsets.only(bottom: 30),
 
             child: Obx(()=>
               Theme(
@@ -76,9 +72,9 @@ class _MenuState extends State<Menu> {
                   },
               
                   children: controller.testList.map((item) => 
+                    // 개별 Tile
                     Container(
                       key: Key(item),// ReorderableListView 자식 요소로 필수 
-                      // width: 300,
                       height: 180,
                       margin: const EdgeInsets.fromLTRB(30, 15, 30, 15),
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -87,17 +83,17 @@ class _MenuState extends State<Menu> {
                         color: Colors.white,
                         // ignore: prefer_const_literals_to_create_immutables
                         boxShadow: [
-                          BoxShadow(
+                          const BoxShadow(
                             blurRadius: 12,
-                            offset: const Offset(3.0, 6.0),
+                            offset: Offset(3.0, 6.0),
                             color: Color.fromRGBO(0, 0, 0, .10),
                           )
                         ]
                       ),
                       child: Stack(
                         children: [
+                          // TITLE
                           Center(
-                            // alignment: Alignment.center,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -112,12 +108,15 @@ class _MenuState extends State<Menu> {
                             ) 
                           ),
                           
+                          // BOTTOM RIGHT BUTTON
                           Positioned(
                             bottom: 0,
                             right: 0,
                             child: Row(
                               children: [
-                                InkWell(
+
+                                // EDIT
+                                GestureDetector(
                                   child: SizedBox(
                                     width: 35,
                                     height: 35,
@@ -138,55 +137,59 @@ class _MenuState extends State<Menu> {
                                       builder: (_){
                                         return DefaultAlertDialogOneButton(
                                           title: 'Edit',
-                                          contents: SizedBox(
-                                            width: 250,
-                                            height: 100,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                const SizedBox(),
-                                                TextField(
-                                                  key: GlobalKey(), // 
-                                                  controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                                          contents: 
+                                            SizedBox(
+                                              width: 250,
+                                              height: 100,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  const SizedBox(),
+                                                  TextField(
+                                                    key: GlobalKey(), // 
+                                                    controller: _textController, // 텍스트 기본값 설정 컨트롤러
 
-                                                  style: const TextStyle(
-                                                    fontSize: 25,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                  cursorColor: Palette.lightblack,
-                                                  cursorHeight: 25,
-                                                  maxLength: 20,
+                                                    style: const TextStyle(
+                                                      fontSize: 25,
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                    cursorColor: Palette.lightblack,
+                                                    cursorHeight: 25,
+                                                    maxLength: 20,
+                                                    autocorrect: false,
 
-                                                  decoration: const InputDecoration(
-                                                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                                    filled: true,
-                                                    fillColor: Palette.white,
-                                                    isDense: true,
-                                                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                    decoration: const InputDecoration(
+                                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                      filled: true,
+                                                      fillColor: Palette.white,
+                                                      isDense: true,
+                                                      contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                    ),
+                                                    
+                                                    onChanged: (value){
+                                                        setState(() {
+                                                          title = value;
+                                                        });
+                                                    },
+                                                    onSubmitted: (value){
+                                                      if(item != value){
+                                                        Navigator.of(context).pop();
+                                                        setState(() {
+                                                          title = value;
+                                                          // db변경 메소드
+                                                        });
+                                                      }else{
+                                                        print('똑같으니까 쇼바텀시트로 알려주기');
+                                                      }
+                                                    },
                                                   ),
-                                                  
-                                                  onChanged: (value){
-                                                      setState(() {
-                                                        title = value;
-                                                      });
-                                                  },
-                                                  onSubmitted: (value){
-                                                    if(item != value){
-                                                      Navigator.of(context).pop();
-                                                      setState(() {
-                                                        title = value;
-                                                        // db변경 메소드
-                                                      });
-                                                    }else{
-                                                      print('똑같으니까 쇼바텀시트로 알려주기');
-                                                    }
-                                                  },
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
                                           buttonTitle: 'Ok',
+                                          btnColor: Palette.lightblack,
+                                          btnTextColor: Palette.white,
                                           confirmFunction: (){
                                             // 위의 onSubmitted 완성 후 붙여넣기
                                           },
@@ -194,13 +197,61 @@ class _MenuState extends State<Menu> {
                                       }
                                     );
 
-                                    // // // 투버튼
+                                    // // 투버튼
                                     // showDialog(
                                     //   context: context, 
                                     //   builder: (_){
                                     //     return DefaultAlertDialogTwoButton(
                                     //       title: 'EDIT',
-                                    //       contents: Text('수정창'), 
+                                    //       contents: 
+                                    //         SizedBox(
+                                    //           width: 250,
+                                    //           height: 100,
+                                    //           child: Column(
+                                    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //             children: [
+                                    //               const SizedBox(),
+                                    //               TextField(
+                                    //                 key: GlobalKey(), // 
+                                    //                 controller: _textController, // 텍스트 기본값 설정 컨트롤러
+
+                                    //                 style: const TextStyle(
+                                    //                   fontSize: 25,
+                                    //                 ),
+                                    //                 textAlign: TextAlign.center,
+                                    //                 cursorColor: Palette.lightblack,
+                                    //                 cursorHeight: 25,
+                                    //                 maxLength: 20,
+
+                                    //                 decoration: const InputDecoration(
+                                    //                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                    //                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                    //                   filled: true,
+                                    //                   fillColor: Palette.white,
+                                    //                   isDense: true,
+                                    //                   contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                    //                 ),
+                                                    
+                                    //                 onChanged: (value){
+                                    //                     setState(() {
+                                    //                       title = value;
+                                    //                     });
+                                    //                 },
+                                    //                 onSubmitted: (value){
+                                    //                   if(item != value){
+                                    //                     Navigator.of(context).pop();
+                                    //                     setState(() {
+                                    //                       title = value;
+                                    //                       // db변경 메소드
+                                    //                     });
+                                    //                   }else{
+                                    //                     print('똑같으니까 쇼바텀시트로 알려주기');
+                                    //                   }
+                                    //                 },
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //         ),
                                     //       leftButtonFunction: (){}, 
                                     //       leftButtonName: 'No', 
                                     //       rightButtonFuction: (){}, 
@@ -211,7 +262,9 @@ class _MenuState extends State<Menu> {
                                   },
                                 ),
                                 const SizedBox(width: 5,),
-                                InkWell(
+                                
+                                // DELETE
+                                GestureDetector(
                                   child: SizedBox(
                                     width: 35,
                                     height: 35,
@@ -226,8 +279,42 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                   onTap: () {
-                                    print(controller.testList.indexOf(item));
-                                    print(item);
+                                    showDialog(
+                                      context: context, 
+                                      builder: (_){
+                                        return DefaultAlertDialogOneButton(
+                                          title: 'Delete',
+                                          contents: Container(
+                                            width: 250,
+                                            height: 100,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                const Text('Are you sure delete',
+                                                  style: TextStyle(
+                                                    fontSize: 18,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(height: 10,),
+                                                Text('\'$item\'?',
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          buttonTitle: 'Ok',
+                                          btnColor: Palette.white,
+                                          btnTextColor: Palette.red,
+                                          confirmFunction: (){
+                                            // db삭제기능 구현하기
+                                          },
+                                        );
+                                      }
+                                    );
                                   },
                                 ),
                               ],
@@ -241,45 +328,73 @@ class _MenuState extends State<Menu> {
               )
             ),
           ),
+
+          // CREATE
           Positioned(
             right: 0,
             bottom: 0,
             child: GestureDetector(
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50)
-                ),
-                child: Lottie.asset('assets/lotties/plus-lottie.json',),
+              child: Lottie.asset('assets/lotties/plus-lottie.json',
+                width: 60,height: 60
               ),
               onTap: (){
-                // 원버튼
                 showDialog(
                   context: context, 
                   builder: (_){
                     return DefaultAlertDialogOneButton(
-                      title: 'title', 
-                      contents: Text('contents'), 
-                      buttonTitle: 'BTN',
-                      confirmFunction: (){},
+                      title: 'Create',
+                      contents: 
+                        SizedBox(
+                          width: 250,
+                          height: 100,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              TextField(
+                                key: GlobalKey(), // 
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                ),
+                                textAlign: TextAlign.center,
+                                cursorColor: Palette.lightblack,
+                                cursorHeight: 25,
+                                maxLength: 20,
+                                autocorrect: false,
+
+                                decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                  filled: true,
+                                  fillColor: Palette.white,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                ),
+                                
+                                onChanged: (value){
+                                    setState(() {
+                                      title = value;
+                                    });
+                                },
+                                onSubmitted: (value){
+                                  Navigator.of(context).pop();
+                                  setState(() {
+                                    // title으로 db생성하는 메소드
+                                  });
+                              },
+                              ),
+                            ],
+                          ),
+                        ),
+                      buttonTitle: 'Ok',
+                      btnColor: Palette.lightblack,
+                      btnTextColor: Palette.white,
+                      confirmFunction: (){
+                        // 위의 onSubmitted 완성 후 붙여넣기
+                      },
                     );
                   }
                 );
-                // // 투버튼
-                // showDialog(
-                //   context: context, 
-                //   builder: (_){
-                //     return DefaultAlertDialogTwoButton(
-                //       title: '',
-                //       contents: Text('data'), 
-                //       leftButtonFunction: (){}, 
-                //       leftButtonName: 'L', 
-                //       rightButtonFuction: (){}, 
-                //       rightButtonName: 'R', 
-                //     );
-                //   }
-                // );
               },
             ),
           ),
@@ -288,66 +403,3 @@ class _MenuState extends State<Menu> {
     );
   }
 }
-
-// class OneLineTextField extends StatefulWidget {
-//   OneLineTextField({super.key, required this.defaultText, required this.controller, required this.title});
-
-//   late final String defaultText;
-//   final MenuController controller;
-//   String title;
-
-//   @override
-//   State<OneLineTextField> createState() => _OneLineTextFieldState();
-// }
-
-// class _OneLineTextFieldState extends State<OneLineTextField> {
-//   late TextEditingController _textController;
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     _textController = new TextEditingController(text: widget.defaultText);
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: 250,
-//       height: 100,
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           const SizedBox(),
-//           TextField(
-//             key: GlobalKey(), // 
-//             controller: _textController,
-//             //TODO 기본텍스트 어케설정?, carter 폰트사용?
-//             style: const TextStyle(
-//               fontSize: 25,
-//               fontWeight: FontWeight.bold,
-//             ),
-
-//             cursorColor: Palette.lightblack,
-//             cursorHeight: 25,
-//             maxLength: 20,
-
-//             decoration: const InputDecoration(
-//               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-//               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-//               filled: true,
-//               fillColor: Palette.white,
-//               isDense: true,
-//               contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-//             ),
-            
-//             onChanged: (value){
-//               widget.title = value;
-//             },
-//             onSubmitted: (_){
-
-//             },
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
