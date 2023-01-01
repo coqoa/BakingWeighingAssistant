@@ -18,13 +18,14 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  MenuController controller = MenuController();
+  late TextEditingController _textController;
+  
   late double boxWidth = MediaQuery.of(context).size.width; //
   late double boxHeight = MediaQuery.of(context).size.height;
   double adHeight = 56.0;
   String title = '';
   
-  MenuController controller = MenuController();
-  late TextEditingController _textController;
 
   // late List changedList = controller.testList;
 

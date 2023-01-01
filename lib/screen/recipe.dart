@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../config/enum.dart';
 
@@ -20,278 +21,307 @@ class Recipe extends StatefulWidget {
 
 class _RecipeState extends State<Recipe> {
 
-  RecipeController _controller = RecipeController();
 
-  // var appStatus = RequestStatus.EMPTY.obs;
-
-  late double boxHeight = MediaQuery.of(context).size.height;
-  late double boxWidth = GetPlatform.isMobile? MediaQuery.of(context).size.width : 1000;
-  
-  late bool moreBtnFolded;
-
+  RecipeController controller = RecipeController();
   // firebase Auth
   String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
 
+  late int multipleCount;
 
   @override
   void initState() {
-    moreBtnFolded = true;
     super.initState();
-    
-    _controller.getRecipeList(email: currentUserEmail);
-    // getRecipeList 이후에 실행되게 하려면?? controller.dart의 getRecipeList 내부에서 한번 실행되도록 구현할까
-    _controller.getRecipeDetail(
-      email: currentUserEmail,
-      title: '인자로 필요한 타이틀?'
-    );
+    multipleCount = 1;
   }
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardVisibilityBuilder(
-      builder: (context, isKeyboardVisible) { 
-        return Scaffold(
-          backgroundColor: Palette.lightyellow,
-          body: Center(
+
+    
+    void countChange(int e){
+        setState(() {
+          // 파라미터가 0 이거나, 카운트 값과 파라미터의 합이 0이하이면 초기화 시킨다
+          if(e == 0 || multipleCount+e < 1){
+            multipleCount = 1;
+          // 더하기
+          }else if(multipleCount+e > 0){
+            multipleCount = multipleCount + e;
+          }
+        });
+    }
+
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // 상단 바 
+          Container(
+            // height: 100,
+            // color: Colors.blue,
+            decoration: BoxDecoration(
+              color: Palette.white,
+              // ignore: prefer_const_literals_to_create_immutables
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  offset:Offset(0.0, 1.0),
+                  color: Color.fromRGBO(219, 219, 219, 1)
+                )
+              ]
+            ),
             child: Column(
               children: [
-              // 로고
-              // !isKeyboardVisible?
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: Text('gramming',
-                    textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'carter',
-                        fontSize: GetPlatform.isMobile ? 20 : 35
-                      ),
-                    ),
-                ),
-              ),
-              // 내용
-              Expanded(
-                flex: 10,
-                child: Container(
-                  height: GetPlatform.isMobile? boxHeight*0.67 : 450,
-                  width: boxWidth,
-                  padding: EdgeInsets.fromLTRB(10,0,10,10),
-                  
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Palette.yellow,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // 리스트
-                        AnimatedContainer(
-                          duration: Duration(milliseconds: 400),
-                          curve: Curves.bounceOut,
-                          // width: listFolded ? boxWidth*0.1 : boxWidth*0.3,
-                          width: GetPlatform.isMobile? boxWidth*0.3 : 200,
-                          decoration: BoxDecoration(
-                            color: Palette.lightyellow,
-                            borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: Column(
+                Container(
+                  height: 70,
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  // color: Colors.green,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 70,
+                        height: 30,
+                        // color: Colors.red,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                width: 20,
-                                height: 20,
+                              SizedBox(
+                                height: 14,
+                                width: 14,
+                                child: SvgPicture.asset(
+                                  'assets/images/ic_arrow_left2.svg',
+                                  color: Palette.darkgray,
+                                ),
                               ),
-                              // !listFolded 
-                              // ? 
-                              Expanded(
-
-                                // 리스트
-                                child: Obx(()=>
-                                  Column(
-                                    // ignore: prefer_co
-                                    //nst_literals_to_create_immutables
-                                    children: [
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: _controller.recipeList.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return GestureDetector(
-                                            onTap: () => {
-                                              _controller.getRecipeDetail(
-                                                email: currentUserEmail,
-                                                title: _controller.recipeList[index]
-                                              ),
-                                            },
-                                            child: Container(
-                                              height: 50,
-                                              color: Colors.amber,
-                                              child: Center(
-                                                child: Text(_controller.recipeList[index])
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      )
-                                      // TextField(),
-                                      // Text(recipeList.length.toString(), style: TextStyle(fontSize: 20),),
-                                      // Text(recipeList[0], style: TextStyle(fontSize: 20),),
-                                      // Text(recipeList[1], style: TextStyle(fontSize: 20),),
-                                      // Text(recipeList[2], style: TextStyle(fontSize: 20),),
-                                    ],
-                                  ),
-                                )
-                              )
-                              // : SizedBox()
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                      // 레시피
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Palette.lightyellow,
-                              borderRadius: BorderRadius.circular(15)
-                            ),
-                            child: Stack(
-                              children: [
-                                SingleChildScrollView(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: _controller.recipeKeyList.length,
-                                          itemBuilder: (BuildContext context, int index) {
-                                            return 
-                                            _controller.appStatus.value != RequestStatus.SUCCESS 
-                                            ? SizedBox()
-                                            :
-                                            GestureDetector(
-                                              child: Container(
-                                                width: 150,
-                                                height: 50,
-                                                // child: Text(recipeDetailList[index].toString()),
-                                                child: Row(
-                                                  children: [
-                                                    Text(_controller.recipeKeyList[index].toString()),
-                                                    Text(_controller.recipeValueList[index].toString()),
-                                                    // Text(recipeDetailList[index].keys.toString()),
-                                                    // Text(recipeDetailList[index].values.toString()),
-                                                  ],
-                                                )
-                                                // 여기 : () 없애기 // replace?? 
-                                              )
-                                            );
-                                        }
-                                        )
-                                      ],
-                                    ),
+                              SizedBox(
+                                height: 16,
+                                child: Text(' back',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Palette.darkgray,
+                                    fontSize: 16,
                                   ),
                                 ),
-                                AnimatedPositioned(
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.bounceOut,
-                                    bottom: moreBtnFolded ? 0 : 90,
-                                    right: 5,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Palette.black,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50)
-                                        ),
-                                        fixedSize: Size(70, 35),
-                                        padding: const EdgeInsets.all(0),
-                                        // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        elevation: 0,
-                                        shadowColor: Colors.transparent
-                                      ),
-                                      child: Text('Add',
-                                        style: TextStyle(
-                                          fontFamily: 'carter',
-                                          fontSize: 16,
-                                          color: Palette.white
-                                        ),
-                                      ),
-                                      onPressed: (){
-                                        print('ADD');
-                                      },
-                                    ),
-                                  ),
-                                  AnimatedPositioned(
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.bounceOut,
-                                    bottom: moreBtnFolded ? 0 : 45,
-                                    
-                                    right: 5,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Palette.black,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50)
-                                        ),
-                                        fixedSize: Size(70, 35),
-                                        padding: const EdgeInsets.all(0),
-                                        // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        elevation: 0,
-                                        shadowColor: Colors.transparent
-                                      ),
-                                      child: Text('Update',
-                                        style: TextStyle(
-                                          fontFamily: 'carter',
-                                          fontSize: 15,
-                                          color: Palette.white
-                                        ),
-                                      ),
-                                      onPressed: (){
-                                        print('Update');
-                                      },
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 5,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Palette.middleblack,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(50)
-                                        ),
-                                        fixedSize: Size(70, 35),
-                                        padding: const EdgeInsets.all(0),
-                                        // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        elevation: 0,
-                                        shadowColor: Colors.transparent
-                                      ),
-                                      child: Text(moreBtnFolded?'▲':'▼',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Palette.white
-                                        ),
-                                      ),
-                                      onPressed: (){
-                                        setState(() {
-                                          moreBtnFolded = !moreBtnFolded;
-                                        });
-                                      },
-                                    ),
-                                  )
-                              ],
-                            ),
-                          ),
+                              )
+                            ],
+                          )
                         ),
-                      ],
+                      ),
+
+                      Text('Boulangerie',
+                        style: const TextStyle(
+                          fontFamily: 'jalnan',
+                          color: Palette.black,
+                          fontSize: 25,
+                        ),
+                      ),
+
+                      Container(
+                        width: 70,
+                        height: 30,
+                        // color: Colors.red,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 18,
+                              width: 18,
+                              margin: EdgeInsets.only(bottom: 1),
+                              // color: Colors.blue,
+                              child: SvgPicture.asset(
+                                'assets/images/ic_clipboard.svg',
+                                color: Palette.darkgray,
+                              ),
+                            ),
+                            Container(
+                              height: 18,
+                              width: 18,
+                              margin: EdgeInsets.only(top: 1),
+                              // color: Colors.green,
+                              child: SvgPicture.asset(
+                                'assets/images/ic_bars.svg',
+                                color: Palette.darkgray,
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // 리스트 인디케이터
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(bottom: 10),
+                  // color: Colors.orange,
+                  child: Center(
+                    child: Container(
+                      width: 230,
+                      height: 36,
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        color: Palette.reallightgray,
+                        borderRadius: BorderRadius.circular(20),
+                        // ignore: prefer_const_literals_to_create_immutables
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4,
+                            offset:Offset(0.0, 1.0),
+                            color: Color.fromRGBO(219, 219, 219, 1)
+                          )
+                        ]
+                      ),
+                      // controller
+                      child: ListView.builder(
+                        // physics: NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.testList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            // 메뉴 버튼
+                            child: Container(
+                              height: 36,
+                              padding: EdgeInsets.only(right: 10),
+                              child: Center(
+                                child: Obx((){
+                                  return Text(
+                                    controller.testList[index],
+                                    style: TextStyle(
+                                      color: controller.testListSelected.value == index ? Palette.black : Palette.darkgray, // darkgray
+                                      fontWeight: controller.testListSelected.value == index ? FontWeight.w900 : FontWeight.w400, // regular
+                                      fontSize: 14
+                                    ),
+                                  );
+                                })
+                              ),
+                            ),
+                            // EVENT
+                            onTap: () {
+                              controller.testListSelected.value = index;
+                              print(controller.testList[index]);
+                            },
+                          );
+                        }
+                      ),
                     ),
-                  )
+                  ),
                 )
-              ),
-            ]),
+              ],
+            ),
           ),
-        );
-      },
+          
+          // 메인 컨텐츠
+          Container(
+            width: 50,
+            height: 50,
+            color: Colors.red,
+          ),
+
+          // 하단 계산기
+          Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Palette.white,
+              border: Border(
+                
+                // top: BorderSide(color: Palette.reallightgray, width: 2)
+              ),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  offset:Offset(0.0, -1.0),
+                  color: Color.fromRGBO(219, 219, 219, 1)
+                )
+              ]
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // -5
+                GestureDetector(
+                  child: MultipleButton(btnText: '-5'),
+                  onTap: (){
+                    countChange(-5);
+                  },
+                ),
+                // -1
+                GestureDetector(
+                  child: MultipleButton(btnText: '-1'),
+                  onTap: (){
+                    countChange(-1);
+                  },
+                ),
+                // indicator
+                GestureDetector(
+                  child:  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      // color: Palette.white,
+                      color: multipleCount == 1 ? Palette.white : Palette.black,
+                      // border: Border.all(color: Colors.grey, width: 2),
+                      borderRadius: BorderRadius.circular(50),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     blurRadius: 7,
+                      //     offset:Offset(0.0, 3.0),
+                      //     color: multipleCount == 1 ? Color.fromRGBO(219, 219, 219, 1) : Palette.black.withOpacity(0.3) 
+                      //   )
+                      // ]
+                    ),
+                    child: Center(
+                      child: Text('$multipleCount',
+                        style: TextStyle(
+                          fontFamily: 'jalnan',
+                          fontSize: 17,
+                          // color: Palette.white,
+                          color: multipleCount == 1 ? Palette.black : Palette.white,
+                          
+                        ),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    countChange(0);
+                  },
+                ),
+                // +1
+                GestureDetector(
+                  child: MultipleButton(btnText: '+1'),
+                  onTap: (){
+                    countChange(1);
+                  },
+                ),
+                // +5
+                GestureDetector(
+                  child: MultipleButton(btnText: '+5'),
+                  onTap: (){
+                    countChange(5);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
+class MultipleButton extends StatelessWidget {
+  const MultipleButton({super.key, required this.btnText});
+  final String btnText;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: Center(child: Text(btnText,style: TextStyle(fontSize: 14)))
+    );
+  }
+}
