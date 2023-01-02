@@ -52,7 +52,7 @@ class _RecipeState extends State<Recipe> {
 
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // 상단 바 
           Container(
@@ -216,96 +216,144 @@ class _RecipeState extends State<Recipe> {
           
           // 메인 컨텐츠
           Container(
-            width: 50,
-            height: 50,
-            color: Colors.red,
-          ),
-
-          // 하단 계산기
-          Container(
-            height: 60,
-            decoration: BoxDecoration(
-              color: Palette.white,
-              border: Border(
-                
-                // top: BorderSide(color: Palette.reallightgray, width: 2)
-              ),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 4,
-                  offset:Offset(0.0, -1.0),
-                  color: Color.fromRGBO(219, 219, 219, 1)
-                )
-              ]
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            width: 375,
+            height: 525,
+            // color: Colors.red[200],
+            child: ListWheelScrollView(
+              
+              itemExtent: 500,
+              physics: FixedExtentScrollPhysics(),
               children: [
-                // -5
-                GestureDetector(
-                  child: MultipleButton(btnText: '-5'),
-                  onTap: (){
-                    countChange(-5);
-                  },
+                Container(
+                  width: 330,
+                  height: 420,
+                  color: Colors.red,
+                  child: Text('ㅊ'),
                 ),
-                // -1
-                GestureDetector(
-                  child: MultipleButton(btnText: '-1'),
-                  onTap: (){
-                    countChange(-1);
-                  },
+                Container(
+                  width: 330,
+                  height: 420,
+                  color: Colors.red,
+                  child: Text('b'),
                 ),
-                // indicator
-                GestureDetector(
-                  child:  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      // color: Palette.white,
-                      color: multipleCount == 1 ? Palette.white : Palette.black,
-                      // border: Border.all(color: Colors.grey, width: 2),
-                      borderRadius: BorderRadius.circular(50),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     blurRadius: 7,
-                      //     offset:Offset(0.0, 3.0),
-                      //     color: multipleCount == 1 ? Color.fromRGBO(219, 219, 219, 1) : Palette.black.withOpacity(0.3) 
-                      //   )
-                      // ]
-                    ),
-                    child: Center(
-                      child: Text('$multipleCount',
-                        style: TextStyle(
-                          fontFamily: 'jalnan',
-                          fontSize: 17,
-                          // color: Palette.white,
-                          color: multipleCount == 1 ? Palette.black : Palette.white,
-                          
-                        ),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    countChange(0);
-                  },
+                Container(
+                  width: 330,
+                  height: 420,
+                  color: Colors.red,
+                  child: Text('c'),
                 ),
-                // +1
-                GestureDetector(
-                  child: MultipleButton(btnText: '+1'),
-                  onTap: (){
-                    countChange(1);
-                  },
-                ),
-                // +5
-                GestureDetector(
-                  child: MultipleButton(btnText: '+5'),
-                  onTap: (){
-                    countChange(5);
-                  },
+                Container(
+                  width: 330,
+                  height: 420,
+                  color: Colors.red,
+                  child: Text('d'),
                 ),
               ],
-            ),
+            )
           ),
+
+          // ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: controller.testList.length,
+          //     itemExtent: 375,
+          //     physics: FixedExtentScrollPhysics(),
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return Container(
+          //         // width: 355,
+          //         // height: 445,
+          //         color: Colors.red,
+          //         child: Center(
+          //           child: Text(controller.testList[index])
+          //         ),
+          //       );
+          //     }
+          //   ),
+
+          // 하단 계산기
+          // Container(
+          //   height: 60,
+          //   decoration: BoxDecoration(
+          //     color: Palette.white,
+          //     border: Border(
+                
+          //       // top: BorderSide(color: Palette.reallightgray, width: 2)
+          //     ),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         blurRadius: 4,
+          //         offset:Offset(0.0, -1.0),
+          //         color: Color.fromRGBO(219, 219, 219, 1)
+          //       )
+          //     ]
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: [
+          //       // -5
+          //       GestureDetector(
+          //         child: MultipleButton(btnText: '-5'),
+          //         onTap: (){
+          //           countChange(-5);
+          //         },
+          //       ),
+          //       // -1
+          //       GestureDetector(
+          //         child: MultipleButton(btnText: '-1'),
+          //         onTap: (){
+          //           countChange(-1);
+          //         },
+          //       ),
+          //       // indicator
+          //       GestureDetector(
+          //         child:  Container(
+          //           width: 40,
+          //           height: 40,
+          //           decoration: BoxDecoration(
+          //             // color: Palette.white,
+          //             color: multipleCount == 1 ? Palette.white : Palette.black,
+          //             // border: Border.all(color: Colors.grey, width: 2),
+          //             borderRadius: BorderRadius.circular(50),
+          //             // boxShadow: [
+          //             //   BoxShadow(
+          //             //     blurRadius: 7,
+          //             //     offset:Offset(0.0, 3.0),
+          //             //     color: multipleCount == 1 ? Color.fromRGBO(219, 219, 219, 1) : Palette.black.withOpacity(0.3) 
+          //             //   )
+          //             // ]
+          //           ),
+          //           child: Center(
+          //             child: Text('$multipleCount',
+          //               style: TextStyle(
+          //                 fontFamily: 'jalnan',
+          //                 fontSize: 17,
+          //                 // color: Palette.white,
+          //                 color: multipleCount == 1 ? Palette.black : Palette.white,
+                          
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //         onTap: () {
+          //           countChange(0);
+          //         },
+          //       ),
+          //       // +1
+          //       GestureDetector(
+          //         child: MultipleButton(btnText: '+1'),
+          //         onTap: (){
+          //           countChange(1);
+          //         },
+          //       ),
+          //       // +5
+          //       GestureDetector(
+          //         child: MultipleButton(btnText: '+5'),
+          //         onTap: (){
+          //           countChange(5);
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

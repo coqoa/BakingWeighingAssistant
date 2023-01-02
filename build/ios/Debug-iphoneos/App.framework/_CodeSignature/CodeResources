@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		cxOxZAbsgCuV89je7ZmDK4lF0Ow=
+		kDT8sil7swJo4uPqIZ2Pd7TYGSE=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -72,9 +72,25 @@
 		<data>
 		o7W3qY/dEiMyTCZK0YuXDmEDFUI=
 		</data>
+		<key>flutter_assets/assets/images/ic_arrow_left.svg</key>
+		<data>
+		LzCYrGsBVHPXO2xigQ8oJoihyPM=
+		</data>
+		<key>flutter_assets/assets/images/ic_arrow_left2.svg</key>
+		<data>
+		i+L7GmI/Yibdq1vn5qLWw+2fqYs=
+		</data>
+		<key>flutter_assets/assets/images/ic_bars.svg</key>
+		<data>
+		FeV0pOnmFBxoUiWTi0jJR+tDCDo=
+		</data>
 		<key>flutter_assets/assets/images/ic_cancel.svg</key>
 		<data>
 		wXYi/GXH9xiRl0sdiTq26aEHdlg=
+		</data>
+		<key>flutter_assets/assets/images/ic_clipboard.svg</key>
+		<data>
+		1B8HivFa8+0BMvPnnEu6zmAaqu4=
 		</data>
 		<key>flutter_assets/assets/images/ic_folder_more.svg</key>
 		<data>
@@ -98,7 +114,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		TWV6caz1ayKLqR/ioWvD96Jn25I=
+		ZRJ0xsySD/+llihf/7shZSH3Xx8=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -119,7 +135,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+irC22NJuXVBVLD2m92d7Yfx8IbHLjMW2PUdXMOj4HY=
+			1bzhnjB4Id7Jk75Fj98zhtPT7zvt9gADVohaXkb2Ns0=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -227,11 +243,39 @@
 			Y13xCNECWjy6Io7mCrRUDHkbemf6gYQJ3lSsuwxk02Y=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/ic_arrow_left.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zS5TwRwWmT18WljeuUq9WCXVuQatxuKVekIOtz1S0JM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/ic_arrow_left2.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vbTtcLribjjmc8KuGN2NpU+7mfyQJJIJFlc6M8PxDRU=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/ic_bars.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8ldFviTvIDKW4m7cRiZCYd6y0JzrxLmf7VNuwaJ565A=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/images/ic_cancel.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			k6xue3E+kA64KhYLYGC2aN5sIOoi8a86kPL3KGl3frs=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/ic_clipboard.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gSxIjVxocV0IIN++FRUIcFhFHHk7WyRpcamwiAVp2Do=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/ic_folder_more.svg</key>
@@ -273,7 +317,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yBCt3SJMpUEaML76Bwc6BeJZPk2R166Fyp4AYq++Phg=
+			oKEBzbYo7TGxsp98b478fVX2Vfj4zGffJ04j+yG4H4I=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
