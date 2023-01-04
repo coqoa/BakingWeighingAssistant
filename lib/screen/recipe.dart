@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -59,8 +60,8 @@ class _RecipeState extends State<Recipe> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 14,
-                          width: 14,
+                          height: 15,
+                          width: 15,
                           child: SvgPicture.asset(
                             'assets/images/ic_arrow_left2.svg',
                             color: Palette.darkgray,
@@ -81,7 +82,7 @@ class _RecipeState extends State<Recipe> {
                 // 앱 바 타이틀
                 Container(
                   width: 200,
-                  color: Colors.blue,
+                  // color: Colors.blue,
                   child: Text('Boulangerie',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -99,11 +100,11 @@ class _RecipeState extends State<Recipe> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      //TODO 온탭이벤트
+                      //TODO 온탭이벤트, 페이지 기능 구현 정리 (블로그 포스팅)
                       Container(
                         height: 20,
                         width: 20,
-                        margin: EdgeInsets.only(bottom: 1),
+                        margin: EdgeInsets.only(bottom: 0),
                         // color: Colors.blue,
                         child: SvgPicture.asset(
                           'assets/images/ic_clipboard.svg',
@@ -113,7 +114,7 @@ class _RecipeState extends State<Recipe> {
                       Container(
                         height: 20,
                         width: 20,
-                        margin: EdgeInsets.only(top: 1),
+                        margin: EdgeInsets.only(top: 2),
                         // color: Colors.green,
                         child: SvgPicture.asset(
                           'assets/images/ic_bars.svg',
