@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^4.1.0
   lottie: ^2.1.0
   carousel_slider: ^4.2.1
+  scroll_to_index: ^3.0.1
 
 
 dev_dependencies:
