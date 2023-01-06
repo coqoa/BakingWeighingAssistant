@@ -35,12 +35,42 @@ class _RecipeState extends State<Recipe> {
 
   late int listIndex ;
   late bool memoOpen = false;
-  late bool sideBarOpen = false;
 
   @override
   void initState() {
     super.initState();
     listIndex = 0;
+  }
+  
+  void moveListPageLeft(){
+    setState(() {
+      if(listIndex > 0) {
+        listIndex = listIndex-1;
+      }
+    });
+    moveListPage();
+  }
+  void moveListPageRight(){
+    setState(() {
+      if(listIndex+1 < controller.testList.length) {
+listIndex = listIndex+1;
+      }
+    });
+    moveListPage();
+  }
+  void moveListPage(){
+    // 스크롤 이동
+    _scrollController.scrollToIndex(
+      listIndex,
+      duration: const Duration(milliseconds: 200),
+      preferPosition: AutoScrollPosition.middle,
+    );
+    // 페이지 이동
+    _pageController.animateToPage(
+      listIndex, 
+      duration: Duration(milliseconds: 300),
+      curve: Curves.decelerate, 
+    ); 
   }
 
   @override
@@ -145,16 +175,16 @@ class _RecipeState extends State<Recipe> {
                                 child: FittedBox(
                                   fit: BoxFit.none,
                                   child: SvgPicture.asset(
-                                    'assets/images/ic_bars.svg',
-                                    width: 22,
-                                    height: 22,
+                                    'assets/images/ic_plus.svg',
+                                    width: 23,
+                                    height: 23,
                                     color: Palette.darkgray,
                                   ),
                                 ),
                               ),
                               onTap:(){
                                 setState(() {
-                                  sideBarOpen = true;
+                                  print('추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                 });
                               },
                             ),
@@ -271,84 +301,17 @@ class _RecipeState extends State<Recipe> {
                               );
                             }
                           ),
-                          // LEFT
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              child: Container(
-                                width: 50,
-                                height: 500,
-                                padding: EdgeInsets.only(left: 15),
-                                // color: Colors.blue,
-                                color: Colors.transparent,
-                                child:  Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: SvgPicture.asset(
-                                    'assets/images/ic_left.svg',
-                                    width: 20,
-                                    height: 20,
-                                    color: Colors.black.withOpacity(0.3),
-                                  ),
-                                ),
-                              ),
-                              onTap: (){
-                                // 인디케이터 컬러변경
-                                setState(() {
-                                  if(listIndex > 0) {listIndex = listIndex-1;}
-                                });
-                                // 스크롤 이동
-                                _scrollController.scrollToIndex(
-                                  listIndex,
-                                  duration: const Duration(milliseconds: 200),
-                                  preferPosition: AutoScrollPosition.middle,
-                                );
-                                // 페이지 이동
-                                _pageController.animateToPage(
-                                  listIndex, 
-                                  duration: Duration(milliseconds: 300),
-                                  curve: Curves.decelerate, 
-                                ); // 페이지변경 애니메이션
-                              },
-                            ),
+                          // LEFT 이동
+                          MoveListPage(
+                            direction: Alignment.centerLeft, 
+                            svg: 'assets/images/ic_left.svg', 
+                            callback: moveListPageLeft,
                           ),
-                          // RIGHT
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              child: Container(
-                                width: 50,
-                                height: 500,
-                                padding: EdgeInsets.only(right: 15),
-                                // color: Colors.green,
-                                color: Colors.transparent,
-                                child:  Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SvgPicture.asset(
-                                    'assets/images/ic_right.svg',
-                                    width: 20,
-                                    height: 20,
-                                    color: Colors.black.withOpacity(0.3),
-                                  ),
-                                ),
-                              ),
-                              onTap: (){
-                                setState(() {
-                                  if(listIndex+1 < controller.testList.length) {listIndex = listIndex+1;}
-                                });
-                                // 스크롤 이동
-                                _scrollController.scrollToIndex(
-                                  listIndex,
-                                  duration: const Duration(milliseconds: 200),
-                                  preferPosition: AutoScrollPosition.middle,
-                                );
-                                // 페이지 이동
-                                _pageController.animateToPage(
-                                  listIndex, 
-                                  curve: Curves.decelerate, 
-                                  duration: Duration(milliseconds: 300)
-                                ); // 페이지변경 애니메이션
-                              },
-                            ),
+                          // RIGHT 이동
+                          MoveListPage(
+                            direction: Alignment.centerRight, 
+                            svg: 'assets/images/ic_right.svg', 
+                            callback: moveListPageRight,
                           ),
                         ],
                       )
@@ -439,82 +402,52 @@ class _RecipeState extends State<Recipe> {
                 ),
               ),
             ),
-
-            // 사이드바오픈시 TODO 여기해야함!!!!!!!!!!!!
-            if(sideBarOpen)
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  sideBarOpen = false;
-                });
-                print(sideBarOpen);
-              },
-              child: Container(
-                width: boxWidth,
-                height: boxHeight,
-                color: Colors.black.withOpacity(0.8),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    width: boxWidth/2,
-                    height: boxHeight,
-                    color: Palette.white,
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              height: 60,
-                              padding: EdgeInsets.only(left: 20, right: 15),
-                              // color: Colors.red[100],
-                              child: Text('Side Bar',
-                                style: const TextStyle(
-                                  fontFamily: 'jalnan',
-                                  color: Palette.black,
-                                  fontSize: 20
-                                ),
-                              )
-                            ),
-                            Text('추가버튼'),
-                            Text('수정버튼')
-                          ],
-                        ),
-                        GestureDetector(
-                          child: Container(
-                            width: 100,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Palette.darkgray, width: 2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text('로그아웃아이콘',
-                                style: const TextStyle(
-                                  // fontFamily: 'jalnan',
-                                  color: Palette.darkgray,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                            print('BTN CLICK');
-                          },
-                        )
-                      ],
-                    )
-                  ),
-                ),
-              ),
-            ),
-
           ],
         ),
       )
+    );
+  }
+}
+
+class MoveListPage extends StatefulWidget {
+  MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
+
+  final Alignment direction;
+  final String svg;
+  final Function callback;
+
+  @override
+  State<MoveListPage> createState() => _MoveListPageState();
+}
+
+class _MoveListPageState extends State<MoveListPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      // alignment: Alignment.centerLeft,
+      alignment: widget.direction, //
+      child: GestureDetector(
+        child: Container(
+          width: 50,
+          height: 500,
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          // color: Colors.blue,
+          color: Colors.transparent,
+          child:  Align(
+            // alignment: Alignment.centerLeft,
+            alignment: widget.direction, //
+            child: SvgPicture.asset(
+              widget.svg, //
+              width: 20,
+              height: 20,
+              color: Colors.black.withOpacity(0.3),
+            ),
+          ),
+        ),
+        onTap: (){
+          widget.callback(); // 
+        },
+      ),
     );
   }
 }
