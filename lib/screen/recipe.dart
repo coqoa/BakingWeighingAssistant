@@ -1,13 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, sized_box_for_whitespace
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -28,6 +25,7 @@ class _RecipeState extends State<Recipe> {
   // firebase Auth
   String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
 
+  // TODO  스크린 유틸 라이브러리 써서 전체 수치 변경 + 중복제거 + 다른 페이지도 수치 변경////////////////////////////////////////////////////////
   double appBarHeight = 70;
   double listIndicatorHeight = 51;
   late double boxWidth = MediaQuery.of(context).size.width;
@@ -141,10 +139,9 @@ listIndex = listIndex+1;
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            //TODO 온탭이벤트, 페이지 기능 구현 정리 (블로그 포스팅)
-                            // 메모
+                            // 메모 버튼
                             GestureDetector(
-                              child: Container(
+                              child: SizedBox(
                                 height: 30,
                                 width: 30,
                                 // color: Colors.blue,
@@ -162,10 +159,10 @@ listIndex = listIndex+1;
                                 setState(() {
                                   memoOpen = true;
                                 });
-                                print(memoOpen);
                               },
                             ),
                             SizedBox(width: 5,),
+                            // 추가 버튼
                             GestureDetector(
                               child: Container(
                                 height: 30,
@@ -280,7 +277,7 @@ listIndex = listIndex+1;
                     Container(
                       width: boxWidth,
                       height: boxHeight-appBarHeight-listIndicatorHeight,
-                      color: Colors.orange,
+                      // color: Colors.orange,
                       child: Stack(
                         children: [
                           PageView.builder(
@@ -292,10 +289,137 @@ listIndex = listIndex+1;
                               return Center(
                                 child: Container(
                                   width: 300,
-                                  height: 500, // TODO 스크린유틸적용시키기 
-                                  color: Colors.red,
-                                  child: Center(
-                                    child: Text(controller.testList[index])
+                                  height: 500, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
+                                  padding: EdgeInsets.fromLTRB(15, 12, 15, 10),
+                                  decoration: BoxDecoration(
+                                    color: Palette.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    // ignore: prefer_const_literals_to_create_immutables
+                                    boxShadow: [
+                                      const BoxShadow(
+                                        blurRadius: 12,
+                                        offset: Offset(3.0, 6.0),
+                                        color: Color.fromRGBO(0, 0, 0, .20),
+                                      )
+                                    ]
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            // color: Colors.blue,
+                                          ),
+                                          Container(child: Text(controller.testList[index])),
+                                          GestureDetector(
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              // color: Colors.green,
+                                              child: Center(child: Text('편집')),
+                                              // child: FittedBox(
+                                              //   fit: BoxFit.none,
+                                              //   child: SvgPicture.asset(
+                                              //     'assets/images/pencil-solid.svg',
+                                              //     width: 20,
+                                              //     height: 20,
+                                              //     color: Palette.darkgray,
+                                              //   ),
+                                              // ),
+                                            ),
+                                            onTap:(){
+                                              setState(() {
+                                                print('편집!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      // TODO 여기여기ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                                      Container(
+                                        width: 200,
+                                        height: 300,
+                                        color: Colors.red,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Text('-----'),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text(controller.testList[index]),
+                                              Text('-----'),
+                                            ],
+                                          ),
+                                        )
+                                      ),
+
+                                      // 곱하기버튼
+                                      GestureDetector(
+                                        child: Container(
+                                          width: 100,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            // border: Border.all(color: Palette.darkgray, width: 2),
+                                            color: Palette.black,
+                                            borderRadius: BorderRadius.circular(15),
+                                            // boxShadow: [
+                                            //   const BoxShadow(
+                                            //     blurRadius: 12,
+                                            //     offset: Offset(0, 6.0),
+                                            //     color: Color.fromRGBO(0, 0, 0, .40),
+                                            //   )
+                                            // ]
+                                          ),
+                                          child: Center(
+                                            child: Text('X ?',
+                                              style: const TextStyle(
+                                                fontFamily: 'jalnan',
+                                                color: Palette.white,
+                                                // fontWeight: FontWeight.w900,
+                                                fontSize: 16
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: (){
+                                          Navigator.of(context).pop();
+                                          print('BTN CLICK');
+                                        },
+                                      )
+                                    ],
                                   )
                                 )
                               );
@@ -328,7 +452,6 @@ listIndex = listIndex+1;
                 setState(() {
                   memoOpen = false;
                 });
-                print(memoOpen);
               },
               child: Container(
                 width: boxWidth,
@@ -409,8 +532,9 @@ listIndex = listIndex+1;
   }
 }
 
+// 레시피 페이지 이동 버튼
 class MoveListPage extends StatefulWidget {
-  MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
+  const MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
 
   final Alignment direction;
   final String svg;
@@ -424,17 +548,14 @@ class _MoveListPageState extends State<MoveListPage> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      // alignment: Alignment.centerLeft,
       alignment: widget.direction, //
       child: GestureDetector(
         child: Container(
           width: 50,
           height: 500,
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          // color: Colors.blue,
           color: Colors.transparent,
           child:  Align(
-            // alignment: Alignment.centerLeft,
             alignment: widget.direction, //
             child: SvgPicture.asset(
               widget.svg, //

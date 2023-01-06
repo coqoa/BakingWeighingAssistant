@@ -8,6 +8,7 @@ import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
@@ -50,37 +51,45 @@ class MyApp extends StatelessWidget {
     // 풀스크린앱
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'nanumSquareRound',
-        brightness: Brightness.light,
-        backgroundColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: Colors.blueGrey,
-        primarySwatch: Colors.blueGrey, 
-        scaffoldBackgroundColor: Colors.white,
-
-        // 스테이터스 바 색깔변경? 01/05
-        appBarTheme: AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle.light
-        )
-      ),
-
-      // 디바이스간 폰트 크기 유지
-      builder: (context, child){
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), 
-          child: child!
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) { 
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'nanumSquareRound',
+            brightness: Brightness.light,
+            backgroundColor: Colors.white,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryColor: Colors.blueGrey,
+            primarySwatch: Colors.blueGrey, 
+            scaffoldBackgroundColor: Colors.white,
+      
+            // 스테이터스 바 색깔변경? 01/05
+            appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle.light
+            )
+          ),
+      
+          // 디바이스간 폰트 크기 유지
+          builder: (context, child){
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), 
+              child: child!
+            );
+          },
+      
+          home: SafeArea(
+            // child: Sign(),
+            // child: Menu(),
+            child: Recipe(),
+          ),
         );
       },
-
-      home: SafeArea(
-        // child: Sign(),
-        // child: Menu(),
-        child: Recipe(),
-      ),
+      
     );
   }
 }

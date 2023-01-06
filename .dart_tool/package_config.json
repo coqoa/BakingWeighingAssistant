@@ -176,6 +176,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_screenutil",
+      "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_screenutil-5.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.1.6",
       "packageUri": "lib/",
@@ -356,7 +362,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-01-04T15:33:38.220335Z",
+  "generated": "2023-01-06T13:59:17.114104Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
