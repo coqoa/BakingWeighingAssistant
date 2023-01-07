@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     return ScreenUtilInit(
-      designSize: const Size(360, 800),
+      designSize: const Size(360, 880),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context , child) { 

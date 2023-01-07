@@ -1,4 +1,4 @@
-#Thu Jan 05 18:48:40 KST 2023
+#Sat Jan 07 14:40:53 KST 2023
 base.2=/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/dex/debug/mergeDexDebug/classes3.dex
 path.2=classes3.dex
 base.1=/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/dex/debug/mergeDexDebug/classes2.dex
