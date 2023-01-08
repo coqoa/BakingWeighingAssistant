@@ -34,11 +34,18 @@ class _RecipeState extends State<Recipe> {
   late int listIndex ;
   late bool memoOpen = false;
   late bool isMultifly = false;
+  late int multiflyCountResult;
+  String multiflyIndicator = '';
 
   @override
   void initState() {
     super.initState();
     listIndex = 0;
+    multiflyInitialize();
+  }
+
+  void multiflyInitialize(){
+    multiflyCountResult = 1;
   }
   
   void moveListPage(){
@@ -54,6 +61,8 @@ class _RecipeState extends State<Recipe> {
       duration: Duration(milliseconds: 300),
       curve: Curves.decelerate, 
     ); 
+    // 배수 초기화
+    multiflyInitialize();
   }
     void moveListPageLeft(){
       setState(() {
@@ -71,6 +80,27 @@ class _RecipeState extends State<Recipe> {
       });
       moveListPage();
     }
+  
+  void multiflyCount(String s){
+    setState(() {
+      if(s == '<-'){
+        // 빼기 구현
+        if(multiflyIndicator.isNotEmpty ){
+          multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
+        }
+        print(multiflyIndicator == ''); // 비었을 때
+      }else if(s == '확인'){
+        // 적용하는 코드
+        multiflyCountResult = int.parse(multiflyIndicator);
+        isMultifly = false;
+      }else{
+        if(multiflyIndicator.length < 5){
+          multiflyIndicator = multiflyIndicator+s;
+        }
+        
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,6 +286,8 @@ class _RecipeState extends State<Recipe> {
                                     });
                                     // 페이지 이동
                                     _pageController.animateToPage(index, curve: Curves.decelerate, duration: Duration(milliseconds: 300)); // 페이지변경 애니메이션
+                                    // 배수 초기화
+                                    multiflyInitialize();
                                   },
                                 )
                               );
@@ -394,7 +426,7 @@ class _RecipeState extends State<Recipe> {
                                                 // ]
                                               ),
                                               child: Center(
-                                                child: Text('1 X ?',
+                                                child: Text('X $multiflyCountResult',
                                                   style: const TextStyle(
                                                     fontFamily: 'jalnan',
                                                     color: Palette.white,
@@ -406,6 +438,7 @@ class _RecipeState extends State<Recipe> {
                                             ),
                                             onTap: (){
                                               setState(() {
+                                                multiflyIndicator = '';
                                                 isMultifly = true;
                                               });
                                               print('BTN CLICK');
@@ -422,13 +455,16 @@ class _RecipeState extends State<Recipe> {
                                     top: 0,
                                     child: GestureDetector(
                                       onTap: (){
+                                        // setState(() {
+                                        //   multiflyCount('취소');
+                                        // });
                                         setState(() {
                                           isMultifly = false;
                                         });
                                       },
                                       child: Container(
                                         width: 360.w,
-                                        height: 780.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
+                                        height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
                                         decoration: BoxDecoration(
                                           color: Palette.black.withOpacity(0.5),
                                         ),
@@ -436,50 +472,64 @@ class _RecipeState extends State<Recipe> {
                                           child: GestureDetector(
                                             onTap: (){},
                                             child: Container(
-                                              width: 300.w,
-                                              height: 480.h,
-                                              color: Colors.white,
+                                              width: 220.w,
+                                              height: 380.h,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.circular(15)
+                                              ),
                                               child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
+                                                  Container(
+                                                    width: 200.w,
+                                                    height: 60.h,
+                                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                    decoration: BoxDecoration(
+                                                      color: Palette.white,
+                                                      border: Border.all(color: Palette.darkgray, width: 2),
+                                                      borderRadius: BorderRadius.circular(10)
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(multiflyIndicator,
+                                                        style: TextStyle(
+                                                          color: Palette.black,
+                                                          fontFamily: 'jalnan',
+                                                          fontSize: 18
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '7',index: 7, callback: (){},),
-                                                      MultiflyBtn(text: '8',index: 8, callback: (){},),
-                                                      MultiflyBtn(text: '9',index: 9, callback: (){},),
+                                                      MultiflyBtn(text: '7',index: 7, backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, callback: (){multiflyCount('7');}),
+                                                      MultiflyBtn(text: '8',index: 8, backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, callback: (){multiflyCount('8');}),
+                                                      MultiflyBtn(text: '9',index: 9, backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, callback: (){multiflyCount('9');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '4', index: 4, callback: (){},),
-                                                      MultiflyBtn(text: '5', index: 5, callback: (){},),
-                                                      MultiflyBtn(text: '6', index: 6, callback: (){},),
+                                                      MultiflyBtn(text: '4', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 4, callback: (){multiflyCount('4');}),
+                                                      MultiflyBtn(text: '5', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 5, callback: (){multiflyCount('5');}),
+                                                      MultiflyBtn(text: '6', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 6, callback: (){multiflyCount('6');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '1', index: 1, callback: (){},),
-                                                      MultiflyBtn(text: '2', index: 2, callback: (){},),
-                                                      MultiflyBtn(text: '3', index: 3, callback: (){},),
+                                                      MultiflyBtn(text: '1', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 1, callback: (){multiflyCount('1');}),
+                                                      MultiflyBtn(text: '2', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 2, callback: (){multiflyCount('2');}),
+                                                      MultiflyBtn(text: '3', backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, index: 3, callback: (){multiflyCount('3');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '0', index: 0, callback: (){},),
-                                                    ]
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      MultiflyBtn(text: '취소', index: 11, callback: (){setState(() {
-                                                        isMultifly = false;
-                                                      });},),
-                                                      MultiflyBtn(text: '확인', index: 22, callback: (){
-
-                                                      },),
+                                                      MultiflyBtn(text: '<-', index: 11, backgroundColor: Palette.lightgray, borderColor: Palette.lightgray, textColor: Palette.white, callback: (){multiflyCount('<-');}),
+                                                      MultiflyBtn(text: '0', index: 0, backgroundColor: Palette.white, borderColor: Palette.darkgray, textColor: Palette.black, callback: (){multiflyCount('0');}),
+                                                      MultiflyBtn(text: '확인', index: 22, backgroundColor: Palette.lightgray, borderColor: Palette.lightgray, textColor: Palette.black, callback: (){multiflyCount('확인');}),
                                                     ]
                                                   ),
                                                 ],
@@ -487,7 +537,7 @@ class _RecipeState extends State<Recipe> {
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      )
                                     )
                                   ),
 
@@ -651,28 +701,33 @@ class _MoveListPageState extends State<MoveListPage> {
 }
 
 class MultiflyBtn extends StatelessWidget {
-  const MultiflyBtn({super.key, required this.index, required this.callback, required this.text});
+  const MultiflyBtn({super.key, required this.index, required this.callback, required this.text, required this.backgroundColor, required this.borderColor, required this.textColor});
   final String text;
   final int index;
   final Function callback;
+  final Color backgroundColor;
+  final Color borderColor;
+  final Color textColor;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        print('$index');
+        callback();
       },
       child: Container(
         width: 60.w,
         height: 60.h,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Palette.darkgray, width: 2),
+          color: backgroundColor,
+          border: Border.all(color: borderColor, width: 2),
           borderRadius: BorderRadius.circular(15)
         ),
         child: Center(
           child: Text(text,
             style: TextStyle(
+              color: textColor,
               fontFamily: 'jalnan'
             ),
           )
