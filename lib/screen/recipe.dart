@@ -75,7 +75,7 @@ class _RecipeState extends State<Recipe> {
     void moveListPageRight(){
       setState(() {
         if(listIndex+1 < controller.testList.length) {
-  listIndex = listIndex+1;
+          listIndex = listIndex+1;
         }
       });
       moveListPage();
@@ -88,16 +88,16 @@ class _RecipeState extends State<Recipe> {
         if(multiflyIndicator.isNotEmpty ){
           multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
         }
-        print(multiflyIndicator == ''); // 비었을 때
       }else if(s == '확인'){
         // 적용하는 코드
-        multiflyCountResult = int.parse(multiflyIndicator);
+        if(multiflyIndicator != ''){
+          multiflyCountResult = int.parse(multiflyIndicator);
+        }
         isMultifly = false;
       }else{
-        if(multiflyIndicator.length < 5){
+        if(multiflyIndicator.length < 6){
           multiflyIndicator = multiflyIndicator+s;
         }
-        
       }
     });
   }
@@ -473,7 +473,8 @@ class _RecipeState extends State<Recipe> {
                                             onTap: (){},
                                             child: Container(
                                               width: 240.w,
-                                              height: 440.h,
+                                              height: 450.h,
+                                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                                               decoration: BoxDecoration(
                                                 color: Colors.grey[200],
                                                 borderRadius: BorderRadius.circular(15)
@@ -483,12 +484,17 @@ class _RecipeState extends State<Recipe> {
                                                 children: [
                                                   Container(
                                                     width: 200.w,
-                                                    height: 60.h,
-                                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                    height: 70.h,
                                                     decoration: BoxDecoration(
                                                       color: Palette.white,
-                                                      border: Border.all(color: Palette.gray, width: 1),
-                                                      borderRadius: BorderRadius.circular(10)
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.grey[300]!,
+                                                          blurRadius: 10,
+                                                          offset: Offset(0,3),
+                                                        ),
+                                                      ]
                                                     ),
                                                     child: Center(
                                                       child: Text(multiflyIndicator,
@@ -500,6 +506,7 @@ class _RecipeState extends State<Recipe> {
                                                       ),
                                                     )
                                                   ),
+                                                  SizedBox(height: 15.h,),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
@@ -718,24 +725,13 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
   @override
   Widget build(BuildContext context) {
 
-  double blur =  8;
+  double blur =  10;
   Offset distance = Offset(4,4);
 
     return GestureDetector(
-      // onTap: (){
-      //   setState(() {
-          
-      //   });
-      // },
-      onTapDown: (e){
+      onTap: (){
         setState(() {
           widget.callback();
-          // isClicked = true;
-        });
-      },
-      onTapUp: (e){
-        setState(() {
-          // isClicked = false;
         });
       },
       child: Container(
@@ -748,17 +744,14 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Colors.white,
-              blurRadius: blur,
-              offset: -distance,
-              // spreadRadius: 1,
-              
-            ),
-            BoxShadow(
               color: Colors.grey[400]!,
               blurRadius: blur,
               offset: distance,
-              // spreadRadius: 1
+            ),
+            BoxShadow(
+              color: Colors.white,
+              blurRadius: blur,
+              offset: -distance,
             ),
           ]
         ),
