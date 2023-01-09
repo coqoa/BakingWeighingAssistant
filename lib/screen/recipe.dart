@@ -318,7 +318,7 @@ class _RecipeState extends State<Recipe> {
                                     child: Container(
                                       width: 300.w,
                                       height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                      padding: EdgeInsets.fromLTRB(15, 12, 15, 10),
+                                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                                       decoration: BoxDecoration(
                                         color: Palette.white,
                                         borderRadius: BorderRadius.circular(15),
@@ -372,7 +372,7 @@ class _RecipeState extends State<Recipe> {
                                           // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
                                           Container(
                                             width: 260.w,
-                                            height: 530.h,
+                                            height: 500.h,
                                             color: Colors.red,
                                             child: SingleChildScrollView(
                                               child: Column(
@@ -411,8 +411,8 @@ class _RecipeState extends State<Recipe> {
                                           // 곱하기버튼
                                           GestureDetector(
                                             child: Container(
-                                              width: 100.w,
-                                              height: 40.h,
+                                              width: 120.w,
+                                              height: 60.h,
                                               decoration: BoxDecoration(
                                                 // border: Border.all(color: Palette.darkgray, width: 2),
                                                 color: Palette.black,
