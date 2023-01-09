@@ -27,6 +27,7 @@ class _RecipeState extends State<Recipe> {
   // String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
 
   // TODO  스크린 유틸 라이브러리 써서 전체 수치 변경 + 중복제거 + 다른 페이지도 수치 변경////////////////////////////////////////////////////////
+  // 변수
   double appBarHeight = 90.h;
   double listIndicatorHeight = 50.h;
   double contentHeight = 696.h;
@@ -37,6 +38,7 @@ class _RecipeState extends State<Recipe> {
   late int multiflyCountResult;
   String multiflyIndicator = '';
 
+  // 함수
   @override
   void initState() {
     super.initState();
@@ -94,7 +96,10 @@ class _RecipeState extends State<Recipe> {
           multiflyCountResult = int.parse(multiflyIndicator);
         }
         isMultifly = false;
-      }else{
+      }else if(multiflyIndicator.isEmpty && s=='0'){
+        print('0은 첫자리로 올 수 없다');
+      }
+      else{
         if(multiflyIndicator.length < 6){
           multiflyIndicator = multiflyIndicator+s;
         }
@@ -114,33 +119,42 @@ class _RecipeState extends State<Recipe> {
                 // 앱 바 
                 Container(
                   height: appBarHeight,
-                  color: Palette.white,
+                  decoration: BoxDecoration(
+                    color: Palette.white,
+                  ),
                   padding: EdgeInsets.only(left: 10.w, right: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //앱 바 왼쪽 아이콘
-                      Container(
-                        width: 80.w,
-                        // color: Colors.orange,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/ic_arrow_left2.svg',
-                              width: 15.w,
-                              height: 15.h,
-                              color: Palette.darkgray,
-                            ),
-                            Text(' back',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        child: Container(
+                          width: 80.w,
+                          // color: Colors.orange,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/ic_arrow_left2.svg',
+                                width: 15.w,
+                                height: 15.h,
                                 color: Palette.darkgray,
-                                fontSize: 17,
                               ),
-                            )
-                          ],
+                              Text(' back',
+                                style: const TextStyle(
+                                  // fontWeight: FontWeight.bold,
+                                  color: Palette.darkgray,
+                                  fontSize: 17,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
+                        onTap: (){
+                          setState(() {
+                            isMultifly = false;
+                          });
+                        },
                       ),
                       // 앱 바 타이틀
                       Container(
@@ -181,6 +195,7 @@ class _RecipeState extends State<Recipe> {
                               onTap: (){
                                 setState(() {
                                   memoOpen = true;
+                                  isMultifly = false;
                                 });
                               },
                             ),
@@ -190,6 +205,7 @@ class _RecipeState extends State<Recipe> {
                               child: Container(
                                 width: 30.w,
                                 height: 30.h,
+                                padding: EdgeInsets.only(top: 3),
                                 // color: Colors.green,
                                 child: FittedBox(
                                   fit: BoxFit.none,
@@ -203,6 +219,7 @@ class _RecipeState extends State<Recipe> {
                               ),
                               onTap:(){
                                 setState(() {
+                                  isMultifly = false;
                                   print('추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                 });
                               },
@@ -221,11 +238,11 @@ class _RecipeState extends State<Recipe> {
                     Container(
                       height: listIndicatorHeight,
                       decoration: BoxDecoration(
-                      color: Palette.white,
+                        color: Palette.white,
                         // ignore: prefer_const_literals_to_create_immutables
                         boxShadow: [
                           BoxShadow(
-                            blurRadius: 4,
+                            blurRadius: 2,
                             offset:Offset(0.0, 4.0),
                             color: Color.fromRGBO(219, 219, 219, 0.5)
                           )
@@ -249,9 +266,8 @@ class _RecipeState extends State<Recipe> {
                               )
                             ]
                           ),
-                          // controller
+                          // 리스트 인디케이터 컨텐츠
                           child: ListView.builder(
-                            // physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: controller.testList.length,
                             controller: _scrollController,
@@ -283,6 +299,7 @@ class _RecipeState extends State<Recipe> {
                                     // 인디케이터 컬러변경
                                     setState(() {
                                       listIndex = index;
+                                      isMultifly = false;
                                     });
                                     // 페이지 이동
                                     _pageController.animateToPage(index, curve: Curves.decelerate, duration: Duration(milliseconds: 300)); // 페이지변경 애니메이션
@@ -296,6 +313,7 @@ class _RecipeState extends State<Recipe> {
                         ),
                       ),
                     ),
+
                     // 메인 컨텐츠
                     Container(
                       width: 360.w,
@@ -318,16 +336,16 @@ class _RecipeState extends State<Recipe> {
                                     child: Container(
                                       width: 300.w,
                                       height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                      padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
                                       decoration: BoxDecoration(
                                         color: Palette.white,
                                         borderRadius: BorderRadius.circular(15),
                                         // ignore: prefer_const_literals_to_create_immutables
                                         boxShadow: [
                                           const BoxShadow(
-                                            blurRadius: 12,
+                                            blurRadius: 30,
                                             offset: Offset(3.0, 6.0),
-                                            color: Color.fromRGBO(0, 0, 0, .20),
+                                            color: Color.fromRGBO(0, 0, 0, .2),
                                           )
                                         ]
                                       ),
@@ -350,7 +368,6 @@ class _RecipeState extends State<Recipe> {
                                                   width: 30.w,
                                                   height: 30.h,
                                                   // color: Colors.green,
-                                                  // child: Center(child: Text('편집')),
                                                   child: FittedBox(
                                                     fit: BoxFit.none,
                                                     child: SvgPicture.asset(
@@ -373,7 +390,10 @@ class _RecipeState extends State<Recipe> {
                                           Container(
                                             width: 260.w,
                                             height: 500.h,
-                                            color: Colors.red,
+                                            decoration: BoxDecoration(
+                                              // color: Colors.red,
+                                              border: Border.all(width: 2, color: Palette.reallightgray)
+                                            ),
                                             child: SingleChildScrollView(
                                               child: Column(
                                                 children: [
@@ -417,14 +437,8 @@ class _RecipeState extends State<Recipe> {
                                                 // border: Border.all(color: Palette.darkgray, width: 2),
                                                 color: Palette.black,
                                                 borderRadius: BorderRadius.circular(15),
-                                                // boxShadow: [
-                                                //   const BoxShadow(
-                                                //     blurRadius: 12,
-                                                //     offset: Offset(0, 6.0),
-                                                //     color: Color.fromRGBO(0, 0, 0, .40),
-                                                //   )
-                                                // ]
                                               ),
+                                              // TODO 여기까지 일단 확인 완료 (1/10)
                                               child: Center(
                                                 child: Text('X $multiflyCountResult',
                                                   style: const TextStyle(
@@ -466,7 +480,7 @@ class _RecipeState extends State<Recipe> {
                                         width: 360.w,
                                         height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
                                         decoration: BoxDecoration(
-                                          color: Palette.black.withOpacity(0.5),
+                                          color: Palette.white.withOpacity(0)
                                         ),
                                         child: Center(
                                           child: GestureDetector(
