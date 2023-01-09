@@ -350,16 +350,16 @@ class _RecipeState extends State<Recipe> {
                                                   width: 30.w,
                                                   height: 30.h,
                                                   // color: Colors.green,
-                                                  child: Center(child: Text('편집')),
-                                                  // child: FittedBox(
-                                                  //   fit: BoxFit.none,
-                                                  //   child: SvgPicture.asset(
-                                                  //     'assets/images/pencil-solid.svg',
-                                                  //     width: 20,
-                                                  //     height: 20,
-                                                  //     color: Palette.darkgray,
-                                                  //   ),
-                                                  // ),
+                                                  // child: Center(child: Text('편집')),
+                                                  child: FittedBox(
+                                                    fit: BoxFit.none,
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/pencil-solid.svg',
+                                                      width: 20,
+                                                      height: 20,
+                                                      color: Palette.darkgray,
+                                                    ),
+                                                  ),
                                                 ),
                                                 onTap:(){
                                                   setState(() {
@@ -475,7 +475,7 @@ class _RecipeState extends State<Recipe> {
                                               width: 220.w,
                                               height: 380.h,
                                               decoration: BoxDecoration(
-                                                color: Colors.white,
+                                                color: Colors.grey[200],
                                                 borderRadius: BorderRadius.circular(15)
                                               ),
                                               child: Column(
@@ -487,7 +487,7 @@ class _RecipeState extends State<Recipe> {
                                                     margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
                                                     decoration: BoxDecoration(
                                                       color: Palette.white,
-                                                      border: Border.all(color: Palette.darkgray, width: 2),
+                                                      border: Border.all(color: Palette.gray, width: 1),
                                                       borderRadius: BorderRadius.circular(10)
                                                     ),
                                                     child: Center(
@@ -700,7 +700,8 @@ class _MoveListPageState extends State<MoveListPage> {
   }
 }
 
-class MultiflyBtn extends StatelessWidget {
+// 계산기 다이얼로그 버튼
+class MultiflyBtn extends StatefulWidget {
   const MultiflyBtn({super.key, required this.index, required this.callback, required this.text, required this.backgroundColor, required this.borderColor, required this.textColor});
   final String text;
   final int index;
@@ -710,24 +711,56 @@ class MultiflyBtn extends StatelessWidget {
   final Color textColor;
 
   @override
+  State<MultiflyBtn> createState() => _MultiflyBtnState();
+}
+
+class _MultiflyBtnState extends State<MultiflyBtn> {
+  @override
   Widget build(BuildContext context) {
+
+    bool isClicked = false;
+
     return GestureDetector(
-      onTap: (){
-        callback();
+      // onTap: (){
+      // },
+      onTapDown: (details) {
+        setState(() {
+          widget.callback();
+          isClicked = true;
+          print(isClicked);
+        });
+      },
+      onTapUp: (details) {
+        isClicked = false;
+        print(isClicked);
       },
       child: Container(
         width: 60.w,
         height: 60.h,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(color: borderColor, width: 2),
-          borderRadius: BorderRadius.circular(15)
+          color: Colors.grey[200],
+          // border: Border.all(color: borderColor, width: 2),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white,
+              offset: isClicked ? Offset(-4,-4) : Offset(4,4),
+              blurRadius: 15.0,
+              spreadRadius: 1
+            ),
+            BoxShadow(
+              color: Colors.grey[400]!,
+              offset: isClicked ? Offset(4,4) : Offset(-4,-4),
+              blurRadius: 15,
+              spreadRadius: 1
+            ),
+          ]
         ),
         child: Center(
-          child: Text(text,
+          child: Text(widget.text,
             style: TextStyle(
-              color: textColor,
+              color: widget.textColor,
               fontFamily: 'jalnan'
             ),
           )

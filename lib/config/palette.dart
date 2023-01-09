@@ -18,5 +18,7 @@ class Palette{
   static const Color reallightgray = Color.fromRGBO(236, 234, 235, 1);
   static const Color gray = Color.fromRGBO(208, 208, 208, 1);
   static const Color white= Color.fromRGBO(255, 255, 255, 1);
+  static const Color neumorphismColor= Color.fromRGBO(255, 255, 255, 1);
+
 
 }
