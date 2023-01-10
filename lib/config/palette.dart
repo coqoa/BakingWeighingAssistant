@@ -18,7 +18,11 @@ class Palette{
   static const Color reallightgray = Color.fromRGBO(236, 234, 235, 1);
   static const Color gray = Color.fromRGBO(208, 208, 208, 1);
   static const Color white= Color.fromRGBO(255, 255, 255, 1);
-  static const Color neumorphismColor= Color.fromRGBO(238, 238, 238, 1);
+  // static const Color neumorphismColor= Color.fromRGBO(144, 144, 144, 1); // 다크그레이
+  static const Color neumorphismColor= Color.fromRGBO(33, 33, 33, 1); // 다크모드
+  static const Color neumorphismTopShadow= Color.fromRGBO(33, 33, 33, 1); // 탑
+  static const Color neumorphismBottomShadow= Color.fromRGBO(0, 0, 0, 1); // 바텀
+  // static const Color neumorphismColor= Color.fromRGBO(238, 238, 238, 1);
 
 
 }

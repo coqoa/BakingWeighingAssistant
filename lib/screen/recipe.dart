@@ -490,7 +490,7 @@ class _RecipeState extends State<Recipe> {
                                               height: 450.h,
                                               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                                               decoration: BoxDecoration(
-                                                color: Colors.grey[200],
+                                                color: Palette.neumorphismColor,
                                                 borderRadius: BorderRadius.circular(15)
                                               ),
                                               child: Column(
@@ -500,11 +500,11 @@ class _RecipeState extends State<Recipe> {
                                                     width: 200.w,
                                                     height: 70.h,
                                                     decoration: BoxDecoration(
-                                                      color: Palette.white,
+                                                      color: Palette.reallightgray,
                                                       borderRadius: BorderRadius.circular(10),
                                                       boxShadow: [
                                                         BoxShadow(
-                                                          color: Colors.grey[300]!,
+                                                          color: Colors.black,
                                                           blurRadius: 10,
                                                           offset: Offset(0,3),
                                                         ),
@@ -524,33 +524,33 @@ class _RecipeState extends State<Recipe> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '7',index: 7, backgroundColor: Palette.neumorphismColor, textColor: Palette.black, callback: (){multiflyCount('7');}),
-                                                      MultiflyBtn(text: '8',index: 8, backgroundColor: Palette.neumorphismColor, textColor: Palette.black, callback: (){multiflyCount('8');}),
-                                                      MultiflyBtn(text: '9',index: 9, backgroundColor: Palette.neumorphismColor, textColor: Palette.black, callback: (){multiflyCount('9');}),
+                                                      MultiflyBtn(text: '7', textColor: Palette.white, callback: (){multiflyCount('7');}),
+                                                      MultiflyBtn(text: '8', textColor: Palette.white, callback: (){multiflyCount('8');}),
+                                                      MultiflyBtn(text: '9', textColor: Palette.white, callback: (){multiflyCount('9');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '4', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 4, callback: (){multiflyCount('4');}),
-                                                      MultiflyBtn(text: '5', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 5, callback: (){multiflyCount('5');}),
-                                                      MultiflyBtn(text: '6', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 6, callback: (){multiflyCount('6');}),
+                                                      MultiflyBtn(text: '4', textColor: Palette.white, callback: (){multiflyCount('4');}),
+                                                      MultiflyBtn(text: '5', textColor: Palette.white, callback: (){multiflyCount('5');}),
+                                                      MultiflyBtn(text: '6', textColor: Palette.white, callback: (){multiflyCount('6');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '1', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 1, callback: (){multiflyCount('1');}),
-                                                      MultiflyBtn(text: '2', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 2, callback: (){multiflyCount('2');}),
-                                                      MultiflyBtn(text: '3', backgroundColor: Palette.neumorphismColor, textColor: Palette.black, index: 3, callback: (){multiflyCount('3');}),
+                                                      MultiflyBtn(text: '1', textColor: Palette.white, callback: (){multiflyCount('1');}),
+                                                      MultiflyBtn(text: '2', textColor: Palette.white, callback: (){multiflyCount('2');}),
+                                                      MultiflyBtn(text: '3', textColor: Palette.white, callback: (){multiflyCount('3');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '<-', index: 11, backgroundColor: Palette.neumorphismColor, textColor: Palette.darkgray, callback: (){multiflyCount('<-');}),
-                                                      MultiflyBtn(text: '0', index: 0, backgroundColor: Palette.neumorphismColor, textColor: Palette.black, callback: (){multiflyCount('0');}),
-                                                      MultiflyBtn(text: '확인', index: 22, backgroundColor: Colors.lightBlue[500]!, textColor: Palette.white, callback: (){multiflyCount('확인');}),
+                                                      MultiflyBtn(text: '<-', textColor: Colors.lightBlue[600]!, callback: (){multiflyCount('<-');}),
+                                                      MultiflyBtn(text: '0', textColor: Palette.white, callback: (){multiflyCount('0');}),
+                                                      MultiflyBtn(text: '확인', textColor: Palette.red, callback: (){multiflyCount('확인');}),
                                                     ]
                                                   ),
                                                 ],
@@ -723,24 +723,22 @@ class _MoveListPageState extends State<MoveListPage> {
 
 // 계산기 다이얼로그 버튼
 class MultiflyBtn extends StatefulWidget {
-  const MultiflyBtn({super.key, required this.index, required this.callback, required this.text, required this.backgroundColor, required this.textColor});
+  const MultiflyBtn({super.key, required this.callback, required this.text, required this.textColor});
   final String text;
-  final int index;
-  final Function callback;
-  final Color backgroundColor;
   final Color textColor;
+  final Function callback;
 
   @override
   State<MultiflyBtn> createState() => _MultiflyBtnState();
 }
 
 class _MultiflyBtnState extends State<MultiflyBtn> {
-  // bool isClicked = false;
+
   @override
   Widget build(BuildContext context) {
 
-  double blur =  10;
-  Offset distance = Offset(4,4);
+    double blur =  10;
+    Offset distance = Offset(4,4);
 
     return GestureDetector(
       onTap: (){
@@ -753,17 +751,16 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
         height: 70.h,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: widget.backgroundColor,
-          // border: Border.all(color: Palette.gray, width: 2),
+          color: Palette.neumorphismColor,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey[400]!,
+              color: Palette.neumorphismBottomShadow,
               blurRadius: blur,
               offset: distance,
             ),
             BoxShadow(
-              color: Colors.white,
+              color: Palette.neumorphismTopShadow,
               blurRadius: blur,
               offset: -distance,
             ),
