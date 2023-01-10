@@ -140,7 +140,7 @@ class _RecipeState extends State<Recipe> {
                                   // color: Colors.red,
                                   padding: EdgeInsets.only(top: 2),
                                 child: SvgPicture.asset(
-                                  'assets/images/ic_arrow_left2.svg',
+                                  'assets/images/ic_left.svg',
                                   color: Palette.lightgray,
                                 ),
                               ),
@@ -168,7 +168,8 @@ class _RecipeState extends State<Recipe> {
                           child: Text('Boulangerie',
                             style: const TextStyle(
                               fontSize: 30,
-                              fontWeight: FontWeight.bold
+                              // fontWeight: FontWeight.bold
+                              color: Palette.black
                             ),
                           ),
                         ),
@@ -192,7 +193,7 @@ class _RecipeState extends State<Recipe> {
                                     'assets/images/ic_clipboard.svg',
                                     width: 27.w,
                                     height: 27.h,
-                                    color: Palette.darkgray,
+                                    color: Palette.gray,
                                   ),
                                 ),
                               ),
@@ -209,7 +210,6 @@ class _RecipeState extends State<Recipe> {
                               child: Container(
                                 width: 30.w,
                                 height: 30.h,
-                                padding: EdgeInsets.only(top: 3),
                                 // color: Colors.green,
                                 child: FittedBox(
                                   fit: BoxFit.none,
@@ -217,7 +217,7 @@ class _RecipeState extends State<Recipe> {
                                     'assets/images/ic_plus.svg',
                                     width: 27.w,
                                     height: 27.h,
-                                    color: Palette.darkgray,
+                                    color: Palette.gray,
                                   ),
                                 ),
                               ),
@@ -365,7 +365,16 @@ class _RecipeState extends State<Recipe> {
                                                 // color: Colors.blue,
                                               ),
                                               // 타이틀
-                                              Container(child: Text(controller.testList[index])),
+                                              Container(
+                                                child: Text(
+                                                  controller.testList[index],
+                                                  style: const TextStyle(
+                                                    fontSize: 23,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Palette.black
+                                                  ),
+                                                )
+                                              ),
                                               // 편집버튼
                                               GestureDetector(
                                                 child: Container(
@@ -375,10 +384,12 @@ class _RecipeState extends State<Recipe> {
                                                   child: FittedBox(
                                                     fit: BoxFit.none,
                                                     child: SvgPicture.asset(
-                                                      'assets/images/pencil-solid.svg',
+                                                      // 'assets/images/pencil-solid.svg',
+                                                      'assets/images/pencil.svg',
+                                                      // 'assets/images/eraser.svg',
                                                       width: 20,
                                                       height: 20,
-                                                      color: Palette.darkgray,
+                                                      color: Palette.gray,
                                                     ),
                                                   ),
                                                 ),
@@ -393,7 +404,7 @@ class _RecipeState extends State<Recipe> {
                                           // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
                                           Container(
                                             width: 260.w,
-                                            height: 500.h,
+                                            height: 490.h,
                                             decoration: BoxDecoration(
                                               // color: Colors.red,
                                               border: Border.all(width: 2, color: Palette.reallightgray)
@@ -448,7 +459,7 @@ class _RecipeState extends State<Recipe> {
                                                   style: const TextStyle(
                                                     color: Palette.textColorWhite,
                                                     fontWeight: FontWeight.w900,
-                                                    fontSize: 16
+                                                    fontSize: 18
                                                   ),
                                                 ),
                                               ),
@@ -575,12 +586,14 @@ class _RecipeState extends State<Recipe> {
                           // LEFT 이동
                           MoveListPage(
                             direction: Alignment.centerLeft, 
+                            // svg: 'assets/images/caret-left.svg', 
                             svg: 'assets/images/ic_left.svg', 
                             callback: moveListPageLeft,
                           ),
                           // RIGHT 이동
                           MoveListPage(
                             direction: Alignment.centerRight, 
+                            // svg: 'assets/images/caret-right.svg', 
                             svg: 'assets/images/ic_right.svg', 
                             callback: moveListPageRight,
                           ),
@@ -607,7 +620,7 @@ class _RecipeState extends State<Recipe> {
               color: Colors.black.withOpacity(0.8),
               child: Center(
                 child: Container(
-                  width: 300.w,
+                  width: 270.w,
                   height: 480.h,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -651,14 +664,14 @@ class _RecipeState extends State<Recipe> {
                               width: 120.w,
                               height: 50.h,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Palette.lightgray, width: 2),
+                                border: Border.all(color: Palette.gray, width: 1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                 child: Text('Save',
                                   style: const TextStyle(
-                                    color: Palette.gray,
-                                    fontWeight: FontWeight.w900,
+                                    color: Palette.black,
+                                    // fontWeight: FontWeight.w900,
                                     fontSize: 16
                                   ),
                                 ),
@@ -705,15 +718,15 @@ class _MoveListPageState extends State<MoveListPage> {
         child: Container(
           width: 50.w,
           height: 500.h,
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
           color: Colors.transparent,
           child:  Align(
             alignment: widget.direction, //
             child: SvgPicture.asset(
               widget.svg, //
-              width: 20.w,
-              height: 20.h,
-              color: Palette.gray
+              width: 25.w,
+              height: 25.h,
+              color: Palette.lightgray
             ),
           ),
         ),
