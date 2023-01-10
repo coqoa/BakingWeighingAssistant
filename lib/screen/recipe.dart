@@ -120,7 +120,7 @@ class _RecipeState extends State<Recipe> {
                 Container(
                   height: appBarHeight,
                   decoration: BoxDecoration(
-                    color: Palette.white,
+                    color: Palette.backgroundColor,
                   ),
                   padding: EdgeInsets.only(left: 10.w, right: 10.w),
                   child: Row(
@@ -134,17 +134,21 @@ class _RecipeState extends State<Recipe> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/ic_arrow_left2.svg',
-                                width: 15.w,
-                                height: 15.h,
-                                color: Palette.darkgray,
+                              Container(
+                                  width: 12.w,
+                                  height: 20.h,
+                                  // color: Colors.red,
+                                  padding: EdgeInsets.only(top: 2),
+                                child: SvgPicture.asset(
+                                  'assets/images/ic_arrow_left2.svg',
+                                  color: Palette.lightgray,
+                                ),
                               ),
                               Text(' back',
                                 style: const TextStyle(
                                   // fontWeight: FontWeight.bold,
-                                  color: Palette.darkgray,
-                                  fontSize: 17,
+                                  color: Palette.gray,
+                                  fontSize: 20,
                                 ),
                               )
                             ],
@@ -163,8 +167,8 @@ class _RecipeState extends State<Recipe> {
                         child: Center(
                           child: Text('Boulangerie',
                             style: const TextStyle(
-                              // fontFamily: 'jalnan',
-                              fontSize: 25,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
@@ -238,7 +242,7 @@ class _RecipeState extends State<Recipe> {
                     Container(
                       height: listIndicatorHeight,
                       decoration: BoxDecoration(
-                        color: Palette.white,
+                        color: Palette.backgroundColor,
                         // ignore: prefer_const_literals_to_create_immutables
                         boxShadow: [
                           BoxShadow(
@@ -252,7 +256,7 @@ class _RecipeState extends State<Recipe> {
                         alignment: Alignment.topCenter,
                         child: Container(
                           width: 230.w,
-                          height: 36.h,
+                          height: 38.h,
                           padding: EdgeInsets.only(left: 10.w, right: 10.w),
                           decoration: BoxDecoration(
                             color: Palette.reallightgray,
@@ -286,9 +290,9 @@ class _RecipeState extends State<Recipe> {
                                         return Text(
                                           controller.testList[index],
                                           style: TextStyle(
-                                            color: listIndex == index ? Palette.black : Palette.darkgray, // darkgray
-                                            fontWeight: listIndex == index ? FontWeight.w900 : FontWeight.w400, // regular
-                                            fontSize: 14
+                                            color: listIndex == index ? Palette.black : Palette.gray, // darkgray
+                                            fontWeight: listIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
+                                            fontSize: 16
                                           ),
                                         );
                                       })
@@ -338,7 +342,7 @@ class _RecipeState extends State<Recipe> {
                                       height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
                                       padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
                                       decoration: BoxDecoration(
-                                        color: Palette.white,
+                                        color: Palette.backgroundColor,
                                         borderRadius: BorderRadius.circular(15),
                                         // ignore: prefer_const_literals_to_create_immutables
                                         boxShadow: [
@@ -440,11 +444,10 @@ class _RecipeState extends State<Recipe> {
                                               ),
                                               // TODO 여기까지 일단 확인 완료 (1/10)
                                               child: Center(
-                                                child: Text('X $multiflyCountResult',
+                                                child: Text('× $multiflyCountResult',
                                                   style: const TextStyle(
-                                                    fontFamily: 'jalnan',
-                                                    color: Palette.white,
-                                                    // fontWeight: FontWeight.w900,
+                                                    color: Palette.textColorWhite,
+                                                    fontWeight: FontWeight.w900,
                                                     fontSize: 16
                                                   ),
                                                 ),
@@ -480,7 +483,7 @@ class _RecipeState extends State<Recipe> {
                                         width: 360.w,
                                         height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
                                         decoration: BoxDecoration(
-                                          color: Palette.white.withOpacity(0)
+                                          color: Palette.modalBackgroundColor
                                         ),
                                         child: Center(
                                           child: GestureDetector(
@@ -502,6 +505,7 @@ class _RecipeState extends State<Recipe> {
                                                     decoration: BoxDecoration(
                                                       color: Palette.reallightgray,
                                                       borderRadius: BorderRadius.circular(10),
+                                                      // ignore: prefer_const_literals_to_create_immutables
                                                       boxShadow: [
                                                         BoxShadow(
                                                           color: Colors.black,
@@ -514,8 +518,9 @@ class _RecipeState extends State<Recipe> {
                                                       child: Text(multiflyIndicator,
                                                         style: TextStyle(
                                                           color: Palette.black,
-                                                          fontFamily: 'jalnan',
-                                                          fontSize: 18
+                                                          // fontFamily: 'jalnan',
+                                                          fontSize: 30,
+                                                          fontWeight: FontWeight.w900
                                                         ),
                                                       ),
                                                     )
@@ -524,33 +529,33 @@ class _RecipeState extends State<Recipe> {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '7', textColor: Palette.white, callback: (){multiflyCount('7');}),
-                                                      MultiflyBtn(text: '8', textColor: Palette.white, callback: (){multiflyCount('8');}),
-                                                      MultiflyBtn(text: '9', textColor: Palette.white, callback: (){multiflyCount('9');}),
+                                                      MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7');}),
+                                                      MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8');}),
+                                                      MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '4', textColor: Palette.white, callback: (){multiflyCount('4');}),
-                                                      MultiflyBtn(text: '5', textColor: Palette.white, callback: (){multiflyCount('5');}),
-                                                      MultiflyBtn(text: '6', textColor: Palette.white, callback: (){multiflyCount('6');}),
+                                                      MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4');}),
+                                                      MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5');}),
+                                                      MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '1', textColor: Palette.white, callback: (){multiflyCount('1');}),
-                                                      MultiflyBtn(text: '2', textColor: Palette.white, callback: (){multiflyCount('2');}),
-                                                      MultiflyBtn(text: '3', textColor: Palette.white, callback: (){multiflyCount('3');}),
+                                                      MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1');}),
+                                                      MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2');}),
+                                                      MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3');}),
                                                     ]
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      MultiflyBtn(text: '<-', textColor: Colors.lightBlue[600]!, callback: (){multiflyCount('<-');}),
-                                                      MultiflyBtn(text: '0', textColor: Palette.white, callback: (){multiflyCount('0');}),
-                                                      MultiflyBtn(text: '확인', textColor: Palette.red, callback: (){multiflyCount('확인');}),
+                                                      MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-');}),
+                                                      MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0');}),
+                                                      MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인');}),
                                                     ]
                                                   ),
                                                 ],
@@ -606,7 +611,7 @@ class _RecipeState extends State<Recipe> {
                   height: 480.h,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Palette.white,
+                    color: Palette.modalBackgroundColor,
                     borderRadius: BorderRadius.circular(15)
                   ),
                   child: Column(
@@ -646,16 +651,15 @@ class _RecipeState extends State<Recipe> {
                               width: 120.w,
                               height: 50.h,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Palette.darkgray, width: 2),
+                                border: Border.all(color: Palette.lightgray, width: 2),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Center(
                                 child: Text('Save',
                                   style: const TextStyle(
-                                    // fontFamily: 'jalnan',
-                                    color: Palette.darkgray,
+                                    color: Palette.gray,
                                     fontWeight: FontWeight.w900,
-                                    fontSize: 15
+                                    fontSize: 16
                                   ),
                                 ),
                               ),
@@ -709,7 +713,7 @@ class _MoveListPageState extends State<MoveListPage> {
               widget.svg, //
               width: 20.w,
               height: 20.h,
-              color: Colors.black.withOpacity(0.3),
+              color: Palette.gray
             ),
           ),
         ),
@@ -770,7 +774,8 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
           child: Text(widget.text,
             style: TextStyle(
               color: widget.textColor,
-              fontFamily: 'jalnan'
+              fontSize: 16,
+              fontWeight: FontWeight.w900
             ),
           )
         ),

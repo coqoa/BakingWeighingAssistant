@@ -88,6 +88,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: nanumBarun
+      fonts:
+        - asset: assets/font/NanumBarunpenB.otf
+          weight: 200
+        - asset: assets/font/NanumBarunpenR.otf
+          weight: 100
     - family: carter
       fonts:
         - asset: assets/font/CarterOne-Regular.ttf
