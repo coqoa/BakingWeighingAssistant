@@ -1,6 +1,7 @@
 import 'package:bwa/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -42,9 +43,10 @@ class _MenuState extends State<Menu> {
       body: Stack(
         children: [
           Container(
-            height: GetPlatform.isMobile? boxHeight: 637, // 웹이면 변경
-            width: GetPlatform.isMobile ? boxWidth : 375, 
-            color: Colors.white,
+            // height: GetPlatform.isMobile? boxHeight: 860.h, // 웹이면 변경
+            // width: GetPlatform.isMobile ? boxWidth : 345.w, 
+            // color: Palette.backgroundColor,
+            color: Colors.red,
 
             child: Obx(()=>
               Theme(
@@ -66,17 +68,17 @@ class _MenuState extends State<Menu> {
                       print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
                     // });
                   },
-                  onReorderStart: (index) {
-                  },
-                  onReorderEnd: (index) async{
-                    print(index); // 놓여지는 위치
-                  },
+                  // onReorderStart: (index) {
+                  // },
+                  // onReorderEnd: (index) async{
+                  //   print(index); // 놓여지는 위치
+                  // },
               
                   children: controller.testList.map((item) => 
                     // 개별 Tile
                     Container(
                       key: Key(item),// ReorderableListView 자식 요소로 필수 
-                      height: 180,
+                      height: 250.h,
                       margin: const EdgeInsets.fromLTRB(30, 15, 30, 15),
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                       decoration: BoxDecoration(
@@ -100,9 +102,10 @@ class _MenuState extends State<Menu> {
                               children: [
                                 Text(item,
                                   style: const TextStyle(
-                                    fontFamily: 'jalnan',
+                                    // fontFamily: 'jalnan',
                                     color: Palette.lightblack,
-                                    fontSize: 25,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 ),
                               ],
@@ -119,14 +122,14 @@ class _MenuState extends State<Menu> {
                                 // EDIT
                                 GestureDetector(
                                   child: SizedBox(
-                                    width: 35,
-                                    height: 35,
+                                    width: 35.w,
+                                    height: 35.h,
                                     child: Center(
                                       child: SvgPicture.asset(
-                                        'assets/images/pencil-solid.svg',
+                                        'assets/images/pencil.svg',
                                         color: Palette.gray,
-                                        width: 20,
-                                        height: 20,
+                                        width: 23,
+                                        height: 23,
                                       ),
                                     ),
                                   ),
@@ -140,8 +143,8 @@ class _MenuState extends State<Menu> {
                                           title: 'Edit',
                                           contents: 
                                             SizedBox(
-                                              width: 250,
-                                              height: 100,
+                                              width: 250.w,
+                                              height: 100.h,
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -197,69 +200,6 @@ class _MenuState extends State<Menu> {
                                         );
                                       }
                                     );
-
-                                    // // 투버튼
-                                    // showDialog(
-                                    //   context: context, 
-                                    //   builder: (_){
-                                    //     return DefaultAlertDialogTwoButton(
-                                    //       title: 'EDIT',
-                                    //       contents: 
-                                    //         SizedBox(
-                                    //           width: 250,
-                                    //           height: 100,
-                                    //           child: Column(
-                                    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    //             children: [
-                                    //               const SizedBox(),
-                                    //               TextField(
-                                    //                 key: GlobalKey(), // 
-                                    //                 controller: _textController, // 텍스트 기본값 설정 컨트롤러
-
-                                    //                 style: const TextStyle(
-                                    //                   fontSize: 25,
-                                    //                 ),
-                                    //                 textAlign: TextAlign.center,
-                                    //                 cursorColor: Palette.lightblack,
-                                    //                 cursorHeight: 25,
-                                    //                 maxLength: 20,
-
-                                    //                 decoration: const InputDecoration(
-                                    //                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                    //                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                    //                   filled: true,
-                                    //                   fillColor: Palette.white,
-                                    //                   isDense: true,
-                                    //                   contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-                                    //                 ),
-                                                    
-                                    //                 onChanged: (value){
-                                    //                     setState(() {
-                                    //                       title = value;
-                                    //                     });
-                                    //                 },
-                                    //                 onSubmitted: (value){
-                                    //                   if(item != value){
-                                    //                     Navigator.of(context).pop();
-                                    //                     setState(() {
-                                    //                       title = value;
-                                    //                       // db변경 메소드
-                                    //                     });
-                                    //                   }else{
-                                    //                     print('똑같으니까 쇼바텀시트로 알려주기');
-                                    //                   }
-                                    //                 },
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //         ),
-                                    //       leftButtonFunction: (){}, 
-                                    //       leftButtonName: 'No', 
-                                    //       rightButtonFuction: (){}, 
-                                    //       rightButtonName: 'Ok', 
-                                    //     );
-                                    //   }
-                                    // );
                                   },
                                 ),
                                 const SizedBox(width: 5,),
@@ -272,10 +212,10 @@ class _MenuState extends State<Menu> {
                                     // color: Colors.blue,
                                     child: Center(
                                       child: SvgPicture.asset(
-                                        'assets/images/eraser-solid.svg',
+                                        'assets/images/eraser.svg',
                                         color: Palette.gray,
-                                        width: 24,
-                                        height: 24,
+                                        width: 27,
+                                        height: 27,
                                       ),
                                     ),
                                   ),
@@ -346,8 +286,8 @@ class _MenuState extends State<Menu> {
                       title: 'Create',
                       contents: 
                         SizedBox(
-                          width: 250,
-                          height: 100,
+                          width: 250.w,
+                          height: 100.h,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

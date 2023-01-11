@@ -5,6 +5,7 @@ import 'package:bwa/controller/sign_controller.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class Sign extends StatefulWidget {
@@ -39,8 +40,8 @@ class _SignState extends State<Sign> {
         builder: (context, isKeyboardVisible) { 
           return Center(
               child: Container(
-                height: GetPlatform.isMobile? boxHeight: 637, // 웹 / 모바일 height 분기
-                width: GetPlatform.isMobile ? boxWidth : 375, // 웹 / 모바일 width 분기
+                height: GetPlatform.isMobile? boxHeight: 637.h, // 웹 / 모바일 height 분기
+                width: GetPlatform.isMobile ? boxWidth : 360.w, // 웹 / 모바일 width 분기
                 decoration: BoxDecoration(
                   color: Palette.white,
                   borderRadius: BorderRadius.circular(15),
@@ -71,10 +72,10 @@ class _SignState extends State<Sign> {
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 150),
                         curve: Curves.linear,
-                        width: 300,
-                        height: isKeyboardVisible ? 0 :350,
+                        width: 300.w,
+                        height: isKeyboardVisible ? 0 :350.h,
                         child: Container(
-                          // color: Colors.red.withOpacity(0.5),
+                          color: Colors.red.withOpacity(0.5), //
                           child: Center(
                             child: 
                             // TITLE
@@ -128,16 +129,16 @@ class _SignState extends State<Sign> {
                         width: boxWidth, // TODO 디자인 체크 필요 : boxWidth 변수자체에 initState할때 값을 지정? (웹 / 모바일에 따라), 이 아래에 width, height 모두 변경해야할 필요성?
                         height: isKeyboardVisible 
                         ? MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom
-                        : 365, // fix ? // TODO 삭제하거나 수정해도될지?
-                        // color: Colors.red,
+                        : 365.h, // fix ? // TODO 삭제하거나 수정해도될지?
+                        color: Colors.red,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(),
                             // SIGN BOX
                             Container(
-                              width: 214,
-                              height: 300,
+                              width: 214.w,
+                              height: 300.h,
                               decoration: BoxDecoration(
                                 color: Palette.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -151,7 +152,7 @@ class _SignState extends State<Sign> {
                                   Column(
                                     children: [
                                       Container(
-                                        height: 200,
+                                        height: 200.h,
                                         // color: Colors.orange,
                                         child: isSignin 
                                         // SIGN IN
@@ -223,8 +224,8 @@ class _SignState extends State<Sign> {
                                   
                                   // BUTTON FIELD
                                   Container(
-                                    width: 300,
-                                    height: 100,
+                                    width: 300.w,
+                                    height: 100.h,
                                     // color: Colors.blue,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -232,7 +233,7 @@ class _SignState extends State<Sign> {
                                         // ERROR MESSAGE 
                                         Obx(()=>
                                           Container(
-                                            height: 15,
+                                            height: 15.h,
                                             // color: Colors.blue[300],
                                             child: Center(
                                               child: Text(controller.validationResult.value,
@@ -245,14 +246,14 @@ class _SignState extends State<Sign> {
                                             ),
                                           )
                                         ),
-                                        SizedBox(height: 10,),
+                                        SizedBox(height: 10.h,),
                                         // NEXT BUTTON
                                         InkWell(
                                           onTap: () {
                                             isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
                                           },
                                           child: Container(
-                                            height: 35,
+                                            height: 35.h,
                                             decoration: BoxDecoration(
                                               color: Palette.black,
                                               // borderRadius: BorderRadius.circular(50)
@@ -278,7 +279,7 @@ class _SignState extends State<Sign> {
                                             });
                                           },
                                           child: Container(
-                                            height: 30,
+                                            height: 30.h,
                                             margin: EdgeInsets.only(top: 5),
                                             // color: Colors.red[400],
                                             child: Row(
@@ -316,7 +317,7 @@ class _SignState extends State<Sign> {
                             ? Container(
                               // width: 375,
                               width: boxWidth,
-                              height: 30,
+                              height: 30.h,
                               color: Colors.black54,
                             )
                             : SizedBox()

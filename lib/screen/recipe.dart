@@ -622,7 +622,7 @@ class _RecipeState extends State<Recipe> {
                 child: Container(
                   width: 270.w,
                   height: 480.h,
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
                   decoration: BoxDecoration(
                     color: Palette.modalBackgroundColor,
                     borderRadius: BorderRadius.circular(15)
@@ -647,8 +647,9 @@ class _RecipeState extends State<Recipe> {
                       ),
                       // 메모 텍스트 필드
                       Container(
-                        height: 350.h,
-                        // color: Colors.green[100],
+                        height: 345.h,
+                        color: Colors.green[100],
+                        //  텍스트 필드 너무 큼, 밑줄 없애고 오토포커스?
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: TextField(
                           keyboardType: TextInputType.multiline,

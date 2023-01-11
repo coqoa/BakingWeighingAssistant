@@ -1,5 +1,6 @@
 import 'package:bwa/config/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -23,56 +24,27 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22.0),
       ),
-      title: Center(child: Text(title,style: const TextStyle(fontFamily:'jalnan',fontSize: 22, color: Palette.lightblack))),
-      // title: Container(
-      //   // color: Colors.red,
-      //   child: Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-      //       Container(
-      //         width: 30,
-      //         height: 20,
-      //         // color: Colors.green,
-      //       ),
-      //       Text(
-      //         title,
-      //         style: const TextStyle(
-      //           fontFamily:'jalnan',
-      //           fontSize: 22, 
-      //           color: Palette.lightblack
-      //         )
-      //       ),
-      //       Container(
-      //         width: 30,
-      //         // color: Colors.blue,
-      //         child: GestureDetector(
-      //           child: SvgPicture.asset(
-      //             'assets/images/ic_cancel.svg',
-      //             color: Palette.lightblack,
-      //             width: 24,
-      //             height: 24,
-      //           ),
-      //           onTap: () {
-                  
-      //           },
-      //         ),
-      //       ),
-      //     ],
-      //   )
-      // ),
+      title: Center(child: Text(title,
+        style: const TextStyle(
+          // fontFamily:'jalnan',
+          fontWeight: FontWeight.bold,
+          fontSize: 30, 
+          color: Palette.black
+        )
+      )),
       content: Container(
-        height: 188,
-        width: 328,
+        width: 328.w,
+        height: 208.h,
         child: Column(
           children: [
             Container(
-                height: 126,
+                height: 135.h,
                 child: Center(
                   child: contents
             )),
             // const Spacer(),    
             Container(
-              height: 62,
+              height: 68.h,
               decoration: const BoxDecoration(
                 color: Palette.white,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(22),bottomRight: Radius.circular(22))
@@ -91,8 +63,8 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                     }
                   },
                     child: Container(
-                        height: 44,
-                        width: 200,
+                        width: 200.w,
+                        height: 54.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: btnColor,
@@ -102,8 +74,8 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                           child: Text(buttonTitle
                             ,style: TextStyle(
                               color: btnTextColor,
-                              fontFamily: 'jalnan',
-                              fontSize: 17
+                              // fontFamily: 'jalnan',
+                              fontSize: 22
                             )
                           ),
                         )
