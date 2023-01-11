@@ -65,6 +65,9 @@ class _RecipeState extends State<Recipe> {
     ); 
     // 배수 초기화
     multiflyInitialize();
+    setState(() {
+      isMultifly = false;
+    });
   }
     void moveListPageLeft(){
       setState(() {
@@ -617,14 +620,14 @@ class _RecipeState extends State<Recipe> {
             child: Container(
               width: 360.w,
               height: 880.h,
-              color: Colors.black.withOpacity(0.8),
+              color: Colors.black.withOpacity(0.3),
               child: Center(
                 child: Container(
                   width: 270.w,
                   height: 480.h,
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
                   decoration: BoxDecoration(
-                    color: Palette.modalBackgroundColor,
+                    color: Palette.backgroundColor,
                     borderRadius: BorderRadius.circular(15)
                   ),
                   child: Column(
@@ -672,7 +675,7 @@ class _RecipeState extends State<Recipe> {
                                 child: Text('Save',
                                   style: const TextStyle(
                                     color: Palette.black,
-                                    // fontWeight: FontWeight.w900,
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 16
                                   ),
                                 ),

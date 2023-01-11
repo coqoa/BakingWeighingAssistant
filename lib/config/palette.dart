@@ -12,7 +12,7 @@ class Palette{
   static const Color black = Color.fromRGBO(0, 0, 0, 1);
 
   static const Color navy= Color.fromRGBO(0, 0, 50, 1);
-  static const Color red = Color.fromRGBO(232, 121, 132, 1);
+  static const Color red = Color.fromARGB(255, 255, 68, 87);
   static const Color blue = Color.fromRGBO(3, 155, 229, 1);
   static const Color reallightgray = Color.fromRGBO(236, 234, 235, 1);
   static const Color lightgray = Color.fromARGB(255, 191, 191, 191);
@@ -22,7 +22,7 @@ class Palette{
   static const Color backgroundColor= Color.fromRGBO(255, 255, 255, 1);
   static const Color textColorWhite= Color.fromRGBO(255, 255, 255, 1);
 
-  static const Color modalBackgroundColor= Color.fromRGBO(244, 244, 244, 1);
+  static const Color modalBackgroundColor= Color.fromRGBO(244, 244, 244, 0.5);
 
 
   static const Color neumorphismColor= Color.fromRGBO(33, 33, 33, 1); // 다크모드

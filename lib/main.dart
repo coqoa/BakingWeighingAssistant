@@ -83,9 +83,9 @@ class MyApp extends StatelessWidget {
           },
       
           home: SafeArea(
-            child: Sign(),
+            // child: Sign(),
             // child: Menu(),
-            // child: Recipe(),
+            child: Recipe(),
           ),
         );
       },
