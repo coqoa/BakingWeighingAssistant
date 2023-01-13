@@ -2,6 +2,7 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
+import 'package:bwa/widget/memo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +203,14 @@ class _RecipeState extends State<Recipe> {
                               ),
                               onTap: (){
                                 setState(() {
-                                  memoOpen = true;
+                                  // memoOpen = true;
+                                  showDialog(
+                                  context: context, 
+                                    builder: (_){
+                                      return Memo(memoOpen: memoOpen, contents: memoOpen.toString()); // TODO: contents박아넣기
+                                    }
+                                  );
+
                                   isMultifly = false;
                                 });
                               },
@@ -609,92 +617,9 @@ class _RecipeState extends State<Recipe> {
             ),
           ),
 
-          // 메모장
-          if(memoOpen)
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                memoOpen = false;
-              });
-            },
-            child: Container(
-              width: 360.w,
-              height: 880.h,
-              color: Colors.black.withOpacity(0.3),
-              child: Center(
-                child: Container(
-                  width: 270.w,
-                  height: 480.h,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
-                  decoration: BoxDecoration(
-                    color: Palette.backgroundColor,
-                    borderRadius: BorderRadius.circular(15)
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 50.h,
-                        // color: Colors.red[100],
-                        child: Center(
-                          child: Text('Memo',
-                            style: const TextStyle(
-                              // fontFamily: 'jalnan',
-                              fontWeight: FontWeight.w900,
-                              color: Palette.black,
-                              fontSize: 25
-                              
-                            ),
-                          ),
-                        )
-                      ),
-                      // 메모 텍스트 필드
-                      Container(
-                        height: 345.h,
-                        color: Colors.green[100],
-                        //  텍스트 필드 너무 큼, 밑줄 없애고 오토포커스?
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                        ),
-                      ),
-                      Container(
-                        height: 50.h,
-                        // color: Colors.red[100],
-                        child: GestureDetector(
-                          child: Center(
-                            child: Container(
-                              width: 120.w,
-                              height: 50.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Palette.gray, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text('Save',
-                                  style: const TextStyle(
-                                    color: Palette.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: (){
-                            setState(() {
-                              memoOpen = false;
-                            });
-                          },
-                        ),
-                      )
-                    ],
-                  )
-                ),
-              ),
-            ),
-          ),
+          // // 메모장
+          // if(memoOpen)
+            
         ],
       )
     );
