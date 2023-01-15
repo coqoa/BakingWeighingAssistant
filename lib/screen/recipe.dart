@@ -160,7 +160,8 @@ class _RecipeState extends State<Recipe> {
                         ),
                         onTap: (){
                           setState(() {
-                            isMultifly = false;
+                            // isMultifly = false;
+                            Navigator.of(context).pop();
                           });
                         },
                       ),

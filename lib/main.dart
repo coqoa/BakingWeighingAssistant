@@ -7,6 +7,7 @@ import 'package:bwa/screen/add.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ void main() async {
   try{
     await Firebase.initializeApp(
       options: FirebaseOptions(
-         apiKey: firebaseOptions.apiKey,
+        apiKey: firebaseOptions.apiKey,
         authDomain: firebaseOptions.authDomain,
         projectId: firebaseOptions.projectId,
         storageBucket: firebaseOptions.storageBucket,
@@ -38,11 +39,20 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  
-  
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('FirebaseAuth.instance.currentUser?.email = ${FirebaseAuth.instance.currentUser?.email}');
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -83,9 +93,9 @@ class MyApp extends StatelessWidget {
           },
       
           home: SafeArea(
-            // child: Sign(),
+            child: FirebaseAuth.instance.currentUser?.email != null ? Menu() : Sign()
             // child: Menu(),
-            child: Recipe(),
+            // child: Recipe(),
           ),
         );
       },

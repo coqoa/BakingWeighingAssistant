@@ -1,5 +1,6 @@
 
 
+import 'package:bwa/screen/menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,10 @@ class SignController extends GetxController{
           validationResult.value = 'badly format email.';
         }
         // 사용중인 이메일
+        else if(errMsg == '[firebase_auth/missing-email] An email address must be provided.'){
+          validationResult.value = 'An email address must be provided.';
+        // 사용중인 이메일
+        }
         else if(errMsg == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
           validationResult.value = 'already in use email.';
         }
@@ -81,6 +86,7 @@ class SignController extends GetxController{
       if(value.user != null){
         // 로그인 성공
         print('가입완료 -> 이동할 페이지 넣기');
+        Get.to(()=> Menu());
         // Get.to(transition: Transition.rightToLeft, Recipe());
       }
     }).catchError((e)async{
@@ -106,10 +112,11 @@ class SignController extends GetxController{
     try{
       final newUser = await _authentication.createUserWithEmailAndPassword(
         email: userEmail.value, 
-        password: userPassword.value
+        password: userPassword.value,
       );
       if(newUser.user != null){
-        print('가입완료 -> 이동할 페이지 넣기');
+        // print('가입완료 -> 이동할 페이지 넣기');
+        Get.to(()=> Menu());
       }
     }catch(e){
       print('e');

@@ -1,4 +1,8 @@
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/recipe.dart';
+import 'package:bwa/screen/sign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,13 +31,13 @@ class _MenuState extends State<Menu> {
   double adHeight = 56.0;
   String title = '';
   
-
+  
   // late List changedList = controller.testList;
 
   @override
   void initState() {
     super.initState();
-
+    // print(FirebaseAuth.instance.currentUser);
   }
   
   @override
@@ -94,18 +98,28 @@ class _MenuState extends State<Menu> {
                         children: [
                           // TITLE
                           Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(item,
-                                  style: const TextStyle(
-                                    // fontFamily: 'jalnan',
-                                    color: Palette.lightblack,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold
-                                  ),
+                            child: GestureDetector(
+                              // recipe 이동
+                              onTap: (){
+                                Get.to(Recipe());
+                              },
+                              child: Container(
+                                // color: Colors.green,
+                                height: 200.h,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(item,
+                                      style: const TextStyle(
+                                        // fontFamily: 'jalnan',
+                                        color: Palette.lightblack,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ) 
                           ),
                           
@@ -115,7 +129,7 @@ class _MenuState extends State<Menu> {
                             right: 0,
                             child: Row(
                               children: [
-
+                    
                                 // EDIT
                                 GestureDetector(
                                   child: SizedBox(
@@ -149,7 +163,7 @@ class _MenuState extends State<Menu> {
                                                   TextField(
                                                     key: GlobalKey(), // 
                                                     controller: _textController, // 텍스트 기본값 설정 컨트롤러
-
+                    
                                                     style: const TextStyle(
                                                       fontSize: 25,
                                                     ),
@@ -158,7 +172,7 @@ class _MenuState extends State<Menu> {
                                                     cursorHeight: 25,
                                                     maxLength: 20,
                                                     autocorrect: false,
-
+                    
                                                     decoration: const InputDecoration(
                                                       enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
                                                       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
@@ -336,6 +350,31 @@ class _MenuState extends State<Menu> {
               },
             ),
           ),
+          // 로그아웃
+          Positioned(
+            left: 0,
+            top: 0,
+            child: GestureDetector(
+              child: Container(
+                width: 50.w,
+                height: 60.h,
+
+                child: FittedBox(
+                  fit: BoxFit.none,
+                  child: SvgPicture.asset(
+                    'assets/images/logout.svg',
+                    color: Palette.black,
+                    width: 23,
+                    height: 23,
+                  ),
+                ),
+              ),
+              onTap: (){
+                FirebaseAuth.instance.signOut();
+                Get.off(Sign());
+              },
+            ),
+          )
         ],
       ),
     );

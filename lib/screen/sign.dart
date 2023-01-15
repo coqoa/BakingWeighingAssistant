@@ -3,6 +3,7 @@
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/sign_controller.dart';
 import 'package:bwa/screen/recipe.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,7 @@ class _SignState extends State<Sign> {
   void initState() {
     super.initState();
     setState(() {
-
+      // print(FirebaseAuth.instance.currentUser);
     });
   }
 
@@ -236,7 +237,7 @@ class _SignState extends State<Sign> {
                                         ),
                                       )
                                     ),
-                                    // SizedBox(height: 5.h,),
+                                    SizedBox(height: 5.h,),
                                     // NEXT BUTTON
                                     InkWell(
                                       onTap: () {
@@ -260,7 +261,7 @@ class _SignState extends State<Sign> {
                                         ), 
                                       ),
                                     ),
-                                    // SizedBox(height: 5.h,),
+                                    SizedBox(height: 5.h,),
                     
                                     // SIGN PAGE TOGGLE
                                     InkWell(
