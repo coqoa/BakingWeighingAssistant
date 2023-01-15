@@ -19,8 +19,6 @@ class _SignState extends State<Sign> {
   bool isSignin = true;
   bool isBtnHovered = false;
   late double statusBarHeight = MediaQuery.of(context).padding.top; // 상단 바
-  // late double boxWidth = MediaQuery.of(context).size.width; //
-  // late double boxHeight = MediaQuery.of(context).size.height;
 
   final SignController controller = SignController(); 
 

@@ -43,9 +43,6 @@ class _MenuState extends State<Menu> {
       body: Stack(
         children: [
           Container(
-            // height: GetPlatform.isMobile? boxHeight: 860.h, // 웹이면 변경
-            // width: GetPlatform.isMobile ? boxWidth : 345.w, 
-            // color: Palette.backgroundColor,
             color: Colors.red,
 
             child: Obx(()=>
