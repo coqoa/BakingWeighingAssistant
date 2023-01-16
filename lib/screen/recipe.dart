@@ -25,68 +25,48 @@ class _RecipeState extends State<Recipe> {
   final AutoScrollController _scrollController = AutoScrollController();
   final PageController _pageController = PageController();
 
-  // firebase Auth
-  // String currentUserEmail = FirebaseAuth.instance.currentUser!.email.toString();
-
   // TODO  스크린 유틸 라이브러리 써서 전체 수치 변경 + 중복제거 + 다른 페이지도 수치 변경////////////////////////////////////////////////////////
   // 변수
   double appBarHeight = 90.h;
   double listIndicatorHeight = 50.h;
   double contentHeight = 696.h;
 
-  late int listIndex ;
   late bool memoOpen = false;
   late bool isMultifly = false;
   late int multiflyCountResult;
   String multiflyIndicator = '';
 
+  late int listViewIndex;
+
   // 함수
   @override
   void initState() {
     super.initState();
-    listIndex = 0;
+    // listIndex = 0;
+    listViewIndex = 0;
     multiflyInitialize();
+    _pageController.addListener(moveListPage);
   }
 
+  moveListPage(){
+    setState(() {
+      listViewIndex = _pageController.page!.ceil();
+      // 계산기 창 닫기
+      isMultifly = false;
+    });
+        // 스크롤 이동
+    _scrollController.scrollToIndex(
+      listViewIndex,
+      // duration: const Duration(milliseconds: 100),
+      preferPosition: AutoScrollPosition.middle,
+    );
+    // 계산기 초기화
+    multiflyInitialize();
+    print(listViewIndex);
+  }
   void multiflyInitialize(){
     multiflyCountResult = 1;
   }
-  
-  void moveListPage(){
-    // 스크롤 이동
-    _scrollController.scrollToIndex(
-      listIndex,
-      duration: const Duration(milliseconds: 200),
-      preferPosition: AutoScrollPosition.middle,
-    );
-    // 페이지 이동
-    _pageController.animateToPage(
-      listIndex, 
-      duration: Duration(milliseconds: 300),
-      curve: Curves.decelerate, 
-    ); 
-    // 배수 초기화
-    multiflyInitialize();
-    setState(() {
-      isMultifly = false;
-    });
-  }
-    void moveListPageLeft(){
-      setState(() {
-        if(listIndex > 0) {
-          listIndex = listIndex-1;
-        }
-      });
-      moveListPage();
-    }
-    void moveListPageRight(){
-      setState(() {
-        if(listIndex+1 < controller.testList.length) {
-          listIndex = listIndex+1;
-        }
-      });
-      moveListPage();
-    }
   
   void multiflyCount(String s){
     setState(() {
@@ -174,7 +154,6 @@ class _RecipeState extends State<Recipe> {
                           child: Text('Boulangerie',
                             style: const TextStyle(
                               fontSize: 30,
-                              // fontWeight: FontWeight.bold
                               color: Palette.black
                             ),
                           ),
@@ -237,7 +216,7 @@ class _RecipeState extends State<Recipe> {
                               onTap:(){
                                 setState(() {
                                   isMultifly = false;
-                                  Get.to(AddRecipe());
+                                  Get.to(()=>AddRecipe());
                                   print('추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                 });
                               },
@@ -304,8 +283,8 @@ class _RecipeState extends State<Recipe> {
                                         return Text(
                                           controller.testList[index],
                                           style: TextStyle(
-                                            color: listIndex == index ? Palette.black : Palette.gray, // darkgray
-                                            fontWeight: listIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
+                                            color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
+                                            fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
                                             fontSize: 16
                                           ),
                                         );
@@ -316,12 +295,12 @@ class _RecipeState extends State<Recipe> {
                                   onTap: () {
                                     // 인디케이터 컬러변경
                                     setState(() {
-                                      listIndex = index;
+                                      listViewIndex = index;
                                       isMultifly = false;
                                     });
                                     // 페이지 이동
-                                    _pageController.animateToPage(index, curve: Curves.decelerate, duration: Duration(milliseconds: 300)); // 페이지변경 애니메이션
-                                    // 배수 초기화
+                                    _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 100)); // 페이지변경 애니메이션
+                                    // 계산기 초기화
                                     multiflyInitialize();
                                   },
                                 )
@@ -341,7 +320,6 @@ class _RecipeState extends State<Recipe> {
                         children: [
                           PageView.builder(
                             scrollDirection: Axis.horizontal,
-                            physics: NeverScrollableScrollPhysics(),
                             itemCount: controller.testList.length,
                             controller: _pageController,
                             itemBuilder: (BuildContext context, int index) {
@@ -398,9 +376,7 @@ class _RecipeState extends State<Recipe> {
                                                   child: FittedBox(
                                                     fit: BoxFit.none,
                                                     child: SvgPicture.asset(
-                                                      // 'assets/images/pencil-solid.svg',
                                                       'assets/images/pencil.svg',
-                                                      // 'assets/images/eraser.svg',
                                                       width: 20,
                                                       height: 20,
                                                       color: Palette.gray,
@@ -467,7 +443,6 @@ class _RecipeState extends State<Recipe> {
                                                 color: Palette.black,
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
-                                              // TODO 여기까지 일단 확인 완료 (1/10)
                                               child: Center(
                                                 child: Text('× $multiflyCountResult',
                                                   style: const TextStyle(
@@ -497,9 +472,6 @@ class _RecipeState extends State<Recipe> {
                                     top: 0,
                                     child: GestureDetector(
                                       onTap: (){
-                                        // setState(() {
-                                        //   multiflyCount('취소');
-                                        // });
                                         setState(() {
                                           isMultifly = false;
                                         });
@@ -543,7 +515,6 @@ class _RecipeState extends State<Recipe> {
                                                       child: Text(multiflyIndicator,
                                                         style: TextStyle(
                                                           color: Palette.black,
-                                                          // fontFamily: 'jalnan',
                                                           fontSize: 30,
                                                           fontWeight: FontWeight.w900
                                                         ),
@@ -596,20 +567,6 @@ class _RecipeState extends State<Recipe> {
                                 ],
                               );
                             }
-                          ),
-                          // LEFT 이동
-                          MoveListPage(
-                            direction: Alignment.centerLeft, 
-                            // svg: 'assets/images/caret-left.svg', 
-                            svg: 'assets/images/ic_left.svg', 
-                            callback: moveListPageLeft,
-                          ),
-                          // RIGHT 이동
-                          MoveListPage(
-                            direction: Alignment.centerRight, 
-                            // svg: 'assets/images/caret-right.svg', 
-                            svg: 'assets/images/ic_right.svg', 
-                            callback: moveListPageRight,
                           ),
                         ],
                       )

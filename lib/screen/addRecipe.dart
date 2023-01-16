@@ -16,33 +16,54 @@ class _AddRecipeState extends State<AddRecipe> {
   Widget build(BuildContext context) {
     return Material(
 
-      child: Stack(
-        children: [
-          
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              width: 300.w,
-              height: 800.h,
-              color: Colors.red,
-            ),
+      child: Center(
+        child: Container(
+          width: 330.w,
+          height: 820.h,
+          color: Colors.green,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.blue,
+                      child: Center(child: Text('<')),
+                    ),
+                  ),
+                  Text('ADD'),
+                  GestureDetector(
+                    onTap: (){
+                      print('추가버튼클릭했음');
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.orange,
+                      child: Center(child: Text('완료')),
+                    ),
+                  ),
+                ],
+              ),
+
+              // 내용
+              Container(
+                width: 330.w,
+                height: 755.h,
+                color: Colors.red,
+              ),
+
+            ],
           ),
-          GestureDetector(
-            onTap: (){
-              Navigator.of(context).pop();
-            },
-            child: Positioned(
-              left: 0,
-              right: 0,
-              child: Container(
-                width: 50,
-                height: 50,
-                color: Colors.blue,
-                child: Center(child: Text('<')),
-              )
-            ),
-          ),
-        ]
+        ),
       ),
     );
   }
