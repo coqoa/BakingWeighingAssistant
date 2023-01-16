@@ -3,7 +3,6 @@
 
 import 'package:bwa/apikey.dart';
 import 'package:bwa/config/palette.dart';
-import 'package:bwa/screen/add.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:bwa/screen/sign.dart';
