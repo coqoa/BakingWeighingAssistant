@@ -58,6 +58,10 @@ class RecipeController extends GetxController{
 
   RxList testRecipeDetail = ['강력분', '밀가루', '물', '우유', '버터', '계란', '설탕', '소금', '이스트'].obs;
 
+  loadRecipeList(recipeList){
+    print('Recipe Controllerrrrrrrrrr');
+    print(recipeList);
+  }
 
 
   

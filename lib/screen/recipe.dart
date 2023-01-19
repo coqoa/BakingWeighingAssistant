@@ -13,7 +13,9 @@ import 'package:get/get.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Recipe extends StatefulWidget {
-  const Recipe({Key? key}) : super(key: key);
+  const Recipe({Key? key, required this.menuTitle}) : super(key: key);
+  
+  final String menuTitle;
 
   @override
   State<Recipe> createState() => _RecipeState();
@@ -43,6 +45,7 @@ class _RecipeState extends State<Recipe> {
   void initState() {
     super.initState();
     // listIndex = 0;
+    controller.loadRecipeList(widget.menuTitle);
     listViewIndex = 0;
     multiflyInitialize();
     _pageController.addListener(moveListPage);

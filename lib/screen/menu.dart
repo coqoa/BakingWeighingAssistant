@@ -37,6 +37,7 @@ class _MenuState extends State<Menu> {
   @override
   void initState() {
     super.initState();
+    controller.loadMenuList();
     // print(FirebaseAuth.instance.currentUser);
   }
   
@@ -63,10 +64,10 @@ class _MenuState extends State<Menu> {
                       if (newIndex > oldIndex) {
                         newIndex -= 1;
                       }
-                      final moveItem = controller.testList.removeAt(oldIndex);
-                      controller.testList.insert(newIndex, moveItem);
+                      final moveItem = controller.menuList.removeAt(oldIndex);
+                      controller.menuList.insert(newIndex, moveItem);
               
-                      print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
+                      // print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
                     // });
                   },
                   // onReorderStart: (index) {
@@ -75,7 +76,7 @@ class _MenuState extends State<Menu> {
                   //   print(index); // 놓여지는 위치
                   // },
               
-                  children: controller.testList.map((item) => 
+                  children: controller.menuList.map((item) => 
                     // 개별 Tile
                     Container(
                       key: Key(item),// ReorderableListView 자식 요소로 필수 
@@ -101,7 +102,7 @@ class _MenuState extends State<Menu> {
                             child: GestureDetector(
                               // recipe 이동
                               onTap: (){
-                                Get.to(Recipe());
+                                controller.moveToMenuDetails(item);
                               },
                               child: Container(
                                 // color: Colors.green,
