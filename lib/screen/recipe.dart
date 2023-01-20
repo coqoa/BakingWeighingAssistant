@@ -45,7 +45,9 @@ class _RecipeState extends State<Recipe> {
   void initState() {
     super.initState();
     // listIndex = 0;
+    
     controller.loadRecipeList(widget.menuTitle);
+
     listViewIndex = 0;
     multiflyInitialize();
     _pageController.addListener(moveListPage);
@@ -269,7 +271,7 @@ class _RecipeState extends State<Recipe> {
                           // 리스트 인디케이터 컨텐츠
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.testList.length,
+                            itemCount: controller.recipeList.length,
                             controller: _scrollController,
                             itemBuilder: (BuildContext context, int index) {
                               return AutoScrollTag(
@@ -284,7 +286,7 @@ class _RecipeState extends State<Recipe> {
                                     child: Center(
                                       child: Obx((){
                                         return Text(
-                                          controller.testList[index],
+                                          controller.recipeList[index],
                                           style: TextStyle(
                                             color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
                                             fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
@@ -323,7 +325,7 @@ class _RecipeState extends State<Recipe> {
                         children: [
                           PageView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.testList.length,
+                            itemCount: controller.recipeList.length,
                             controller: _pageController,
                             itemBuilder: (BuildContext context, int index) {
           
@@ -362,7 +364,7 @@ class _RecipeState extends State<Recipe> {
                                               // 타이틀
                                               Container(
                                                 child: Text(
-                                                  controller.testList[index],
+                                                  controller.recipeList[index],
                                                   style: const TextStyle(
                                                     fontSize: 23,
                                                     fontWeight: FontWeight.bold,

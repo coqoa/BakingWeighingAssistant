@@ -18,8 +18,8 @@ class MenuController extends GetxController{
     //   print(value.data());
     // });
     // 레시피 페이지 에서 필요한 데이터
-    await firestore.collection(email!).doc('MenuList').get().then((result){
-      menuList.value = result.data()!['menulist'];
+    await firestore.collection('users').doc(email).get().then((result){
+      menuList.value = result.data()!['FolderList'];
     });
   }
 

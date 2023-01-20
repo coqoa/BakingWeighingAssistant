@@ -1,10 +1,17 @@
 
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../config/enum.dart';
 
 class RecipeController extends GetxController{
+
+  String? email = FirebaseAuth.instance.currentUser?.email;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   // var appStatus = RequestStatus.EMPTY.obs;
 
   // RxList recipeList = [].obs;
@@ -53,15 +60,28 @@ class RecipeController extends GetxController{
   //   }
   //   appStatus.value=RequestStatus.SUCCESS;
   // }
-  RxList testList = ['단팥빵', '소보로빵', '슈크림빵', '맘모스', '소라빵', '베이글', '파운드케이크', '바게트', '건강빵'].obs;
+  RxList recipeList = [].obs;
   RxInt testListSelected = 0.obs;
 
-  RxList testRecipeDetail = ['강력분', '밀가루', '물', '우유', '버터', '계란', '설탕', '소금', '이스트'].obs;
+  // RxList testRecipeDetail = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9'].obs;
 
-  loadRecipeList(recipeList){
-    print('Recipe Controllerrrrrrrrrr');
-    print(recipeList);
+  loadRecipeList(menuTitle) async{
+    await firestore.collection(email!).doc('MenuList').collection(menuTitle).doc('Recipe').get().then((result){
+      print('Recipe Controllerrrrrrrrrr');
+      // print(result.data()!.keys); //{단팥빵: [{중량: 1000, 재료: 밀가루}, {중량: 200, 재료: 계란}]}
+      recipeList.value = result.data()!.keys.toList() ;
+      print(recipeList); // TODO : 여기까지완료
+    });
+    // print(e);
   }
+  // TODO : 상세 레시피는 아래 메소드 구현해서 출력하기
+  // loadRecipeDetails(menuTitle) async{
+  //   await firestore.collection(email!).doc('MenuList').collection(menuTitle).doc('Recipe').get().then((result){
+  //     print('Recipe Controllerrrrrrrrrr');
+  //     print(result.data()); //{단팥빵: [{중량: 1000, 재료: 밀가루}, {중량: 200, 재료: 계란}]}
+  //   });
+  //   // print(e);
+  // }
 
 
   
