@@ -66,13 +66,22 @@ class RecipeController extends GetxController{
   // RxList testRecipeDetail = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9'].obs;
 
   loadRecipeList(menuTitle) async{
-    await firestore.collection(email!).doc('MenuList').collection(menuTitle).doc('Recipe').get().then((result){
+    // await firestore.collection(email!).doc('MenuList').collection(menuTitle).doc('Recipe').get().then((result){
+    await firestore.collection('users').doc(email).get().then((result){
       print('Recipe Controllerrrrrrrrrr');
-      // print(result.data()!.keys); //{단팥빵: [{중량: 1000, 재료: 밀가루}, {중량: 200, 재료: 계란}]}
-      recipeList.value = result.data()!.keys.toList() ;
-      print(recipeList); // TODO : 여기까지완료
-    });
-    // print(e);
+      print(menuTitle); // TODO : 여기까지완료
+      recipeList.value = result.data()![menuTitle]['List']; // 리스트
+      // print('여기부터');
+      // print(recipeList[1]); 
+      // // 레시피 타이틀
+      // print(result.data()![menuTitle][recipeList[1]]['Ingredient']); 
+      // // [비가 반죽, 강력분, 물, 생 이스트, 최종 반죽, 강력분, 물, 소금, 이스트, 비가 반죽]
+      // print(result.data()![menuTitle][recipeList[1]]['Weight']); 
+      // // [, 2000, 1200, 4, , 8000, 6100, 200, 116, 3204]
+      // // TODO : 그려가면서 데이터 빼 올 작어 ㅂ하기
+      print(recipeList);
+    }
+    );
   }
   // TODO : 상세 레시피는 아래 메소드 구현해서 출력하기
   // loadRecipeDetails(menuTitle) async{
