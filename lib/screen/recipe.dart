@@ -156,7 +156,7 @@ class _RecipeState extends State<Recipe> {
                         width: 180.w,
                         // color: Colors.blue,
                         child: Center(
-                          child: Text('Boulangerie',
+                          child: Text(widget.menuTitle,
                             style: const TextStyle(
                               fontSize: 30,
                               color: Palette.black
