@@ -41,8 +41,8 @@
 
 ### DB구조
 
-- e-mail `collection`
-	- menu 
+- users `collection`
+	- admin@admin.com `doc`
 		- [recipe1, recipe2, recipe3 ...]
 		- recipe collection
 			- recipe1
@@ -74,5 +74,5 @@
 	- 다이얼로그 (= Get 사용?) 
 	- 버튼(긴거, 짧은거)
 - 페이지 이동시 이전 페이지 삭제하는것 / 삭제하지 않는것 구분
-
-- db구조 
+ 
+입력페이지 먼저 
