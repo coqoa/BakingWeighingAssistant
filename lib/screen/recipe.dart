@@ -269,49 +269,49 @@ class _RecipeState extends State<Recipe> {
                             ]
                           ),
                           // 리스트 인디케이터 컨텐츠
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: controller.recipeList.length,
-                            controller: _scrollController,
-                            itemBuilder: (BuildContext context, int index) {
-                              return AutoScrollTag(
-                                key: ValueKey(index), 
-                                controller: _scrollController, 
-                                index: index, 
-                                child: GestureDetector(
-                                  // 메뉴 버튼
-                                  child: Container(
-                                    // color: Colors.red,
-                                    margin: EdgeInsets.only(left: 5.w, right: 5.w),
-                                    child: Center(
-                                      child: Obx((){
-                                        return Text(
+                          child:Obx((){
+                            return  ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.recipeList.length,
+                              controller: _scrollController,
+                              itemBuilder: (BuildContext context, int index) {
+                                return AutoScrollTag(
+                                  key: ValueKey(index), 
+                                  controller: _scrollController, 
+                                  index: index, 
+                                  child: GestureDetector(
+                                    // 메뉴 버튼
+                                    child: Container(
+                                      // color: Colors.red,
+                                      margin: EdgeInsets.only(left: 5.w, right: 5.w),
+                                      child: Center(
+                                        child: Text(
                                           controller.recipeList[index],
                                           style: TextStyle(
                                             color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
                                             fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
                                             fontSize: 16
                                           ),
-                                        );
-                                      })
+                                        )
+                                      ),
                                     ),
-                                  ),
-                                  // 터치 이벤트
-                                  onTap: () {
-                                    // 인디케이터 컬러변경
-                                    setState(() {
-                                      listViewIndex = index;
-                                      isMultifly = false;
-                                    });
-                                    // 페이지 이동
-                                    _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 100)); // 페이지변경 애니메이션
-                                    // 계산기 초기화
-                                    multiflyInitialize();
-                                  },
-                                )
-                              );
-                            }
-                          ),
+                                    // 터치 이벤트
+                                    onTap: () {
+                                      // 인디케이터 컬러변경
+                                      setState(() {
+                                        listViewIndex = index;
+                                        isMultifly = false;
+                                      });
+                                      // 페이지 이동
+                                      _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 100)); // 페이지변경 애니메이션
+                                      // 계산기 초기화
+                                      multiflyInitialize();
+                                    },
+                                  )
+                                );
+                              }
+                            );
+                          })
                         ),
                       ),
                     ),
@@ -321,260 +321,238 @@ class _RecipeState extends State<Recipe> {
                       width: 360.w,
                       height: contentHeight,
                       // color: Colors.orange,
-                      child: Stack(
-                        children: [
-                          PageView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: controller.recipeList.length,
-                            controller: _pageController,
-                            itemBuilder: (BuildContext context, int index) {
-          
-                              int customPageindex = index;
-          
-                              return Stack(
-                                children: [
-                                  Center(
-                                    child: Container(
-                                      width: 300.w,
-                                      height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                      padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-                                      decoration: BoxDecoration(
-                                        color: Palette.backgroundColor,
-                                        borderRadius: BorderRadius.circular(15),
-                                        // ignore: prefer_const_literals_to_create_immutables
-                                        boxShadow: [
-                                          const BoxShadow(
-                                            blurRadius: 30,
-                                            offset: Offset(3.0, 6.0),
-                                            color: Color.fromRGBO(0, 0, 0, .2),
-                                          )
-                                        ]
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(
-                                                width: 30.w,
-                                                height: 30.h,
-                                                // color: Colors.blue,
-                                              ),
-                                              // 타이틀
-                                              Container(
-                                                child: Text(
-                                                  controller.recipeList[index],
-                                                  style: const TextStyle(
-                                                    fontSize: 23,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Palette.black
-                                                  ),
-                                                )
-                                              ),
-                                              // 편집버튼
-                                              GestureDetector(
-                                                child: Container(
+                      child: Obx((){
+                        return  Stack(
+                          children: [
+                            PageView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.recipeList.length,
+                              controller: _pageController,
+                              itemBuilder: (BuildContext context, int index) {
+            
+                                int customPageindex = index;
+            
+                                return Stack(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        width: 300.w,
+                                        height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
+                                        padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+                                        decoration: BoxDecoration(
+                                          color: Palette.backgroundColor,
+                                          borderRadius: BorderRadius.circular(15),
+                                          // ignore: prefer_const_literals_to_create_immutables
+                                          boxShadow: [
+                                            const BoxShadow(
+                                              blurRadius: 30,
+                                              offset: Offset(3.0, 6.0),
+                                              color: Color.fromRGBO(0, 0, 0, .2),
+                                            )
+                                          ]
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(
                                                   width: 30.w,
                                                   height: 30.h,
-                                                  // color: Colors.green,
-                                                  child: FittedBox(
-                                                    fit: BoxFit.none,
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/pencil.svg',
-                                                      width: 20,
-                                                      height: 20,
-                                                      color: Palette.gray,
+                                                  // color: Colors.blue,
+                                                ),
+                                                // 타이틀
+                                                Container(
+                                                  child: Text(
+                                                    controller.recipeList[index],
+                                                    style: const TextStyle(
+                                                      fontSize: 23,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Palette.black
+                                                    ),
+                                                  )
+                                                ),
+                                                // 편집버튼
+                                                GestureDetector(
+                                                  child: Container(
+                                                    width: 30.w,
+                                                    height: 30.h,
+                                                    // color: Colors.green,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.none,
+                                                      child: SvgPicture.asset(
+                                                        'assets/images/pencil.svg',
+                                                        width: 20,
+                                                        height: 20,
+                                                        color: Palette.gray,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onTap:(){
+                                                    setState(() {
+                                                      print('편집!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                                                    });
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
+                                            Container(
+                                              width: 260.w,
+                                              height: 490.h,
+                                              decoration: BoxDecoration(
+                                                // color: Colors.red,
+                                                border: Border.all(width: 2, color: Palette.reallightgray)
+                                              ),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  children: [
+                                                    Text('-----'),
+                                                    Text('$customPageindex'),
+                                                    Text('-----'),
+                                                  ],
+                                                ),
+                                              )
+                                            ),
+                                            
+                                            // 곱하기버튼
+                                            GestureDetector(
+                                              child: Container(
+                                                width: 120.w,
+                                                height: 60.h,
+                                                decoration: BoxDecoration(
+                                                  // border: Border.all(color: Palette.darkgray, width: 2),
+                                                  color: Palette.black,
+                                                  borderRadius: BorderRadius.circular(15),
+                                                ),
+                                                child: Center(
+                                                  child: Text('× $multiflyCountResult',
+                                                    style: const TextStyle(
+                                                      color: Palette.textColorWhite,
+                                                      fontWeight: FontWeight.w900,
+                                                      fontSize: 18
                                                     ),
                                                   ),
                                                 ),
-                                                onTap:(){
-                                                  setState(() {
-                                                    print('편집!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                                  });
-                                                },
                                               ),
-                                            ],
-                                          ),
-                                          // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
-                                          Container(
-                                            width: 260.w,
-                                            height: 490.h,
-                                            decoration: BoxDecoration(
-                                              // color: Colors.red,
-                                              border: Border.all(width: 2, color: Palette.reallightgray)
-                                            ),
-                                            child: SingleChildScrollView(
-                                              child: Column(
-                                                children: [
-                                                  Text('-----'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('$customPageindex'),
-                                                  Text('-----'),
-                                                ],
-                                              ),
+                                              onTap: (){
+                                                setState(() {
+                                                  multiflyIndicator = '';
+                                                  isMultifly = true;
+                                                });
+                                                print('BTN CLICK');
+                                              },
                                             )
-                                          ),
-                                          
-                                          // 곱하기버튼
-                                          GestureDetector(
-                                            child: Container(
-                                              width: 120.w,
-                                              height: 60.h,
-                                              decoration: BoxDecoration(
-                                                // border: Border.all(color: Palette.darkgray, width: 2),
-                                                color: Palette.black,
-                                                borderRadius: BorderRadius.circular(15),
-                                              ),
-                                              child: Center(
-                                                child: Text('× $multiflyCountResult',
-                                                  style: const TextStyle(
-                                                    color: Palette.textColorWhite,
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize: 18
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: (){
-                                              setState(() {
-                                                multiflyIndicator = '';
-                                                isMultifly = true;
-                                              });
-                                              print('BTN CLICK');
-                                            },
-                                          )
-                                        ],
+                                          ],
+                                        )
                                       )
-                                    )
-                                  ),
+                                    ),
 
-                                  if(isMultifly)
-                                  Positioned(
-                                    left: 0,
-                                    top: 0,
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          isMultifly = false;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 360.w,
-                                        height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                        decoration: BoxDecoration(
-                                          color: Palette.modalBackgroundColor
-                                        ),
-                                        child: Center(
-                                          child: GestureDetector(
-                                            onTap: (){},
-                                            child: Container(
-                                              width: 240.w,
-                                              height: 450.h,
-                                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                              decoration: BoxDecoration(
-                                                color: Palette.neumorphismColor,
-                                                borderRadius: BorderRadius.circular(15)
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 200.w,
-                                                    height: 70.h,
-                                                    decoration: BoxDecoration(
-                                                      color: Palette.reallightgray,
-                                                      borderRadius: BorderRadius.circular(10),
-                                                      // ignore: prefer_const_literals_to_create_immutables
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black,
-                                                          blurRadius: 10,
-                                                          offset: Offset(0,3),
+                                    // 계산기
+                                    if(isMultifly)
+                                    Positioned(
+                                      left: 0,
+                                      top: 0,
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          setState(() {
+                                            isMultifly = false;
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 360.w,
+                                          height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
+                                          decoration: BoxDecoration(
+                                            color: Palette.modalBackgroundColor
+                                          ),
+                                          child: Center(
+                                            child: GestureDetector(
+                                              onTap: (){},
+                                              child: Container(
+                                                width: 240.w,
+                                                height: 450.h,
+                                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                                decoration: BoxDecoration(
+                                                  color: Palette.neumorphismColor,
+                                                  borderRadius: BorderRadius.circular(15)
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 200.w,
+                                                      height: 70.h,
+                                                      decoration: BoxDecoration(
+                                                        color: Palette.reallightgray,
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        // ignore: prefer_const_literals_to_create_immutables
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.black,
+                                                            blurRadius: 10,
+                                                            offset: Offset(0,3),
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(multiflyIndicator,
+                                                          style: TextStyle(
+                                                            color: Palette.black,
+                                                            fontSize: 30,
+                                                            fontWeight: FontWeight.w900
+                                                          ),
                                                         ),
+                                                      )
+                                                    ),
+                                                    SizedBox(height: 15.h,),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7');}),
+                                                        MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8');}),
+                                                        MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9');}),
                                                       ]
                                                     ),
-                                                    child: Center(
-                                                      child: Text(multiflyIndicator,
-                                                        style: TextStyle(
-                                                          color: Palette.black,
-                                                          fontSize: 30,
-                                                          fontWeight: FontWeight.w900
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ),
-                                                  SizedBox(height: 15.h,),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7');}),
-                                                      MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8');}),
-                                                      MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9');}),
-                                                    ]
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4');}),
-                                                      MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5');}),
-                                                      MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6');}),
-                                                    ]
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1');}),
-                                                      MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2');}),
-                                                      MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3');}),
-                                                    ]
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-');}),
-                                                      MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0');}),
-                                                      MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인');}),
-                                                    ]
-                                                  ),
-                                                ],
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4');}),
+                                                        MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5');}),
+                                                        MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6');}),
+                                                      ]
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1');}),
+                                                        MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2');}),
+                                                        MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3');}),
+                                                      ]
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-');}),
+                                                        MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0');}),
+                                                        MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인');}),
+                                                      ]
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
+                                        )
                                       )
-                                    )
-                                  ),
-
-
-                                ],
-                              );
-                            }
-                          ),
-                        ],
-                      )
+                                    ),
+                                  ],
+                                );
+                              }
+                            ),
+                          ],
+                        );
+                      })
                     ),
                   ],
                 ),
