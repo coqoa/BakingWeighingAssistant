@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddRecipe extends StatefulWidget {
-  const AddRecipe({super.key});
+  const AddRecipe({super.key, required this.menuTitle});
+
+  final String menuTitle;
 
   @override
   State<AddRecipe> createState() => _AddRecipeState();
@@ -13,31 +15,30 @@ class AddRecipe extends StatefulWidget {
 
 class _AddRecipeState extends State<AddRecipe> {
 
-  late List listTest;
-  late List listTestKey;
-  late List listTestValue;
-  String titleA = '';
-  String testA = '';
-  String testB = '';
+  String title = '';
+  List ingredient = [];
+  List weight = [];
 
   void createRecipe(){
-    if(titleA.isNotEmpty){
+    if(title.isNotEmpty){
       print('-========================-');
-      print('titleA = $titleA');
-      print('listTest = $listTest');
+
+      print('title = ${widget.menuTitle}');
+      print('title = $title');
+      print('ingredient = $ingredient');
+      print('weight = $weight');
       print('-========================-');
     }else{
       print('TITLE을 채워주세용');
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    listTest = [];
-    listTestKey = [];
-    listTestValue = [];
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -46,15 +47,13 @@ class _AddRecipeState extends State<AddRecipe> {
       child: Align( // 키보드올라오면 전체 기장 짧아져야함
         alignment: Alignment.topCenter,
         child: Container(
-          // width: 330.w,
-          // height: 820.h,
           height: 580.h,
           // color: Colors.green,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Palette.white,
                   boxShadow: [
                      BoxShadow(
@@ -76,7 +75,7 @@ class _AddRecipeState extends State<AddRecipe> {
                         width: 50,
                         height: 50,
                         color: Palette.white,
-                        child: Center(child: Text('<')),
+                        child: const Center(child: Text('<')),
                       ),
                     ),
                     Text('ADD'),
@@ -94,6 +93,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   ],
                 ),
               ),
+              // 타이틀 
               Container(
                 width: 330.w,
                 child: TextField(
@@ -102,7 +102,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   style: TextStyle(
                     fontSize: 25
                   ),
-                  onChanged: (value) => titleA = value,
+                  onChanged: (value) => title = value,
                   textAlign: TextAlign.center,
                   decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
@@ -115,7 +115,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   ),
                 ),
               ),
-              // 행, 열 기준
+              // 시트 헤더
               Container(
                 width: 330.w,
                 decoration: const BoxDecoration(
@@ -124,33 +124,29 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
                 margin: EdgeInsets.only(bottom: 4),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 165.w,
                       height: 50.h,
-                      // color: Colors.red,
-                      child: const Center(child: Text('이름'))
+                      child: const Center(child: Text('재료명'))
                     ),
-                    
-                    Container(
+                    SizedBox(
                       width: 165.w,
                       height: 50.h,
-                      // color: Colors.blue,
-                      child: const Center(child: Text('g'))
+                      child: const Center(child: Text('중량'))
                     ),
                   ]
                 ),
               ),
-              // 내용
+
+              // 시트 바디
               Container(
                 width: 330.w,
-                // height: 700.h,
                 height: 310.h,
                 // color: Colors.green,
-                // padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child : ListView.builder(
-                  itemCount: listTest.length+2, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
+                  itemCount: weight.length+1, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
@@ -168,13 +164,19 @@ class _AddRecipeState extends State<AddRecipe> {
                                 textInputAction: TextInputAction.next,
                                 textAlign: TextAlign.center,
                                 onChanged: (value) {
-                                  testA = value;
+                                  // testA = value;
+                                  setState(() {
+                                    if(ingredient.length <= index){
+                                      ingredient.add("");
+                                      weight.add("");
+                                    }
+                                    ingredient[index] = value;
+                                  });
                                 },
                                 decoration: const InputDecoration(
                                   focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
                                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
                                 ),
-                                // onSubmitted: (value) => testA = value,
                               ),
                             ),
                             
@@ -191,14 +193,11 @@ class _AddRecipeState extends State<AddRecipe> {
                                 textInputAction: TextInputAction.next,
                                 textAlign: TextAlign.center,
                                 onChanged: (value) {
-                                  testB = value;
+                                  // testB = value;
+                                  setState(() {
+                                    weight[index] = value;
+                                  });
                                 } ,
-                                onSubmitted: ((value) {
-                                  // setState(() {
-                                  //   listTest.add("{'이름':$testA : '중량':$testB}"); // ADD하는식이 아니라 다른식으로 해야할ㄷ것같은데
-                                  // });
-                                  print(index);
-                                }),
                                 decoration: const InputDecoration(
                                   focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
                                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
@@ -213,7 +212,6 @@ class _AddRecipeState extends State<AddRecipe> {
                   }
                 )
               ),
-      
             ],
           ),
         ),

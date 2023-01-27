@@ -120,7 +120,7 @@ class _RecipeState extends State<Recipe> {
                       GestureDetector(
                         child: Container(
                           width: 80.w,
-                          // color: Colors.orange,
+                          color: Palette.white,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -176,7 +176,7 @@ class _RecipeState extends State<Recipe> {
                               child: Container(
                                 width: 30.w,
                                 height: 30.h,
-                                // color: Colors.blue,
+                                color: Palette.white,
                                 child: FittedBox(
                                   fit: BoxFit.none,
                                   child: SvgPicture.asset(
@@ -207,7 +207,7 @@ class _RecipeState extends State<Recipe> {
                               child: Container(
                                 width: 30.w,
                                 height: 30.h,
-                                // color: Colors.green,
+                                color: Palette.white,
                                 child: FittedBox(
                                   fit: BoxFit.none,
                                   child: SvgPicture.asset(
@@ -221,7 +221,7 @@ class _RecipeState extends State<Recipe> {
                               onTap:(){
                                 setState(() {
                                   isMultifly = false;
-                                  Get.to(()=>AddRecipe());
+                                  Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
                                   print('추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                 });
                               },

@@ -105,7 +105,7 @@ class _MenuState extends State<Menu> {
                                 controller.moveToMenuDetails(item);
                               },
                               child: Container(
-                                // color: Colors.green,
+                                color: Palette.white,
                                 height: 200.h,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
