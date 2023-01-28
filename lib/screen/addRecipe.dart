@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:bwa/config/palette.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,24 +21,47 @@ class _AddRecipeState extends State<AddRecipe> {
   List ingredient = [];
   List weight = [];
 
-  void createRecipe(){
-    if(title.isNotEmpty){
-      print('-========================-');
-
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? email = FirebaseAuth.instance.currentUser?.email;
+  late dynamic recipeList = [];
+  
+  void createRecipe()async {
       print('title = ${widget.menuTitle}');
       print('title = $title');
       print('ingredient = $ingredient');
       print('weight = $weight');
-      print('-========================-');
+
+    if(title.isNotEmpty){
+      // recipeList에 중복 체크해서 조건걸어줌 // TODO print대신 어떤 alert창을 띄워줄지?
+      if(recipeList.contains(title)){
+        print(recipeList.contains(title));
+        print('이미 존재하는 레시피명 입니다');
+      }else{
+        // 레시피 리스트에 추가 
+        await recipeList.add(title);
+        // 레시피 리스트 Doc 업데이트생성
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set({'RecipeList':recipeList});
+        // 레시피 Doc 추가 // 중복안됨
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update({title:{'ingredient':ingredient,'weight':weight}});
+        Navigator.of(context).pop();
+      }
+      // 
     }else{
       print('TITLE을 채워주세용');
     }
   }
 
   @override
-  void initState() {
+  void initState(){
     // TODO: implement initState
     super.initState();
+    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
+      setState(() {
+        recipeList = value.data()!['RecipeList'];
+      });
+      print(recipeList);
+    });
+
   }
 
   @override

@@ -19,7 +19,7 @@ class MenuController extends GetxController{
     // });
     // 레시피 페이지 에서 필요한 데이터
     await firestore.collection('users').doc(email).get().then((result){
-      menuList.value = result.data()!['FolderList'];
+      menuList.value = result.data()!['menuList'];
     });
   }
 
