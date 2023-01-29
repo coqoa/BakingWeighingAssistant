@@ -1,10 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({super.key, required this.menuTitle});
@@ -17,16 +19,17 @@ class AddRecipe extends StatefulWidget {
 
 class _AddRecipeState extends State<AddRecipe> {
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? email = FirebaseAuth.instance.currentUser?.email;
+
   String title = '';
   List ingredient = [];
   List weight = [];
-
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String? email = FirebaseAuth.instance.currentUser?.email;
   late dynamic recipeList = [];
+
   
   void createRecipe()async {
-      print('title = ${widget.menuTitle}');
+      print('menuTitle = ${widget.menuTitle}');
       print('title = $title');
       print('ingredient = $ingredient');
       print('weight = $weight');
@@ -40,10 +43,14 @@ class _AddRecipeState extends State<AddRecipe> {
         // 레시피 리스트에 추가 
         await recipeList.add(title);
         // 레시피 리스트 Doc 업데이트생성
-        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set({'RecipeList':recipeList});
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
+          {'RecipeList':recipeList}
+        );
         // 레시피 Doc 추가 // 중복안됨
-        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update({title:{'ingredient':ingredient,'weight':weight}});
-        Navigator.of(context).pop();
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
+          {title:{'ingredient':ingredient,'weight':weight}}
+        );
+        Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
       // 
     }else{
@@ -59,7 +66,7 @@ class _AddRecipeState extends State<AddRecipe> {
       setState(() {
         recipeList = value.data()!['RecipeList'];
       });
-      print(recipeList);
+      // print(recipeList);
     });
 
   }

@@ -30,6 +30,7 @@ class _MenuState extends State<Menu> {
   late double boxHeight = MediaQuery.of(context).size.height;
   double adHeight = 56.0;
   String title = '';
+  String changedTitle = '';
   
   
   // late List changedList = controller.testList;
@@ -39,6 +40,17 @@ class _MenuState extends State<Menu> {
     super.initState();
     controller.loadMenuList();
     // print(FirebaseAuth.instance.currentUser);
+  }
+
+  createMenu(e){
+    controller.addMenu(e);
+  }
+
+  deleteMenu(e){
+    controller.deleteMenu(e);
+  }
+  editMenu(title, changedTitle){
+    controller.editMenu(title, changedTitle);
   }
   
   @override
@@ -66,8 +78,8 @@ class _MenuState extends State<Menu> {
                       }
                       final moveItem = controller.menuList.removeAt(oldIndex);
                       controller.menuList.insert(newIndex, moveItem);
-              
-                      // print(controller.testList); // controller에서 리스트 교체하는 함수 필요함
+                      // print(controller.menuList);
+                      controller.dragAndDropMenu();
                     // });
                   },
                   // onReorderStart: (index) {
@@ -173,6 +185,7 @@ class _MenuState extends State<Menu> {
                                                     cursorHeight: 25,
                                                     maxLength: 20,
                                                     autocorrect: false,
+                                                    autofocus: true,
                     
                                                     decoration: const InputDecoration(
                                                       enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
@@ -185,19 +198,23 @@ class _MenuState extends State<Menu> {
                                                     
                                                     onChanged: (value){
                                                         setState(() {
-                                                          title = value;
+                                                          changedTitle = value;
                                                         });
                                                     },
                                                     onSubmitted: (value){
-                                                      if(item != value){
-                                                        Navigator.of(context).pop();
-                                                        setState(() {
-                                                          title = value;
-                                                          // db변경 메소드
-                                                        });
-                                                      }else{
-                                                        print('똑같으니까 쇼바텀시트로 알려주기');
-                                                      }
+
+                                                      Navigator.of(context).pop();
+                                                      editMenu(title, changedTitle);
+
+                                                      // if(item != value){ // 조건 변경 -> 리스트 내부에 있으면 
+                                                      //   setState(() {
+                                                      //     title = value;
+                                                      //     // db변경 메소드
+                                                      //   });
+                                                      //   editMenu(title);
+                                                      // }else{
+                                                      //   print('존재하는 title이라고 쇼바텀시트로 알려주기');
+                                                      // }
                                                     },
                                                   ),
                                                 ],
@@ -207,7 +224,8 @@ class _MenuState extends State<Menu> {
                                           btnColor: Palette.lightblack,
                                           btnTextColor: Palette.white,
                                           confirmFunction: (){
-                                            // 위의 onSubmitted 완성 후 붙여넣기
+                                            // 위의 onSubmitted 완성 후 붙여넣기\
+                                            editMenu(title, changedTitle);
                                           },
                                         );
                                       }
@@ -264,6 +282,7 @@ class _MenuState extends State<Menu> {
                                           btnTextColor: Palette.red,
                                           confirmFunction: (){
                                             // db삭제기능 구현하기
+                                            deleteMenu(item);
                                           },
                                         );
                                       }
@@ -314,6 +333,7 @@ class _MenuState extends State<Menu> {
                                 cursorHeight: 25,
                                 maxLength: 20,
                                 autocorrect: false,
+                                autofocus: true,
 
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
@@ -329,11 +349,9 @@ class _MenuState extends State<Menu> {
                                       title = value;
                                     });
                                 },
-                                onSubmitted: (value){
+                                onSubmitted: (v){
                                   Navigator.of(context).pop();
-                                  setState(() {
-                                    // title으로 db생성하는 메소드
-                                  });
+                                  createMenu(title);
                               },
                               ),
                             ],
@@ -344,6 +362,7 @@ class _MenuState extends State<Menu> {
                       btnTextColor: Palette.white,
                       confirmFunction: (){
                         // 위의 onSubmitted 완성 후 붙여넣기
+                        createMenu(title);
                       },
                     );
                   }

@@ -3,6 +3,7 @@
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
 import 'package:bwa/screen/addRecipe.dart';
+import 'package:bwa/screen/menu.dart';
 import 'package:bwa/widget/memo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -147,7 +148,7 @@ class _RecipeState extends State<Recipe> {
                         onTap: (){
                           setState(() {
                             // isMultifly = false;
-                            Navigator.of(context).pop();
+                            Get.to(()=>Menu());
                           });
                         },
                       ),
