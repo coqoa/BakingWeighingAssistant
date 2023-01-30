@@ -119,18 +119,21 @@ class _MenuState extends State<Menu> {
                               child: Container(
                                 color: Palette.white,
                                 height: 200.h,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(item,
-                                      style: const TextStyle(
-                                        // fontFamily: 'jalnan',
-                                        color: Palette.lightblack,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(item,
+                                        style: const TextStyle(
+                                          // fontFamily: 'jalnan',
+                                          color: Palette.lightblack,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ) 
