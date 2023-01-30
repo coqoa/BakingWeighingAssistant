@@ -11,11 +11,13 @@ class MenuController extends GetxController{
 
   RxList menuList = [].obs;
   
-  String? email = FirebaseAuth.instance.currentUser?.email;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // String? email = FirebaseAuth.instance.currentUser?.email;
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  var emailPath = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email);
 
   loadMenuList()async{
-    await firestore.collection('users').doc(email).get().then((result){
+    await emailPath.get().then((result){
       menuList.value = result.data()!['menuList'];
     });
   }
@@ -25,15 +27,21 @@ class MenuController extends GetxController{
   }
 
   addMenu(e)async{
-    // print(menuList);
+    var addAllDoc = emailPath.collection(e);
+
     if(e.length > 0){
       if(!menuList.contains(e)){
         // 메뉴리스트에 추가
         menuList.add(e);
-        await firestore.collection('users').doc(email).set({'menuList':menuList});
+        // menuList doc 생성
+        await emailPath.set({'menuList':menuList});
         // 메모추가 
+        await addAllDoc.doc('Memo').set({"Memo":''});
         // 레시피추가
+        await addAllDoc.doc('Recipe').set({});
         // 레시피 리스트 추가
+        await addAllDoc.doc('RecipeList').set({"RecipeList":[]});
+
       }else{
         Get.snackbar(
           "","",
@@ -89,10 +97,14 @@ class MenuController extends GetxController{
   }
 
   deleteMenu(e)async{
-    // print(e);
-    // print(menuList.indexOf(e));
+    var deleteAllDoc = emailPath.collection(e);
     menuList.remove(e);
-    await firestore.collection('users').doc(email).set({'menuList':menuList});
+    await emailPath.set({'menuList':menuList});
+    // collection을 지우려면 내부에 있는 모든 doc을 지워줘야함
+    await deleteAllDoc.doc('Memo').delete();
+    await deleteAllDoc.doc('Recipe').delete();
+    await deleteAllDoc.doc('RecipeList').delete();
+
   }
 
   editMenu(title, changedTitle)async{
@@ -120,7 +132,7 @@ class MenuController extends GetxController{
     }else{
       if(!menuList.contains(changedTitle)){
         menuList[menuList.indexOf(title)]=changedTitle;
-        await firestore.collection('users').doc(email).set({'menuList':menuList});
+        await emailPath.set({'menuList':menuList});
       }else{
         Get.snackbar(
           "","",
@@ -147,6 +159,6 @@ class MenuController extends GetxController{
   }
 
   dragAndDropMenu()async{
-    await firestore.collection('users').doc(email).set({'menuList':menuList});
+    await emailPath.set({'menuList':menuList});
   }
 }
