@@ -1,4 +1,6 @@
 
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,8 @@ class RecipeController extends GetxController{
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   RxList recipeList = [].obs;
+  RxList recipeIngredient = [].obs;
+  RxList recipeWeight= [].obs;
   RxInt testListSelected = 0.obs;
 
   loadRecipeList(menuTitle) async{
@@ -18,16 +22,25 @@ class RecipeController extends GetxController{
       recipeList.value = result.data()!['RecipeList'];
     }
     );
+    await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').get().then((result) async{
+      for(int i = 0; i<result.data()!.keys.length; i++){
+        // print(result.data()![recipeList[i]]['ingredient']);
+        // print(result.data()![recipeList[i]]['weight']);
+        
+        // recipeIngredient[i]= await result.data()![recipeList[i]]['ingredient'];
+        // recipeIngredient.value.add([]);
+        // recipeWeight[i] = await result.data()![recipeList[i]]['weight'];
+        // recipeWeight.value.add([]);
+        recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
+        recipeWeight.add(result.data()![recipeList[i]]['weight']);
+        // TODO RXLIST에 값을 추가하려면 어떻게 해야함? 
+        // TODO RXLIST가 아니라 List로 관리하고, 쓰는 쪽에서 인덱스를 조건으로?
+      }
+      // recipeIngredient[index] = result.data()![recipeList[index]]['ingredient'];
+      // recipeWeight[index] = result.data()![recipeList[index]]['weight'];
+
+      // print(result.data()!.keys.length);
+      // print(recipeList.length);
+    });
   }
-  // TODO : 상세 레시피는 아래 메소드 구현해서 출력하기
-  // loadRecipeDetails(menuTitle) async{
-  //   await firestore.collection(email!).doc('MenuList').collection(menuTitle).doc('Recipe').get().then((result){
-  //     print('Recipe Controllerrrrrrrrrr');
-  //     print(result.data()); //{단팥빵: [{중량: 1000, 재료: 밀가루}, {중량: 200, 재료: 계란}]}
-  //   });
-  //   // print(e);
-  // }
-
-
-  
 }

@@ -52,6 +52,8 @@ class _RecipeState extends State<Recipe> {
     listViewIndex = 0;
     multiflyInitialize();
     _pageController.addListener(moveListPage);
+
+    // controller.loadRecipeDetails(widget.menuTitle);
   }
 
   moveListPage(){
@@ -410,7 +412,8 @@ class _RecipeState extends State<Recipe> {
                                                 child: Column(
                                                   children: [
                                                     Text('-----'),
-                                                    Text('$customPageindex'),
+                                                    Text('${controller.recipeIngredient[customPageindex]}'),
+                                                    Text('${controller.recipeWeight[customPageindex]}'),
                                                     Text('-----'),
                                                   ],
                                                 ),
