@@ -4,11 +4,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 
 import '../config/enum.dart';
 
 class RecipeController extends GetxController{
 
+  Rx<RequestStatus> requestStatus = RequestStatus.EMPTY.obs;
+  
   String? email = FirebaseAuth.instance.currentUser?.email;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -18,6 +21,7 @@ class RecipeController extends GetxController{
   RxInt testListSelected = 0.obs;
 
   loadRecipeList(menuTitle) async{
+    requestStatus.value=RequestStatus.LOADING;
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').get().then((result){
       recipeList.value = result.data()!['RecipeList'];
     }
@@ -42,5 +46,7 @@ class RecipeController extends GetxController{
       // print(result.data()!.keys.length);
       // print(recipeList.length);
     });
+    print('asdasdasdasdasdasdasdasd');
+    requestStatus.value=RequestStatus.SUCCESS;
   }
 }

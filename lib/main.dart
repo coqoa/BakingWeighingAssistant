@@ -58,7 +58,12 @@ class _MyAppState extends State<MyApp> {
     // ignore: deprecated_member_use
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     // 풀스크린앱
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [
+        SystemUiOverlay.top,
+      ],
+    );
 
     return ScreenUtilInit(
       designSize: const Size(360, 880),
@@ -91,11 +96,7 @@ class _MyAppState extends State<MyApp> {
             );
           },
       
-          home: SafeArea(
-            child: FirebaseAuth.instance.currentUser?.email != null ? Menu() : Sign()
-            // child: Menu(),
-            // child: Recipe(),
-          ),
+          home: FirebaseAuth.instance.currentUser?.email != null ? Menu() : Sign(),
         );
       },
       
