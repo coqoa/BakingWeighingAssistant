@@ -46,7 +46,6 @@ class RecipeController extends GetxController{
       // print(result.data()!.keys.length);
       // print(recipeList.length);
     });
-    print('asdasdasdasdasdasdasdasd');
     requestStatus.value=RequestStatus.SUCCESS;
   }
 }

@@ -403,32 +403,37 @@ class _RecipeState extends State<Recipe> {
                                                 ],
                                               ),
                                               // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
-                                              Container(
-                                                width: 260.w,
-                                                height: 490.h,
-                                                decoration: BoxDecoration(
-                                                  // color: Colors.red,
-                                                  border: Border.all(width: 2, color: Palette.reallightgray)
-                                                ),
-                                                child: Obx((){
-                                                  return SingleChildScrollView(
-                                                    child: ((){
-                                                      if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                        return Column(
-                                                          children: [
-                                                            Text('-----'),
-                                                            Text('${controller.recipeIngredient[customPageindex]}'),
-                                                            Text('${controller.recipeWeight[customPageindex]}'),
-                                                            Text('-----'),
-                                                          ],
-                                                        );
-                                                      }else{
-                                                        return Text('asdasd');
-                                                      }
-                                                    }())
-                                                  );
-                                                })
-                                              ),
+                                              Obx((){
+                                                return SingleChildScrollView(
+                                                  child :
+                                                  ((){
+                                                    if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                      return Container(
+                                                        width: 260.w,
+                                                        height: 490.h,
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.red,
+                                                          border: Border.all(width: 2, color: Palette.reallightgray)
+                                                        ),
+                                                        // width: 150,
+                                                        child:  ListView.builder(
+                                                          itemCount: controller.recipeIngredient[customPageindex].length, // TODO 여기여기!!!!
+                                                          itemBuilder: ((context, idx) {
+                                                            return Row(
+                                                              children: [
+                                                                Text('${controller.recipeIngredient[customPageindex][idx]}'),
+                                                                Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}'), // 곱하기해주기
+                                                              ],
+                                                            );
+                                                          })
+                                                        ),
+                                                      );
+                                                      
+                                                    }else{return Text('NoData');}
+                                                  }())
+
+                                                );
+                                              }),
                                               
                                               // 곱하기버튼
                                               GestureDetector(
