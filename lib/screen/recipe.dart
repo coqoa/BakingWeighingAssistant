@@ -372,8 +372,8 @@ class _RecipeState extends State<Recipe> {
                                                     child: Text(
                                                       controller.recipeList[index],
                                                       style: const TextStyle(
-                                                        fontSize: 23,
-                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 26,
+                                                        // fontWeight: FontWeight.bold,
                                                         color: Palette.black
                                                       ),
                                                     )
@@ -402,6 +402,7 @@ class _RecipeState extends State<Recipe> {
                                                   ),
                                                 ],
                                               ),
+                                              SizedBox(height: 20.h),
                                               // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
                                               Obx((){
                                                 return SingleChildScrollView(
@@ -409,21 +410,77 @@ class _RecipeState extends State<Recipe> {
                                                   ((){
                                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                                       return Container(
-                                                        width: 260.w,
+                                                        width: 250.w,
                                                         height: 490.h,
                                                         decoration: BoxDecoration(
-                                                          color: Colors.red,
-                                                          border: Border.all(width: 2, color: Palette.reallightgray)
+                                                          // color: Colors.red,
+                                                          // border: Border.all(width: 2, color: Palette.reallightgray)
                                                         ),
                                                         // width: 150,
                                                         child:  ListView.builder(
                                                           itemCount: controller.recipeIngredient[customPageindex].length, // TODO 여기여기!!!!
                                                           itemBuilder: ((context, idx) {
-                                                            return Row(
-                                                              children: [
-                                                                Text('${controller.recipeIngredient[customPageindex][idx]}'),
-                                                                Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}'), // 곱하기해주기
-                                                              ],
+                                                            return Container(
+                                                              height: 70.h,
+                                                              decoration: BoxDecoration(
+                                                                border: Border(
+                                                                  top: BorderSide(
+                                                                    width: 0.5,
+                                                                    color: Palette.reallightgray
+                                                                  ),
+                                                                  bottom: BorderSide(
+                                                                    width: 0.5,
+                                                                    color: Palette.reallightgray
+                                                                  ),
+                                                                )
+                                                              ),
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 120.w,
+                                                                    decoration: BoxDecoration(
+                                                                      border: Border(
+                                                                        right: BorderSide(
+                                                                          width: 0.5,
+                                                                          color: Palette.reallightgray
+                                                                        ),
+                                                                      )
+                                                                    ),
+                                                                    child: Center(
+                                                                      child: Text('${controller.recipeIngredient[customPageindex][idx]}',
+                                                                        style: TextStyle(
+                                                                          fontSize: 18
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    // height: 50,
+                                                                  ),
+                                                                  Container(
+                                                                    width: 120.w,
+                                                                    decoration: BoxDecoration(
+                                                                      border: Border(
+                                                                        left: BorderSide(
+                                                                          width: 0.5,
+                                                                          color: Palette.reallightgray
+                                                                        ),
+                                                                      )
+                                                                    ),
+                                                                    child: Center(
+                                                                      child: Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}',
+                                                                        style: TextStyle(
+                                                                          fontSize: 18,
+                                                                          fontWeight: multiflyCountResult != 1 ? FontWeight.bold : FontWeight.normal
+                                                                          // fontWeight: FontWeight.bold
+                                                                        ),
+                                                                      )
+                                                                    ),
+                                                                  ),
+
+                                                                  // Text('${controller.recipeIngredient[customPageindex][idx]}'),
+                                                                  // Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}'), // 곱하기해주기 적용했음
+                                                                ],
+                                                              ),
                                                             );
                                                           })
                                                         ),
