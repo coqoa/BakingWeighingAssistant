@@ -78,14 +78,10 @@ class _MyAppState extends State<MyApp> {
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
-            primaryColor: Colors.blueGrey,
-            primarySwatch: Colors.blueGrey, 
+            // primaryColor: Colors.blueGrey,
+            // primarySwatch: Colors.blueGrey, 
             scaffoldBackgroundColor: Colors.white,
       
-            // 스테이터스 바 색깔변경? 01/05
-            appBarTheme: AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle.light
-            )
           ),
       
           // 디바이스간 폰트 크기 유지
