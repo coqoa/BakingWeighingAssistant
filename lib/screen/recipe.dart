@@ -4,6 +4,7 @@ import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
 import 'package:bwa/screen/addRecipe.dart';
+import 'package:bwa/screen/editRecipe.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/widget/memo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -396,6 +397,7 @@ class _RecipeState extends State<Recipe> {
                                                     ),
                                                     onTap:(){
                                                       setState(() {
+                                                        Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[index],));
                                                         print('편집!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                                       });
                                                     },
