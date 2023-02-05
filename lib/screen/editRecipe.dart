@@ -24,15 +24,86 @@ class _EditRecipeState extends State<EditRecipe> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? email = FirebaseAuth.instance.currentUser?.email;
 
+  String originalTitle = '';
   String title = '';
   List ingredient = [];
   List weight = [];
-  late dynamic recipeList = [];
+  late List recipeList = [];
 
   late TextEditingController _controller;
   
   void modifyRecipe()async {
-    print('Modify!!!!!');
+    // print(recipeList.indexOf(originalTitle));
+    // print(recipeList[recipeList.indexOf(originalTitle)]);
+    // recipeList[recipeList.indexOf(originalTitle)]=title;
+    // print(recipeList);
+    
+    
+    if(title.isNotEmpty){
+      // RecipeList update
+      // await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
+      //     {'RecipeList':recipeList}
+      //   );
+      if(recipeList.contains(title)){
+        Get.snackbar(
+          "","",
+          titleText: const Center(
+            child: Text("ERROR", 
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              )
+            )
+          ),
+          messageText: Center(child: Text("'$title'은(는) 이미 존재합니다.")),
+          snackPosition: SnackPosition.BOTTOM,
+          forwardAnimationCurve: Curves.elasticIn,
+          reverseAnimationCurve: Curves.easeOut,
+          backgroundColor: Palette.lightgray,
+          margin: EdgeInsets.only(bottom: 20.h),
+          maxWidth: 300.w,
+        );
+      }else{
+        // 레시피 리스트에 추가 
+        recipeList[recipeList.indexOf(originalTitle)]=title;
+        // 레시피 리스트 Doc 업데이트생성
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
+          {'RecipeList':recipeList}
+        );
+        // TODO 여기여기여기!!!!! 변경전타이틀 제거
+        // await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').
+        // .update(
+        //   {title:{'ingredient':ingredient,'weight':weight}}
+        // );
+        // 레시피 Doc 추가 // 중복안됨
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
+          {title:{'ingredient':ingredient,'weight':weight}}
+        );
+        Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
+      }
+    }else{
+      // ALERT  타이틀을 입력해주세요
+      Get.snackbar(
+        "","",
+        titleText: const Center(
+          child: Text("ERROR", 
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15
+            )
+          )
+        ),
+        messageText: Center(child: Text("TITLE을 채워주세용")),
+        snackPosition: SnackPosition.BOTTOM,
+        forwardAnimationCurve: Curves.elasticIn,
+        reverseAnimationCurve: Curves.easeOut,
+        backgroundColor: Palette.lightgray,
+        margin: EdgeInsets.only(bottom: 20.h),
+        maxWidth: 300.w,
+      );
+    }
+
+
     // if(title.isNotEmpty){
     //   // ALERT : 존재하는 타이틀
     //   if(recipeList.contains(title)){
@@ -94,7 +165,16 @@ class _EditRecipeState extends State<EditRecipe> {
   void initState(){
     // TODO: implement initState
     super.initState();
-    _controller = new TextEditingController(text: widget.recipeTitle);
+    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
+      setState(() {
+        recipeList = value.data()!['RecipeList'];
+      });
+    });
+
+    originalTitle = widget.recipeTitle;
+    title = widget.recipeTitle;
+
+    _controller = new TextEditingController(text: title);
 
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').get().then((value){
       // print(value.data()![widget.recipeTitle]);
@@ -102,8 +182,8 @@ class _EditRecipeState extends State<EditRecipe> {
       setState(() {
         ingredient = value[widget.recipeTitle]['ingredient'];
         weight = value[widget.recipeTitle]['weight'];
-        // ingredient.add('');
-        // weight.add('');
+        ingredient.add('');
+        weight.add('');
       });
       print(ingredient);
       print(weight);
@@ -250,202 +330,208 @@ class _EditRecipeState extends State<EditRecipe> {
                 Container(
                   width: 330.w,
                   height: 305.h,
-                  color: Colors.blue,
-                  child: ReorderableListView(
-                    onReorder: (int oldIndex, int newIndex) { 
-                      // setState(() {
-                      setState(() {
-                        if (newIndex > oldIndex) {
-                          newIndex -= 1;
-                        }
-                        final moveIngredient = ingredient.removeAt(oldIndex);
-                        final moveWeight = weight.removeAt(oldIndex);
-                        ingredient.insert(newIndex, moveIngredient);
-                        weight.insert(newIndex, moveWeight);
+                  // color: Colors.blue,
+                  // child: 
+                  // ReorderableListView(
+                  //   onReorder: (int oldIndex, int newIndex) { 
+                  //     // setState(() {
+                  //     setState(() {
+                  //       if (newIndex > oldIndex) {
+                  //         newIndex -= 1;
+                  //       }
+                  //       final moveIngredient = ingredient.removeAt(oldIndex);
+                  //       final moveWeight = weight.removeAt(oldIndex);
+                  //       ingredient.insert(newIndex, moveIngredient);
+                  //       weight.insert(newIndex, moveWeight);
                         
-                      });
-                      //   // print(controller.menuList);
-                        // controller.dragAndDropMenu(); // db업데이트 
+                  //     });
+                  //     //   // print(controller.menuList);
+                  //       // controller.dragAndDropMenu(); // db업데이트 
                         
-                      // });
+                  //     // });
 
-                     },
-                    children: List.generate(ingredient.length, (item)=>Container(
-                        key: Key('${ingredient[item]}$item}${weight[item]}'),
-                        // child: Text('$item : ${ingredient[item]}, ${weight[item]}'),
-                        child: Row(
-                          children: [
-                            Text('$item 위아래'),
-                            Container(
-                              width: 100,
-                              child: TextFormField(
-                                initialValue: ingredient[item],
-                                onChanged: (value){
-                                  setState(() {
-                                    print(item);
-                                    print(ingredient);
-                                    print(ingredient[item]);
-                                    print(value);
-                                    ingredient.add('');
+                  //    },
+                  //   children: List.generate(ingredient.length, (item)=>Container(
+                  //       key: Key('${ingredient[item]}$item}${weight[item]}'),
+                  //       // child: Text('$item : ${ingredient[item]}, ${weight[item]}'),
+                  //       child: Row(
+                  //         children: [
+                  //           Text('$item 위아래'),
+                  //           Container(
+                  //             width: 100,
+                  //             child: TextFormField(
+                  //               initialValue: ingredient[item],
+                  //               onChanged: (value){
+                  //                 setState(() {
+                  //                   print(item);
+                  //                   print(ingredient);
+                  //                   print(ingredient[item]);
+                  //                   print(value);
+                  //                   ingredient.add('');
                                     
-                                    // if(ingredient.length <= item){
-                                        // ingredient.add("");
-                                        // weight.add("");
-                                      // }
-                                    // ingredient[item] = value;
+                  //                   // if(ingredient.length <= item){
+                  //                       // ingredient.add("");
+                  //                       // weight.add("");
+                  //                     // }
+                  //                   // ingredient[item] = value;
                                     
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                      )),
-                    // children: [
-                    //   ListView.builder(
-                    //     itemCount: ingredient.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       return Column(
-                    //         // key: Key('${ingredient[index]}$index}${weight[index]}'),
-                    //         key: Key(index.toS),
-                    //         children: [
-                    //           Row(
-                    //             children: [
-                    //               // Container(
-                    //               //   width: 165.w,
-                    //               //   height: 60.h,
-                    //               //   decoration: const BoxDecoration(
-                    //               //     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                    //               //   ),
-                    //               //   // color: Colors.red,
-                    //               //   // child: Center(child: Text(listTest[index]['이름'])),
-                    //               //   child: TextField(
-                    //               //     textInputAction: TextInputAction.next,
-                    //               //     textAlign: TextAlign.center,
-                    //               //     onChanged: (value) {
-                    //               //       // testA = value;
-                    //               //       setState(() {
-                    //               //         if(ingredient.length <= index){
-                    //               //           ingredient.add("");
-                    //               //           weight.add("");
-                    //               //         }
-                    //               //         ingredient[index] = value;
-                    //               //       });
-                    //               //     },
-                    //               //     decoration: const InputDecoration(
-                    //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //               //     ),
-                    //               //   ),
-                    //               // ),
+                  //                 });
+                  //               },
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       )
+                  //     )),
+                  //   // children: [
+                  //   //   ListView.builder(
+                  //   //     itemCount: ingredient.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
+                  //   //     itemBuilder: (BuildContext context, int index) {
+                  //   //       return Column(
+                  //   //         // key: Key('${ingredient[index]}$index}${weight[index]}'),
+                  //   //         key: Key(index.toS),
+                  //   //         children: [
+                  //   //           Row(
+                  //   //             children: [
+                  //   //               // Container(
+                  //   //               //   width: 165.w,
+                  //   //               //   height: 60.h,
+                  //   //               //   decoration: const BoxDecoration(
+                  //   //               //     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
+                  //   //               //   ),
+                  //   //               //   // color: Colors.red,
+                  //   //               //   // child: Center(child: Text(listTest[index]['이름'])),
+                  //   //               //   child: TextField(
+                  //   //               //     textInputAction: TextInputAction.next,
+                  //   //               //     textAlign: TextAlign.center,
+                  //   //               //     onChanged: (value) {
+                  //   //               //       // testA = value;
+                  //   //               //       setState(() {
+                  //   //               //         if(ingredient.length <= index){
+                  //   //               //           ingredient.add("");
+                  //   //               //           weight.add("");
+                  //   //               //         }
+                  //   //               //         ingredient[index] = value;
+                  //   //               //       });
+                  //   //               //     },
+                  //   //               //     decoration: const InputDecoration(
+                  //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                  //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                  //   //               //     ),
+                  //   //               //   ),
+                  //   //               // ),
                                   
-                    //               // Container(
-                    //               //   width: 165.w,
-                    //               //   height: 60.h,
-                    //               //   decoration: const BoxDecoration(
-                    //               //     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                    //               //   ),
-                    //               //   // color: Colors.green,
-                    //               //   // child: Center(child: Text(listTest[index]['중량'])),
+                  //   //               // Container(
+                  //   //               //   width: 165.w,
+                  //   //               //   height: 60.h,
+                  //   //               //   decoration: const BoxDecoration(
+                  //   //               //     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
+                  //   //               //   ),
+                  //   //               //   // color: Colors.green,
+                  //   //               //   // child: Center(child: Text(listTest[index]['중량'])),
                     
-                    //               //   child: TextField(
-                    //               //     textInputAction: TextInputAction.next,
-                    //               //     textAlign: TextAlign.center,
-                    //               //     onChanged: (value) {
-                    //               //       // testB = value;
-                    //               //       setState(() {
-                    //               //         if(weight.length <= index){
-                    //               //           ingredient.add("");
-                    //               //           weight.add("");
-                    //               //         }
-                    //               //         weight[index] = value;
-                    //               //       });
-                    //               //     } ,
-                    //               //     decoration: const InputDecoration(
-                    //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //               //     ),
-                    //               //   ),
-                    //               // ),
-                    //             ]
-                    //           ),
-                    //           const Divider(height: 10,),
-                    //         ],
-                    //       );
-                    //     }
-                    //   )
-                    // ],
-                  ),
-                  // child : ListView.builder(
-                  //   itemCount: weight.length+1, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return Column(
-                  //       children: [
-                  //         Row(
-                  //           children: [
-                  //             Container(
-                  //               width: 165.w,
-                  //               height: 60.h,
-                  //               decoration: const BoxDecoration(
-                  //                 border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                  //               ),
-                  //               // color: Colors.red,
-                  //               // child: Center(child: Text(listTest[index]['이름'])),
-                  //               child: TextField(
-                  //                 textInputAction: TextInputAction.next,
-                  //                 textAlign: TextAlign.center,
-                  //                 onChanged: (value) {
-                  //                   // testA = value;
-                  //                   setState(() {
-                  //                     if(ingredient.length <= index){
-                  //                       ingredient.add("");
-                  //                       weight.add("");
-                  //                     }
-                  //                     ingredient[index] = value;
-                  //                   });
-                  //                 },
-                  //                 decoration: const InputDecoration(
-                  //                   focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //                 ),
-                  //               ),
-                  //             ),
+                  //   //               //   child: TextField(
+                  //   //               //     textInputAction: TextInputAction.next,
+                  //   //               //     textAlign: TextAlign.center,
+                  //   //               //     onChanged: (value) {
+                  //   //               //       // testB = value;
+                  //   //               //       setState(() {
+                  //   //               //         if(weight.length <= index){
+                  //   //               //           ingredient.add("");
+                  //   //               //           weight.add("");
+                  //   //               //         }
+                  //   //               //         weight[index] = value;
+                  //   //               //       });
+                  //   //               //     } ,
+                  //   //               //     decoration: const InputDecoration(
+                  //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                  //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                  //   //               //     ),
+                  //   //               //   ),
+                  //   //               // ),
+                  //   //             ]
+                  //   //           ),
+                  //   //           const Divider(height: 10,),
+                  //   //         ],
+                  //   //       );
+                  //   //     }
+                  //   //   )
+                  //   // ],
+                  // ),
+
+                  child : ListView.builder(
+                    itemCount: weight.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 165.w,
+                                height: 60.h,
+                                decoration: const BoxDecoration(
+                                  border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
+                                ),
+                                // color: Colors.red,
+                                // child: Center(child: Text(listTest[index]['이름'])),
+                                child: TextFormField(
+                                  textInputAction: TextInputAction.next,
+                                  textAlign: TextAlign.center,
+                                  initialValue: ingredient[index],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if(ingredient.length <= index+1){
+                                        ingredient.add("");
+                                        weight.add("");
+                                      }
+                                      ingredient[index] = value;
+                                      print(index);
+                                      print(ingredient);
+                                      print(ingredient.length);
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                  ),
+                                ),
+                              ),
                               
-                  //             Container(
-                  //               width: 165.w,
-                  //               height: 60.h,
-                  //               decoration: const BoxDecoration(
-                  //                 border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                  //               ),
-                  //               // color: Colors.green,
-                  //               // child: Center(child: Text(listTest[index]['중량'])),
+                              Container(
+                                width: 165.w,
+                                height: 60.h,
+                                decoration: const BoxDecoration(
+                                  border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
+                                ),
+                                // color: Colors.green,
+                                // child: Center(child: Text(listTest[index]['중량'])),
                 
-                  //               child: TextField(
-                  //                 textInputAction: TextInputAction.next,
-                  //                 textAlign: TextAlign.center,
-                  //                 onChanged: (value) {
-                  //                   // testB = value;
-                  //                   setState(() {
-                  //                     if(weight.length <= index){
-                  //                       ingredient.add("");
-                  //                       weight.add("");
-                  //                     }
-                  //                     weight[index] = value;
-                  //                   });
-                  //                 } ,
-                  //                 decoration: const InputDecoration(
-                  //                   focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //                   enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ]
-                  //         ),
-                  //         const Divider(height: 10,),
-                  //       ],
-                  //     );
-                  //   }
-                  // )
+                                child: TextFormField(
+                                  textInputAction: TextInputAction.next,
+                                  textAlign: TextAlign.center,
+                                  initialValue: weight[index],
+                                  onChanged: (value) {
+                                    // testB = value;
+                                    setState(() {
+                                      if(weight.length <= index+1){
+                                        ingredient.add("");
+                                        weight.add("");
+                                      }
+                                      weight[index] = value;
+                                    });
+                                  } ,
+                                  decoration: const InputDecoration(
+                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                  ),
+                                ),
+                              ),
+                            ]
+                          ),
+                          const Divider(height: 10,),
+                        ],
+                      );
+                    }
+                  )
                 ),
               ],
             ),
