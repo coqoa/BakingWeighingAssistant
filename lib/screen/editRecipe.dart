@@ -32,19 +32,13 @@ class _EditRecipeState extends State<EditRecipe> {
 
   late TextEditingController _controller;
   
+  // 완료버튼
   void modifyRecipe()async {
-    // print(recipeList.indexOf(originalTitle));
-    // print(recipeList[recipeList.indexOf(originalTitle)]);
-    // recipeList[recipeList.indexOf(originalTitle)]=title;
-    // print(recipeList);
-    
     
     if(title.isNotEmpty){
       // RecipeList update
-      // await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
-      //     {'RecipeList':recipeList}
-      //   );
-      if(recipeList.contains(title)){
+      // originalTitle != title -> 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
+      if(recipeList.contains(title) && originalTitle != title){
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -64,18 +58,19 @@ class _EditRecipeState extends State<EditRecipe> {
           maxWidth: 300.w,
         );
       }else{
-        // 레시피 리스트에 추가 
+        // 레시피 리스트에 타이틀 변경
         recipeList[recipeList.indexOf(originalTitle)]=title;
-        // 레시피 리스트 Doc 업데이트생성
+        // originalTitle = title;
+
+        // RecipeList 업데이트
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeList}
         );
-        // TODO 여기여기여기!!!!! 변경전타이틀 제거
-        // await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').
-        // .update(
-        //   {title:{'ingredient':ingredient,'weight':weight}}
-        // );
-        // 레시피 Doc 추가 // 중복안됨
+        // original 데이터 제거
+        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update({
+          originalTitle: FieldValue.delete(),
+        });
+        // new 데이터 입력
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'ingredient':ingredient,'weight':weight}}
         );
@@ -102,63 +97,6 @@ class _EditRecipeState extends State<EditRecipe> {
         maxWidth: 300.w,
       );
     }
-
-
-    // if(title.isNotEmpty){
-    //   // ALERT : 존재하는 타이틀
-    //   if(recipeList.contains(title)){
-    //     Get.snackbar(
-    //       "","",
-    //       titleText: const Center(
-    //         child: Text("ERROR", 
-    //           style: TextStyle(
-    //             fontWeight: FontWeight.bold,
-    //             fontSize: 15
-    //           )
-    //         )
-    //       ),
-    //       messageText: Center(child: Text("'$title'은(는) 이미 존재합니다.")),
-    //       snackPosition: SnackPosition.BOTTOM,
-    //       forwardAnimationCurve: Curves.elasticIn,
-    //       reverseAnimationCurve: Curves.easeOut,
-    //       backgroundColor: Palette.lightgray,
-    //       margin: EdgeInsets.only(bottom: 20.h),
-    //       maxWidth: 300.w,
-    //     );
-    //   }else{
-    //     // 레시피 리스트에 추가 
-    //     await recipeList.add(title);
-    //     // 레시피 리스트 Doc 업데이트생성
-    //     await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
-    //       {'RecipeList':recipeList}
-    //     );
-    //     // 레시피 Doc 추가 // 중복안됨
-    //     await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
-    //       {title:{'ingredient':ingredient,'weight':weight}}
-    //     );
-    //     Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
-    //   }
-    // }else{
-    //   // ALERT  타이틀을 입력해주세요
-    //   Get.snackbar(
-    //     "","",
-    //     titleText: const Center(
-    //       child: Text("ERROR", 
-    //         style: TextStyle(
-    //           fontWeight: FontWeight.bold,
-    //           fontSize: 15
-    //         )
-    //       )
-    //     ),
-    //     messageText: Center(child: Text("TITLE을 채워주세용")),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     forwardAnimationCurve: Curves.elasticIn,
-    //     reverseAnimationCurve: Curves.easeOut,
-    //     backgroundColor: Palette.lightgray,
-    //     margin: EdgeInsets.only(bottom: 20.h),
-    //     maxWidth: 300.w,
-    //   );
-    // }
   }
 
   @override
@@ -177,23 +115,16 @@ class _EditRecipeState extends State<EditRecipe> {
     _controller = new TextEditingController(text: title);
 
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').get().then((value){
-      // print(value.data()![widget.recipeTitle]);
-      // print(value[widget.recipeTitle]);
       setState(() {
         ingredient = value[widget.recipeTitle]['ingredient'];
         weight = value[widget.recipeTitle]['weight'];
-        ingredient.add('');
-        weight.add('');
+        // 재료와 중량 리스트 모두 마지막이 비었을 때만 추가해줌
+        if(ingredient.last.length!=0 && weight.last.length!=0){
+          ingredient.add('');
+          weight.add('');
+        }
       });
-      print(ingredient);
-      print(weight);
-      // setState(() {
-      //   recipeList = value.data()!['RecipeList'];
-      // });
     });
-    // print(widget.menuTitle);
-    // print(widget.recipeTitle);
-    // print(recipeList);
   }
 
   @override
@@ -330,6 +261,7 @@ class _EditRecipeState extends State<EditRecipe> {
                 Container(
                   width: 330.w,
                   height: 305.h,
+                  // 리오더블
                   // color: Colors.blue,
                   // child: 
                   // ReorderableListView(
@@ -459,7 +391,7 @@ class _EditRecipeState extends State<EditRecipe> {
                   // ),
 
                   child : ListView.builder(
-                    itemCount: weight.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
+                    itemCount: weight.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -472,7 +404,6 @@ class _EditRecipeState extends State<EditRecipe> {
                                   border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                 ),
                                 // color: Colors.red,
-                                // child: Center(child: Text(listTest[index]['이름'])),
                                 child: TextFormField(
                                   textInputAction: TextInputAction.next,
                                   textAlign: TextAlign.center,
@@ -484,9 +415,6 @@ class _EditRecipeState extends State<EditRecipe> {
                                         weight.add("");
                                       }
                                       ingredient[index] = value;
-                                      print(index);
-                                      print(ingredient);
-                                      print(ingredient.length);
                                     });
                                   },
                                   decoration: const InputDecoration(
@@ -503,7 +431,6 @@ class _EditRecipeState extends State<EditRecipe> {
                                   border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
                                 ),
                                 // color: Colors.green,
-                                // child: Center(child: Text(listTest[index]['중량'])),
                 
                                 child: TextFormField(
                                   textInputAction: TextInputAction.next,

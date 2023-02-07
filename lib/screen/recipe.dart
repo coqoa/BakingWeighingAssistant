@@ -469,13 +469,15 @@ class _RecipeState extends State<Recipe> {
                                                                       )
                                                                     ),
                                                                     child: Center(
-                                                                      child: Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}',
+                                                                      child: controller.recipeWeight[customPageindex][idx].length != 0 
+                                                                      ? Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}',
                                                                         style: TextStyle(
                                                                           fontSize: 18,
                                                                           fontWeight: multiflyCountResult != 1 ? FontWeight.bold : FontWeight.normal
                                                                           // fontWeight: FontWeight.bold
                                                                         ),
                                                                       )
+                                                                      : Text('')
                                                                     ),
                                                                   ),
 
