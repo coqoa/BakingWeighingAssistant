@@ -17,6 +17,7 @@ class RecipeController extends GetxController{
   RxList recipeIngredient = [].obs;
   RxList recipeWeight= [].obs;
   RxInt testListSelected = 0.obs;
+  RxList multipleValue = [].obs;
 
   loadRecipeList(menuTitle) async{
     requestStatus.value=RequestStatus.LOADING;
@@ -28,8 +29,18 @@ class RecipeController extends GetxController{
       for(int i = 0; i<result.data()!.keys.length; i++){
         recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
         recipeWeight.add(result.data()![recipeList[i]]['weight']);
+        multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
       }
     });
     requestStatus.value=RequestStatus.SUCCESS;
+  }
+  multipleValueUpdate(menuTitle, recipeTitle, index)async{
+    print('aaa!');
+    print(menuTitle);
+    print(recipeTitle);
+    // await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
+    //   {recipeTitle:{'multipleValue':index}}
+    // );
+    // multipleValue만 변경하려면??
   }
 }
