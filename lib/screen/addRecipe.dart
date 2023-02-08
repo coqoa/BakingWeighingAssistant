@@ -282,7 +282,8 @@ class _AddRecipeState extends State<AddRecipe> {
                                 // child: Center(child: Text(listTest[index]['중량'])),
                 
                                 child: TextField(
-                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.number,
+                                  // textInputAction: TextInputAction.next,
                                   textAlign: TextAlign.center,
                                   onChanged: (value) {
                                     // testB = value;

@@ -79,6 +79,15 @@ class _RecipeState extends State<Recipe> {
   }
   
   void multiflyCount(String s,String recipeTitle, int index){
+    // print('------');
+    // print('s  = $s');
+    // print('recipeTitle = $recipeTitle');
+    // print('index = $index');
+    // print('controller.recipeList = ${controller.recipeList}');
+    // print('controller.recipeIngredient = ${controller.recipeIngredient}');
+    // print('controller.recipeWeight = ${controller.recipeWeight}');
+    // print('controller.multipleValue = ${controller.multipleValue}');
+    // print('------');
     setState(() {
       if(s == '<-'){
         // 빼기 구현
@@ -91,7 +100,8 @@ class _RecipeState extends State<Recipe> {
           // TODO 여기변경
           // multiflyCountResult = int.parse(multiflyIndicator);
           print('db 업데이트 : controller.multipleValue[index]로');
-          controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index);
+          controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
+          // controller.loadRecipeList(widget.menuTitle);
         }
         isMultifly = false;
       }else if(multiflyIndicator.isEmpty && s=='0'){
@@ -481,15 +491,15 @@ class _RecipeState extends State<Recipe> {
                                                                               )
                                                                             ),
                                                                             child: Center(
-                                                                              child: controller.recipeWeight[customPageindex][idx].length != 0 
-                                                                              ? Text('${int.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
-                                                                                style: TextStyle(
-                                                                                  fontSize: 18,
-                                                                                  fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
-                                                                                  // fontWeight: FontWeight.bold
-                                                                                ),
-                                                                              )
-                                                                              : Text('')
+                                                                              child: Obx(() => controller.recipeWeight[customPageindex][idx].length != 0 
+                                                                                ? Text('${int.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
+                                                                                  style: TextStyle(
+                                                                                    fontSize: 18,
+                                                                                    fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
+                                                                                    // fontWeight: FontWeight.bold
+                                                                                  ),
+                                                                                )
+                                                                                : Text(''))
                                                                             ),
                                                                           ),
                                                                                           

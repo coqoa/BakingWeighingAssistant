@@ -32,15 +32,24 @@ class RecipeController extends GetxController{
         multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
       }
     });
+    print('recipeIngredient = $recipeIngredient');
+    print('recipeWeight = $recipeWeight');
+    print('multipleValue = $multipleValue');
     requestStatus.value=RequestStatus.SUCCESS;
   }
-  multipleValueUpdate(menuTitle, recipeTitle, index)async{
+  multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     print('aaa!');
     print(menuTitle);
     print(recipeTitle);
-    // await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-    //   {recipeTitle:{'multipleValue':index}}
-    // );
+    print(index);
+    print('recipeIngredient = ${recipeIngredient[index]}');
+    print('recipeWeight = ${recipeWeight[index]}');
+    print(multipleIndicator);
+    await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
+      {recipeTitle:{'multipleValue':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+    );
+    multipleValue[index] = int.parse(multipleIndicator);
     // multipleValue만 변경하려면??
+    // users - admin@admin.com - Bread - Recipe - recipeTitle - multipleValue를 변경??
   }
 }
