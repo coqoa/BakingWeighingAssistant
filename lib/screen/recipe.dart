@@ -217,7 +217,7 @@ class _RecipeState extends State<Recipe> {
                                     showDialog(
                                     context: context, 
                                       builder: (_){
-                                        return Memo(memoOpen: memoOpen, contents: memoOpen.toString()); // TODO: contents박아넣기
+                                        return Memo(menuTitle: widget.menuTitle); // TODO: contents박아넣기
                                       }
                                     );
       

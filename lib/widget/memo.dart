@@ -1,3 +1,6 @@
+import 'package:bwa/widget/default_alert_dialog_onebutton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -6,10 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/palette.dart';
 
 class Memo extends StatefulWidget {
-  Memo({super.key, required this.memoOpen, required this.contents});
+  Memo({super.key,required this.menuTitle});
+  // late final dynamic memoOpen;
+  final String menuTitle;
 
-  dynamic memoOpen;
-  late String contents;
+  // late String contents;
   
 
 
@@ -19,13 +23,42 @@ class Memo extends StatefulWidget {
 
 class _MemoState extends State<Memo> {
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String? email = FirebaseAuth.instance.currentUser?.email;
 
+  String memoContents = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // memoContents = 
+    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Memo').get().then((value){
+      setState(() {
+        memoContents = value.data()!['Memo'];
+      });
+      //  print(value.data()!['Memo']);
+    });
+  }
+
+  editMemo(contents)async{
+    await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Memo').set(
+      // {'Memo':memoContents}
+      {'Memo':contents}
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    String contents = widget.contents;
-    TextEditingController _textEditingController = new TextEditingController(text: contents);
+    // String contents = widget.contents;
+  TextEditingController _textEditingController = new TextEditingController(text: memoContents);
+
+  // return DefaultAlertDialogOneButton(
+  //   title: 'Memo', 
+  //   contents: asd, 
+  //   buttonTitle: buttonTitle
+  // );
   return  AlertDialog(
       insetPadding: const EdgeInsets.all(0),
       contentPadding: const EdgeInsets.all(0),
@@ -34,7 +67,7 @@ class _MemoState extends State<Memo> {
         borderRadius: BorderRadius.circular(22.0),
       ),
       title: const Center(
-        child: Text('Memo',
+        child: Text('Memo1',
           style: TextStyle(
             fontWeight: FontWeight.w900,
             color: Palette.black,
@@ -62,12 +95,7 @@ class _MemoState extends State<Memo> {
                   maxLength: 5000,
                   controller: _textEditingController,
                   onChanged: (value ) {
-                    // if(_inputController.text.length>=500) {
-                    //   showToast("text500".tr,position:ToastPosition.top);
-                    //   _inputController.text=_inputController.text;
-                    //   _inputController.selection=TextSelection.collapsed(offset: _inputController.text.length); 
-                    // }
-                      contents = value;
+                    memoContents = value;
                   },
                   autovalidateMode:
                     AutovalidateMode.onUserInteraction,
@@ -109,7 +137,10 @@ class _MemoState extends State<Memo> {
                     // setState(() {
                     //   widget.memoOpen = false;
                     // });
-                    print(contents); // TODO db로 데이터를 보내봐야 알 것 같음
+                    // print(memoContents); // TODO db로 데이터를 보내봐야 알 것 같음
+                    // TODO SAVE EVENT 
+                    editMemo(memoContents);
+                    Navigator.of(context).pop();
                   },
                 ),
               )
