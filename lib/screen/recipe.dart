@@ -464,7 +464,7 @@ class _RecipeState extends State<Recipe> {
                                                                             ),
                                                                             child: Center(
                                                                               child: Obx(() => controller.recipeWeight[customPageindex][idx].length != 0 
-                                                                                ? Text('${int.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
+                                                                                ? Text('${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
                                                                                   style: TextStyle(
                                                                                     fontSize: 18,
                                                                                     fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
@@ -474,9 +474,6 @@ class _RecipeState extends State<Recipe> {
                                                                                 : Text(''))
                                                                             ),
                                                                           ),
-                                                                                          
-                                                                          // Text('${controller.recipeIngredient[customPageindex][idx]}'),
-                                                                          // Text('${int.parse(controller.recipeWeight[customPageindex][idx])*multiflyCountResult}'), // 곱하기해주기 적용했음
                                                                         ],
                                                                       ),
                                                                     );
@@ -688,7 +685,7 @@ class _RecipeState extends State<Recipe> {
                                                     padding: EdgeInsets.only(bottom: 15),
                                                     decoration: BoxDecoration(
                                                       // color: Palette.modalBackgroundColor
-                                                      color: Palette.red
+                                                      // color: Palette.red
                                                     ),
                                                     child: Align(
                                                       alignment: Alignment.bottomCenter,

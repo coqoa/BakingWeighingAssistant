@@ -232,7 +232,7 @@ class _SignState extends State<Sign> {
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w400,
-                                                color: Palette.red
+                                                // color: Palette.red
                                               ),
                                             ),
                                           ),
