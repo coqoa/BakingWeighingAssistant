@@ -2,8 +2,6 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/sign_controller.dart';
-import 'package:bwa/screen/recipe.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,22 +25,16 @@ class _SignState extends State<Sign> {
   void initState() {
     super.initState();
     setState(() {
-      // print(FirebaseAuth.instance.currentUser);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color.fromARGB(250, 235, 235, 235),
       body: KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible) { 
           return SafeArea(
             child: Container(
-              // height: GetPlatform.isMobile? boxHeight: 637.h, // 웹 / 모바일 height 분기
-              // width: GetPlatform.isMobile ? boxWidth : 360.w, // 웹 / 모바일 width 분기
-              // height: 900.h, // 웹 / 모바일 height 분기
-              // width: 360.w, // 웹 / 모바일 width 분기
               decoration: BoxDecoration(
                 color: Palette.white,
                 borderRadius: BorderRadius.circular(15),
@@ -56,7 +48,6 @@ class _SignState extends State<Sign> {
                   ),
                 ],
               ),
-              // padding: EdgeInsets.only(top: statusBarHeight),
               
               child: Stack(
                 children: [
@@ -74,7 +65,6 @@ class _SignState extends State<Sign> {
                         // TITLE
                         Stack(
                           children: <Widget>[
-                            // 
                             Text(
                               // 'GRAMMING',
                               'Gramming',
@@ -95,7 +85,6 @@ class _SignState extends State<Sign> {
                               // 'GRAMMING',
                               'Gramming',
                               style: TextStyle(
-                                // fontFamily: 'carter',
                                 fontWeight: FontWeight.w900,
                                 fontSize: 50,
                                 color: Palette.white,
@@ -103,7 +92,6 @@ class _SignState extends State<Sign> {
                                 // TODO 텍스트 그림자 꼭 필요한가/.
                                 shadows: const <Shadow>[
                                   Shadow(
-                                    // offset: Offset(4.0, 3.0),
                                     offset: Offset(5.0, 3.0),
                                     blurRadius: 0,
                                     color: Color.fromARGB(255, 0, 0, 0),
@@ -404,7 +392,6 @@ class _SignTextFieldState extends State<SignTextField> {
             widget.controller.signUp('SignUp');
           }
         }
-        // print(widget.nextEvent.toString());
       },
     );
   }

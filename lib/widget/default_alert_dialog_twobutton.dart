@@ -1,7 +1,6 @@
 import 'package:bwa/config/palette.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class DefaultAlertDialogTwoButton extends StatelessWidget{
 
   late String title;
@@ -20,20 +19,20 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22.0),
       ),
-      title: Center(child: Text(title,style: const TextStyle(fontFamily:'jalnan',fontSize: 22, color: Palette.lightblack))),
+      title: Center(child: Text(title,style: const TextStyle(fontSize: 25, color: Palette.lightblack))),
       content: SizedBox(
         height: 188,
         width: 328,
         child: Column(
           children: [
             SizedBox(
-                height: 116,
+                height: 133,
                 child: Center(
                   child: contents
             )),
             const Spacer(),    
             Container(
-              height: 72,
+              height: 55,
               decoration: const BoxDecoration(
                 color: Palette.white,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(22),bottomRight: Radius.circular(22))
@@ -44,7 +43,6 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                 children: [
                 InkWell(
                   onTap: () {
-                    // ignore: unnecessary_null_comparison
                     if(leftButtonFunction!=null){ 
                       leftButtonFunction();
                       Navigator.of(context).pop();
@@ -64,7 +62,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                       child: Center(
                         child: 
                         Text(leftButtonName,
-                            style: const TextStyle(color:Palette.white,fontFamily:'jalnan',fontSize: 13)
+                            style: const TextStyle(color:Palette.white,fontSize: 15)
                         ),
                       )
                   )
@@ -72,7 +70,6 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                 const Spacer(),
                 InkWell(
                   onTap: () async {
-                    // ignore: unnecessary_null_comparison
                     if(rightButtonFuction!=null){ 
                       rightButtonFuction();
                       Navigator.of(context).pop();
@@ -93,7 +90,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                           child: 
                           Text(
                             rightButtonName,
-                            style: const TextStyle(color:Palette.white,fontFamily:'jalnan',fontSize: 13)
+                            style: const TextStyle(color:Palette.white,fontSize: 15)
                           ),
                         )
                     )

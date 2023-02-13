@@ -21,7 +21,6 @@ class _BottomAdSectionState extends State<BottomAdSection> {
         curve: Curves.easeIn,
         width: 360,
         height: 50,
-        // height: isKeyboardVisible ? 0 :50,
         color: Colors.blue.withOpacity(0.5),
         child: Center(child: Text('Admob Banner',)),
       )

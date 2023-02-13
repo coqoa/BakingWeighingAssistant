@@ -67,7 +67,7 @@ class _MemoState extends State<Memo> {
         borderRadius: BorderRadius.circular(22.0),
       ),
       title: const Center(
-        child: Text('Memo1',
+        child: Text('Memo',
           style: TextStyle(
             fontWeight: FontWeight.w900,
             color: Palette.black,
@@ -88,7 +88,7 @@ class _MemoState extends State<Memo> {
             children: [
               Container(
                 height: 370.h,
-                color: Colors.green[100],
+                // color: Colors.green[100],
                 //  텍스트 필드 너무 큼, 밑줄 없애고 오토포커스?
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(

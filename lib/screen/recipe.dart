@@ -7,8 +7,6 @@ import 'package:bwa/screen/addRecipe.dart';
 import 'package:bwa/screen/editRecipe.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/widget/memo.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,7 +39,6 @@ class _RecipeState extends State<Recipe> {
   late bool memoOpen = false;
   late bool isMultifly = false;
   bool optionModalOpen = false;
-  // late int multiflyCountResult;
   String multiflyIndicator = '';
 
   late int listViewIndex;
@@ -50,15 +47,10 @@ class _RecipeState extends State<Recipe> {
   @override
   void initState() {
     super.initState();
-    // listIndex = 0;
-    
     controller.loadRecipeList(widget.menuTitle);
-
     listViewIndex = 0;
     multiflyInitialize();
     _pageController.addListener(moveListPage);
-
-    // controller.loadRecipeDetails(widget.menuTitle);
   }
 
   moveListPage(){
@@ -67,10 +59,9 @@ class _RecipeState extends State<Recipe> {
       // 계산기 창 닫기
       isMultifly = false;
     });
-        // 스크롤 이동
+    // 스크롤 이동
     _scrollController.scrollToIndex(
       listViewIndex,
-      // duration: const Duration(milliseconds: 100),
       preferPosition: AutoScrollPosition.middle,
     );
     // 계산기 초기화
@@ -82,15 +73,6 @@ class _RecipeState extends State<Recipe> {
   }
   
   void multiflyCount(String s,String recipeTitle, int index){
-    // print('------');
-    // print('s  = $s');
-    // print('recipeTitle = $recipeTitle');
-    // print('index = $index');
-    // print('controller.recipeList = ${controller.recipeList}');
-    // print('controller.recipeIngredient = ${controller.recipeIngredient}');
-    // print('controller.recipeWeight = ${controller.recipeWeight}');
-    // print('controller.multipleValue = ${controller.multipleValue}');
-    // print('------');
     setState(() {
       if(s == '<-'){
         // 빼기 구현
@@ -100,17 +82,13 @@ class _RecipeState extends State<Recipe> {
       }else if(s == '확인'){
         // 적용하는 코드
         if(multiflyIndicator != ''){
-          // TODO 여기변경
-          // multiflyCountResult = int.parse(multiflyIndicator);
           print('db 업데이트 : controller.multipleValue[index]로');
           controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
-          // controller.loadRecipeList(widget.menuTitle);
         }
         isMultifly = false;
       }else if(multiflyIndicator.isEmpty && s=='0'){
-        print('0은 첫자리로 올 수 없다');
-      }
-      else{
+
+      }else{
         if(multiflyIndicator.length < 6){
           multiflyIndicator = multiflyIndicator+s;
         }
@@ -158,7 +136,6 @@ class _RecipeState extends State<Recipe> {
                                 ),
                                 Text(' back',
                                   style: const TextStyle(
-                                    // fontWeight: FontWeight.bold,
                                     color: Palette.gray,
                                     fontSize: 20,
                                   ),
@@ -168,7 +145,6 @@ class _RecipeState extends State<Recipe> {
                           ),
                           onTap: (){
                             setState(() {
-                              // isMultifly = false;
                               optionModalOpen = false;
                               Get.to(()=>Menu());
                             });
@@ -212,7 +188,6 @@ class _RecipeState extends State<Recipe> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    // memoOpen = true;
                                     optionModalOpen = false;
                                     showDialog(
                                     context: context, 
@@ -225,7 +200,6 @@ class _RecipeState extends State<Recipe> {
                                   });
                                 },
                               ),
-                              // SizedBox(width: 5.w,),
                               // 추가 버튼
                               GestureDetector(
                                 child: Container(
@@ -364,7 +338,6 @@ class _RecipeState extends State<Recipe> {
                                         child: Container(
                                           width: 300.w,
                                           height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                          // padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
                                           decoration: BoxDecoration(
                                             color: Palette.backgroundColor,
                                             borderRadius: BorderRadius.circular(15),
@@ -393,12 +366,10 @@ class _RecipeState extends State<Recipe> {
                                                         controller.recipeList[index],
                                                         style: const TextStyle(
                                                           fontSize: 26,
-                                                          // fontWeight: FontWeight.bold,
                                                           color: Palette.black
                                                         ),
                                                       ),
                                                       SizedBox(height: 20.h),
-                                                      // 레시피 출력된는 곳 ////////////////////////////////////////////////////////////////////////////////////////////////////
                                                       Obx((){
                                                         return SingleChildScrollView(
                                                           child :
@@ -409,13 +380,11 @@ class _RecipeState extends State<Recipe> {
                                                                 height: 480.h,
                                                                 decoration: BoxDecoration(
                                                                   // color: Colors.red,
-                                                                  // border: Border.all(width: 2, color: Palette.reallightgray)
                                                                 ),
                                                                 // width: 150,
                                                                 child:  ListView.builder(
                                                                   itemCount: controller.recipeIngredient[customPageindex].length, // TODO 여기여기!!!!
                                                                   itemBuilder: ((context, idx) {
-                                                                    // var multiflyCountResult = controller.multipleValue[index];
                                                                     return Container(
                                                                       height: 70.h,
                                                                       decoration: BoxDecoration(
@@ -464,7 +433,6 @@ class _RecipeState extends State<Recipe> {
                                                                             ),
                                                                             child: Center(
                                                                               child: Obx(() => controller.recipeWeight[customPageindex][idx].length != 0 
-                                                                                // ? Text('${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
                                                                                 ? Text(controller.recipeWeight[customPageindex][idx].toString().contains('.')
                                                                                 // 실수
                                                                                 ?'${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}'
@@ -473,7 +441,6 @@ class _RecipeState extends State<Recipe> {
                                                                                   style: TextStyle(
                                                                                     fontSize: 18,
                                                                                     fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
-                                                                                    // fontWeight: FontWeight.bold
                                                                                   ),
                                                                                 )
                                                                                 : Text(''))
@@ -505,14 +472,12 @@ class _RecipeState extends State<Recipe> {
                                                               width: 120.w,
                                                               height: 60.h,
                                                               decoration: BoxDecoration(
-                                                                // border: Border.all(color: Palette.darkgray, width: 2),
                                                                 color: Palette.black,
                                                                 borderRadius: BorderRadius.circular(15),
                                                               ),
                                                               child: Center(
                                                                 child: ((){
                                                                   if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                                    // return  Text('× ',
                                                                     return Text('× ${controller.multipleValue[index]}',
                                                                       style: const TextStyle(
                                                                         color: Palette.textColorWhite,
@@ -538,7 +503,7 @@ class _RecipeState extends State<Recipe> {
                                                               setState(() {
                                                                 optionModalOpen = !optionModalOpen;
                                                               });
-                                                              print('AAAAAAAAAAAAAA');
+                                                              print('OPTION MODAL OPEN!');
                                                             },
                                                             child: Container(
                                                               width: 70.w,
@@ -591,7 +556,7 @@ class _RecipeState extends State<Recipe> {
                                                           setState(() {
                                                             optionModalOpen = false;
                                                             Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[index],));
-                                                            print('편집!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                                                            print('MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                                           });
                                                         },
                                                       ),
@@ -646,21 +611,7 @@ class _RecipeState extends State<Recipe> {
                                                                   // db삭제기능 구현하기
                                                                   setState(() {
                                                                     optionModalOpen = false;
-                                                                    print('삭제!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                                                    // print(index);
-                                                                    // print('1----');
-                                                                    // print(controller.recipeList);
-                                                                    // controller.recipeList.removeAt(index);
-                                                                    // print(controller.recipeList);
-                                                                    // print('2----');
-                                                                    // print(controller.recipeIngredient);
-                                                                    // controller.recipeIngredient.removeAt(index);
-                                                                    // print(controller.recipeIngredient);
-                                                                    // print('3----');
-                                                                    // print(controller.recipeWeight);
-                                                                    // controller.recipeWeight.removeAt(index);
-                                                                    // print(controller.recipeWeight);
-                                                                    // print('4----');
+                                                                    print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                                                     controller.deleteRecipe(widget.menuTitle, index);
                                                                     // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
                                                                   });

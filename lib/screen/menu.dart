@@ -1,10 +1,8 @@
 import 'package:bwa/config/palette.dart';
-import 'package:bwa/screen/recipe.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -61,7 +59,7 @@ class _MenuState extends State<Menu> {
         child: Stack(
           children: [
             Container(
-              color: Colors.red,
+              // color: Colors.red,
       
               child: Obx(()=>
                 Theme(
@@ -167,71 +165,126 @@ class _MenuState extends State<Menu> {
                                       showDialog(
                                         context: context, 
                                         builder: (_){
-                                          return DefaultAlertDialogOneButton(
-                                            title: 'Edit',
-                                            contents: 
-                                              SizedBox(
-                                                width: 250.w,
-                                                height: 100.h,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    const SizedBox(),
-                                                    TextField(
-                                                      key: GlobalKey(), // 
-                                                      controller: _textController, // 텍스트 기본값 설정 컨트롤러
-                      
-                                                      style: const TextStyle(
-                                                        fontSize: 25,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                      cursorColor: Palette.lightblack,
-                                                      cursorHeight: 25,
-                                                      maxLength: 20,
-                                                      autocorrect: false,
-                                                      autofocus: true,
-                      
-                                                      decoration: const InputDecoration(
-                                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                                        filled: true,
-                                                        fillColor: Palette.white,
-                                                        isDense: true,
-                                                        contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-                                                      ),
-                                                      
-                                                      onChanged: (value){
-                                                          setState(() {
-                                                            changedTitle = value;
-                                                          });
-                                                      },
-                                                      onSubmitted: (value){
-      
-                                                        Navigator.of(context).pop();
-                                                        editMenu(title, changedTitle);
-      
-                                                        // if(item != value){ // 조건 변경 -> 리스트 내부에 있으면 
-                                                        //   setState(() {
-                                                        //     title = value;
-                                                        //     // db변경 메소드
-                                                        //   });
-                                                        //   editMenu(title);
-                                                        // }else{
-                                                        //   print('존재하는 title이라고 쇼바텀시트로 알려주기');
-                                                        // }
-                                                      },
+                                          return 
+                                          DefaultAlertDialogTwoButton(
+                                            title: 'Edit', 
+                                            contents: SizedBox(
+                                              width: 250.w,
+                                              height: 100.h,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  const SizedBox(),
+                                                  TextField(
+                                                    key: GlobalKey(), // 
+                                                    controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                    
+                                                    style: const TextStyle(
+                                                      fontSize: 25,
                                                     ),
-                                                  ],
-                                                ),
+                                                    textAlign: TextAlign.center,
+                                                    cursorColor: Palette.lightblack,
+                                                    cursorHeight: 25,
+                                                    maxLength: 20,
+                                                    autocorrect: false,
+                                                    autofocus: true,
+                    
+                                                    decoration: const InputDecoration(
+                                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                      filled: true,
+                                                      fillColor: Palette.white,
+                                                      isDense: true,
+                                                      contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                    ),
+                                                    
+                                                    onChanged: (value){
+                                                        setState(() {
+                                                          changedTitle = value;
+                                                        });
+                                                    },
+                                                    onSubmitted: (value){
+                                                      Navigator.of(context).pop();
+                                                      editMenu(title, changedTitle);
+                                                    },
+                                                  ),
+                                                ],
                                               ),
-                                            buttonTitle: 'Ok',
-                                            btnColor: Palette.lightblack,
-                                            btnTextColor: Palette.white,
-                                            confirmFunction: (){
+                                            ),
+                                            leftButtonFunction: (){}, 
+                                            rightButtonFuction:(){
                                               // 위의 onSubmitted 완성 후 붙여넣기\
                                               editMenu(title, changedTitle);
                                             },
+                                            leftButtonName: '취소', 
+                                            rightButtonName: '확인'
                                           );
+
+                                          // DefaultAlertDialogOneButton(
+                                          //   title: 'Edit',
+                                          //   contents: 
+                                          //     SizedBox(
+                                          //       width: 250.w,
+                                          //       height: 100.h,
+                                          //       child: Column(
+                                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          //         children: [
+                                          //           const SizedBox(),
+                                          //           TextField(
+                                          //             key: GlobalKey(), // 
+                                          //             controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                      
+                                          //             style: const TextStyle(
+                                          //               fontSize: 25,
+                                          //             ),
+                                          //             textAlign: TextAlign.center,
+                                          //             cursorColor: Palette.lightblack,
+                                          //             cursorHeight: 25,
+                                          //             maxLength: 20,
+                                          //             autocorrect: false,
+                                          //             autofocus: true,
+                      
+                                          //             decoration: const InputDecoration(
+                                          //               enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                          //               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                          //               filled: true,
+                                          //               fillColor: Palette.white,
+                                          //               isDense: true,
+                                          //               contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                          //             ),
+                                                      
+                                          //             onChanged: (value){
+                                          //                 setState(() {
+                                          //                   changedTitle = value;
+                                          //                 });
+                                          //             },
+                                          //             onSubmitted: (value){
+      
+                                          //               Navigator.of(context).pop();
+                                          //               editMenu(title, changedTitle);
+      
+                                          //               // if(item != value){ // 조건 변경 -> 리스트 내부에 있으면 
+                                          //               //   setState(() {
+                                          //               //     title = value;
+                                          //               //     // db변경 메소드
+                                          //               //   });
+                                          //               //   editMenu(title);
+                                          //               // }else{
+                                          //               //   print('존재하는 title이라고 쇼바텀시트로 알려주기');
+                                          //               // }
+                                          //             },
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //   buttonTitle: 'Ok',
+                                          //   btnColor: Palette.lightblack,
+                                          //   btnTextColor: Palette.white,
+                                          //   confirmFunction: (){
+                                          //     // 위의 onSubmitted 완성 후 붙여넣기\
+                                          //     editMenu(title, changedTitle);
+                                          //   },
+                                          // );
                                         }
                                       );
                                     },
@@ -257,8 +310,8 @@ class _MenuState extends State<Menu> {
                                       showDialog(
                                         context: context, 
                                         builder: (_){
-                                          return DefaultAlertDialogOneButton(
-                                            title: 'Delete',
+                                          return DefaultAlertDialogTwoButton(
+                                            title: 'Delete', 
                                             contents: Container(
                                               width: 250,
                                               height: 100,
@@ -274,20 +327,21 @@ class _MenuState extends State<Menu> {
                                                   SizedBox(height: 10,),
                                                   Text('\'$item\'?',
                                                     style: const TextStyle(
-                                                      fontSize: 18,
+                                                      fontSize: 19,
+                                                      fontWeight: FontWeight.bold
                                                     ),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            buttonTitle: 'Ok',
-                                            btnColor: Palette.white,
-                                            btnTextColor: Palette.red,
-                                            confirmFunction: (){
-                                              // db삭제기능 구현하기
+                                            ), 
+                                            leftButtonFunction: (){}, 
+                                            rightButtonFuction: (){
+                                              // db삭제기능 
                                               deleteMenu(item);
-                                            },
+                                            }, 
+                                            leftButtonName: '취소', 
+                                            rightButtonName: '확인'
                                           );
                                         }
                                       );
@@ -317,77 +371,82 @@ class _MenuState extends State<Menu> {
                   showDialog(
                     context: context, 
                     builder: (_){
-                      return DefaultAlertDialogOneButton(
-                        title: 'Create',
-                        contents: 
-                          SizedBox(
-                            width: 250.w,
-                            height: 100.h,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const SizedBox(),
-                                TextField(
-                                  key: GlobalKey(), // 
-                                  style: const TextStyle(
-                                    fontSize: 25,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  cursorColor: Palette.lightblack,
-                                  cursorHeight: 25,
-                                  maxLength: 20,
-                                  autocorrect: false,
-                                  autofocus: true,
-      
-                                  decoration: const InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                    filled: true,
-                                    fillColor: Palette.white,
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-                                  ),
-                                  
-                                  onChanged: (value){
-                                      setState(() {
-                                        title = value;
-                                      });
-                                  },
-                                  onSubmitted: (v){
-                                    Navigator.of(context).pop();
-                                    createMenu(title);
-                                },
+                      return DefaultAlertDialogTwoButton(
+                        title: 'Create', 
+                        contents: SizedBox(
+                          width: 250.w,
+                          height: 100.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              TextField(
+                                key: GlobalKey(),
+                                style: const TextStyle(
+                                  fontSize: 25,
                                 ),
-                              ],
-                            ),
+                                textAlign: TextAlign.center,
+                                cursorColor: Palette.lightblack,
+                                cursorHeight: 25,
+                                maxLength: 20,
+                                autocorrect: false,
+                                autofocus: true,
+    
+                                decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                  filled: true,
+                                  fillColor: Palette.white,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                ),
+                                
+                                onChanged: (value){
+                                    setState(() {
+                                      title = value;
+                                    });
+                                },
+                                onSubmitted: (v){
+                                  Navigator.of(context).pop();
+                                  createMenu(title);
+                              },
+                              ),
+                            ],
                           ),
-                        buttonTitle: 'Ok',
-                        btnColor: Palette.lightblack,
-                        btnTextColor: Palette.white,
-                        confirmFunction: (){
+                        ),
+                        leftButtonFunction: (){
+
+                        }, 
+                        rightButtonFuction:(){
                           // 위의 onSubmitted 완성 후 붙여넣기
                           createMenu(title);
                         },
-                      );
+                        leftButtonName: '취소', 
+                        rightButtonName: '확인');
                     }
                   );
                 },
               ),
             ),
-            // 로그아웃
+            // 로그아웃 /TODO => 다음 페이지로 옮기는게 보기 좋을듯
             Positioned(
               left: 0,
-              top: 0,
+              bottom: 0,
               child: GestureDetector(
                 child: Container(
-                  width: 50.w,
-                  height: 60.h,
-      
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                  width: 35.w,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: Palette.white,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 2, color: Palette.gray)
+                  ),
                   child: FittedBox(
                     fit: BoxFit.none,
                     child: SvgPicture.asset(
                       'assets/images/logout.svg',
-                      color: Palette.black,
+                      color: Palette.gray,
                       width: 23,
                       height: 23,
                     ),
