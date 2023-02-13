@@ -36,9 +36,9 @@ class _EditRecipeState extends State<EditRecipe> {
   void modifyRecipe()async {
     
     if(title.isNotEmpty){
-      // RecipeList update
-      // originalTitle != title -> 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
+      // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeList.contains(title) && originalTitle != title){
+        // ALERT : 존재하는 타이틀
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -60,7 +60,6 @@ class _EditRecipeState extends State<EditRecipe> {
       }else{
         // 레시피 리스트에 타이틀 변경
         recipeList[recipeList.indexOf(originalTitle)]=title;
-        // originalTitle = title;
 
         // RecipeList 업데이트
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
@@ -77,7 +76,7 @@ class _EditRecipeState extends State<EditRecipe> {
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
     }else{
-      // ALERT  타이틀을 입력해주세요
+      // ALERT : 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -101,7 +100,6 @@ class _EditRecipeState extends State<EditRecipe> {
 
   @override
   void initState(){
-    // TODO: implement initState
     super.initState();
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
@@ -112,7 +110,7 @@ class _EditRecipeState extends State<EditRecipe> {
     originalTitle = widget.recipeTitle;
     title = widget.recipeTitle;
 
-    _controller = new TextEditingController(text: title);
+    _controller = TextEditingController(text: title);
 
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').get().then((value){
       setState(() {
@@ -135,6 +133,7 @@ class _EditRecipeState extends State<EditRecipe> {
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
+        // 뒤로가기 버튼
         leading:  GestureDetector(
           onTap: (){
             Navigator.of(context).pop();
@@ -158,6 +157,7 @@ class _EditRecipeState extends State<EditRecipe> {
             color: Palette.darkgray
           ),
         ),
+        
         actions: [
           GestureDetector(
             onTap: (){
@@ -170,24 +170,16 @@ class _EditRecipeState extends State<EditRecipe> {
               child: Center(
                 child: ((){
                   if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-                    return const Text('완료',
-                      style: TextStyle(
-                        color: Palette.gray
-                      ),
-                    );
+                    return const Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
                   }else{
-                    return const Text('완료',
-                      style: TextStyle(
-                        color: Palette.black,
-                        fontWeight: FontWeight.bold
-                      ),
-                    );
+                    return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
                   }
                 }())
               ),
             ),
           ),
         ],
+
       ),
 
       body: SafeArea(
@@ -196,271 +188,280 @@ class _EditRecipeState extends State<EditRecipe> {
           child: Container(
             height: 580.h,
             // color: Colors.green,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-
-                // 타이틀 
-                Container(
-                  width: 330.w,
-                  margin: EdgeInsets.only(top: 10.h),
-                  child: TextField(
-                    textInputAction: TextInputAction.next,
-                    controller: _controller,
-                    autofocus: true,
-                    style: TextStyle(
-                      fontSize: 25
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+            
+                  // 타이틀 
+                  Container(
+                    width: 330.w,
+                    margin: EdgeInsets.only(top: 10.h),
+                    child: TextField(
+                      textInputAction: TextInputAction.next,
+                      controller: _controller,
+                      autofocus: true,
+                      style: TextStyle(
+                        fontSize: 25
+                      ),
+                      textAlign: TextAlign.center,
+                      decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Colors.black),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Colors.transparent),
+                        ),
+                        hintText: "Title"
+                      ),
+                      onChanged: (value) => title = value,
                     ),
-                    onChanged: (value) => title = value,
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.black),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1, color: Colors.transparent),
-                      ),
-                      hintText: "Title"
+                  ),
+
+                  // 시트 헤더
+                  Container(
+                    width: 330.w,
+                    decoration: const BoxDecoration(
+                      // color: Colors.red,
+                      border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
+                    ),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 165.w,
+                          height: 60.h,
+                          child: const Center(child: Text('재료명',
+                            style: TextStyle(
+                              fontSize: 15
+                            ),
+                          ))
+                        ),
+                        SizedBox(
+                          width: 165.w,
+                          height: 50.h,
+                          child: const Center(child: Text('중량',
+                            style: TextStyle(
+                              fontSize: 15
+                            ),
+                          ))
+                        ),
+                      ]
                     ),
                   ),
-                ),
-                // 시트 헤더
-                Container(
-                  width: 330.w,
-                  decoration: const BoxDecoration(
-                    // color: Colors.red,
-                    border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
-                  ),
-                  // margin: EdgeInsets.only(bottom: 4),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 165.w,
-                        height: 60.h,
-                        child: const Center(child: Text('재료명',
-                          style: TextStyle(
-                            fontSize: 15
-                          ),
-                        ))
-                      ),
-                      SizedBox(
-                        width: 165.w,
-                        height: 50.h,
-                        child: const Center(child: Text('중량',
-                          style: TextStyle(
-                            fontSize: 15
-                          ),                        
-                        ))
-                      ),
-                    ]
-                  ),
-                ),
-      
-                // 시트 바디
-                Container(
-                  width: 330.w,
-                  height: 305.h,
-                  // 리오더블
-                  // color: Colors.blue,
-                  // child: 
-                  // ReorderableListView(
-                  //   onReorder: (int oldIndex, int newIndex) { 
-                  //     // setState(() {
-                  //     setState(() {
-                  //       if (newIndex > oldIndex) {
-                  //         newIndex -= 1;
-                  //       }
-                  //       final moveIngredient = ingredient.removeAt(oldIndex);
-                  //       final moveWeight = weight.removeAt(oldIndex);
-                  //       ingredient.insert(newIndex, moveIngredient);
-                  //       weight.insert(newIndex, moveWeight);
-                        
-                  //     });
-                  //     //   // print(controller.menuList);
-                  //       // controller.dragAndDropMenu(); // db업데이트 
-                        
-                  //     // });
-
-                  //    },
-                  //   children: List.generate(ingredient.length, (item)=>Container(
-                  //       key: Key('${ingredient[item]}$item}${weight[item]}'),
-                  //       // child: Text('$item : ${ingredient[item]}, ${weight[item]}'),
-                  //       child: Row(
-                  //         children: [
-                  //           Text('$item 위아래'),
-                  //           Container(
-                  //             width: 100,
-                  //             child: TextFormField(
-                  //               initialValue: ingredient[item],
-                  //               onChanged: (value){
-                  //                 setState(() {
-                  //                   print(item);
-                  //                   print(ingredient);
-                  //                   print(ingredient[item]);
-                  //                   print(value);
-                  //                   ingredient.add('');
+                  
+                  // 시트 바디
+                  Container(
+                    width: 330.w,
+                    height: 305.h,
+                    // 리오더블
+                    // color: Colors.blue,
+                    // child: 
+                    // ReorderableListView(
+                    //   onReorder: (int oldIndex, int newIndex) { 
+                    //     // setState(() {
+                    //     setState(() {
+                    //       if (newIndex > oldIndex) {
+                    //         newIndex -= 1;
+                    //       }
+                    //       final moveIngredient = ingredient.removeAt(oldIndex);
+                    //       final moveWeight = weight.removeAt(oldIndex);
+                    //       ingredient.insert(newIndex, moveIngredient);
+                    //       weight.insert(newIndex, moveWeight);
+                          
+                    //     });
+                    //     //   // print(controller.menuList);
+                    //       // controller.dragAndDropMenu(); // db업데이트 
+                          
+                    //     // });
+            
+                    //    },
+                    //   children: List.generate(ingredient.length, (item)=>Container(
+                    //       key: Key('${ingredient[item]}$item}${weight[item]}'),
+                    //       // child: Text('$item : ${ingredient[item]}, ${weight[item]}'),
+                    //       child: Row(
+                    //         children: [
+                    //           Text('$item 위아래'),
+                    //           Container(
+                    //             width: 100,
+                    //             child: TextFormField(
+                    //               initialValue: ingredient[item],
+                    //               onChanged: (value){
+                    //                 setState(() {
+                    //                   print(item);
+                    //                   print(ingredient);
+                    //                   print(ingredient[item]);
+                    //                   print(value);
+                    //                   ingredient.add('');
+                                      
+                    //                   // if(ingredient.length <= item){
+                    //                       // ingredient.add("");
+                    //                       // weight.add("");
+                    //                     // }
+                    //                   // ingredient[item] = value;
+                                      
+                    //                 });
+                    //               },
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       )
+                    //     )),
+                    //   // children: [
+                    //   //   ListView.builder(
+                    //   //     itemCount: ingredient.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
+                    //   //     itemBuilder: (BuildContext context, int index) {
+                    //   //       return Column(
+                    //   //         // key: Key('${ingredient[index]}$index}${weight[index]}'),
+                    //   //         key: Key(index.toS),
+                    //   //         children: [
+                    //   //           Row(
+                    //   //             children: [
+                    //   //               // Container(
+                    //   //               //   width: 165.w,
+                    //   //               //   height: 60.h,
+                    //   //               //   decoration: const BoxDecoration(
+                    //   //               //     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
+                    //   //               //   ),
+                    //   //               //   // color: Colors.red,
+                    //   //               //   // child: Center(child: Text(listTest[index]['이름'])),
+                    //   //               //   child: TextField(
+                    //   //               //     textInputAction: TextInputAction.next,
+                    //   //               //     textAlign: TextAlign.center,
+                    //   //               //     onChanged: (value) {
+                    //   //               //       // testA = value;
+                    //   //               //       setState(() {
+                    //   //               //         if(ingredient.length <= index){
+                    //   //               //           ingredient.add("");
+                    //   //               //           weight.add("");
+                    //   //               //         }
+                    //   //               //         ingredient[index] = value;
+                    //   //               //       });
+                    //   //               //     },
+                    //   //               //     decoration: const InputDecoration(
+                    //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    //   //               //     ),
+                    //   //               //   ),
+                    //   //               // ),
                                     
-                  //                   // if(ingredient.length <= item){
-                  //                       // ingredient.add("");
-                  //                       // weight.add("");
-                  //                     // }
-                  //                   // ingredient[item] = value;
-                                    
-                  //                 });
-                  //               },
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       )
-                  //     )),
-                  //   // children: [
-                  //   //   ListView.builder(
-                  //   //     itemCount: ingredient.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
-                  //   //     itemBuilder: (BuildContext context, int index) {
-                  //   //       return Column(
-                  //   //         // key: Key('${ingredient[index]}$index}${weight[index]}'),
-                  //   //         key: Key(index.toS),
-                  //   //         children: [
-                  //   //           Row(
-                  //   //             children: [
-                  //   //               // Container(
-                  //   //               //   width: 165.w,
-                  //   //               //   height: 60.h,
-                  //   //               //   decoration: const BoxDecoration(
-                  //   //               //     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                  //   //               //   ),
-                  //   //               //   // color: Colors.red,
-                  //   //               //   // child: Center(child: Text(listTest[index]['이름'])),
-                  //   //               //   child: TextField(
-                  //   //               //     textInputAction: TextInputAction.next,
-                  //   //               //     textAlign: TextAlign.center,
-                  //   //               //     onChanged: (value) {
-                  //   //               //       // testA = value;
-                  //   //               //       setState(() {
-                  //   //               //         if(ingredient.length <= index){
-                  //   //               //           ingredient.add("");
-                  //   //               //           weight.add("");
-                  //   //               //         }
-                  //   //               //         ingredient[index] = value;
-                  //   //               //       });
-                  //   //               //     },
-                  //   //               //     decoration: const InputDecoration(
-                  //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //   //               //     ),
-                  //   //               //   ),
-                  //   //               // ),
-                                  
-                  //   //               // Container(
-                  //   //               //   width: 165.w,
-                  //   //               //   height: 60.h,
-                  //   //               //   decoration: const BoxDecoration(
-                  //   //               //     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                  //   //               //   ),
-                  //   //               //   // color: Colors.green,
-                  //   //               //   // child: Center(child: Text(listTest[index]['중량'])),
-                    
-                  //   //               //   child: TextField(
-                  //   //               //     textInputAction: TextInputAction.next,
-                  //   //               //     textAlign: TextAlign.center,
-                  //   //               //     onChanged: (value) {
-                  //   //               //       // testB = value;
-                  //   //               //       setState(() {
-                  //   //               //         if(weight.length <= index){
-                  //   //               //           ingredient.add("");
-                  //   //               //           weight.add("");
-                  //   //               //         }
-                  //   //               //         weight[index] = value;
-                  //   //               //       });
-                  //   //               //     } ,
-                  //   //               //     decoration: const InputDecoration(
-                  //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                  //   //               //     ),
-                  //   //               //   ),
-                  //   //               // ),
-                  //   //             ]
-                  //   //           ),
-                  //   //           const Divider(height: 10,),
-                  //   //         ],
-                  //   //       );
-                  //   //     }
-                  //   //   )
-                  //   // ],
-                  // ),
-
-                  child : ListView.builder(
-                    itemCount: weight.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 165.w,
-                                height: 60.h,
-                                decoration: const BoxDecoration(
-                                  border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                                ),
-                                // color: Colors.red,
-                                child: TextFormField(
-                                  textInputAction: TextInputAction.next,
-                                  textAlign: TextAlign.center,
-                                  initialValue: ingredient[index],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if(ingredient.length <= index+1){
-                                        ingredient.add("");
-                                        weight.add("");
-                                      }
-                                      ingredient[index] = value;
-                                    });
-                                  },
-                                  decoration: const InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    //   //               // Container(
+                    //   //               //   width: 165.w,
+                    //   //               //   height: 60.h,
+                    //   //               //   decoration: const BoxDecoration(
+                    //   //               //     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
+                    //   //               //   ),
+                    //   //               //   // color: Colors.green,
+                    //   //               //   // child: Center(child: Text(listTest[index]['중량'])),
+                      
+                    //   //               //   child: TextField(
+                    //   //               //     textInputAction: TextInputAction.next,
+                    //   //               //     textAlign: TextAlign.center,
+                    //   //               //     onChanged: (value) {
+                    //   //               //       // testB = value;
+                    //   //               //       setState(() {
+                    //   //               //         if(weight.length <= index){
+                    //   //               //           ingredient.add("");
+                    //   //               //           weight.add("");
+                    //   //               //         }
+                    //   //               //         weight[index] = value;
+                    //   //               //       });
+                    //   //               //     } ,
+                    //   //               //     decoration: const InputDecoration(
+                    //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    //   //               //     ),
+                    //   //               //   ),
+                    //   //               // ),
+                    //   //             ]
+                    //   //           ),
+                    //   //           const Divider(height: 10,),
+                    //   //         ],
+                    //   //       );
+                    //   //     }
+                    //   //   )
+                    //   // ],
+                    // ),
+            
+                    child : ListView.builder(
+                      itemCount: weight.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                // 좌항(재료)
+                                Container(
+                                  width: 165.w,
+                                  height: 60.h,
+                                  decoration: const BoxDecoration(
+                                    border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
+                                  ),
+                                  // color: Colors.red,
+                                  child: TextFormField(
+                                    textInputAction: TextInputAction.next,
+                                    textAlign: TextAlign.center,
+                                    initialValue: ingredient[index],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if(ingredient.length <= index+1){
+                                          ingredient.add("");
+                                          weight.add("");
+                                        }
+                                        ingredient[index] = value;
+                                      });
+                                    },
+                                    decoration: const InputDecoration(
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              
-                              Container(
-                                width: 165.w,
-                                height: 60.h,
-                                decoration: const BoxDecoration(
-                                  border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                                ),
-                                // color: Colors.green,
-                
-                                child: TextFormField(
-                                  textInputAction: TextInputAction.next,
-                                  textAlign: TextAlign.center,
-                                  initialValue: weight[index],
-                                  onChanged: (value) {
-                                    // testB = value;
-                                    setState(() {
-                                      if(weight.length <= index+1){
-                                        ingredient.add("");
-                                        weight.add("");
-                                      }
-                                      weight[index] = value;
-                                    });
-                                  } ,
-                                  decoration: const InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                
+                                // 우항(중량)
+                                Container(
+                                  width: 165.w,
+                                  height: 60.h,
+                                  decoration: const BoxDecoration(
+                                    border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
+                                  ),
+                                  // color: Colors.green,
+                  
+                                  child: TextFormField(
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                      signed: true
+                                    ),
+                                    // 정규식
+                                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
+                                    textInputAction: TextInputAction.next,
+                                    textAlign: TextAlign.center,
+                                    autocorrect: false,
+                                    decoration: const InputDecoration(
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    ),
+                                    initialValue: weight[index],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if(weight.length <= index+1){
+                                          ingredient.add("");
+                                          weight.add("");
+                                        }
+                                        weight[index] = value;
+                                      });
+                                    } ,
                                   ),
                                 ),
-                              ),
-                            ]
-                          ),
-                          const Divider(height: 10,),
-                        ],
-                      );
-                    }
-                  )
-                ),
-              ],
+                              ]
+                            ),
+                            const Divider(height: 10,),
+                          ],
+                        );
+                      }
+                    )
+                  ),
+                ],
+              ),
             ),
           ),
         ),

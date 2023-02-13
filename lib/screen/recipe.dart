@@ -464,7 +464,12 @@ class _RecipeState extends State<Recipe> {
                                                                             ),
                                                                             child: Center(
                                                                               child: Obx(() => controller.recipeWeight[customPageindex][idx].length != 0 
-                                                                                ? Text('${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
+                                                                                // ? Text('${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
+                                                                                ? Text(controller.recipeWeight[customPageindex][idx].toString().contains('.')
+                                                                                // 실수
+                                                                                ?'${double.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}'
+                                                                                // 정수
+                                                                                :'${int.parse(controller.recipeWeight[customPageindex][idx])*controller.multipleValue[index]}',
                                                                                   style: TextStyle(
                                                                                     fontSize: 18,
                                                                                     fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal

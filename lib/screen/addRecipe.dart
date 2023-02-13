@@ -64,7 +64,7 @@ class _AddRecipeState extends State<AddRecipe> {
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
     }else{
-      // ALERT  타이틀을 입력해주세요
+      // ALERT : 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -88,7 +88,6 @@ class _AddRecipeState extends State<AddRecipe> {
 
   @override
   void initState(){
-    // TODO: implement initState
     super.initState();
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
@@ -107,6 +106,8 @@ class _AddRecipeState extends State<AddRecipe> {
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
+
+        // 뒤로가기버튼
         leading:  GestureDetector(
           onTap: (){
             Navigator.of(context).pop();
@@ -125,11 +126,14 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ),
         ),
+
         title: const Text('ADD',
           style: TextStyle(
             color: Palette.darkgray
           ),
         ),
+
+        // 완료 버튼
         actions: [
           GestureDetector(
             onTap: (){
@@ -142,11 +146,9 @@ class _AddRecipeState extends State<AddRecipe> {
               child: Center(
                 child: ((){
                   if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-                    return 
-                    Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
+                    return Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
                   }else{
-                    return 
-                    Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
+                    return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
                   }
                 }())
               ),
@@ -173,7 +175,6 @@ class _AddRecipeState extends State<AddRecipe> {
                     child: TextField(
                       textInputAction: TextInputAction.next,
                       autofocus: true,
-                      // focusNode: _focusNode,
                       style: TextStyle(
                         fontSize: 25
                       ),
@@ -190,6 +191,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     ),
                   ),
+
                   // 시트 헤더
                   Container(
                     width: 330.w,
@@ -245,10 +247,16 @@ class _AddRecipeState extends State<AddRecipe> {
                                     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                   ),
                                   // color: Colors.red,
+
+                                  // 재료 TextField
                                   child: TextField(
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
                                     autocorrect: false,
+                                    decoration: const InputDecoration(
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    ),
                                     onChanged: (value) {
                                       setState(() {
                                         if(ingredient.length <= index){
@@ -258,10 +266,6 @@ class _AddRecipeState extends State<AddRecipe> {
                                         ingredient[index] = value;
                                       });
                                     },
-                                    decoration: const InputDecoration(
-                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                    ),
                                   ),
                                 ),
                                 
@@ -271,19 +275,21 @@ class _AddRecipeState extends State<AddRecipe> {
                                   height: 60.h,
                                   decoration: const BoxDecoration(
                                     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                                    
                                   ),
                   
                                   child: TextField(
-                                    // keyboardType: TextInputType.number,
-                                    keyboardType: TextInputType.numberWithOptions(
-                                      decimal: true
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                      signed: true
                                     ),
+                                    // 정규식
+                                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
                                     autocorrect: false,
-                                    // textInputAction: TextInputAction.done, 
-                                    // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                    decoration: const InputDecoration(
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    ),
                                     onChanged: (value) {
                                       setState(() {
                                         if(weight.length <= index){
@@ -293,10 +299,6 @@ class _AddRecipeState extends State<AddRecipe> {
                                         weight[index] = value;
                                       });
                                     } ,
-                                    decoration: const InputDecoration(
-                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                    ),
                                   ),
                                 ),
                               ]

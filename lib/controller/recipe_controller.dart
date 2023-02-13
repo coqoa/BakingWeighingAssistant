@@ -49,10 +49,10 @@ class RecipeController extends GetxController{
   }
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-      // {recipeTitle:{'multipleValue':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
-      {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      {recipeTitle:{'multipleValue':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     );
-    // multipleValue[index] = int.parse(multipleIndicator);
-    multipleValue[index] = double.parse(multipleIndicator);
+    multipleValue[index] = int.parse(multipleIndicator);
+    // multipleValue[index] = double.parse(multipleIndicator);
   }
 }
