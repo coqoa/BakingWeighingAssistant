@@ -130,28 +130,35 @@ class MenuController extends GetxController{
       );
     }else{
       if(!menuList.contains(changedTitle)){
-        print(originalTitle);
-        print(changedTitle);
         
+        var originalMemo = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Memo').get();
+        var originalRecipe = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').get();
+        var originalRecipeList = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').get();
+
         // 리스트 변경 후 업데이트
         menuList[menuList.indexOf(originalTitle)]=changedTitle;
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).update({changedTitle:'asd'});
-        // .set({'menuList':menuList});
-        //TODO 수정시 db타이틀 변경해줘야함
-        // await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set(
-        //   {changedTitle:
-        //     {
-        //       'Memo':emailPath.collection(menuList[menuList.indexOf(title)]).doc('Memo').get().then((value) => value.data()),
-        //       'Recipe':emailPath.collection(menuList[menuList.indexOf(title)]).doc('Recipe').get().then((value) => value.data()),
-        //       'RecipeList':emailPath.collection(menuList[menuList.indexOf(title)]).doc('RecipeList').get().then((value) => value.data()),
-        //     },
-        //   }
-        // );
-        // await emailPath.collection(menuList[menuList.indexOf(title)]).doc('Memo').delete();
-        // await emailPath.collection(menuList[menuList.indexOf(title)]).doc('Recipe').delete();
-        // await emailPath.collection(menuList[menuList.indexOf(title)]).doc('RecipeList').delete();
 
+        // await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').get().then((value){
+        //   print(value.data().runtimeType);
+        //   // Map<String, dynamic> test = {'가나다':{'미미미':123}};
+        //   Map<String, dynamic>? test = value.data();
+        //   print(test.runtimeType);
+        //   firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Recipe').set(value.data()!);
+        // });
+
+        // 변경 레시피 : 메모 추가 
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Memo').set(originalMemo.data()!);
+        // 변경 레시피 : 레시피 추가
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Recipe').set(originalRecipe.data()!);
+        // 변경 레시피 : 레시피 리스트 추가
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('RecipeList').set(originalRecipeList.data()!);
+
+        // 기존데이터 삭제해주기
+
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Memo').delete();
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').delete();
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').delete();
       }else{
         Get.snackbar(
           "","",
