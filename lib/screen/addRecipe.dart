@@ -145,7 +145,7 @@ class _AddRecipeState extends State<AddRecipe> {
               color: Palette.white,
               child: Center(
                 child: ((){
-                  if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
+                  if(title.isEmpty){
                     return Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
                   }else{
                     return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
@@ -178,7 +178,9 @@ class _AddRecipeState extends State<AddRecipe> {
                       style: TextStyle(
                         fontSize: 25
                       ),
-                      onChanged: (value) => title = value,
+                      onChanged: (value) => setState(() {
+                        title = value;
+                      }),
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
                         focusedBorder: UnderlineInputBorder(

@@ -209,7 +209,7 @@ class _EditRecipeState extends State<EditRecipe> {
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Colors.black),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Colors.transparent),
                         ),
                         hintText: "Title"
@@ -402,6 +402,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
                                     initialValue: ingredient[index],
+                                    autocorrect: false,
                                     onChanged: (value) {
                                       setState(() {
                                         if(ingredient.length <= index+1){

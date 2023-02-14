@@ -132,7 +132,20 @@ class _SignState extends State<Sign> {
                                 Column(
                                   children: [
                                     Container(
-                                      height: 270.h,
+                                      height: 70.h,
+                                      // color: Colors.cyan,
+                                      child: Center(
+                                        child: Text(isSignin ?'Sign In !' :'Sign Up !',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 25
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 220.h,
                                       // color: Colors.orange,
                                       child: isSignin 
                                       // SIGN IN
@@ -205,7 +218,7 @@ class _SignState extends State<Sign> {
                                 // BUTTON FIELD
                                 Container(
                                   width: 300.w,
-                                  height: 150.h,
+                                  height: 140.h,
                                   // color: Colors.blue,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -213,7 +226,7 @@ class _SignState extends State<Sign> {
                                       // ERROR MESSAGE 
                                       Obx(()=>
                                         Container(
-                                          height: 35.h,
+                                          height: 25.h,
                                           // color: Colors.blue[300],
                                           child: Center(
                                             child: Text(controller.validationResult.value,
@@ -242,6 +255,7 @@ class _SignState extends State<Sign> {
                                           ),
                                           child: Center(
                                             child: Text(isSignin ?'Sign In' :'Sign Up',
+                                            // child: Text('Next',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -261,7 +275,7 @@ class _SignState extends State<Sign> {
                                           });
                                         },
                                         child: Container(
-                                          height: 35.h,
+                                          height: 25.h,
                                           // color: Colors.red[400],
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -270,7 +284,7 @@ class _SignState extends State<Sign> {
                                                 isSignin ? 'Don’t you have an account? ' : 'Do you have an account? ',
                                                 style: TextStyle(
                                                   fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.w800,
                                                   color: Palette.middleblack
                                                 ),
                                               ),
@@ -278,7 +292,7 @@ class _SignState extends State<Sign> {
                                                 style: TextStyle(
                                                   color: Palette.blue,
                                                   fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.w900,
                                                   fontStyle: FontStyle.italic
                                                 ),
                                               )
@@ -369,7 +383,7 @@ class _SignTextFieldState extends State<SignTextField> {
         hintStyle: const TextStyle(
           color: Palette.gray,
           fontSize: 18,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w200,
         ),
         enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
         focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),

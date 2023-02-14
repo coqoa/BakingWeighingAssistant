@@ -612,6 +612,7 @@ class _RecipeState extends State<Recipe> {
                                                                   setState(() {
                                                                     optionModalOpen = false;
                                                                     print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                                                                    // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
                                                                     controller.deleteRecipe(widget.menuTitle, index);
                                                                     // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
                                                                   });

@@ -1,4 +1,5 @@
 
+import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -35,16 +36,21 @@ class RecipeController extends GetxController{
     requestStatus.value=RequestStatus.SUCCESS;
   }
   deleteRecipe(menuTitle, index)async{
-    // original 데이터 제거
+    // // original 데이터 제거
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
       recipeList[index]: FieldValue.delete(),
     });
     recipeList.removeAt(index);
+    recipeIngredient.removeAt(index);
+    recipeWeight.removeAt(index);
 
     // 레시피 리스트 Doc 업데이트생성
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
+    // // 
+
+    // Get.off(()=>Recipe(menuTitle: menuTitle));
     
   }
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
