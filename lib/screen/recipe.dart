@@ -43,6 +43,8 @@ class _RecipeState extends State<Recipe> {
 
   late int listViewIndex;
 
+  bool floatButtonClicked = false;
+
   // 함수
   @override
   void initState() {
@@ -846,14 +848,122 @@ class _RecipeState extends State<Recipe> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        focusColor: Colors.red,
-        backgroundColor: Colors.black,
-        child: Icon(Icons.more_horiz_outlined),
-        onPressed: () {
-          print('플로팅');
-        },
-      ),
+      floatingActionButton: 
+      Stack(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+          AnimatedPositioned(
+            right: 0,
+            bottom: floatButtonClicked ? 180 : 0,
+            duration: Duration(milliseconds: 1500),
+            curve: Curves.easeOutExpo,
+            child: GestureDetector(
+              onTap: (){
+                print('레시피수정111');
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.green[300],
+                  borderRadius: BorderRadius.circular(15),
+                  // border: Border.all(width: 2,color: Palette.gray)
+                ),
+                child: Icon(Icons.add, color: Palette.white, size: 30,),
+              ),
+            ),
+          ),
+           
+          AnimatedPositioned(
+            right: 0,
+            bottom: floatButtonClicked ? 120 : 0,
+            duration: Duration(milliseconds: 1500),
+            curve: Curves.easeOutExpo,
+            child: GestureDetector(
+              onTap: (){
+                print('레시피수정111');
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.blue[400],
+                  borderRadius: BorderRadius.circular(15),
+                  // border: Border.all(width: 2,color: Palette.gray)
+                ),
+                child: Icon(Icons.edit, color: Palette.white, size: 25,),
+              ),
+            ),
+          ),
+           
+          AnimatedPositioned(
+            right: 0,
+            bottom: floatButtonClicked ? 60 : 0,
+            duration: Duration(milliseconds: 1500),
+            curve: Curves.easeOutExpo,
+            child: GestureDetector(
+              onTap: (){
+                print('레시피수정111');
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.red[400],
+                  borderRadius: BorderRadius.circular(15),
+                  // border: Border.all(width: 2,color: Palette.gray)
+                ),
+                child: Icon(Icons.delete, color: Palette.white, size: 25,),
+              ),
+            ),
+          ),
+           
+           
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  floatButtonClicked = !floatButtonClicked;
+                });
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                child: Icon(
+                  floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
+                  color: Colors.white,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow:const [
+                    BoxShadow(
+                      color: Palette.darkgray,
+                      offset: Offset(2, 2),
+                      blurRadius: 7.0
+                        
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      )
+      // FloatingActionButton(
+      //   shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.all(Radius.circular(15.0))
+      //   ),
+      //   focusColor: Colors.red,
+      //   backgroundColor: Colors.black,
+      //   child: Icon(Icons.more_horiz_outlined),
+      //   onPressed: () {
+      //     print('플로팅');
+      //   },
+      // ),
     );
   }
 }
