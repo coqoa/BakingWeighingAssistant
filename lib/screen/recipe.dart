@@ -845,7 +845,15 @@ class _RecipeState extends State<Recipe> {
               
           ],
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        focusColor: Colors.red,
+        backgroundColor: Colors.black,
+        child: Icon(Icons.more_horiz_outlined),
+        onPressed: () {
+          print('플로팅');
+        },
+      ),
     );
   }
 }
