@@ -10,10 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EditRecipe extends StatefulWidget {
-  const EditRecipe({super.key, required this.menuTitle, required this.recipeTitle});
+  const EditRecipe({super.key, required this.menuTitle, required this.recipeTitle, required this.multipleValue});
 
   final String menuTitle;
   final String recipeTitle;
+  final int multipleValue;
 
   @override
   State<EditRecipe> createState() => _EditRecipeState();
@@ -71,7 +72,7 @@ class _EditRecipeState extends State<EditRecipe> {
         });
         // new 데이터 입력
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
-          {title:{'ingredient':ingredient,'weight':weight}}
+          {title:{'multipleValue': widget.multipleValue,'ingredient':ingredient,'weight':weight}}
         );
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
