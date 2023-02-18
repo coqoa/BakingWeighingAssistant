@@ -30,16 +30,7 @@ class _RecipeState extends State<Recipe> {
   final AutoScrollController _scrollController = AutoScrollController();
   final PageController _pageController = PageController();
 
-  // TODO  스크린 유틸 라이브러리 써서 전체 수치 변경 + 중복제거 + 다른 페이지도 수치 변경////////////////////////////////////////////////////////
   // 변수
-  double appBarHeight = 90.h;
-  double listIndicatorHeight = 50.h;
-  double contentHeight = 696.h;
-
-  late bool memoOpen = false;
-  late bool isMultifly = false;
-  bool optionModalOpen = false;
-  String multiflyIndicator = '';
 
   late int listViewIndex;
 
@@ -57,13 +48,7 @@ class _RecipeState extends State<Recipe> {
   }
 
   moveListPage(){
-    setState(() {
-      // listViewIndex = _pageController.page!.ceil();
-      // listViewIndex = _pageController.page!.toInt();
-      print('listViewIndex = $listViewIndex');
-      // 계산기 창 닫기
-      isMultifly = false;
-    });
+    print('listViewIndex = $listViewIndex');
     // 스크롤 이동
     _scrollController.scrollToIndex(
       listViewIndex,
@@ -71,327 +56,280 @@ class _RecipeState extends State<Recipe> {
     );
     // 계산기 초기화
     multiflyInitialize();
-    // print(listViewIndex);
   }
 
-  void multiflyInitialize(){
-    // multiflyCountResult = 1;
-  }
+  void multiflyInitialize(){}
   
-  void multiflyCount(String s,String recipeTitle, int index){
-    setState(() {
-      if(s == '<-'){
-        // 빼기 구현
-        if(multiflyIndicator.isNotEmpty ){
-          multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
-        }
-      }else if(s == '확인'){
-        // 적용하는 코드
-        if(multiflyIndicator != ''){
-          print('db 업데이트 : controller.multipleValue[index]로');
-          controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
-        }
-        isMultifly = false;
-      }else if(multiflyIndicator.isEmpty && s=='0'){
-
-      }else{
-        if(multiflyIndicator.length < 6){
-          multiflyIndicator = multiflyIndicator+s;
-        }
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Palette.white,
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  // 앱 바 
-                  Container(
-                    height: appBarHeight,
-                    decoration: BoxDecoration(
-                      color: Palette.backgroundColor,
-                    ),
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                
+                Container(
+                  
+                  padding: EdgeInsets.only(top: 5),
+                  child: SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        //앱 바 왼쪽 아이콘
-                        GestureDetector(
-                          child: Container(
-                            width: 80.w,
-                            color: Palette.white,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                    width: 12.w,
-                                    height: 20.h,
-                                    // color: Colors.red,
-                                    padding: EdgeInsets.only(top: 2),
-                                  child: SvgPicture.asset(
-                                    'assets/images/ic_left.svg',
-                                    color: Palette.lightgray,
+                        // POSITION: 앱 바 상단
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //앱 바 왼쪽 아이콘
+                            GestureDetector(
+                              child: Container(
+                                width: 70,
+                                height: 40,
+                                padding: EdgeInsets.only(left: 10),
+                                child: Row(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        width: 10,
+                                        height: 15,
+                                        // padding: EdgeInsets.only(top: 3),
+                                      child: SvgPicture.asset(
+                                        'assets/images/ic_left.svg',
+                                        color: Palette.lightgray,
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Center(
+                                        child: Text(' back',
+                                          style: const TextStyle(
+                                            color: Palette.gray,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onTap: (){
+                                setState(() {
+                                  Get.off(()=>Menu()); // NOTE: to 로 할지 off로 할지 안드로이드로 확인해야함
+                                });
+                              },
+                            ),
+                            // 앱 바 타이틀
+                            Container(
+                              width: 180.w,
+                              height: 40,
+                              // color: Colors.blue,
+                              child: Center(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Text(widget.menuTitle,
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      color: Palette.black
+                                    ),
                                   ),
                                 ),
-                                Text(' back',
-                                  style: const TextStyle(
-                                    color: Palette.gray,
-                                    fontSize: 20,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          onTap: (){
-                            setState(() {
-                              optionModalOpen = false;
-                              Get.to(()=>Menu());
-                            });
-                          },
-                        ),
-                        // 앱 바 타이틀
-                        Container(
-                          width: 180.w,
-                          // color: Colors.blue,
-                          child: Center(
-                            child: Text(widget.menuTitle,
-                              style: const TextStyle(
-                                fontSize: 30,
-                                color: Palette.black
                               ),
                             ),
-                          ),
-                        ),
-                        // 앱 바 우측 아이콘
-                        Container(
-                          width: 80.w,
-                          // color: Colors.red,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              // 메모 버튼
-                              GestureDetector(
-                                child: Container(
-                                  width: 30.w,
-                                  height: 30.h,
-                                  color: Palette.white,
-                                  child: FittedBox(
-                                    fit: BoxFit.none,
-                                    child: SvgPicture.asset(
-                                      'assets/images/ic_clipboard.svg',
-                                      width: 27.w,
-                                      height: 27.h,
-                                      color: Palette.gray,
-                                    ),
+                            // 앱 바 우측 아이콘
+                            Container(
+                              width: 70,
+                              height: 40,
+                              child: GestureDetector(
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    width: 50,
+                                    height: 40,
+                                    color: Palette.white,
+                                    margin: EdgeInsets.only(right: 5),
+                                    // child: FittedBox(
+                                    //   fit: BoxFit.none,
+                                    //   child: SvgPicture.asset(
+                                    //     'assets/images/ic_clipboard.svg',
+                                    //     width: 20,
+                                    //     height: 20,
+                                    //     color: Palette.gray,
+                                    //   ),
+                                    // ),
+                                    child: Center(
+                                        child: Text('memo ',
+                                          style: const TextStyle(
+                                            color: Palette.gray,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
                                   ),
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    optionModalOpen = false;
                                     showDialog(
                                     context: context, 
                                       builder: (_){
-                                        return Memo(menuTitle: widget.menuTitle); // TODO: contents박아넣기
+                                        return Memo(menuTitle: widget.menuTitle); 
                                       }
                                     );
-      
-                                    isMultifly = false;
                                   });
                                 },
                               ),
-                              // 추가 버튼
-                              GestureDetector(
-                                child: Container(
-                                  width: 30.w,
-                                  height: 30.h,
-                                  color: Palette.white,
-                                  child: FittedBox(
-                                    fit: BoxFit.none,
-                                    child: SvgPicture.asset(
-                                      'assets/images/ic_plus.svg',
-                                      width: 27.w,
-                                      height: 27.h,
-                                      color: Palette.gray,
-                                    ),
-                                  ),
-                                ),
-                                onTap:(){
-                                  setState(() {
-                                    isMultifly = false;
-                                    optionModalOpen = false;
-                                    Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
-                                    print('추가!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  // 메인 컨텐츠
-                  Column(
-                    children: [
-                      // 리스트 인디케이터
-                      Container(
-                        height: listIndicatorHeight,
-                        decoration: BoxDecoration(
-                          color: Palette.backgroundColor,
-                          // ignore: prefer_const_literals_to_create_immutables
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 2,
-                              offset:Offset(0.0, 4.0),
-                              color: Color.fromRGBO(219, 219, 219, 0.5)
-                            )
-                          ]
-                        ),
-                        child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: 230.w,
-                            height: 38.h,
-                            padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                            decoration: BoxDecoration(
-                              color: Palette.reallightgray,
-                              borderRadius: BorderRadius.circular(20),
-                              // ignore: prefer_const_literals_to_create_immutables
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 2,
-                                  offset:Offset(0.0, 2.0),
-                                  color: Color.fromRGBO(219, 219, 219, 1)
-                                )
-                              ]
                             ),
-                            // 리스트 인디케이터 컨텐츠
-                            child:Obx((){
-                              return  ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.recipeList.length,
-                                controller: _scrollController,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return AutoScrollTag(
-                                    key: ValueKey(index), 
-                                    controller: _scrollController, 
-                                    index: index, 
-                                    child: GestureDetector(
-                                      // 메뉴 버튼
-                                      child: Container(
-                                        // color: Colors.red,
-                                        margin: EdgeInsets.only(left: 5.w, right: 5.w),
-                                        child: Center(
-                                          child: Text(
-                                            controller.recipeList[index],
-                                            style: TextStyle(
-                                              color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
-                                              fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
-                                              fontSize: 16
-                                            ),
-                                          )
+                          ],
+                        ),
+
+                        SizedBox(height: 5,),
+
+                        // POSITION: 리스트 인디케이터
+                        Container(
+                          height:  50.h,
+                          decoration: BoxDecoration(
+                            color: Palette.backgroundColor,
+                            // ignore: prefer_const_literals_to_create_immutables
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 2,
+                                offset:Offset(0.0, 4.0),
+                                color: Color.fromRGBO(219, 219, 219, 0.5)
+                              )
+                            ]
+                          ),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: 230.w,
+                              height: 38.h,
+                              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                              decoration: BoxDecoration(
+                                color: Palette.reallightgray,
+                                borderRadius: BorderRadius.circular(20),
+                                // ignore: prefer_const_literals_to_create_immutables
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 2,
+                                    offset:Offset(0.0, 2.0),
+                                    color: Color.fromRGBO(219, 219, 219, 1)
+                                  )
+                                ]
+                              ),
+                              // 리스트 인디케이터 컨텐츠
+                              child:Obx((){
+                                return  ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.recipeList.length,
+                                  controller: _scrollController,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return AutoScrollTag(
+                                      key: ValueKey(index), 
+                                      controller: _scrollController, 
+                                      index: index, 
+                                      child: GestureDetector(
+                                        // 메뉴 버튼
+                                        child: Container(
+                                          // color: Colors.red,
+                                          margin: EdgeInsets.only(left: 5.w, right: 5.w),
+                                          child: Center(
+                                            child: Text(
+                                              controller.recipeList[index],
+                                              style: TextStyle(
+                                                color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
+                                                fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
+                                                fontSize: 16
+                                              ),
+                                            )
+                                          ),
                                         ),
-                                      ),
-                                      // 터치 이벤트
-                                      onTap: () {
-                                        // 인디케이터 컬러변경
-                                        setState(() {
-                                          listViewIndex = index;
-                                          isMultifly = false;
-                                          optionModalOpen = false;
-                                        });
-                                        // 페이지 이동
-                                        _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 100)); // 페이지변경 애니메이션
-                                        // 계산기 초기화
-                                        multiflyInitialize();
-                                      },
-                                    )
-                                  );
-                                }
-                              );
-                            })
+                                        // 터치 이벤트
+                                        onTap: () {
+                                          // 인디케이터 컬러변경
+                                          setState(() {
+                                            listViewIndex = index;
+                                          });
+                                          // 페이지 이동
+                                          _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 400)); // 페이지변경 애니메이션
+                                          // 계산기 초기화
+                                          multiflyInitialize();
+                                        },
+                                      )
+                                    );
+                                  }
+                                );
+                              })
+                            ),
                           ),
                         ),
-                      ),
-      
-                      // 메인 컨텐츠
-                      Container(
-                        width: 360.w,
-                        height: contentHeight,
-                        // color: Colors.orange,
-                        child: Obx((){
-                          return  Stack(
-                            children: [
-                              PageView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.recipeList.length,
-                                controller: _pageController,
-                                onPageChanged: (value) {
-                                  // print('value');
-                                  // print(value);
-                                  listViewIndex = value;
-                                },
-                                itemBuilder: (BuildContext context, int index) {
-              
-                                  // int customPageindex = index;
-                                  // print('customPageindex = $customPageindex');
-              
-                                  return Stack(
-                                    children: [
-                                      Center(
-                                        child: Container(
-                                          width: 300.w,
-                                          height: 650.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                          decoration: BoxDecoration(
-                                            color: Palette.backgroundColor,
-                                            borderRadius: BorderRadius.circular(15),
-                                            // ignore: prefer_const_literals_to_create_immutables
-                                            boxShadow: [
-                                              const BoxShadow(
-                                                blurRadius: 30,
-                                                offset: Offset(3.0, 6.0),
-                                                color: Color.fromRGBO(0, 0, 0, .2),
-                                              )
-                                            ]
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              
-                                              Align(
-                                                alignment: Alignment.topCenter,
-                                                child: Container(
-                                                  margin: EdgeInsets.fromLTRB(15, 20, 15, 15),
-                                                  
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      // 타이틀
-                                                      Text(
-                                                        controller.recipeList[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 26,
-                                                          color: Palette.black
+
+                         // POSITION: 메인 컨텐츠
+                        Container(
+                          width: 360.w,
+                          height: 700.h,
+                          child: Obx((){
+                            return  Stack(
+                              children: [
+                                PageView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.recipeList.length,
+                                  controller: _pageController,
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      listViewIndex = value;
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Stack(
+                                      children: [
+                                        Center(
+                                          child: Container(
+                                            width: 300.w,
+                                            height: 680.h,
+                                            padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
+                                            decoration: BoxDecoration(
+                                              // color: Colors.amber,
+                                              color: Palette.backgroundColor, 
+                                              borderRadius: BorderRadius.circular(15),
+                                              // ignore: prefer_const_literals_to_create_immutables
+                                              boxShadow: [
+                                                const BoxShadow(
+                                                  blurRadius: 30,
+                                                  offset: Offset(0.8, 1.5),
+                                                  color: Color.fromRGBO(0, 0, 0, .13),
+                                                )
+                                              ]
+                                            ),
+                                            child: Stack(
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.topCenter,
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        // 타이틀
+                                                        Obx(() => 
+                                                        Text(
+                                                          controller.recipeList[index],
+                                                          style: const TextStyle(
+                                                            fontSize: 26,
+                                                            color: Palette.black
+                                                          ),
+                                                        )
                                                         ),
-                                                      ),
-                                                      SizedBox(height: 20.h),
-                                                      Obx((){
-                                                        return SingleChildScrollView(
-                                                          child :
-                                                          ((){
+                                                        SizedBox(height: 20.h),
+                                                        Obx((){
+                                                          return ((){
                                                             if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                                               return Container(
-                                                                width: 250.w,
-                                                                height: 480.h,
+                                                                // width: 250.w,
+                                                                height: 460.h,
                                                                 decoration: BoxDecoration(
                                                                   // color: Colors.red,
+                                                                  border: Border.all(width: 1, color: Palette.reallightgray)
                                                                 ),
                                                                 // width: 150,
                                                                 child:  ListView.builder(
@@ -467,466 +405,337 @@ class _RecipeState extends State<Recipe> {
                                                               );
                                                               
                                                             }else{return Text('NoData');}
-                                                          }())
-                                                                                          
-                                                        );
-                                                      }),
-                                                      
-                                                      
-                                                      Obx(()=>Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            width: 70.w,
-                                                          ),
-                                                          // 곱하기버튼
-                                                          GestureDetector(
-                                                            child: Container(
-                                                              width: 120.w,
-                                                              height: 60.h,
-                                                              decoration: BoxDecoration(
-                                                                color: Palette.black,
-                                                                borderRadius: BorderRadius.circular(15),
-                                                              ),
-                                                              child: Center(
-                                                                child: ((){
-                                                                  if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                                    return Text('× ${controller.multipleValue[index]}',
-                                                                      style: const TextStyle(
-                                                                        color: Palette.textColorWhite,
-                                                                        fontWeight: FontWeight.w900,
-                                                                        fontSize: 18
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                }())
-                                                              ),
-                                                            ),
-                                                            onTap: (){
-                                                              setState(() {
-                                                                multiflyIndicator = '';
-                                                                isMultifly = true;
-                                                                optionModalOpen = false;
-                                                              });
-                                                              print('BTN CLICK');
-                                                            },
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: (){
-                                                              setState(() {
-                                                                optionModalOpen = !optionModalOpen;
-                                                              });
-                                                              print('OPTION MODAL OPEN!');
-                                                            },
-                                                            child: Container(
-                                                              width: 70.w,
-                                                              height: 50.h,
-                                                              color: Colors.transparent,
-                                                              child: Align(
-                                                                alignment: Alignment.centerRight,
-                                                                child: Text(':')
-                                                              ),
-                                                            ),
+                                                          }());
+                                                        }),
+                                                        SizedBox(height: 15,),
+
+                                                        // POSITION: 총중량
+                                                        Container(
+                                                          width: 280.w,
+                                                          // color: Colors.red,
+                                                          child: Center(
+                                                            child: SingleChildScrollView(
+                                                              scrollDirection: Axis.horizontal,
+                                                              child: Text(
+                                                                'Total : 1000g / 60g = 100 ea',
+                                                                style: TextStyle(
+                                                                  fontSize: 15
+                                                                ),
+                                                              )
+                                                            )
                                                           )
-                                                        ],
-                                                      ))
-                                                    ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              // 옵션
-                                              // if(optionModalOpen)
-                                              // Align(
-                                              //   alignment: Alignment.bottomRight,
-                                              //   child: Container(
-                                              //     width: 90.w,
-                                              //     height: 60.h,
-                                              //     decoration: BoxDecoration(
-                                              //       border: Border.all(width: 1, color: Palette.gray),
-                                              //       borderRadius: BorderRadius.circular(10)
-                                              //     ),
-                                              //     margin: EdgeInsets.only(bottom: 50),
-                                              //     child: Row(
-                                              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              //       children: [
-                                              //         // 편집버튼
-                                              //         GestureDetector(
-                                              //           child: Container(
-                                              //             width: 30.w,
-                                              //             height: 30.h,
-                                              //             // color: Colors.green,
-                                              //             child: FittedBox(
-                                              //               fit: BoxFit.none,
-                                              //               child: SvgPicture.asset(
-                                              //                 'assets/images/pencil.svg',
-                                              //                 width: 20,
-                                              //                 height: 20,
-                                              //                 color: Palette.gray,
-                                              //               ),
-                                              //             ),
-                                              //           ),
-                                              //           onTap:(){
-                                              //             setState(() {
-                                              //               optionModalOpen = false;
-                                              //               Get.to(()=>EditRecipe(
-                                              //                 menuTitle: widget.menuTitle, 
-                                              //                 multipleValue:1,
-                                              //                 recipeTitle: controller.recipeList[index],
-                                              //               ));
-                                              //               print('MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                              //             });
-                                              //           },
-                                              //         ),
-                                              //         // 삭제버튼
-                                              //         GestureDetector(
-                                              //           child: Container(
-                                              //             width: 30.w,
-                                              //             height: 30.h,
-                                              //             child: FittedBox(
-                                              //               fit: BoxFit.none,
-                                              //               child: SvgPicture.asset(
-                                              //                 'assets/images/eraser.svg',
-                                              //                 width: 20,
-                                              //                 height: 20,
-                                              //                 color: Palette.gray,
-                                              //               ),
-                                              //             ),
-                                              //           ),
-                                              //           onTap:(){
-                                              //             showDialog(
-                                              //               context: context, 
-                                              //               builder: (_){
-                                              //                 return DefaultAlertDialogOneButton(
-                                              //                   title: 'Delete',
-                                              //                   contents: Container(
-                                              //                     width: 250,
-                                              //                     height: 100,
-                                              //                     child: Column(
-                                              //                       mainAxisAlignment: MainAxisAlignment.center,
-                                              //                       // ignore: prefer_const_literals_to_create_immutables
-                                              //                       children: [
-                                              //                         const Text('Are you sure delete ?',
-                                              //                           style: TextStyle(
-                                              //                             fontSize: 18,
-                                              //                           ),
-                                              //                           textAlign: TextAlign.center,
-                                              //                         ),
-                                              //                         SizedBox(height: 10,),
-                                              //                         Text("'${controller.recipeList[index]}'",
-                                              //                           style: const TextStyle(
-                                              //                             fontSize: 18,
-                                              //                           ),
-                                              //                           textAlign: TextAlign.center,
-                                              //                         ),
-                                              //                       ],
-                                              //                     ),
-                                              //                   ),
-                                              //                   buttonTitle: 'Ok',
-                                              //                   btnColor: Palette.white,
-                                              //                   btnTextColor: Palette.red,
-                                              //                   confirmFunction: (){
-                                              //                     // db삭제기능 구현하기
-                                              //                     setState(() {
-                                              //                       optionModalOpen = false;
-                                              //                       print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                              //                       // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
-                                              //                       controller.deleteRecipe(widget.menuTitle, index);
-                                              //                       // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
-                                              //                     });
-                                              //                   },
-                                              //                 );
-                                              //               }
-                                              //             );
-                                              //           },
-                                              //         ),
-                                              //       ],
-                                              //     ),
-                                              //   ),
-                                              // ),
-                                              // 계산기
-                                              if(isMultifly)
-                                              Center(
-                                               
-                                                child: GestureDetector(
-                                                  onTap: (){
-                                                    setState(() {
-                                                      isMultifly = false;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    // width: 360.w,
-                                                    height: 800.h, // TODO 수정유틸적용시키기  /  메뉴페이지 로그아웃버튼 (우측상단))
-                                                    padding: EdgeInsets.only(bottom: 15),
-                                                    decoration: BoxDecoration(
-                                                      // color: Palette.modalBackgroundColor
-                                                      // color: Palette.red
-                                                    ),
-                                                    child: Align(
-                                                      alignment: Alignment.bottomCenter,
-                                                      child: GestureDetector(
-                                                        onTap: (){},
-                                                        child: Container(
-                                                          width: 240.w,
-                                                          height: 450.h,
-                                                          decoration: BoxDecoration(
-                                                            color: Palette.neumorphismColor,
-                                                            borderRadius: BorderRadius.circular(15)
-                                                          ),
-                                                          child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              Container(
-                                                                width: 200.w,
-                                                                height: 70.h,
-                                                                decoration: BoxDecoration(
-                                                                  color: Palette.reallightgray,
-                                                                  borderRadius: BorderRadius.circular(10),
-                                                                  // ignore: prefer_const_literals_to_create_immutables
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Colors.black,
-                                                                      blurRadius: 10,
-                                                                      offset: Offset(0,3),
-                                                                    ),
-                                                                  ]
-                                                                ),
-                                                                child: Center(
-                                                                  child: Text(multiflyIndicator,
-                                                                    style: TextStyle(
-                                                                      color: Palette.black,
-                                                                      fontSize: 30,
-                                                                      fontWeight: FontWeight.w900
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                              ),
-                                                              SizedBox(height: 15.h,),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',controller. recipeList[index], index);}),
-                                                                ]
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',controller. recipeList[index], index);}),
-                                                                ]
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',controller. recipeList[index], index);}),
-                                                                ]
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0',controller. recipeList[index], index);}),
-                                                                  MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인',controller. recipeList[index], index);}),
-                                                                ]
-                                                              ),
-                                                            ],
+                                                // Positioned(
+                                                //   bottom: 50,
+                                                //   child: Column(
+                                                //     crossAxisAlignment: CrossAxisAlignment.center,
+                                                //     children: [
+                                                //         Text('총중량 : 1000g'),
+                                                //         Text('60g 분할 = 100EA'),
+                                                //     ],
+                                                //   )
+                                                // ),
+                                                // POSITION: 분할 중량 입력 버튼
+                                                Positioned(
+                                                  left: 0,
+                                                  bottom: 0,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      setState(() {
+                                                        print('분할중량은 몇대몇~~~');
+                                                        // Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[listViewIndex],));
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: 
+                                                      Center(
+                                                        child: Text('/', 
+                                                          style: TextStyle(
+                                                            color: Colors.white
                                                           ),
                                                         ),
                                                       ),
+                                                      // Icon(
+                                                      //   floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
+                                                      //   color: Colors.white,
+                                                      // ),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        boxShadow:const [
+                                                          BoxShadow(
+                                                            color: Palette.darkgray,
+                                                            offset: Offset(2, 2),
+                                                            blurRadius: 7.0
+                                                              
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  )
+                                                  ),
+                                                ),
+                                                // POSITION: 곱하기 버튼
+                                                Align(
+                                                  alignment: Alignment.bottomCenter,
+                                                  child: Obx(()=>GestureDetector(
+                                                    child: Container(
+                                                      width: 120.w,
+                                                      height: 60.h,
+                                                      decoration: BoxDecoration(
+                                                        color: Palette.black,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                      ),
+                                                      child: Center(
+                                                        child: ((){
+                                                          if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                            return Text('× ${controller.multipleValue[index]}',
+                                                              style: const TextStyle(
+                                                                color: Palette.textColorWhite,
+                                                                fontWeight: FontWeight.w900,
+                                                                fontSize: 18
+                                                              ),
+                                                            );
+                                                          }
+                                                        }())
+                                                      ),
+                                                    ),
+                                                    onTap: (){
+                                                      showDialog(
+                                                      context: context, 
+                                                        builder: (_){
+                                                          return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller,);
+                                                        }
+                                                      );
+                                                    },
+                                                  )),
+                                                  
+                                                ),
+                                                AnimatedPositioned(
+                                                  right: 0,
+                                                  bottom: floatButtonClicked ? 180 : 0,
+                                                  duration: Duration(milliseconds: 1500),
+                                                  curve: Curves.easeOutExpo,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      print('레시피추가111');
+                                                      Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
+                                                    },
+                                                    child: Container(
+                                                      width: 50,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.green[300],
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        // border: Border.all(width: 2,color: Palette.gray)
+                                                      ),
+                                                      child: Icon(Icons.add, color: Palette.white, size: 30,),
+                                                    ),
+                                                  ),
+                                                ),
+                                                
+                                                AnimatedPositioned(
+                                                  right: 0,
+                                                  bottom: floatButtonClicked ? 120 : 0,
+                                                  duration: Duration(milliseconds: 1500),
+                                                  curve: Curves.easeOutExpo,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      print('레시피수정111');
+                                                      Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
+                                                    },
+                                                    child: Container(
+                                                      width: 50,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.blue[400],
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        // border: Border.all(width: 2,color: Palette.gray)
+                                                      ),
+                                                      child: Icon(Icons.edit, color: Palette.white, size: 25,),
+                                                    ),
+                                                  ),
+                                                ),
+                                                
+                                                AnimatedPositioned(
+                                                  right: 0,
+                                                  bottom: floatButtonClicked ? 60 : 0,
+                                                  duration: Duration(milliseconds: 1500),
+                                                  curve: Curves.easeOutExpo,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      showDialog(
+                                                        context: context, 
+                                                        builder: (_){
+                                                          return DefaultAlertDialogOneButton(
+                                                            title: 'Delete',
+                                                            contents: Container(
+                                                              width: 250,
+                                                              height: 100,
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                // ignore: prefer_const_literals_to_create_immutables
+                                                                children: [
+                                                                  const Text('Are you sure delete ?',
+                                                                    style: TextStyle(
+                                                                      fontSize: 18,
+                                                                    ),
+                                                                    textAlign: TextAlign.center,
+                                                                  ),
+                                                                  SizedBox(height: 10,),
+                                                                  Text("'${controller.recipeList[listViewIndex]}'",
+                                                                    style: const TextStyle(
+                                                                      fontSize: 18,
+                                                                    ),
+                                                                    textAlign: TextAlign.center,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            buttonTitle: 'Ok',
+                                                            btnColor: Palette.white,
+                                                            btnTextColor: Palette.red,
+                                                            confirmFunction: (){
+                                                              // db삭제기능 구현하기
+                                                              setState(() {
+                                                                print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                                                                // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
+                                                                controller.deleteRecipe(widget.menuTitle, listViewIndex);
+                                                                // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
+                                                              });
+                                                            },
+                                                          );
+                                                        }
+                                                      );
+                                                      print('레시피수정111');
+                                                      
+                                                    },
+                                                    child: Container(
+                                                      width: 50,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.red[400],
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        // border: Border.all(width: 2,color: Palette.gray)
+                                                      ),
+                                                      child: Icon(Icons.delete, color: Palette.white, size: 25,),
+                                                    ),
+                                                  ),
+                                                ),
+                                                
+                                                
+                                                Positioned(
+                                                  right: 0,
+                                                  bottom: 0,
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      setState(() {
+                                                        floatButtonClicked = !floatButtonClicked;
+                                                        // Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[listViewIndex],));
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: 
+                                                      Center(
+                                                        child: Text('$listViewIndex', 
+                                                          style: TextStyle(
+                                                            color: Colors.white
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      // Icon(
+                                                      //   floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
+                                                      //   color: Colors.white,
+                                                      // ),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        boxShadow:const [
+                                                          BoxShadow(
+                                                            color: Palette.darkgray,
+                                                            offset: Offset(2, 2),
+                                                            blurRadius: 7.0
+                                                              
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
                                                 )
-                                              ),
-                                            ],
+                                              ],
+                                            )
                                           )
-                                        )
-                                      ),
-      
-                                    ],
-                                  );
-                                }
-                              ),
-                            ],
-                          );
-                        })
-                      ),
-                    ],
+                                        ),
+                        
+                                      ],
+                                    );
+                                  }
+                                ),
+                              ],
+                            );
+                          })
+                        )
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-      
-            // // 메모장
-            // if(memoOpen)
               
           ],
         ),
       ),
-      floatingActionButton: 
-      Stack(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-
-          AnimatedPositioned(
-            right: 0,
-            bottom: floatButtonClicked ? 180 : 0,
-            duration: Duration(milliseconds: 1500),
-            curve: Curves.easeOutExpo,
-            child: GestureDetector(
-              onTap: (){
-                print('레시피추가111');
-                Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
-              },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.green[300],
-                  borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(width: 2,color: Palette.gray)
-                ),
-                child: Icon(Icons.add, color: Palette.white, size: 30,),
-              ),
-            ),
-          ),
-           
-          AnimatedPositioned(
-            right: 0,
-            bottom: floatButtonClicked ? 120 : 0,
-            duration: Duration(milliseconds: 1500),
-            curve: Curves.easeOutExpo,
-            child: GestureDetector(
-              onTap: (){
-                print('레시피수정111');
-                Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
-              },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.blue[400],
-                  borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(width: 2,color: Palette.gray)
-                ),
-                child: Icon(Icons.edit, color: Palette.white, size: 25,),
-              ),
-            ),
-          ),
-           
-          AnimatedPositioned(
-            right: 0,
-            bottom: floatButtonClicked ? 60 : 0,
-            duration: Duration(milliseconds: 1500),
-            curve: Curves.easeOutExpo,
-            child: GestureDetector(
-              onTap: (){
-                print('레시피수정111');
-                controller.deleteRecipe(widget.menuTitle, listViewIndex);
-              },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.red[400],
-                  borderRadius: BorderRadius.circular(15),
-                  // border: Border.all(width: 2,color: Palette.gray)
-                ),
-                child: Icon(Icons.delete, color: Palette.white, size: 25,),
-              ),
-            ),
-          ),
-           
-           
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  floatButtonClicked = !floatButtonClicked;
-                  // Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[listViewIndex],));
-                });
-              },
-              child: Container(
-                width: 50,
-                height: 50,
-                child: 
-                Center(
-                  child: Text('$listViewIndex', 
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-                // Icon(
-                //   floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
-                //   color: Colors.white,
-                // ),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow:const [
-                    BoxShadow(
-                      color: Palette.darkgray,
-                      offset: Offset(2, 2),
-                      blurRadius: 7.0
-                        
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      )
     );
   }
 }
 
 // 레시피 페이지 이동 버튼
-class MoveListPage extends StatefulWidget {
-  const MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
+// class MoveListPage extends StatefulWidget {
+//   const MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
 
-  final Alignment direction;
-  final String svg;
-  final Function callback;
+//   final Alignment direction;
+//   final String svg;
+//   final Function callback;
 
-  @override
-  State<MoveListPage> createState() => _MoveListPageState();
-}
+//   @override
+//   State<MoveListPage> createState() => _MoveListPageState();
+// }
 
-class _MoveListPageState extends State<MoveListPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: widget.direction, //
-      child: GestureDetector(
-        child: Container(
-          width: 50.w,
-          height: 500.h,
-          padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
-          color: Colors.transparent,
-          child:  Align(
-            alignment: widget.direction, //
-            child: SvgPicture.asset(
-              widget.svg, //
-              width: 25.w,
-              height: 25.h,
-              color: Palette.lightgray
-            ),
-          ),
-        ),
-        onTap: (){
-          widget.callback(); // 
-        },
-      ),
-    );
-  }
-}
+// class _MoveListPageState extends State<MoveListPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Align(
+//       alignment: widget.direction, //
+//       child: GestureDetector(
+//         child: Container(
+//           width: 50.w,
+//           height: 500.h,
+//           padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+//           color: Colors.transparent,
+//           child:  Align(
+//             alignment: widget.direction, //
+//             child: SvgPicture.asset(
+//               widget.svg, //
+//               width: 25.w,
+//               height: 25.h,
+//               color: Palette.lightgray
+//             ),
+//           ),
+//         ),
+//         onTap: (){
+//           widget.callback(); // 
+//         },
+//       ),
+//     );
+//   }
+// }
 
 // 계산기 다이얼로그 버튼
 class MultiflyBtn extends StatefulWidget {
@@ -951,6 +760,8 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
       onTap: (){
         setState(() {
           widget.callback();
+          print(widget.text);
+          print(widget.textColor);
         });
       },
       child: Container(
@@ -983,6 +794,140 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
           )
         ),
       ),
+    );
+  }
+}
+
+class MultiflyWidget extends StatefulWidget {
+  const MultiflyWidget({super.key, required this.menuTitle, required this.listViewIndex, required this.controller});
+  final String menuTitle;
+  final int listViewIndex;
+  final RecipeController controller;
+
+  @override
+  State<MultiflyWidget> createState() => _MultiflyWidgetState();
+}
+
+class _MultiflyWidgetState extends State<MultiflyWidget> {
+
+  String multiflyIndicator = '';
+  RecipeController controller = RecipeController();
+
+  void multiflyCount(String s,String recipeTitle, int index){
+    // print(s);
+    // print(recipeTitle);
+    // print(index);
+    setState(() {
+      if(s == '<-'){
+        // 빼기 구현
+        if(multiflyIndicator.isNotEmpty ){
+          multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
+        }
+      }else if(s == '확인'){
+        // 적용하는 코드
+        if(multiflyIndicator != ''){
+          print('db 업데이트 : controller.multipleValue[index]로');
+          widget.controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
+        }
+        Navigator.of(context).pop();
+      }else if(multiflyIndicator.isEmpty && s=='0'){
+
+      }else{
+        if(multiflyIndicator.length < 6){
+          multiflyIndicator = multiflyIndicator+s;
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+      AlertDialog(
+      insetPadding: const EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.all(0),
+      
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(22.0),
+      ),
+
+      backgroundColor: Palette.neumorphismColor,
+      content: GestureDetector(
+        onTap: (){
+          Navigator.of(context).pop();
+        },
+        child: Container(
+          width: 270.w,
+          height: 460.h,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  width: 200.w,
+                  height: 70.h,
+                  decoration: BoxDecoration(
+                    color: Palette.reallightgray,
+                    borderRadius: BorderRadius.circular(10),
+                    // ignore: prefer_const_literals_to_create_immutables
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 10,
+                        offset: Offset(0,3),
+                      ),
+                    ]
+                  ),
+                  child: Center(
+                    child: Text(multiflyIndicator,
+                      style: TextStyle(
+                        color: Palette.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w900
+                      ),
+                    ),
+                  )
+                ),
+                SizedBox(height: 15.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount(widget.controller.recipeList[widget.listViewIndex]);}),
+                    MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7',widget.controller.recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                    MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                  ]
+                ),
+            ],
+          ),
+        ),
+      ),
+
+
+      elevation: 3,
     );
   }
 }
