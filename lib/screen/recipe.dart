@@ -30,9 +30,10 @@ class _RecipeState extends State<Recipe> {
   final AutoScrollController _scrollController = AutoScrollController();
   final PageController _pageController = PageController();
 
+
   // 변수
 
-  late int listViewIndex;
+  late int listViewIndex = 0;
 
   bool floatButtonClicked = false;
 
@@ -42,7 +43,7 @@ class _RecipeState extends State<Recipe> {
   void initState() {
     super.initState();
     controller.loadRecipeList(widget.menuTitle);
-    listViewIndex = 0;
+    // listViewIndex = 0;
     multiflyInitialize();
     _pageController.addListener(moveListPage);
   }
@@ -80,14 +81,14 @@ class _RecipeState extends State<Recipe> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // POSITION: 앱 바 상단
+                        // POSITION: 앱 바
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //앱 바 왼쪽 아이콘
                             GestureDetector(
                               child: Container(
-                                width: 70,
+                                width: 90,
                                 height: 40,
                                 padding: EdgeInsets.only(left: 10),
                                 child: Row(
@@ -140,45 +141,65 @@ class _RecipeState extends State<Recipe> {
                             ),
                             // 앱 바 우측 아이콘
                             Container(
-                              width: 70,
+                              width: 90,
                               height: 40,
-                              child: GestureDetector(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                    width: 50,
-                                    height: 40,
-                                    color: Palette.white,
-                                    margin: EdgeInsets.only(right: 5),
-                                    // child: FittedBox(
-                                    //   fit: BoxFit.none,
-                                    //   child: SvgPicture.asset(
-                                    //     'assets/images/ic_clipboard.svg',
-                                    //     width: 20,
-                                    //     height: 20,
-                                    //     color: Palette.gray,
-                                    //   ),
-                                    // ),
-                                    child: Center(
-                                        child: Text('memo ',
-                                          style: const TextStyle(
+                              // color: Colors.red,
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        color: Palette.white,
+                                        margin: EdgeInsets.only(right: 5),
+                                        child: FittedBox(
+                                          fit: BoxFit.none,
+                                          child: SvgPicture.asset(
+                                            'assets/images/ic_clipboard.svg',
+                                            width: 20,
+                                            height: 20,
                                             color: Palette.gray,
-                                            fontSize: 20,
                                           ),
                                         ),
                                       ),
+                                    ),
+                                    onTap: (){
+                                      setState(() {
+                                        showDialog(
+                                        context: context, 
+                                          builder: (_){
+                                            return Memo(menuTitle: widget.menuTitle); 
+                                          }
+                                        );
+                                      });
+                                    },
                                   ),
-                                ),
-                                onTap: (){
-                                  setState(() {
-                                    showDialog(
-                                    context: context, 
-                                      builder: (_){
-                                        return Memo(menuTitle: widget.menuTitle); 
-                                      }
-                                    );
-                                  });
-                                },
+                                  GestureDetector(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        color: Palette.white,
+                                        margin: EdgeInsets.only(right: 5),
+                                        child: FittedBox(
+                                          fit: BoxFit.none,
+                                          child: SvgPicture.asset(
+                                            'assets/images/ic_plus.svg',
+                                            width: 20,
+                                            height: 20,
+                                            color: Palette.gray,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: (){
+                                      Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -288,7 +309,7 @@ class _RecipeState extends State<Recipe> {
                                           child: Container(
                                             width: 300.w,
                                             height: 680.h,
-                                            padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
+                                            padding: EdgeInsets.fromLTRB(10, 10, 10, 15),
                                             decoration: BoxDecoration(
                                               // color: Colors.amber,
                                               color: Palette.backgroundColor, 
@@ -310,17 +331,26 @@ class _RecipeState extends State<Recipe> {
                                                     child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
-                                                        // 타이틀
-                                                        Obx(() => 
-                                                        Text(
-                                                          controller.recipeList[index],
-                                                          style: const TextStyle(
-                                                            fontSize: 26,
-                                                            color: Palette.black
-                                                          ),
-                                                        )
-                                                        ),
-                                                        SizedBox(height: 20.h),
+                                                        SizedBox(height: 5,),
+                                                        // POSITION: 타이틀
+                                                        Obx((){
+                                                          return((){
+                                                            if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                              return Text(
+                                                                controller.multipleValue[index] == 1
+                                                                ? controller.recipeList[index]
+                                                                : '${controller.recipeList[index]} x ${controller.multipleValue[index]}',
+                                                                style: const TextStyle(
+                                                                  fontSize: 26,
+                                                                  color: Palette.black
+                                                                ),
+                                                              );
+                                                            }else{
+                                                              return SizedBox();
+                                                            }
+                                                          }());
+                                                        }),
+                                                        SizedBox(height: 15.h),
                                                         Obx((){
                                                           return ((){
                                                             if(controller.requestStatus.value==RequestStatus.SUCCESS){
@@ -410,161 +440,141 @@ class _RecipeState extends State<Recipe> {
                                                         SizedBox(height: 15,),
 
                                                         // POSITION: 총중량
-                                                        Container(
-                                                          width: 280.w,
-                                                          // color: Colors.red,
-                                                          child: Center(
-                                                            child: SingleChildScrollView(
-                                                              scrollDirection: Axis.horizontal,
-                                                              child: Text(
-                                                                'Total : 1000g / 60g = 100 ea',
-                                                                style: TextStyle(
-                                                                  fontSize: 15
+                                                        Obx((){
+                                                          return ((){
+                                                            if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                              return Container(
+                                                                width: 280.w,
+                                                                child: Center(
+                                                                  child: SingleChildScrollView(
+                                                                  scrollDirection: Axis.horizontal,
+                                                                  child: Obx((){
+                                                                    return Text(
+                                                                      // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
+                                                                      'Total : ${controller.recipeWeightTotal[listViewIndex]}g / ${controller.divideValue.value[listViewIndex]}g = ${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
+                                                                      style: TextStyle(
+                                                                        fontSize: 15
+                                                                      ),
+                                                                    );
+                                                                  })
+                                                                )
                                                                 ),
-                                                              )
-                                                            )
-                                                          )
-                                                        ),
+                                                              );
+                                                            }else{
+                                                              return SizedBox();
+                                                            }
+                                                          }());
+                                                         
+                                                        })
                                                       ],
                                                     ),
                                                   ),
                                                 ),
-                                                // Positioned(
-                                                //   bottom: 50,
-                                                //   child: Column(
-                                                //     crossAxisAlignment: CrossAxisAlignment.center,
-                                                //     children: [
-                                                //         Text('총중량 : 1000g'),
-                                                //         Text('60g 분할 = 100EA'),
-                                                //     ],
-                                                //   )
-                                                // ),
-                                                // POSITION: 분할 중량 입력 버튼
-                                                Positioned(
-                                                  left: 0,
-                                                  bottom: 0,
-                                                  child: GestureDetector(
-                                                    onTap: (){
-                                                      setState(() {
-                                                        print('분할중량은 몇대몇~~~');
-                                                        // Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[listViewIndex],));
-                                                      });
-                                                    },
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child: 
-                                                      Center(
-                                                        child: Text('/', 
-                                                          style: TextStyle(
-                                                            color: Colors.white
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      // Icon(
-                                                      //   floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
-                                                      //   color: Colors.white,
-                                                      // ),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black,
-                                                        borderRadius: BorderRadius.circular(15),
-                                                        boxShadow:const [
-                                                          BoxShadow(
-                                                            color: Palette.darkgray,
-                                                            offset: Offset(2, 2),
-                                                            blurRadius: 7.0
-                                                              
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                // POSITION: 곱하기 버튼
+                                                // POSITION: 나누기 / 곱하기 버튼
                                                 Align(
                                                   alignment: Alignment.bottomCenter,
-                                                  child: Obx(()=>GestureDetector(
-                                                    child: Container(
-                                                      width: 120.w,
-                                                      height: 60.h,
-                                                      decoration: BoxDecoration(
-                                                        color: Palette.black,
-                                                        borderRadius: BorderRadius.circular(15),
-                                                      ),
-                                                      child: Center(
-                                                        child: ((){
-                                                          if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                            return Text('× ${controller.multipleValue[index]}',
-                                                              style: const TextStyle(
-                                                                color: Palette.textColorWhite,
-                                                                fontWeight: FontWeight.w900,
-                                                                fontSize: 18
-                                                              ),
-                                                            );
-                                                          }
-                                                        }())
-                                                      ),
-                                                    ),
-                                                    onTap: (){
-                                                      showDialog(
-                                                      context: context, 
-                                                        builder: (_){
-                                                          return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller,);
-                                                        }
-                                                      );
-                                                    },
-                                                  )),
-                                                  
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      // POSITION: 곱하기 버튼
+                                                      Obx(()=>GestureDetector(
+                                                        child: Container(
+                                                          width: 80.w,
+                                                          height: 60.h,
+                                                          decoration: BoxDecoration(
+                                                            color: Palette.black,
+                                                            borderRadius: BorderRadius.circular(15),
+                                                          ),
+                                                          child: Center(
+                                                            child: ((){
+                                                              if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                                return Text('× ${controller.multipleValue[index]}',
+                                                                  style: const TextStyle(
+                                                                    color: Palette.textColorWhite,
+                                                                    fontWeight: FontWeight.w900,
+                                                                    fontSize: 18
+                                                                  ),
+                                                                );
+                                                              }
+                                                            }())
+                                                          ),
+                                                        ),
+                                                        onTap: (){
+                                                          showDialog(
+                                                          context: context, 
+                                                            builder: (_){
+                                                              return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
+                                                            }
+                                                          );
+                                                        },
+                                                      )),
+
+                                                      SizedBox(width: 10),
+
+                                                      // POSITION: 나누기 버튼
+                                                      Obx(()=>GestureDetector(
+                                                        child: Container(
+                                                          width: 80.w,
+                                                          height: 60.h,
+                                                          decoration: BoxDecoration(
+                                                            color: Palette.black,
+                                                            borderRadius: BorderRadius.circular(15),
+                                                          ),
+                                                          child: Center(
+                                                            child: ((){
+                                                              if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                                return Text('/ ${controller.divideValue[listViewIndex]}',
+                                                                  style: const TextStyle(
+                                                                    color: Palette.textColorWhite,
+                                                                    fontWeight: FontWeight.w900,
+                                                                    fontSize: 18
+                                                                  ),
+                                                                );
+                                                              }
+                                                            }())
+                                                          ),
+                                                        ),
+                                                        onTap: (){
+                                                          showDialog(
+                                                          context: context, 
+                                                            builder: (_){
+                                                              return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
+                                                            }
+                                                          );
+                                                        },
+                                                      )),
+                                                      
+                                                      
+                                                    ],
+                                                  )
                                                 ),
+                                                // POSITION: 레시피 수정 버튼
                                                 AnimatedPositioned(
                                                   right: 0,
-                                                  bottom: floatButtonClicked ? 180 : 0,
+                                                  top: floatButtonClicked ? 50 : 0,
                                                   duration: Duration(milliseconds: 1500),
                                                   curve: Curves.easeOutExpo,
                                                   child: GestureDetector(
                                                     onTap: (){
-                                                      print('레시피추가111');
-                                                      Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
-                                                    },
-                                                    child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.green[300],
-                                                        borderRadius: BorderRadius.circular(15),
-                                                        // border: Border.all(width: 2,color: Palette.gray)
-                                                      ),
-                                                      child: Icon(Icons.add, color: Palette.white, size: 30,),
-                                                    ),
-                                                  ),
-                                                ),
-                                                
-                                                AnimatedPositioned(
-                                                  right: 0,
-                                                  bottom: floatButtonClicked ? 120 : 0,
-                                                  duration: Duration(milliseconds: 1500),
-                                                  curve: Curves.easeOutExpo,
-                                                  child: GestureDetector(
-                                                    onTap: (){
-                                                      print('레시피수정111');
                                                       Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
                                                     },
                                                     child: Container(
-                                                      width: 50,
-                                                      height: 50,
+                                                      width: 38,
+                                                      height: 38,
+                                                      margin: EdgeInsets.all(1),
                                                       decoration: BoxDecoration(
                                                         color: Colors.blue[400],
-                                                        borderRadius: BorderRadius.circular(15),
+                                                        borderRadius: BorderRadius.circular(10),
                                                         // border: Border.all(width: 2,color: Palette.gray)
                                                       ),
                                                       child: Icon(Icons.edit, color: Palette.white, size: 25,),
                                                     ),
                                                   ),
                                                 ),
-                                                
+                                                // POSITION: 레시피 삭제 버튼
                                                 AnimatedPositioned(
                                                   right: 0,
-                                                  bottom: floatButtonClicked ? 60 : 0,
+                                                  top: floatButtonClicked ? 100 : 0,
                                                   duration: Duration(milliseconds: 1500),
                                                   curve: Curves.easeOutExpo,
                                                   child: GestureDetector(
@@ -612,15 +622,14 @@ class _RecipeState extends State<Recipe> {
                                                           );
                                                         }
                                                       );
-                                                      print('레시피수정111');
-                                                      
                                                     },
                                                     child: Container(
-                                                      width: 50,
-                                                      height: 50,
+                                                      width: 38,
+                                                      height: 38,
+                                                      margin: EdgeInsets.all(1),
                                                       decoration: BoxDecoration(
                                                         color: Colors.red[400],
-                                                        borderRadius: BorderRadius.circular(15),
+                                                        borderRadius: BorderRadius.circular(10),
                                                         // border: Border.all(width: 2,color: Palette.gray)
                                                       ),
                                                       child: Icon(Icons.delete, color: Palette.white, size: 25,),
@@ -630,41 +639,40 @@ class _RecipeState extends State<Recipe> {
                                                 
                                                 
                                                 Positioned(
+                                                  top: 0,
                                                   right: 0,
-                                                  bottom: 0,
                                                   child: GestureDetector(
                                                     onTap: (){
                                                       setState(() {
                                                         floatButtonClicked = !floatButtonClicked;
-                                                        // Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, recipeTitle: controller.recipeList[listViewIndex],));
                                                       });
                                                     },
                                                     child: Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child: 
-                                                      Center(
-                                                        child: Text('$listViewIndex', 
-                                                          style: TextStyle(
-                                                            color: Colors.white
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      // Icon(
-                                                      //   floatButtonClicked ? Icons.arrow_drop_down :  Icons.arrow_drop_up,
-                                                      //   color: Colors.white,
-                                                      // ),
+                                                      width: 40,
+                                                      height: 40,
+                                                      padding: EdgeInsets.all(10),
                                                       decoration: BoxDecoration(
-                                                        color: Colors.black,
-                                                        borderRadius: BorderRadius.circular(15),
-                                                        boxShadow:const [
-                                                          BoxShadow(
-                                                            color: Palette.darkgray,
-                                                            offset: Offset(2, 2),
-                                                            blurRadius: 7.0
-                                                              
-                                                          )
-                                                        ],
+                                                        color: Palette.white,
+                                                        borderRadius: BorderRadius.circular(10),
+                                                      ),
+                                                      child: 
+                                                      // Center(
+                                                      //   child: Text('$listViewIndex', 
+                                                      //     style: TextStyle(
+                                                      //       color: Palette.gray
+                                                      //     ),
+                                                      //   ),
+                                                      // ),
+                                                      // Icon(
+                                                      //   floatButtonClicked ? Icons.arrow_drop_up :  Icons.arrow_drop_down,
+                                                      //   color: Palette.gray,
+                                                      // ),
+                                                      FittedBox(
+                                                        fit: BoxFit.contain,
+                                                        child: SvgPicture.asset(
+                                                          'assets/images/ic_bars.svg',
+                                                          color: Palette.gray,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -696,47 +704,6 @@ class _RecipeState extends State<Recipe> {
   }
 }
 
-// 레시피 페이지 이동 버튼
-// class MoveListPage extends StatefulWidget {
-//   const MoveListPage({super.key, required this.direction, required this.svg, required this.callback});
-
-//   final Alignment direction;
-//   final String svg;
-//   final Function callback;
-
-//   @override
-//   State<MoveListPage> createState() => _MoveListPageState();
-// }
-
-// class _MoveListPageState extends State<MoveListPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Align(
-//       alignment: widget.direction, //
-//       child: GestureDetector(
-//         child: Container(
-//           width: 50.w,
-//           height: 500.h,
-//           padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
-//           color: Colors.transparent,
-//           child:  Align(
-//             alignment: widget.direction, //
-//             child: SvgPicture.asset(
-//               widget.svg, //
-//               width: 25.w,
-//               height: 25.h,
-//               color: Palette.lightgray
-//             ),
-//           ),
-//         ),
-//         onTap: (){
-//           widget.callback(); // 
-//         },
-//       ),
-//     );
-//   }
-// }
-
 // 계산기 다이얼로그 버튼
 class MultiflyBtn extends StatefulWidget {
   const MultiflyBtn({super.key, required this.callback, required this.text, required this.textColor});
@@ -760,8 +727,6 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
       onTap: (){
         setState(() {
           widget.callback();
-          print(widget.text);
-          print(widget.textColor);
         });
       },
       child: Container(
@@ -799,10 +764,11 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
 }
 
 class MultiflyWidget extends StatefulWidget {
-  const MultiflyWidget({super.key, required this.menuTitle, required this.listViewIndex, required this.controller});
+  const MultiflyWidget({super.key, required this.menuTitle, required this.listViewIndex, required this.controller, required this.type});
   final String menuTitle;
   final int listViewIndex;
   final RecipeController controller;
+  final String type;
 
   @override
   State<MultiflyWidget> createState() => _MultiflyWidgetState();
@@ -817,6 +783,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
     // print(s);
     // print(recipeTitle);
     // print(index);
+    print(widget.type);
     setState(() {
       if(s == '<-'){
         // 빼기 구현
@@ -826,20 +793,26 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
       }else if(s == '확인'){
         // 적용하는 코드
         if(multiflyIndicator != ''){
-          print('db 업데이트 : controller.multipleValue[index]로');
-          widget.controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
+          if(widget.type == 'multiple'){
+            // print('MUL');
+            widget.controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
+          }else{
+            // print('DIV');
+            widget.controller.divideValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
+          }
+          
         }
         Navigator.of(context).pop();
       }else if(multiflyIndicator.isEmpty && s=='0'){
 
       }else{
-        if(multiflyIndicator.length < 6){
+        if(multiflyIndicator.length < 4){
           multiflyIndicator = multiflyIndicator+s;
         }
       }
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return 

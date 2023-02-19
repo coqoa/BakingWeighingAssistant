@@ -59,7 +59,7 @@ class _AddRecipeState extends State<AddRecipe> {
         );
         // 레시피 Doc 추가 // 중복안됨
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
-          {title:{'multipleValue': 1,'ingredient':ingredient,'weight':weight}}
+          {title:{'multipleValue': 1,'divideWeight': 1,'ingredient':ingredient,'weight':weight}}
         );
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }

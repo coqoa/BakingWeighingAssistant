@@ -17,8 +17,10 @@ class RecipeController extends GetxController{
   RxList recipeList = [].obs;
   RxList recipeIngredient = [].obs;
   RxList recipeWeight= [].obs;
+  RxList recipeWeightTotal= [].obs;
   RxInt testListSelected = 0.obs;
   RxList multipleValue = [].obs;
+  RxList divideValue = [].obs;
 
   loadRecipeList(menuTitle) async{
     requestStatus.value=RequestStatus.LOADING;
@@ -28,10 +30,26 @@ class RecipeController extends GetxController{
     );
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').get().then((result) async{
       for(int i = 0; i<result.data()!.keys.length; i++){
+        num sum = 0;
         recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
         recipeWeight.add(result.data()![recipeList[i]]['weight']);
         multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
+        divideValue.add(result.data()![recipeList[i]]['divideWeight']);
+        // print('recipeWeight');
+        // print(recipeWeight.value[i]);
+        // recipeWeight.value[i].map((x){
+        //   sum = x;
+        //   print(sum);
+        // });
+        for(int j=0 ; j < (recipeWeight.value[i].length) ; j ++ ){
+            sum += int.parse(recipeWeight.value[i][j]) ;
+        }
+
+        recipeWeightTotal.add(sum*multipleValue[i]);
+        
       }
+      // print('asdasd');
+      print(recipeWeightTotal.value);
     });
     requestStatus.value=RequestStatus.SUCCESS;
   }
@@ -48,17 +66,31 @@ class RecipeController extends GetxController{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
-    // // 
 
     // Get.off(()=>Recipe(menuTitle: menuTitle));
     
   }
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
+    num sum = 0;
+
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-      {recipeTitle:{'multipleValue':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideValue[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
       // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     );
+
+    for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
+        sum += int.parse(recipeWeight[index][j]) ;
+    }
+
     multipleValue[index] = int.parse(multipleIndicator);
+    recipeWeightTotal[index] = sum*multipleValue[index];
+  }
+  divideValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
+    await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
+      {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+    );
+    divideValue[index] = int.parse(multipleIndicator);
     // multipleValue[index] = double.parse(multipleIndicator);
   }
 }
