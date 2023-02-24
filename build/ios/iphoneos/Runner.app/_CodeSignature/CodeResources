@@ -46,7 +46,11 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
+<<<<<<< HEAD
 		1wFv1Rz368TIEeT5rvaBNcT3958=
+=======
+		a2Xz5wQjrTeZ02ke1zhJXGpoMqE=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,11 +58,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
+<<<<<<< HEAD
 		1zwX0LAUJDq6RvieHDb6ZtMvHSQ=
+=======
+		ROWIK5KektHs9+eL3qVhXeMFx2o=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		7i3L2dOPMPjmEkTXD33M8Mrxoe4=
+		bTjXBpDwmnUfz5Jz+wf6zbPtgAs=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -152,10 +160,6 @@
 		<data>
 		OiXMXLf1PyeE9GE2cWxc5iDLryU=
 		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_clipboard1.svg</key>
-		<data>
-		8XZ7zxCCrkWGWIY/mW2kjc2Y7lY=
-		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_folder_more.svg</key>
 		<data>
 		PAL7QIms38e/cjdjcZiuq4aAniw=
@@ -167,10 +171,6 @@
 		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_plus.svg</key>
 		<data>
 		ZeAXjVruwheqJg1J7X92xQieeTs=
-		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_plus1.svg</key>
-		<data>
-		5OKT1Q3kvhu9K4PhAjkhrialFDU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_right.svg</key>
 		<data>
@@ -202,7 +202,11 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
+<<<<<<< HEAD
 		43NH4n5oJsp32RNvcksVGDxTA1A=
+=======
+		4F7OKrke6oiiZf6aTnKhXdU3r/o=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -218,7 +222,11 @@
 		</data>
 		<key>Frameworks/FBLPromises.framework/FBLPromises</key>
 		<data>
+<<<<<<< HEAD
 		ZLWgutqhqwBtn6IWHDp+Aan5ZDw=
+=======
+		xzcqsJitRAfXCQ7wJlVeE8FR29A=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/FBLPromises.framework/Info.plist</key>
 		<data>
@@ -230,7 +238,11 @@
 		</data>
 		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth</key>
 		<data>
+<<<<<<< HEAD
 		SgqitC4YoVgfqCzGmz0XN+G1Lf4=
+=======
+		DGNzvNjD/aCeJR8FI1nn+A4lC7E=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
 		<data>
@@ -242,7 +254,11 @@
 		</data>
 		<key>Frameworks/FirebaseCore.framework/FirebaseCore</key>
 		<data>
+<<<<<<< HEAD
 		gV9LjZIy/+fI482k3MXvTMcgSYk=
+=======
+		wt4CtGfVV/sxlak17Bv/BL6svEo=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
 		<data>
@@ -254,7 +270,11 @@
 		</data>
 		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal</key>
 		<data>
+<<<<<<< HEAD
 		mh+/ihfI4mkUQH6FEcj+yDgiL+w=
+=======
+		UiWcyaYh135zxfhVnzGjzNnpS48=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
 		<data>
@@ -266,7 +286,11 @@
 		</data>
 		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore</key>
 		<data>
+<<<<<<< HEAD
 		WPqOm5FUM52LEAiTpUWyDRqGAHY=
+=======
+		E1VL5xrPo2Gr4/Ty8kfAij3KhbE=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/FirebaseFirestore.framework/Info.plist</key>
 		<data>
@@ -362,7 +386,11 @@
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<data>
+<<<<<<< HEAD
 		M61f5ey+XeWiLD5Xpz6FZ7XtIIc=
+=======
+		LEmaUGnPlpGlKnhaSU+Np6D1e8Y=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
 		<data>
@@ -374,7 +402,11 @@
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities</key>
 		<data>
+<<<<<<< HEAD
 		iJ80Xe/xdRpr5hRkYoJgwsSsQSI=
+=======
+		O+N9BtFwr4/XfMVR8+UlBGRqbtw=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/Info.plist</key>
 		<data>
@@ -394,7 +426,11 @@
 		</data>
 		<key>Frameworks/absl.framework/absl</key>
 		<data>
+<<<<<<< HEAD
 		F/uvi3BAtxTGLYmEMur6SgBtotc=
+=======
+		24+qNTNrvbrqajmt6ZUnBxLURkA=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/flutter_keyboard_visibility.framework/Info.plist</key>
 		<data>
@@ -406,7 +442,11 @@
 		</data>
 		<key>Frameworks/flutter_keyboard_visibility.framework/flutter_keyboard_visibility</key>
 		<data>
+<<<<<<< HEAD
 		eLBNGkXw2i40BkqGuGm8meJCN68=
+=======
+		RND4MvQa/zupcUEsZN2ZVyo8dvc=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/grpc.framework/Info.plist</key>
 		<data>
@@ -418,7 +458,11 @@
 		</data>
 		<key>Frameworks/grpc.framework/grpc</key>
 		<data>
+<<<<<<< HEAD
 		Yf2ExThN/J2/8uCJhoE/n/F12Jw=
+=======
+		FTFTbagrqivhLmB7xUFs+UMihBc=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/grpcpp.framework/Info.plist</key>
 		<data>
@@ -438,7 +482,11 @@
 		</data>
 		<key>Frameworks/grpcpp.framework/grpcpp</key>
 		<data>
+<<<<<<< HEAD
 		A8zxZV6oe/C9m7gld9H8C9+dMRQ=
+=======
+		xPXMd+WNCM2p1xdFzaI8MzUnIdU=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/leveldb.framework/Info.plist</key>
 		<data>
@@ -450,7 +498,11 @@
 		</data>
 		<key>Frameworks/leveldb.framework/leveldb</key>
 		<data>
+<<<<<<< HEAD
 		vzSKIH7z+80WqGaTrBlC86edZPM=
+=======
+		nfH2hpn0kEn+CQ3ZdGCuV5AWq1s=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/nanopb.framework/Info.plist</key>
 		<data>
@@ -462,7 +514,11 @@
 		</data>
 		<key>Frameworks/nanopb.framework/nanopb</key>
 		<data>
+<<<<<<< HEAD
 		qasaeIKUM934WgyiDCpn444W/Zs=
+=======
+		Qtf9FnfcRBzQrA0yAL6koHtcRXo=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/openssl_grpc.framework/Info.plist</key>
 		<data>
@@ -474,7 +530,11 @@
 		</data>
 		<key>Frameworks/openssl_grpc.framework/openssl_grpc</key>
 		<data>
+<<<<<<< HEAD
 		cId1Wdpt8LFST36Rdj2SqpO44As=
+=======
+		+e8PgYnPj73oSTKw7Vz6fxre178=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>Frameworks/uv.framework/Info.plist</key>
 		<data>
@@ -486,7 +546,11 @@
 		</data>
 		<key>Frameworks/uv.framework/uv</key>
 		<data>
+<<<<<<< HEAD
 		AXnZyCwkxOBt80JvAqa/HXgmICY=
+=======
+		2bTiV7/lpGYRAqMK3S1MX0ak5N8=
+>>>>>>> parent of e719351 (아이콘 변경)
 		</data>
 		<key>GoogleService-Info.plist</key>
 		<data>
@@ -581,7 +645,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			so1MA1OLxQpTFMYbKRNZASyN1y3qD+Ms6xZ3uluXgxQ=
+=======
+			1j84y5Wm0WuRLuq1wmiLX/X+81ByTlKMHRkdWhk6c9o=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -595,14 +663,18 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			XuvnRTZpaWsAgxBzz6J7Ki9TruqBwBQiBPaYJwLX3Gc=
+=======
+			3+8En1Um394l+SXXqHwxyUA52dYtdyTBlO3oGau5aQs=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ls+B7c3KAUK1mQV2j8VhPasxw0ijIUWHDG/ubPbykdA=
+			YGNgGgD10o0Q9xKbRRHBh04+4GNsNNS92zZgoKNZf/o=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -766,13 +838,6 @@
 			yzOS6nHE65fAYP2IFKuT7jSufgWc2+9SxrV1pNMWoa0=
 			</data>
 		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_clipboard1.svg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9YbmzCXY40pvw75j8x6VYBCf0g+qcj01UbVg2RJ1C4s=
-			</data>
-		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_folder_more.svg</key>
 		<dict>
 			<key>hash2</key>
@@ -792,13 +857,6 @@
 			<key>hash2</key>
 			<data>
 			LELvMOYPwCtnyaXIMTklusT9r95YyvZ9Oky2voiUjug=
-			</data>
-		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_plus1.svg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			GHFf80fALJlGzpgVvSZL1zHFvG4vs8LZ0U/pR26VBQ4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/ic_right.svg</key>
@@ -854,7 +912,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			80YJpxkvLjvVA2a/7ZYUlTt+P77LY0I5745AdXWWagc=
+=======
+			wO+BHccg1I2t6lNHSIJUSUTncst9JE8a/KlRyk0ZPRE=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -882,7 +944,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			xbc7NMF/FFr/EpH95vQgIYdBlLAJCJeyKyVnYT7X2Z8=
+=======
+			dlTWsaxDJX6ho2qS6N3AxyCGstlF6CNmUi3/FJU+tuw=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/FBLPromises.framework/Info.plist</key>
@@ -903,7 +969,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			bDsZhUmXVpVodNCEmW3dTiBha3ZNLrriWT8naMAZPDQ=
+=======
+			EC2sCS8NZs+f4FTyCau5uSm5RJiJxH9bqIb5O83Nh+s=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
@@ -924,7 +994,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			UR+7r5g0ViNXR+zDU0Nw7Hk1Pj0o7XSSZ/cr24sHFT4=
+=======
+			ttyBaeNPxjqUfhVdMEL5K3EbZP0E0fHimmJg9GEzcTE=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
@@ -945,7 +1019,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			TK/KawSUh8p/CndAxU0NmpqX8tWC8QtfVg/xF6kJc2w=
+=======
+			WsJ4bAOiaOAkf2d8UCabs6bOdbC6pEbVnKfe8iKbhR0=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
@@ -966,7 +1044,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			vGHzC98BOiPWNcj/CPzeGa4IWOabDB+GmywMEMqEcE8=
+=======
+			jjqExVDbxrp7NDXyqjrJ9bCFXO69knURPma28P4cd1w=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseFirestore.framework/Info.plist</key>
@@ -1134,7 +1216,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			g1m1fkijeuxI1XRMl7y2kMqj6rn+DKISLS/d9bb3tyU=
+=======
+			VZIp5Ec2R3ZqY5eRgs+/6J3SkyViGKnJ8oIYIzmmEMc=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
@@ -1155,7 +1241,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			3+NiBNrSm59yLgs0b9JYLLBhp2nqfh2dHG/abuatXIQ=
+=======
+			WGl8bwjIXlWJSFkCuL2igKEYZiyttnTHzjD2WcJPONw=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/Info.plist</key>
@@ -1190,7 +1280,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			eIXuRhrDvE4jTK1IYkkFE1Kk1x4V0HQg8OXKWYt0fOk=
+=======
+			b8JnLtLMJMUmprjyU1I8fuqplJezwmsXFRyBSTWtLu8=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/flutter_keyboard_visibility.framework/Info.plist</key>
@@ -1211,7 +1305,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			xVCfisLRnUhznYAp4eqnVc9Al568/zyxDjUbPMm+VXo=
+=======
+			3MneTvB8i4XEYYW/VXy2Y/56HAE2Pa8LwxKu8ymPBl8=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/grpc.framework/Info.plist</key>
@@ -1232,7 +1330,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			voP6t413tvL7M/m16FxPsV9fWvtANNs4+GuF2viLlOc=
+=======
+			5L0NSm1EOAgiFH+3A6W3mFwGpuOADCufWWQUO7g3fbc=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/grpcpp.framework/Info.plist</key>
@@ -1267,7 +1369,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			JrkaWFf6EE2sfM2hnjBVRriMcEuAbxeeXjG2Y4CunGU=
+=======
+			LKN4y7drkPqRWsRIt+UG7lb92uGTExjO63u+WntRyNo=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/leveldb.framework/Info.plist</key>
@@ -1288,7 +1394,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			3CqrCP3g9iQRPproqul7x6ABCvVp2u7k3B9MeXblQoY=
+=======
+			QlOnu+IRziMNxOxb/rFEoytGClRQcj9bSxsLpvXKXHI=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/nanopb.framework/Info.plist</key>
@@ -1309,7 +1419,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			Sk1I0XVfR2tnizBnRvlSs0SDyxRM4xgyEmPZ3JIyVQ0=
+=======
+			f65tdD7g0dBLLAIWdcePqGFdzPcoHS8IOgozhJ2f4vY=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/openssl_grpc.framework/Info.plist</key>
@@ -1330,7 +1444,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			Di/5kgddQ6A/SUWjDUQRagKvSHPGmVxtxouCWWuCESU=
+=======
+			DMgmln2Q+i2bXthIj+hHx+kVEZWtT4Gd/SqaoV7SIFM=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>Frameworks/uv.framework/Info.plist</key>
@@ -1351,7 +1469,11 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			upZ9A6T/B/TGd+v6RIW2BmlszgCUQ6XVga5t0yZZ0Ec=
+=======
+			EI7PTtxB01OQb+IkPthBzYOQlEaO/H1o8+mzd4uqJpg=
+>>>>>>> parent of e719351 (아이콘 변경)
 			</data>
 		</dict>
 		<key>GoogleService-Info.plist</key>
