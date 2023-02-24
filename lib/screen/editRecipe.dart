@@ -74,7 +74,8 @@ class _EditRecipeState extends State<EditRecipe> {
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': widget.multipleValue,'ingredient':ingredient,'weight':weight}}
         );
-        Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
+        // Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
+        Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
       }
     }else{
       // ALERT : 타이틀을 입력해주세요

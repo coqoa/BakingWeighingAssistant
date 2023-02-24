@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		bTjXBpDwmnUfz5Jz+wf6zbPtgAs=
+		7i3L2dOPMPjmEkTXD33M8Mrxoe4=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -104,6 +104,10 @@
 		<data>
 		OiXMXLf1PyeE9GE2cWxc5iDLryU=
 		</data>
+		<key>flutter_assets/assets/images/ic_clipboard1.svg</key>
+		<data>
+		8XZ7zxCCrkWGWIY/mW2kjc2Y7lY=
+		</data>
 		<key>flutter_assets/assets/images/ic_folder_more.svg</key>
 		<data>
 		PAL7QIms38e/cjdjcZiuq4aAniw=
@@ -115,6 +119,10 @@
 		<key>flutter_assets/assets/images/ic_plus.svg</key>
 		<data>
 		ZeAXjVruwheqJg1J7X92xQieeTs=
+		</data>
+		<key>flutter_assets/assets/images/ic_plus1.svg</key>
+		<data>
+		5OKT1Q3kvhu9K4PhAjkhrialFDU=
 		</data>
 		<key>flutter_assets/assets/images/ic_right.svg</key>
 		<data>
@@ -146,11 +154,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-<<<<<<< HEAD
-		43NH4n5oJsp32RNvcksVGDxTA1A=
-=======
-		4F7OKrke6oiiZf6aTnKhXdU3r/o=
->>>>>>> parent of e719351 (아이콘 변경)
+		AoDsJSWQMgY+Ys/ipalDF844x4Y=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -171,7 +175,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YGNgGgD10o0Q9xKbRRHBh04+4GNsNNS92zZgoKNZf/o=
+			Ls+B7c3KAUK1mQV2j8VhPasxw0ijIUWHDG/ubPbykdA=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -335,6 +339,13 @@
 			yzOS6nHE65fAYP2IFKuT7jSufgWc2+9SxrV1pNMWoa0=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/images/ic_clipboard1.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9YbmzCXY40pvw75j8x6VYBCf0g+qcj01UbVg2RJ1C4s=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/images/ic_folder_more.svg</key>
 		<dict>
 			<key>hash2</key>
@@ -354,6 +365,13 @@
 			<key>hash2</key>
 			<data>
 			LELvMOYPwCtnyaXIMTklusT9r95YyvZ9Oky2voiUjug=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/ic_plus1.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GHFf80fALJlGzpgVvSZL1zHFvG4vs8LZ0U/pR26VBQ4=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/ic_right.svg</key>
@@ -409,11 +427,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-<<<<<<< HEAD
-			80YJpxkvLjvVA2a/7ZYUlTt+P77LY0I5745AdXWWagc=
-=======
-			wO+BHccg1I2t6lNHSIJUSUTncst9JE8a/KlRyk0ZPRE=
->>>>>>> parent of e719351 (아이콘 변경)
+			yj8gt/g9gQFoNy/I3JMzq/FMN0bviW0I3qta3CX7cM8=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

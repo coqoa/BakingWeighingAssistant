@@ -29,27 +29,27 @@ class RecipeController extends GetxController{
     }
     );
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').get().then((result) async{
-      // for(int i = 0; i<result.data()!.keys.length; i++){
-      //   num sum = 0;
-      //   recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
-      //   recipeWeight.add(result.data()![recipeList[i]]['weight']);
-      //   multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
-      //   divideValue.add(result.data()![recipeList[i]]['divideWeight']);
-      //   // print('recipeWeight');
-      //   // print(recipeWeight.value[i]);
-      //   // recipeWeight.value[i].map((x){
-      //   //   sum = x;
-      //   //   print(sum);
-      //   // });
-      //   for(int j=0 ; j < (recipeWeight[i].length) ; j ++ ){
-      //       sum += int.parse(recipeWeight[i][j]) ;
-      //   }
+      for(int i = 0; i<result.data()!.keys.length; i++){
+        num sum = 0;
+        recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
+        recipeWeight.add(result.data()![recipeList[i]]['weight']);
+        multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
+        divideValue.add(result.data()![recipeList[i]]['divideWeight']);
 
-      //   recipeWeightTotal.add(sum*multipleValue[i]);
+        for(int j=0 ; j < (recipeWeight[i].length) ; j ++ ){
+            // sum += (recipeWeight[i][j]);
+            // print('${sum}');
+            // print(object)
+            //HERE: 여기여기여기
+        }
+        // recipeWeightTotal.add(sum*multipleValue[i]);
+        // print('sum = $sum');
+        // recipeWeightTotal.add(sum);
         
-      // }
-      // // print('asdasd');
-      print(recipeWeightTotal.value);
+        
+      }
+      // print('asdasd');
+      // print(recipeWeightTotal.value);
     });
     requestStatus.value=RequestStatus.SUCCESS;
   }
