@@ -277,723 +277,374 @@ class _RecipeState extends State<Recipe> {
                 ),
               ),
                        // POSITION: 메인 컨텐츠
-              Expanded(
-                child: Obx((){
-                  return  Stack(
-                    children: [
-                      PageView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.recipeList.length,
-                        controller: _pageController,
-                        onPageChanged: (value) {
-                          setState(() {
-                            listViewIndex = value;
-                          });
-                        },
-                        itemBuilder: (BuildContext context, int index) {
-                          return Stack(
-                            children: [
-                              Center(
-                                child: Container(
-                                  width: 300.w,
-                                  height: 680.h,
-                                  margin: EdgeInsets.only(top: 15, bottom: 15),
-                                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  decoration: BoxDecoration(
-                                    // color: Colors.orange,
-                                    color: Palette.backgroundColor, 
-                                    borderRadius: BorderRadius.circular(15),
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    boxShadow: [
-                                      const BoxShadow(
-                                        blurRadius: 30,
-                                        offset: Offset(0.8, 1.5),
-                                        color: Color.fromRGBO(0, 0, 0, .13),
-                                      )
-                                    ]
+              Container(
+                height: screenHeight-220.h,
+                color: Colors.purple,
+                child: Expanded(
+                  child: Obx((){
+                    return  PageView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.recipeList.length,
+                      controller: _pageController,
+                      onPageChanged: (value) {
+                        setState(() {
+                          listViewIndex = value;
+                        });
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return Center(
+                          child: Container(
+                            // width: 300.w,
+                            // height: 680.h,
+                            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            decoration: BoxDecoration(
+                              // color: Colors.orange,
+                              color: Palette.backgroundColor, 
+                              borderRadius: BorderRadius.circular(15),
+                              // ignore: prefer_const_literals_to_create_immutables
+                              boxShadow: [
+                                const BoxShadow(
+                                  blurRadius: 30,
+                                  offset: Offset(0.8, 1.5),
+                                  color: Color.fromRGBO(0, 0, 0, .13),
+                                )
+                              ]
+                            ),
+                            child: Container(
+                              // padding: EdgeInsets.only(left: 20, right: 20),
+                              // color: Colors.green[200],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // POSITION: 타이틀
+
+                                  Container(
+                                    height: 50.h,
+                                    color: Colors.red,
+                                    // child: Obx((){
+                                    //   return((){
+                                    //     if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                    //       return Text(controller.recipeList[index],
+                                    //         style: const TextStyle(
+                                    //           fontSize: 26,
+                                    //           color: Palette.black
+                                    //         ),
+                                    //       );
+                                    //     }else{
+                                    //       return SizedBox();
+                                    //     }
+                                    //   }());
+                                    // }),
+                                  child: Text(controller.recipeList[index]),
                                   ),
-                                  child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: SingleChildScrollView(
-                                          child: Container(
-                                            // padding: EdgeInsets.only(left: 20, right: 20),
-                                            color: Colors.green[200],
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                SizedBox(height: 5,),
-                                                // POSITION: 타이틀
-                                                Obx((){
-                                                  return((){
-                                                    if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                      return Text(controller.recipeList[index],
-                                                        style: const TextStyle(
-                                                          fontSize: 26,
-                                                          color: Palette.black
-                                                        ),
-                                                      );
-                                                    }else{
-                                                      return SizedBox();
-                                                    }
-                                                  }());
-                                                }),
-                                                SizedBox(height: 15.h),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 120.w,
-                                                      height: 50.h,
-                                                      child: const Center(
-                                                        child: Text('재료',
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                            // fontWeight: FontWeight.w800
-                                                          ),
-                                                        )
-                                                      )
+                                  Container(
+                                    height: 380.h,
+                                    color: Colors.red[100],
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 50.h,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                width: 120.w,
+                                                child: const Center(
+                                                  child: Text('재료',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      // fontWeight: FontWeight.w800
                                                     ),
-                                                    SizedBox(
-                                                      width: 120.w,
-                                                      height: 50.h,
-                                                      child: Stack(
-                                                        children: [
-                                                          Align(
-                                                            alignment: Alignment.center,
-                                                            child: Text('g',
-                                                              style: TextStyle(
-                                                                fontSize: 18,
-                                                                // fontWeight: FontWeight.w800
+                                                  )
+                                                )
+                                              ),
+                                              SizedBox(
+                                                width: 120.w,
+                                                child: Stack(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text('g',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          // fontWeight: FontWeight.w800
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Obx((){
+                                                      return ((){
+                                                        if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                          return Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: SingleChildScrollView(
+                                                              scrollDirection: Axis.horizontal,
+                                                              child: Container(
+                                                                width: 45,
+                                                                child: Text(
+                                                                  // 'x 200',
+                                                                  controller.multipleValue[index] == 1
+                                                                  ? ''
+                                                                  : 'x ${controller.multipleValue[index]}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 14,
+                                                                    fontWeight: FontWeight.w800,
+                                                                    color: Palette.red
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          Obx((){
-                                                            return ((){
-                                                              if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                                return Align(
-                                                                  alignment: Alignment.centerRight,
-                                                                  child: SingleChildScrollView(
-                                                                    scrollDirection: Axis.horizontal,
-                                                                    child: Container(
-                                                                      width: 45,
-                                                                      child: Text(
-                                                                        // 'x 200',
-                                                                        controller.multipleValue[index] == 1
-                                                                        ? ''
-                                                                        : 'x ${controller.multipleValue[index]}',
-                                                                        style: TextStyle(
-                                                                          fontSize: 14,
-                                                                          fontWeight: FontWeight.w800,
-                                                                          color: Palette.red
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }else{
-                                                                return SizedBox();
-                                                              }
-                                                            }());
-                                                            
-                                                          })
-                                                        ]
-                                                      )
-                                                    ),
-                                                  ]
-                                                ),
-                                                Divider(),
-                                                Obx((){
-                                                  return ((){
-                                                    if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                      return Container(
-                                                        // width: 250.w,
-                                                        height: 330.h,
-                                                        // decoration: BoxDecoration(
-                                                          // color: Colors.red,
-                                                        //    border: Border(
-                                                        //           top: BorderSide(
-                                                        //             width: 1,
-                                                        //             color: Palette.lightgray
-                                                        //           ),
-                                                        //           bottom: BorderSide(
-                                                        //             width: 1,
-                                                        //             color: Palette.lightgray
-                                                        //           ),
-                                                        //         )
-                                                        // //   // border: Border.all(width: 1, color: Palette.reallightgray)
-                                                        // ),
-                                                        // width: 150,
-                                                        child:  ListView.builder(
-                                                          itemCount: controller.recipeIngredient[listViewIndex].length, // TODO 여기여기!!!!
-                                                          itemBuilder: ((context, idx) {
-                                                            
-                                                            return Container(
-                                                              height: 60.h,
-                                                              decoration: BoxDecoration(
-                                                                border: Border(
-                                                                  // top: BorderSide(
-                                                                  //   width: 0.5,
-                                                                  //   color: Palette.reallightgray
-                                                                  // ),
-                                                                  // bottom: BorderSide(
-                                                                  //   width: 0.5,
-                                                                  //   color: Palette.reallightgray
-                                                                  // ),
-                                                                )
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 120.w,
-                                                                    decoration: BoxDecoration(
-                                                                      // border: Border(
-                                                                        // right: BorderSide(
-                                                                        //   width: 0.5,
-                                                                        //   color: Palette.reallightgray
-                                                                        // ),
-                                                                      // )
-                                                                    ),
-                                                                    child: Center(
-                                                                      child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
-                                                                        style: TextStyle(
-                                                                          fontSize: 18
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    // height: 50,
-                                                                  ),
-                                                                  Container(
-                                                                    width: 120.w,
-                                                                    // decoration: BoxDecoration(
-                                                                    //   border: Border(
-                                                                    //     left: BorderSide(
-                                                                    //       width: 0.5,
-                                                                    //       color: Palette.reallightgray
-                                                                    //     ),
-                                                                    //   )
-                                                                    // ),
-                                                                    child: Center(
-                                                                      child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
-                                                                        ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.')
-                                                                        // 실수
-                                                                        ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
-                                                                        // 정수
-                                                                        :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
-                                                                          style: TextStyle(
-                                                                            fontSize: 18,
-                                                                            fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
-                                                                          ),
-                                                                        )
-                                                                        : Text(''))
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          })
-                                                        ),
-                                                      );
-                                                      
-                                                    }else{return Text('');}
-                                                  }());
-                                                }),
-                                                Divider(),
-                                                //HERE: 여기 전체가 문제
-                                                Obx((){
-                                                  return((){
-                                                    if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                      return Container(
-                                                        width: 120.w,
-                                                        height: 50,
-                                                        color: Colors.red,
-                                                        child: SingleChildScrollView(
-                                                        scrollDirection: Axis.horizontal,
-                                                        child: Obx((){
-                                                          return Row(
-                                                            children: [
-                                                              Text(
-                                                                // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                                'Total = ',
-                                                                style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: Palette.lightblack
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
-                                                                style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight: FontWeight.w800,
-                                                                  color: Palette.lightblack
-                                                                ),
-                                                              ),
-                                                            ],
                                                           );
-                                                        })
-                                                        ),
-                                                      );
-
-                                                    }else{
-                                                      return Text('왜여기가나와');
-                                                    }
-                                                  }());
-                                                }),
-                                                Obx((){
-                                                  return((){
-                                                    if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                      return Container(
+                                                        }else{
+                                                          return SizedBox();
+                                                        }
+                                                      }());
+                                                      
+                                                    })
+                                                  ]
+                                                )
+                                              ),
+                                            ]
+                                          ),
+                                        ),
+                                        Divider(),
+                                        SingleChildScrollView(
+                                          child: Container(
+                                            height: 300.h,
+                                            child:  ListView.builder(
+                                              itemCount: controller.recipeIngredient[listViewIndex].length, // TODO 여기여기!!!!
+                                              itemBuilder: ((context, idx) {
+                                                
+                                                return Container(
+                                                  height: 60.h,
+                                                  decoration: BoxDecoration(
+                                                    border: Border(
+                                                      // top: BorderSide(
+                                                      //   width: 0.5,
+                                                      //   color: Palette.reallightgray
+                                                      // ),
+                                                      // bottom: BorderSide(
+                                                      //   width: 0.5,
+                                                      //   color: Palette.reallightgray
+                                                      // ),
+                                                    )
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Container(
                                                         width: 120.w,
-                                                        height: 50,
-                                                        color: Colors.red,
-                                                        child: SingleChildScrollView(
-                                                        scrollDirection: Axis.horizontal,
-                                                        child: Row(
-                                                            children: [
-                                                              Text(
-                                                                // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                                'Total = ',
-                                                                style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  color: Palette.lightblack
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
-                                                                style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight: FontWeight.w800,
-                                                                  color: Palette.lightblack
-                                                                ),
-                                                              ),
-                                                            ],
+                                                        decoration: BoxDecoration(
+                                                          border: Border(
+                                                            bottom: BorderSide(
+                                                              width: 0.5,
+                                                              color: Palette.black
+                                                            ),
+                                                          )
+                                                          // border: Border(
+                                                          //   right: BorderSide(
+                                                          //     width: 0.5,
+                                                          //     color: Palette.reallightgray
+                                                          //   ),
+                                                          // )
+                                                        ),
+                                                        child: Center(
+                                                          child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
+                                                            style: TextStyle(
+                                                              fontSize: 18
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        // height: 50,
+                                                      ),
+                                                      Container(
+                                                        width: 120.w,
+                                                        decoration: BoxDecoration(
+                                                          // border: Border(
+                                                          //   left: BorderSide(
+                                                          //     width: 0.5,
+                                                          //     color: Palette.reallightgray
+                                                          //   ),
+                                                          // )
+                                                          border: Border(
+                                                            bottom: BorderSide(
+                                                              width: 0.5,
+                                                              color: Palette.black
+                                                            ),
                                                           )
                                                         ),
-                                                      );
-
-                                                    }else{
-                                                      return Text('왜여기가나와');
-                                                    }
-                                                  }());
-                                                }),
-                                                // Container(
-                                                //   width: 120.w,
-                                                  
-                                                //   child: SingleChildScrollView(
-                                                //   scrollDirection: Axis.horizontal,
-                                                //   child: Obx((){
-                                                //     return Row(
-                                                //       children: [
-                                                //         Text(
-                                                //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                //           'Total = ',
-                                                //           style: TextStyle(
-                                                //             fontSize: 14,
-                                                //             fontWeight: FontWeight.w500,
-                                                //             color: Palette.lightblack
-                                                //           ),
-                                                //         ),
-                                                //         Text(
-                                                //           // '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
-                                                //           'g',
-                                                //           style: TextStyle(
-                                                //             fontSize: 16,
-                                                //             fontWeight: FontWeight.w800,
-                                                //             color: Palette.lightblack
-                                                //           ),
-                                                //         ),
-                                                //       ],
-                                                //     );
-                                                //   })
-                                                //   ),
-                                                // ),
-                                                // Container(
-                                                //   width: 120.w,
-                                                //   child: SingleChildScrollView(
-                                                //   scrollDirection: Axis.horizontal,
-                                                //   child: Obx((){
-                                                //     return Row(
-                                                //       children: [
-                                                //         Text(
-                                                //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                //           // 'Total / ${controller.divideValue.value[listViewIndex]}g = ',
-                                                //           'Total g = ',
-                                                //           style: TextStyle(
-                                                //             fontSize: 14,
-                                                //             fontWeight: FontWeight.w500,
-                                                //             color: Palette.lightblack
-                                                //           ),
-                                                //         ),
-                                                //         Text(
-                                                //           // '${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
-                                                //           // style: TextStyle(
-                                                //           '${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
-                                                //           style: TextStyle(
-                                                //             fontSize: 16,
-                                                //             fontWeight: FontWeight.w800,
-                                                //             color: Palette.lightblack
-                                                //           ),
-                                                //         ),
-                                                //       ],
-                                                //     );
-                                                //   })
-                                                //   ),
-                                                // ),
-                                              ],
+                                                        child: Center(
+                                                          child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
+                                                            ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.')
+                                                            // 실수
+                                                            ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
+                                                            // 정수
+                                                            :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
+                                                              ),
+                                                            )
+                                                            : Text(''))
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              })
                                             ),
                                           ),
-                                        ),
-                                      ),
-
-                                      // POSITION: 나누기 / 곱하기 버튼
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: SingleChildScrollView(
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  // Obx((){
+                                  //   return ((){
+                                  //     if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                  //       return Container(
+                                  //         // width: 250.w,
+                                  //         height: 330.h,
+                                  //         // decoration: BoxDecoration(
+                                  //           color: Colors.red,
+                                  //         //    border: Border(
+                                  //         //           top: BorderSide(
+                                  //         //             width: 1,
+                                  //         //             color: Palette.lightgray
+                                  //         //           ),
+                                  //         //           bottom: BorderSide(
+                                  //         //             width: 1,
+                                  //         //             color: Palette.lightgray
+                                  //         //           ),
+                                  //         //         )
+                                  //         // //   // border: Border.all(width: 1, color: Palette.reallightgray)
+                                  //         // ),
+                                  //         // width: 150,
+                                  //         child:  ListView.builder(
+                                  //           itemCount: controller.recipeIngredient[listViewIndex].length, // TODO 여기여기!!!!
+                                  //           itemBuilder: ((context, idx) {
+                                              
+                                  //             return Container(
+                                  //               height: 60.h,
+                                  //               decoration: BoxDecoration(
+                                  //                 border: Border(
+                                  //                   // top: BorderSide(
+                                  //                   //   width: 0.5,
+                                  //                   //   color: Palette.reallightgray
+                                  //                   // ),
+                                  //                   // bottom: BorderSide(
+                                  //                   //   width: 0.5,
+                                  //                   //   color: Palette.reallightgray
+                                  //                   // ),
+                                  //                 )
+                                  //               ),
+                                  //               child: Row(
+                                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                                  //                 children: [
+                                  //                   Container(
+                                  //                     width: 120.w,
+                                  //                     decoration: BoxDecoration(
+                                  //                       // border: Border(
+                                  //                         // right: BorderSide(
+                                  //                         //   width: 0.5,
+                                  //                         //   color: Palette.reallightgray
+                                  //                         // ),
+                                  //                       // )
+                                  //                     ),
+                                  //                     child: Center(
+                                  //                       child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
+                                  //                         style: TextStyle(
+                                  //                           fontSize: 18
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //                     // height: 50,
+                                  //                   ),
+                                  //                   Container(
+                                  //                     width: 120.w,
+                                  //                     // decoration: BoxDecoration(
+                                  //                     //   border: Border(
+                                  //                     //     left: BorderSide(
+                                  //                     //       width: 0.5,
+                                  //                     //       color: Palette.reallightgray
+                                  //                     //     ),
+                                  //                     //   )
+                                  //                     // ),
+                                  //                     child: Center(
+                                  //                       child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
+                                  //                         ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.')
+                                  //                         // 실수
+                                  //                         ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
+                                  //                         // 정수
+                                  //                         :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
+                                  //                           style: TextStyle(
+                                  //                             fontSize: 18,
+                                  //                             fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
+                                  //                           ),
+                                  //                         )
+                                  //                         : Text(''))
+                                  //                     ),
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //             );
+                                  //           })
+                                  //         ),
+                                  //       );
+                                        
+                                  //     }else{return Text('');}
+                                  //   }());
+                                  // }),
+                                  //HERE: 여기 전체가 문제
+                                  Obx((){
+                                    return((){
+                                      if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                        return Container(
+                                          width: 180.w,
+                                          height: 50,
+                                          color: Colors.red,
+                                          child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
-                                          child: Container(
-                                            width: 300.w,
-                                            height: 100,
-                                            // color: Colors.red,
-                                            child: Row(
+                                          child: Obx((){
+                                            return Row(
                                               children: [
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    // POSITION: 곱하기 버튼
-                                                    Obx((){
-                                                      return ((){
-                                                        if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                          return 
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.start,
-                                                            children: [
-                                                              // Obx(()=>GestureDetector(
-                                                              //   child: Container(
-                                                              //     width: 70,
-                                                              //     height: 32,
-                                                              //     decoration: BoxDecoration(
-                                                              //       color: Palette.lightblack,
-                                                              //       borderRadius: BorderRadius.circular(6),
-                                                              //     ),
-                                                              //     child: Center(
-                                                              //       child: ((){
-                                                              //         if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                              //           return Text('× ${controller.multipleValue[index]}',
-                                                              //             style: const TextStyle(
-                                                              //               color: Palette.white,
-                                                              //               fontWeight: FontWeight.w500,
-                                                              //               fontSize: 15
-                                                              //             ),
-                                                              //           );
-                                                              //         }
-                                                              //       }())
-                                                              //     ),
-                                                              //   ),
-                                                              //   onTap: (){
-                                                              //     showDialog(
-                                                              //     context: context, 
-                                                              //       builder: (_){
-                                                              //         return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
-                                                              //       }
-                                                              //     );
-                                                              //   },
-                                                              // )),
-                                                              // SizedBox(width: 15,),
-                                                              // Container(
-                                                              //   width: 120.w,
-                                                                
-                                                              //   child: SingleChildScrollView(
-                                                              //   scrollDirection: Axis.horizontal,
-                                                              //   child: Obx((){
-                                                              //     return Row(
-                                                              //       children: [
-                                                              //         Text(
-                                                              //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                              //           'Total = ',
-                                                              //           style: TextStyle(
-                                                              //             fontSize: 14,
-                                                              //             fontWeight: FontWeight.w500,
-                                                              //             color: Palette.lightblack
-                                                              //           ),
-                                                              //         ),
-                                                              //         Text(
-                                                              //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                              //           '${controller.recipeWeightTotal[listViewIndex]} g',
-                                                              //           style: TextStyle(
-                                                              //             fontSize: 16,
-                                                              //             fontWeight: FontWeight.w800,
-                                                              //             color: Palette.lightblack
-                                                              //           ),
-                                                              //         ),
-                                                              //       ],
-                                                              //     );
-                                                              //   })
-                                                              //   ),
-                                                              // )
-                                                            ],
-                                                          );
-                                                        }else{
-                                                          return SizedBox();
-                                                        }
-                                                      }());
-                                                    }),
-
-                                                    // POSITION: 나누기 버튼
-                                                    Obx((){
-                                                      return ((){
-                                                        if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                          return 
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.start,
-                                                            children: [
-                                                              // Obx(()=>GestureDetector(
-                                                              //   child: Container(
-                                                              //     width: 70,
-                                                              //     height: 32,
-                                                              //     decoration: BoxDecoration(
-                                                              //       color: Palette.lightblack,
-                                                              //       borderRadius: BorderRadius.circular(6),
-                                                              //     ),
-                                                              //     child: Center(
-                                                              //       child: ((){
-                                                              //         if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                              //           return Text('/ ${controller.divideValue[listViewIndex]} g',
-                                                              //             style: const TextStyle(
-                                                              //               color: Palette.white,
-                                                              //               fontWeight: FontWeight.w500,
-                                                              //               fontSize: 15
-                                                              //             ),
-                                                              //           );
-                                                              //         }
-                                                              //       }())
-                                                              //     ),
-                                                              //   ),
-                                                              //  onTap: (){
-                                                              //     showDialog(
-                                                              //     context: context, 
-                                                              //       builder: (_){
-                                                              //         return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
-                                                              //       }
-                                                              //     );
-                                                              //   },
-                                                              // )),
-                                                              // SizedBox(width: 15,),
-                                                              // Container(
-                                                              //   width: 120.w,
-                                                              //   child: SingleChildScrollView(
-                                                              //   scrollDirection: Axis.horizontal,
-                                                              //   child: Obx((){
-                                                              //     return Row(
-                                                              //       children: [
-                                                              //         Text(
-                                                              //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                              //           'Total / ${controller.divideValue.value[listViewIndex]}g = ',
-                                                              //           style: TextStyle(
-                                                              //             fontSize: 14,
-                                                              //             fontWeight: FontWeight.w500,
-                                                              //             color: Palette.lightblack
-                                                              //           ),
-                                                              //         ),
-                                                              //         Text(
-                                                              //           '${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
-                                                              //           style: TextStyle(
-                                                              //             fontSize: 16,
-                                                              //             fontWeight: FontWeight.w800,
-                                                              //             color: Palette.lightblack
-                                                              //           ),
-                                                              //         ),
-                                                              //       ],
-                                                              //     );
-                                                              //   })
-                                                              //   ),
-                                                              // )
-                                                            ],
-                                                          );
-                                                        }else{
-                                                          return SizedBox();
-                                                        }
-                                                      }());
-                                                    }),
-                                                    // Container(
-                                                    //   width: 300.w,
-                                                    //   height: 40,
-                                                    //   color: Colors.pink[200],
-                                                    //   child: Row(
-                                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    //     children: [
-                                                    //       Container(
-                                                    //         width: 100.w,
-                                                    //         color: Colors.green,
-                                                    //         child: Row(
-                                                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    //           children: [
-                                                    //             Icon(Icons.close, color: Palette.gray, size: 22,),
-                                                    //             Icon(Icons.safety_divider, color: Palette.gray, size: 22,),
-                                                    //           ],
-                                                    //         ),
-                                                    //       ),
-                                                    //       Container(
-                                                    //         width: 100.w,
-                                                    //         color: Colors.blue,
-                                                    //         child: Row(
-                                                    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    //           children: [
-                                                    //             Icon(Icons.edit, color: Palette.gray, size: 22,),
-                                                    //             Icon(Icons.delete_outline, color: Palette.gray, size: 22,),
-                                                    //           ],
-                                                    //         ),
-                                                    //       ),
-                                                    //     ],
-                                                    //   ),
-                                                    // )
-                                                  ],
+                                                Text(
+                                                  // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
+                                                  '${int.parse(controller.recipeWeight[listViewIndex])}',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Palette.lightblack
+                                                  ),
+                                                ),
+                                                Text(
+                                                  // '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
+                                                  '${int.parse(controller.recipeWeight[listViewIndex])}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w800,
+                                                    color: Palette.lightblack
+                                                  ),
                                                 ),
                                               ],
-                                            ),
+                                            );
+                                          })
                                           ),
-                                        ),
-                                      ),
-                                      // POSITION: 레시피 수정 버튼
-                                      // AnimatedPositioned(
-                                      //   right: 0,
-                                      //   top: floatButtonClicked ? 50 : 0,
-                                      //   duration: Duration(milliseconds: 1500),
-                                      //   curve: Curves.easeOutExpo,
-                                      //   child: GestureDetector(
-                                      //     onTap: (){
-                                      //       Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
-                                      //     },
-                                      //     child: Container(
-                                      //       width: 38,
-                                      //       height: 38,
-                                      //       margin: EdgeInsets.all(1),
-                                      //       decoration: BoxDecoration(
-                                      //         color: Colors.blue[400],
-                                      //         borderRadius: BorderRadius.circular(10),
-                                      //         // border: Border.all(width: 2,color: Palette.gray)
-                                      //       ),
-                                      //       child: Icon(Icons.edit, color: Palette.white, size: 25,),
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                        );
 
-                                      // POSITION: 레시피 삭제 버튼
-                                      // AnimatedPositioned(
-                                      //   right: 0,
-                                      //   top: floatButtonClicked ? 100 : 0,
-                                      //   duration: Duration(milliseconds: 1500),
-                                      //   curve: Curves.easeOutExpo,
-                                      //   child: GestureDetector(
-                                      //     onTap: (){
-                                      //       showDialog(
-                                      //         context: context, 
-                                      //         builder: (_){
-                                      //           return DefaultAlertDialogOneButton(
-                                      //             title: 'Delete',
-                                      //             contents: Container(
-                                      //               width: 250,
-                                      //               height: 100,
-                                      //               child: Column(
-                                      //                 mainAxisAlignment: MainAxisAlignment.center,
-                                      //                 // ignore: prefer_const_literals_to_create_immutables
-                                      //                 children: [
-                                      //                   const Text('Are you sure delete ?',
-                                      //                     style: TextStyle(
-                                      //                       fontSize: 18,
-                                      //                     ),
-                                      //                     textAlign: TextAlign.center,
-                                      //                   ),
-                                      //                   SizedBox(height: 10,),
-                                      //                   Text("'${controller.recipeList[listViewIndex]}'",
-                                      //                     style: const TextStyle(
-                                      //                       fontSize: 18,
-                                      //                     ),
-                                      //                     textAlign: TextAlign.center,
-                                      //                   ),
-                                      //                 ],
-                                      //               ),
-                                      //             ),
-                                      //             buttonTitle: 'Ok',
-                                      //             btnColor: Palette.white,
-                                      //             btnTextColor: Palette.red,
-                                      //             confirmFunction: (){
-                                      //               // db삭제기능 구현하기
-                                      //               setState(() {
-                                      //                 print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                                      //                 // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
-                                      //                 controller.deleteRecipe(widget.menuTitle, listViewIndex);
-                                      //                 // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
-                                      //               });
-                                      //             },
-                                      //           );
-                                      //         }
-                                      //       );
-                                      //     },
-                                      //     child: Container(
-                                      //       width: 38,
-                                      //       height: 38,
-                                      //       margin: EdgeInsets.all(1),
-                                      //       decoration: BoxDecoration(
-                                      //         color: Colors.red[400],
-                                      //         borderRadius: BorderRadius.circular(10),
-                                      //         // border: Border.all(width: 2,color: Palette.gray)
-                                      //       ),
-                                      //       child: Icon(Icons.delete, color: Palette.white, size: 25,),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      
-                                      
-                                      // Positioned(
-                                      //   top: 0,
-                                      //   right: 0,
-                                      //   child: GestureDetector(
-                                      //     onTap: (){
-                                      //       setState(() {
-                                      //         floatButtonClicked = !floatButtonClicked;
-                                      //       });
-                                      //     },
-                                      //     child: Container(
-                                      //       width: 40,
-                                      //       height: 40,
-                                      //       padding: EdgeInsets.all(10),
-                                      //       decoration: BoxDecoration(
-                                      //         color: Palette.white,
-                                      //         borderRadius: BorderRadius.circular(10),
-                                      //       ),
-                                      //       child: 
-                                      //       // HERE: 둘 중 택1
-                                      //       Icon(
-                                      //         floatButtonClicked ? Icons.arrow_drop_up :  Icons.arrow_drop_down,
-                                      //         color: Palette.gray,
-                                      //       ),
-                                      //       // FittedBox(
-                                      //       //   fit: BoxFit.contain,
-                                              
-                                      //       //   child: SvgPicture.asset(
-                                      //       //     'assets/images/ic_bars.svg',
-                                      //       //     color: floatButtonClicked ? Palette.black : Palette.gray,
-                                      //       //   ),
-                                      //       // ),
-                                      //     ),
-                                      //   ),
-                                      // )
-                                    ],
-                                  )
-                                )
+                                      }else{
+                                        return Text('왜여기가나와');
+                                      }
+                                    }());
+                                  }),
+                                ],
                               ),
-              
-                            ],
-                          );
-                        }
-                      ),
-                    ],
-                  );
-                })
+                            )
+                          )
+                        );
+                      }
+                    );
+                  })
+                ),
               ),
               Container(
                 height: 70.h,
