@@ -36,20 +36,17 @@ class RecipeController extends GetxController{
         multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
         divideValue.add(result.data()![recipeList[i]]['divideWeight']);
 
-        for(int j=0 ; j < (recipeWeight[i].length) ; j ++ ){
-            // sum += (recipeWeight[i][j]);
-            // print('${sum}');
-            // print(object)
-            //HERE: 여기여기여기
+        for(int j=0; j < (recipeWeight[i].length); j++ ){
+            sum+=j;
+        // print(sum);
         }
-        // recipeWeightTotal.add(sum*multipleValue[i]);
-        // print('sum = $sum');
-        // recipeWeightTotal.add(sum);
+        // print('x');
+        // print(multipleValue[i]);
+        // print('===');
+        recipeWeightTotal.add(sum);
         
         
       }
-      // print('asdasd');
-      // print(recipeWeightTotal.value);
     });
     requestStatus.value=RequestStatus.SUCCESS;
   }
@@ -70,6 +67,8 @@ class RecipeController extends GetxController{
     // Get.off(()=>Recipe(menuTitle: menuTitle));
     
   }
+
+  // HERE: 여기부터하자 아이고머리아프다
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     num sum = 0;
 
@@ -78,9 +77,12 @@ class RecipeController extends GetxController{
       // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     );
 
-    for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
-        sum += int.parse(recipeWeight[index][j]) ;
-    }
+    // for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
+    //     // sum += int.parse(recipeWeight[index][j]) ;
+    //     sum += j;
+    //     print(sum);
+    // }
+    // print('==');
 
     multipleValue[index] = int.parse(multipleIndicator);
     recipeWeightTotal[index] = sum*multipleValue[index];
