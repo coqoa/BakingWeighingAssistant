@@ -506,16 +506,18 @@ class _RecipeState extends State<Recipe> {
                                                       color: Palette.lightblack
                                                     ),
                                                   ),
-                                                  Text(
-                                                    // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                                    '${controller.recipeWeightTotal[index] * controller.multipleValue[index]}',
-                                                    // '${controller.multipleValue[index]}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Palette.lightblack
-                                                    ),
-                                                  ),
+                                                  Obx((){
+                                                    return Text(
+                                                      // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
+                                                      '${controller.recipeWeightTotal[index]}',
+                                                      // '${controller.multipleValue[index]}',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Palette.lightblack
+                                                      ),
+                                                    );
+                                                  }),
                                                   Text(
                                                     // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
                                                     ' g',
@@ -550,7 +552,7 @@ class _RecipeState extends State<Recipe> {
                                                   ),
                                                   Text(
                                                     // '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
-                                                    ' = ${(controller.recipeWeightTotal[index] * controller.multipleValue[index]) ~/ controller.divideValue[index]} ea',
+                                                    ' = ${controller.recipeWeightTotal[index] ~/ controller.divideValue[index]} ea',
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight: FontWeight.w800,

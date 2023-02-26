@@ -37,15 +37,10 @@ class RecipeController extends GetxController{
         divideValue.add(result.data()![recipeList[i]]['divideWeight']);
 
         for(int j=0; j < (recipeWeight[i].length); j++ ){
-            sum+=j;
-        // print(sum);
+            // sum+=double.parse(recipeWeight[i][j]);
+            sum+=double.parse(recipeWeight[i][j])*multipleValue[i];
         }
-        // print('x');
-        // print(multipleValue[i]);
-        // print('===');
         recipeWeightTotal.add(sum);
-        
-        
       }
     });
     requestStatus.value=RequestStatus.SUCCESS;
@@ -68,25 +63,22 @@ class RecipeController extends GetxController{
     
   }
 
-  // HERE: 여기부터하자 아이고머리아프다
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     num sum = 0;
-
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
       {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideValue[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
       // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
-    );
-
-    // for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
-    //     // sum += int.parse(recipeWeight[index][j]) ;
-    //     sum += j;
-    //     print(sum);
-    // }
-    // print('==');
-
-    multipleValue[index] = int.parse(multipleIndicator);
-    recipeWeightTotal[index] = sum*multipleValue[index];
+    ).then((value){
+      for(int j=0 ; j < (recipeWeight[index].length-1) ; j ++ ){
+          sum += int.parse(recipeWeight[index][j])*multipleValue[index];
+      }
+    });
+    multipleValue[index] = double.parse(multipleIndicator);
+    recipeWeightTotal[index] = sum;
+    print(recipeWeightTotal); 
+    //HERE: 전체더하는것, 곱셈값 출력해보기 ㅡㅡ
   }
+
   divideValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
       {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
