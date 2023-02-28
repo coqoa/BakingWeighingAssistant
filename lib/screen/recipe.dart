@@ -462,18 +462,21 @@ class _RecipeState extends State<Recipe> {
                                                       //   )
                                                       // ),
                                                       child: Center(
-                                                        child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
-                                                          ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.')
-                                                          // 실수
-                                                          ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
-                                                          // 정수
-                                                          :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
+                                                        child: 
+                                                        Obx(() => 
+                                                        controller.recipeWeight[listViewIndex][idx] != 0.0
+                                                          ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.0')
+                                                            // 정수 출력
+                                                            ?'${(controller.recipeWeight[listViewIndex][idx]*controller.multipleValue[index]).ceil()}'
+                                                            // 실수 출력
+                                                            :'${controller.recipeWeight[listViewIndex][idx]*controller.multipleValue[index]}',
                                                             style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
                                                             ),
                                                           )
-                                                          : Text(''))
+                                                          : Text('ERROR 478')
+                                                        )
                                                       ),
                                                     ),
                                                   ],
@@ -495,7 +498,8 @@ class _RecipeState extends State<Recipe> {
                                   // color: Colors.red,
                                   child: Obx((){
                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                      return Column(
+                                      return 
+                                      Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Row(

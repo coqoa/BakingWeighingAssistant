@@ -37,7 +37,7 @@ class RecipeController extends GetxController{
         divideValue.add(result.data()![recipeList[i]]['divideWeight']);
 
         for(int j=0; j < (recipeWeight[i].length); j++ ){
-            sum+=double.parse(recipeWeight[i][j]);
+            sum+=recipeWeight[i][j];
         }
         recipeWeightTotal.add(sum*multipleValue[i]);
       }
