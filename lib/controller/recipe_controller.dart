@@ -69,7 +69,7 @@ class RecipeController extends GetxController{
       {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideValue[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     ).then((value){
       for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
-          sum += int.parse(recipeWeight[index][j]);
+          sum += int.parse(recipeWeight[index][j]); // 더블형도 같이 합치려면?
       }
     });
     multipleValue[index] = double.parse(multipleIndicator); 

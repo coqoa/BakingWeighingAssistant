@@ -73,7 +73,7 @@ class _RecipeState extends State<Recipe> {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                color: Colors.white,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 2,
@@ -512,8 +512,9 @@ class _RecipeState extends State<Recipe> {
                                               ),
                                               Obx((){
                                                 return Text(
-                                                  '${controller.recipeWeightTotal[index]}g',
-                                                  // '${controller.multipleValue[index]}',
+                                                  controller.recipeWeightTotal[index].toString().contains('.0')
+                                                  ? '${controller.recipeWeightTotal[index].ceil()}g'
+                                                  : '${controller.recipeWeightTotal[index]}g',
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w500,
@@ -533,7 +534,7 @@ class _RecipeState extends State<Recipe> {
                                                         Text(
                                                     'Total ',
                                                     style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       color: Palette.lightblack
                                                     ),
                                                   ),
@@ -643,6 +644,16 @@ class _RecipeState extends State<Recipe> {
               Container(
                 height: 60,
                 // color: Colors.blue,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 2,
+                      offset:Offset(0.0, -4.0),
+                      color: Color.fromRGBO(219, 219, 219, 0.4)
+                    )
+                  ]
+                ),
                 padding: EdgeInsets.only(left: 15.w, right: 15.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
