@@ -55,6 +55,22 @@ class _RecipeState extends State<Recipe> {
 
   void multiflyInitialize(){}
   
+  // parsingDoubleToWeight(weight){
+  //   for(int i=0; i<weight.length; i++){
+  //     if(weight[i].length>0){
+  //       weight[i] = double.parse(weight[i]);
+  //     }
+  //   }
+  // }
+
+  removeDotZero(e){
+    if(e.toString().contains('.0')){
+      return e.ceil();
+    }else{
+      return e;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -367,7 +383,7 @@ class _RecipeState extends State<Recipe> {
                                                               // 'x 200',
                                                               controller.multipleValue[index] == 1
                                                               ? ''
-                                                              : 'x ${controller.multipleValue[index]}',
+                                                              : 'x ${removeDotZero(controller.multipleValue[index])}',
                                                               style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontWeight: FontWeight.w800,
@@ -463,11 +479,13 @@ class _RecipeState extends State<Recipe> {
                                                       // ),
                                                       child: Center(
                                                         child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
-                                                          ? Text(controller.recipeWeight[listViewIndex][idx].toString().contains('.')
-                                                          // 실수
-                                                          ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
-                                                          // 정수
-                                                          :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
+                                                          ? Text(
+                                                            // controller.recipeWeight[listViewIndex][idx].toString().contains('.')
+                                                            // // 실수
+                                                            // ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
+                                                            // // 정수
+                                                            // :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
+                                                            '${removeDotZero(controller.recipeWeight[listViewIndex][idx])}',
                                                             style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
@@ -512,9 +530,7 @@ class _RecipeState extends State<Recipe> {
                                               ),
                                               Obx((){
                                                 return Text(
-                                                  controller.recipeWeightTotal[index].toString().contains('.0')
-                                                  ? '${controller.recipeWeightTotal[index].ceil()}g'
-                                                  : '${controller.recipeWeightTotal[index]}g',
+                                                  '${removeDotZero(controller.recipeWeightTotal[index])}g',
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.w500,

@@ -25,7 +25,7 @@ class _AddRecipeState extends State<AddRecipe> {
 
   String title = '';
   List ingredient = [];
-  List<num> weight = [];
+  List weight = [];
   late dynamic recipeList = [];
 
   void createRecipe()async {
@@ -93,7 +93,7 @@ class _AddRecipeState extends State<AddRecipe> {
       setState(() {
         recipeList = value.data()!['RecipeList'];
         ingredient.add('');
-        weight.add(0);
+        weight.add('');
       });
     });
   }
@@ -263,7 +263,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                       setState(() {
                                         if(ingredient.length <= index){
                                           ingredient.add("");
-                                          weight.add(0);
+                                          weight.add('');
                                         }
                                         ingredient[index] = value;
                                       });
@@ -296,10 +296,10 @@ class _AddRecipeState extends State<AddRecipe> {
                                       setState(() {
                                         if(weight.length <= index){
                                           ingredient.add("");
-                                          weight.add(0);
+                                          weight.add('');
                                         }
                                         // weight[index] = value;
-                                        weight[index] = double.parse(value);
+                                        weight[index] = value;
                                       });
                                     } ,
                                   ),
