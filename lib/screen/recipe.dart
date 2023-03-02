@@ -540,28 +540,36 @@ class _RecipeState extends State<Recipe> {
                           GestureDetector(
                             onTap: (){
                               // MODAL:
-                              showDialog(
-                                context: context, 
-                                builder: (_){
-                                  return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
-                                }
-                              );
+                              if(controller.multipleValue.isNotEmpty){
+                                showDialog(
+                                  context: context, 
+                                  builder: (_){
+                                    return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
+                                  }
+                                );
+                              }
                             },
                             child: Container(
                               width: 60,
                               height: 60,
                               child: Obx((){
-                                return Icon(
+                                return 
+                                Icon(
                                   Icons.close, 
                                   color: ((){
                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                      return controller.multipleValue[listViewIndex] == 1 ? Palette.lightgray : Palette.red; 
+                                      if(controller.multipleValue.isNotEmpty){
+                                        return controller.multipleValue[listViewIndex] == 1 ? Palette.lightgray : Palette.red; 
+                                      }else{
+                                        return Palette.lightgray;
+                                      }
                                     }else{
                                       return Palette.lightgray;
                                     }
                                   }()),
                                   size: 22,
                                 );
+                                // Text('${}');
                               })
                             ),
                           ),
@@ -569,12 +577,14 @@ class _RecipeState extends State<Recipe> {
                           GestureDetector(
                             onTap: (){
                               // MODAL:
-                              showDialog(
-                                context: context, 
-                                builder: (_){
-                                  return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
-                                }
-                              );
+                              if(controller.divideWeight.isNotEmpty){
+                                showDialog(
+                                  context: context, 
+                                  builder: (_){
+                                    return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
+                                  }
+                                );
+                              }
                             },
                             child:Container(
                               width: 60,
@@ -584,7 +594,11 @@ class _RecipeState extends State<Recipe> {
                                   Icons.safety_divider, 
                                   color: ((){
                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                      return controller.divideWeight[listViewIndex] == 1 ? Palette.lightgray : Palette.blue;
+                                      if(controller.divideWeight.isNotEmpty){
+                                        return controller.divideWeight[listViewIndex] == 1 ? Palette.lightgray : Palette.blue;
+                                      }else{
+                                        return Palette.lightgray;
+                                      }
                                     }else{
                                       return Palette.lightgray;
                                     }
@@ -606,7 +620,9 @@ class _RecipeState extends State<Recipe> {
                           // NAV: 수정 아이콘
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], divideWeight: controller.divideWeight[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
+                              if(controller.recipeList.isNotEmpty){
+                                Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], divideWeight: controller.divideWeight[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
+                              }
                             },
                             child: Container(
                               width: 60,
@@ -618,48 +634,50 @@ class _RecipeState extends State<Recipe> {
                           GestureDetector(
                             onTap: (){
                               // MODAL:
-                              showDialog(
-                                context: context, 
-                                builder: (_){
-                                  return DefaultAlertDialogOneButton(
-                                    title: 'Delete',
-                                    contents: Container(
-                                      width: 250,
-                                      height: 100,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        // ignore: prefer_const_literals_to_create_immutables
-                                        children: [
-                                          const Text('Are you sure delete ?',
-                                            style: TextStyle(
-                                              fontSize: 18,
+                              if(controller.recipeList.isNotEmpty){
+                                showDialog(
+                                  context: context, 
+                                  builder: (_){
+                                    return DefaultAlertDialogOneButton(
+                                      title: 'Delete',
+                                      contents: Container(
+                                        width: 250,
+                                        height: 100,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          // ignore: prefer_const_literals_to_create_immutables
+                                          children: [
+                                            const Text('Are you sure delete ?',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          SizedBox(height: 10,),
-                                          Text("'${controller.recipeList[listViewIndex]}'",
-                                            style: const TextStyle(
-                                              fontSize: 18,
+                                            SizedBox(height: 10,),
+                                            Text("'${controller.recipeList[listViewIndex]}'",
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    buttonTitle: 'Ok',
-                                    btnColor: Palette.white,
-                                    btnTextColor: Palette.red,
-                                    confirmFunction: (){
-                                      // db삭제기능 
-                                      setState(() {
-                                        // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
-                                        controller.deleteRecipe(widget.menuTitle, listViewIndex);
-                                        // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
-                                      });
-                                    },
-                                  );
-                                }
-                              );
+                                      buttonTitle: 'Ok',
+                                      btnColor: Palette.white,
+                                      btnTextColor: Palette.red,
+                                      confirmFunction: (){
+                                        // db삭제기능 
+                                        setState(() {
+                                          // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
+                                          controller.deleteRecipe(widget.menuTitle, listViewIndex);
+                                          // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
+                                        });
+                                      },
+                                    );
+                                  }
+                                );
+                              }
                             },
                             child: Container(
                               width: 60,

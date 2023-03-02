@@ -106,10 +106,6 @@ class _EditRecipeState extends State<EditRecipe> {
 
   @override
   void initState(){
-    print('-=-=-=');
-    print(widget.multipleValue);
-    print(widget.divideWeight);
-    print('-=-=-=');
     super.initState();
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
