@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,11 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EditRecipe extends StatefulWidget {
-  const EditRecipe({super.key, required this.menuTitle, required this.recipeTitle, required this.multipleValue});
+  const EditRecipe({super.key, required this.menuTitle, required this.recipeTitle, required this.multipleValue, required this.divideWeight});
 
   final String menuTitle;
   final String recipeTitle;
-  final int multipleValue;
+  final dynamic multipleValue;
+  final dynamic divideWeight;
 
   @override
   State<EditRecipe> createState() => _EditRecipeState();
@@ -33,9 +35,10 @@ class _EditRecipeState extends State<EditRecipe> {
 
   late TextEditingController _controller;
   
+  Rx<RequestStatus> requestStatus = RequestStatus.EMPTY.obs;
   // 완료버튼
   void modifyRecipe()async {
-    
+    requestStatus.value=RequestStatus.LOADING;
     if(title.isNotEmpty){
       // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeList.contains(title) && originalTitle != title){
@@ -72,7 +75,7 @@ class _EditRecipeState extends State<EditRecipe> {
         });
         // new 데이터 입력
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
-          {title:{'multipleValue': widget.multipleValue,'ingredient':ingredient,'weight':weight}}
+          {title:{'multipleValue': widget.multipleValue, 'divideWeight': widget.divideWeight, 'ingredient':ingredient,'weight':weight}}
         );
         // Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
         Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
@@ -98,10 +101,15 @@ class _EditRecipeState extends State<EditRecipe> {
         maxWidth: 300.w,
       );
     }
+    requestStatus.value=RequestStatus.SUCCESS;
   }
 
   @override
   void initState(){
+    print('-=-=-=');
+    print(widget.multipleValue);
+    print(widget.divideWeight);
+    print('-=-=-=');
     super.initState();
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {

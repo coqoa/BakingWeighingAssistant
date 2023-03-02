@@ -20,7 +20,7 @@ class RecipeController extends GetxController{
   RxList recipeWeightTotal= [].obs;
   RxInt testListSelected = 0.obs;
   RxList multipleValue = [].obs;
-  RxList divideValue = [].obs;
+  RxList divideWeight = [].obs;
 
   loadRecipeList(menuTitle) async{
     requestStatus.value=RequestStatus.LOADING;
@@ -34,10 +34,12 @@ class RecipeController extends GetxController{
         recipeIngredient.add(result.data()![recipeList[i]]['ingredient']);
         recipeWeight.add(result.data()![recipeList[i]]['weight']);
         multipleValue.add(result.data()![recipeList[i]]['multipleValue']);
-        divideValue.add(result.data()![recipeList[i]]['divideWeight']);
+        divideWeight.add(result.data()![recipeList[i]]['divideWeight']);
 
         for(int j=0; j < (recipeWeight[i].length); j++ ){
+          if(recipeWeight[i][j].length>0){
             sum+=double.parse(recipeWeight[i][j]);
+          }
         }
         recipeWeightTotal.add(sum*multipleValue[i]);
       }
@@ -66,10 +68,12 @@ class RecipeController extends GetxController{
     num sum = 0;
     print('전 = $recipeWeightTotal');
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-      {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideValue[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideWeight[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     ).then((value){
       for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
-          sum += int.parse(recipeWeight[index][j]); // 더블형도 같이 합치려면?
+        if(recipeWeight[index][j].length>0){
+          sum+=double.parse(recipeWeight[index][j]);
+        }
       }
     });
     multipleValue[index] = double.parse(multipleIndicator); 
@@ -79,9 +83,7 @@ class RecipeController extends GetxController{
   divideValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
       {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
-      // {recipeTitle:{'multipleValue':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     );
-    divideValue[index] = int.parse(multipleIndicator);
-    // multipleValue[index] = double.parse(multipleIndicator);
+    divideWeight[index] = int.parse(multipleIndicator);
   }
 }

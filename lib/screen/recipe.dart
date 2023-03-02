@@ -81,13 +81,13 @@ class _RecipeState extends State<Recipe> {
       body: SafeArea(
         child: Container(
           height: screenHeight,
-          // color: Colors.red,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // HEADER: 앱 바
               Container(
                 height: 100,
+                padding: EdgeInsets.only(top: 10, bottom: 10,),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -98,11 +98,10 @@ class _RecipeState extends State<Recipe> {
                     )
                   ]
                 ),
-                padding: EdgeInsets.only(top: 10, bottom: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // SECTION: 앱 바
+                    // SECTION: 앱 바 상단
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -110,9 +109,9 @@ class _RecipeState extends State<Recipe> {
                         GestureDetector(
                           child: Container(
                             width: 90.w,
+                            padding: EdgeInsets.only(left: 10),
                             // color: Colors.red,
                             // color: Colors.transparent,
-                            padding: EdgeInsets.only(left: 10),
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Icon(
@@ -135,7 +134,7 @@ class _RecipeState extends State<Recipe> {
                               scrollDirection: Axis.horizontal,
                               child: Text(widget.menuTitle,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                   color: Palette.black,
                                   fontWeight: FontWeight.w800
                                 ),
@@ -147,20 +146,14 @@ class _RecipeState extends State<Recipe> {
                         Container(
                           width: 90.w,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                    width: 40,
-                                    // height: 40,
-                                    color: Palette.white,
-                                    margin: EdgeInsets.only(right: 5),
-                                    // child: Icon(Icons.chat_bubble_outline_sharp, color: Palette.lightblack, size: 25,),
-                                    // child: Icon(Icons.chat, color: Palette.lightblack, size: 25,),
-                                    // child: Icon(Icons.mark_chat_unread_outlined, color: Palette.lightblack, size: 25,),
-                                    child: Icon(Icons.content_paste, color: Palette.gray, size: 22,),
-                                  ),
+                                child: Container(
+                                  width: 40,
+                                  color: Palette.white,
+                                  // margin: EdgeInsets.only(right: 5),
+                                  child: Icon(Icons.content_paste, color: Palette.gray, size: 22,),
                                 ),
                                 onTap: (){
                                   setState(() {
@@ -175,28 +168,16 @@ class _RecipeState extends State<Recipe> {
                                 },
                               ),
                               GestureDetector(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                    width: 40,
-                                    // height: 40,
-                                    color: Palette.white,
-                                    margin: EdgeInsets.only(right: 5),
-                                    // child: Icon(Icons.add, color: Palette.lightblack, size: 25,),
-                                    // child: Icon(Icons.post_add, color: Palette.lightblack, size: 30,),
-                                    // child: Icon(Icons.note_add_outlined, color: Palette.lightblack, size: 26,),
-                                    // child: Icon(Icons.assignment_rounded, color: Palette.lightblack, size: 30,),
-                                    child: Icon(Icons.add, color: Palette.gray, size: 30,),
-                                    // child: FittedBox(
-                                    //   fit: BoxFit.none,
-                                    //   child: SvgPicture.asset(
-                                    //     'assets/images/ic_plus1.svg',
-                                    //     width: 20,
-                                    //     height: 25,
-                                    //     color: Palette.darkgray,
-                                    //   ),
-                                    // ),
-                                  ),
+                                child: Container(
+                                  width: 40,
+                                  // height: 40,
+                                  color: Palette.white,
+                                  // margin: EdgeInsets.only(right: 5),
+                                  // child: Icon(Icons.add, color: Palette.lightblack, size: 25,),
+                                  // child: Icon(Icons.post_add, color: Palette.lightblack, size: 30,),
+                                  // child: Icon(Icons.note_add_outlined, color: Palette.lightblack, size: 26,),
+                                  // child: Icon(Icons.assignment_rounded, color: Palette.lightblack, size: 30,),
+                                  child: Icon(Icons.add, color: Palette.gray, size: 30,),
                                 ),
                                 onTap: (){
                                   Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
@@ -210,79 +191,59 @@ class _RecipeState extends State<Recipe> {
 
                     // SECTION: 리스트 인디케이터
                     Container(
-                      decoration: BoxDecoration(
-                        color: Palette.backgroundColor,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        
-                      ),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          width: 230.w,
-                          height: 38.h,
-                          padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                          decoration: BoxDecoration(
-                            color: Palette.reallightgray,
-                            borderRadius: BorderRadius.circular(20),
-                            // ignore: prefer_const_literals_to_create_immutables
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 2,
-                                offset:Offset(0.0, 2.0),
-                                color: Color.fromRGBO(219, 219, 219, 1)
-                              )
-                            ]
-                          ),
-                          // 리스트 인디케이터 컨텐츠
-                          child:Obx((){
-                            return  ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.recipeList.length,
-                              controller: _scrollController,
-                              itemBuilder: (BuildContext context, int index) {
-                                return AutoScrollTag(
-                                  key: ValueKey(index), 
-                                  controller: _scrollController, 
-                                  index: index, 
-                                  child: GestureDetector(
-                                    // 메뉴 버튼
-                                    child: Container(
-                                      // color: Colors.red,
-                                      margin: EdgeInsets.only(left: 5.w, right: 5.w),
-                                      child: Center(
-                                        child: Text(
-                                          controller.recipeList[index],
-                                          style: TextStyle(
-                                            color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
-                                            fontWeight: listViewIndex == index ? FontWeight.w500 : FontWeight.normal, // regular
-                                            fontSize: 16
-                                          ),
-                                        )
-                                      ),
-                                    ),
-                                    // 터치 이벤트
-                                    onTap: () {
-                                      // 인디케이터 컬러변경
-                                      setState(() {
-                                        listViewIndex = index;
-                                      });
-                                      // 페이지 이동
-                                      _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 400)); // 페이지변경 애니메이션
-                                      // 계산기 초기화
-                                      multiflyInitialize();
-                                    },
-                                  )
-                                );
-                              }
-                            );
-                          })
+                      child: Container(
+                        width: 300,
+                        height: 35,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        decoration: BoxDecoration(
+                          color: Palette.reallightgray,
+                          borderRadius: BorderRadius.circular(20),
                         ),
+                        child:Obx((){
+                          return  ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.recipeList.length,
+                            controller: _scrollController,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AutoScrollTag(
+                                key: ValueKey(index), 
+                                controller: _scrollController, 
+                                index: index, 
+                                child: GestureDetector(
+                                  // ASIDE: 메뉴 버튼
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 5.w, right: 5.w),
+                                    child: Center(
+                                      child: Text(
+                                        controller.recipeList[index],
+                                        style: TextStyle(
+                                          color: listViewIndex == index ? Palette.black : Palette.gray, // darkgray
+                                          fontWeight: listViewIndex == index ? FontWeight.w600 : FontWeight.normal, // regular
+                                          fontSize: 16
+                                        ),
+                                      )
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      listViewIndex = index;
+                                    });
+                                    // 페이지 이동
+                                    _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 400));
+                                    // 계산기 초기화
+                                    multiflyInitialize();
+                                  },
+                                )
+                              );
+                            }
+                          );
+                        })
                       ),
                     ),
-
                   ],
                 ),
               ),
+
               // MAIN: 메인 컨텐츠
               Expanded(
                 child: Obx((){
@@ -301,31 +262,33 @@ class _RecipeState extends State<Recipe> {
                         child: Container(
                           width: 300.w,
                           height: screenHeight-220,
-                          margin: EdgeInsets.only(top: 15, bottom: 15),
-                          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                           decoration: BoxDecoration(
-                            // color: Colors.orange,
-                            color: Palette.backgroundColor, 
+                            color: Palette.white, 
                             borderRadius: BorderRadius.circular(15),
-                            // ignore: prefer_const_literals_to_create_immutables
                             boxShadow: [
                               const BoxShadow(
                                 blurRadius: 30,
                                 offset: Offset(0.8, 1.5),
-                                color: Color.fromRGBO(0, 0, 0, .13),
+                                color: Color.fromRGBO(0, 0, 0, .2),
                               )
                             ]
                           ),
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            // color: Colors.green[200],
+                          child: SingleChildScrollView(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 // CONTENT_TITLE: 타이틀
                                 Container(
-                                  height: 80,
-                                  // color: Colors.purple,
+                                  height: 90,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Palette.reallightgray,
+                                          width: 1
+                                        ),
+                                      )
+                                    ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -366,7 +329,6 @@ class _RecipeState extends State<Recipe> {
                                                   child: Text('g',
                                                     style: TextStyle(
                                                       fontSize: 18,
-                                                      // fontWeight: FontWeight.w800
                                                     ),
                                                   ),
                                                 ),
@@ -397,7 +359,6 @@ class _RecipeState extends State<Recipe> {
                                                       return SizedBox();
                                                     }
                                                   }());
-                                                  
                                                 })
                                               ]
                                             )
@@ -407,23 +368,11 @@ class _RecipeState extends State<Recipe> {
                                     ],
                                   ),
                                 ),
+                          
                                 // CONTENT_DISCRIPTION: 
                                 SingleChildScrollView(
                                   child: Container(
-                                    height: screenHeight-250-130, //INFO: 여기 손봐야함
-                                    // color: Colors.grey,
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        top: BorderSide(
-                                          color: Palette.reallightgray,
-                                          width: 1
-                                        ),
-                                        bottom: BorderSide(
-                                          color: Palette.reallightgray,
-                                          width: 1
-                                        ),
-                                      )
-                                    ),
+                                    height: screenHeight-250-140, //INFO: 여기 손봐야함
                                     child: Obx((){
                                       return ((){
                                         if(controller.requestStatus.value==RequestStatus.SUCCESS){
@@ -433,30 +382,12 @@ class _RecipeState extends State<Recipe> {
                                               
                                               return Container(
                                                 height: 40,
-                                                decoration: BoxDecoration(
-                                                  border: Border(
-                                                    // top: BorderSide(
-                                                    //   width: 0.5,
-                                                    //   color: Palette.reallightgray
-                                                    // ),
-                                                    // bottom: BorderSide(
-                                                    //   width: 0.5,
-                                                    //   color: Palette.reallightgray
-                                                    // ),
-                                                  )
-                                                ),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width: 120.w,
                                                       decoration: BoxDecoration(
-                                                        // border: Border(
-                                                          // right: BorderSide(
-                                                          //   width: 0.5,
-                                                          //   color: Palette.reallightgray
-                                                          // ),
-                                                        // )
                                                       ),
                                                       child: Center(
                                                         child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
@@ -465,33 +396,21 @@ class _RecipeState extends State<Recipe> {
                                                           ),
                                                         ),
                                                       ),
-                                                      // height: 50,
                                                     ),
                                                     Container(
                                                       width: 120.w,
-                                                      // decoration: BoxDecoration(
-                                                      //   border: Border(
-                                                      //     left: BorderSide(
-                                                      //       width: 0.5,
-                                                      //       color: Palette.reallightgray
-                                                      //     ),
-                                                      //   )
-                                                      // ),
                                                       child: Center(
-                                                        child: Obx(() => controller.recipeWeight[listViewIndex][idx].length != 0 
+                                                        child: Obx(() => 
+                                                          controller.recipeWeight[listViewIndex][idx].length != 0 
                                                           ? Text(
-                                                            // controller.recipeWeight[listViewIndex][idx].toString().contains('.')
-                                                            // // 실수
-                                                            // ?'${double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}'
-                                                            // // 정수
-                                                            // :'${int.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index]}',
                                                             '${removeDotZero(controller.recipeWeight[listViewIndex][idx])}',
                                                             style: TextStyle(
                                                               fontSize: 16,
                                                               fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
                                                             ),
                                                           )
-                                                          : Text(''))
+                                                          : Text('')
+                                                        )
                                                       ),
                                                     ),
                                                   ],
@@ -499,18 +418,24 @@ class _RecipeState extends State<Recipe> {
                                               );
                                             })
                                           );
-                                          
                                         }else{return Text('');}
                                       }());
                                     }),
                                   ),
                                 ),
+                          
                                 // CONTENT_FOOTER: 총 합 / 나누기 섹션
                                 Container(
-                                  // width: 120.w,
-                                  height: 60,
+                                  height: 70,
                                   padding: EdgeInsets.only(left: 30, right: 30),
-                                  // color: Colors.red,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: Palette.reallightgray,
+                                          width: 1
+                                        ),
+                                      )
+                                    ),
                                   child: Obx((){
                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                       return Column(
@@ -521,52 +446,48 @@ class _RecipeState extends State<Recipe> {
                                             children: [
                                               Text(
                                                 'Total ',
-                                                // '${controller.multipleValue[index]}',
                                                 style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
                                                   color: Palette.lightblack
                                                 ),
                                               ),
-                                              Obx((){
-                                                return Text(
-                                                  '${removeDotZero(controller.recipeWeightTotal[index])}g',
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Palette.lightblack
-                                                  ),
-                                                );
-                                              }),
+                                              Text(
+                                                '${removeDotZero(controller.recipeWeightTotal[index])} g',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Palette.lightblack
+                                                ),
+                                              )
                                             ],
                                           ),
-                                          controller.divideValue[index] != 1
+                                          controller.divideWeight[index] != 1
                                           ? Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Container(
-                                                child: Row(
-                                                  children: [
-                                                        Text(
-                                                    'Total ',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Palette.lightblack
-                                                    ),
+                                              Row(
+                                                children: [
+                                                      Text(
+                                                  'Total ',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Palette.lightblack
                                                   ),
-                                                  Text(
-                                                    '/ ${controller.divideValue[index]}',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w800,
-                                                      color: Palette.blue
-                                                    ),
-                                                  ),
-                                                  ],
                                                 ),
+                                                Text(
+                                                  '/ ${controller.divideWeight[index]}',
+                                                  // 'bb',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w800,
+                                                    color: Palette.blue
+                                                  ),
+                                                ),
+                                                ],
                                               ),
                                               Text(
-                                                '${controller.recipeWeightTotal[index] ~/ controller.divideValue[index]} ea',
+                                                '${controller.recipeWeightTotal[index] ~/ controller.divideWeight[index]} ea',
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   color: Palette.lightblack
@@ -578,74 +499,10 @@ class _RecipeState extends State<Recipe> {
                                         ],
                                       );
                                     }else{
-                                      return Text('ERROR 562');
+                                      return Text('ERROR 502');
                                     }
                                   })
                                 ),
-                          
-                                // Container(
-                                //   width: 120.w,
-                                  
-                                //   child: SingleChildScrollView(
-                                //   scrollDirection: Axis.horizontal,
-                                //   child: Obx((){
-                                //     return Row(
-                                //       children: [
-                                //         Text(
-                                //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                //           'Total = ',
-                                //           style: TextStyle(
-                                //             fontSize: 14,
-                                //             fontWeight: FontWeight.w500,
-                                //             color: Palette.lightblack
-                                //           ),
-                                //         ),
-                                //         Text(
-                                //           // '${controller.recipeWeightTotal[listViewIndex]} g', //HERE: 여기문제
-                                //           'g',
-                                //           style: TextStyle(
-                                //             fontSize: 16,
-                                //             fontWeight: FontWeight.w800,
-                                //             color: Palette.lightblack
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     );
-                                //   })
-                                //   ),
-                                // ),
-                                // Container(
-                                //   width: 120.w,
-                                //   child: SingleChildScrollView(
-                                //   scrollDirection: Axis.horizontal,
-                                //   child: Obx((){
-                                //     return Row(
-                                //       children: [
-                                //         Text(
-                                //           // 'Total : 1000g / ${controller.divideValue.value[0]}g = 100 ea',
-                                //           // 'Total / ${controller.divideValue.value[listViewIndex]}g = ',
-                                //           'Total g = ',
-                                //           style: TextStyle(
-                                //             fontSize: 14,
-                                //             fontWeight: FontWeight.w500,
-                                //             color: Palette.lightblack
-                                //           ),
-                                //         ),
-                                //         Text(
-                                //           // '${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
-                                //           // style: TextStyle(
-                                //           '${controller.recipeWeightTotal.value[listViewIndex] ~/ controller.divideValue.value[listViewIndex]} ea',
-                                //           style: TextStyle(
-                                //             fontSize: 16,
-                                //             fontWeight: FontWeight.w800,
-                                //             color: Palette.lightblack
-                                //           ),
-                                //         ),
-                                //       ],
-                                //     );
-                                //   })
-                                //   ),
-                                // ),
                               ],
                             ),
                           )
@@ -659,7 +516,6 @@ class _RecipeState extends State<Recipe> {
               // FOOTER: 하단네비게이션바
               Container(
                 height: 60,
-                // color: Colors.blue,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -677,7 +533,6 @@ class _RecipeState extends State<Recipe> {
                     // SECTION: 연산
                     Container(
                       width: 130,
-                      // color: Colors.red,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -695,7 +550,6 @@ class _RecipeState extends State<Recipe> {
                             child: Container(
                               width: 60,
                               height: 60,
-                              // color: Colors.orange,
                               child: Obx((){
                                 return Icon(
                                   Icons.close, 
@@ -725,13 +579,12 @@ class _RecipeState extends State<Recipe> {
                             child:Container(
                               width: 60,
                               height: 60,
-                              // color: Colors.teal,
                               child: Obx((){
                                 return Icon(
                                   Icons.safety_divider, 
                                   color: ((){
                                     if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                      return controller.divideValue[listViewIndex] == 1 ? Palette.lightgray : Palette.blue;
+                                      return controller.divideWeight[listViewIndex] == 1 ? Palette.lightgray : Palette.blue;
                                     }else{
                                       return Palette.lightgray;
                                     }
@@ -747,19 +600,17 @@ class _RecipeState extends State<Recipe> {
                     // SECTION: 수정 / 삭제
                     Container(
                       width: 130,
-                      // color: Colors.green,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // NAV: 수정 아이콘
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
+                              Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], divideWeight: controller.divideWeight[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
                             },
                             child: Container(
                               width: 60,
                               height: 60,
-                              // color: Colors.purple,
                               child: Icon(Icons.edit, color: Palette.gray, size: 22,),
                             ),
                           ),
@@ -799,9 +650,8 @@ class _RecipeState extends State<Recipe> {
                                     btnColor: Palette.white,
                                     btnTextColor: Palette.red,
                                     confirmFunction: (){
-                                      // db삭제기능 구현하기
+                                      // db삭제기능 
                                       setState(() {
-                                        print('DELETE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                                         // Get.off(()=>Recipe(menuTitle: widget.menuTitle));
                                         controller.deleteRecipe(widget.menuTitle, listViewIndex);
                                         // 컨트롤러의 리스트를 변경한 뒤 db수정작업 + 새로고침? // TODO : 2023 02 09
@@ -814,7 +664,6 @@ class _RecipeState extends State<Recipe> {
                             child: Container(
                               width: 60,
                               height: 60,
-                              // color: Colors.pink,
                               child: Icon(Icons.delete_outline, color: Palette.gray, size: 22,),
                             ),
                           ),
@@ -824,7 +673,6 @@ class _RecipeState extends State<Recipe> {
                   ],
                 ),
               )
-
             ],
           ),
         ),
