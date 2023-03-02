@@ -110,22 +110,27 @@ class SignController extends GetxController{
   Future<void> signUp(sign)async {
     // 회원가입검증
     try{
-      final newUser = await _authentication.createUserWithEmailAndPassword(
-        email: userEmail.value, 
-        password: userPassword.value,
-      );
-      if(newUser.user != null){
-        // print('가입완료 -> 이동할 페이지 넣기');
-        Get.to(()=> Menu());
+      print('user email = ${userEmail.value}');
+      print('user password = ${userPassword.value}');
+      print('user password repeat = ${userPasswordRepeat.value}');
+      print('----------');
+      if(userPassword.value == userPasswordRepeat.value){
+        final newUser = await _authentication.createUserWithEmailAndPassword(
+          email: userEmail.value, 
+          password: userPassword.value,
+        );
+        if(newUser.user != null){
+          // print('가입완료 -> 이동할 페이지 넣기');
+          Get.to(()=> Menu());
+        }
+      }else{
+        validation('Passwords do not match', sign);
       }
+
     }catch(e){
       print('e');
       print(e);
       await validation(e.toString(), sign);
     }
-    print('user email = ${userEmail.value}');
-    print('user password = ${userPassword.value}');
-    print('user password repeat = ${userPasswordRepeat.value}');
-    print('----------');
   }
 }

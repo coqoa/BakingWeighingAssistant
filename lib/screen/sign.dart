@@ -231,15 +231,15 @@ class _SignState extends State<Sign> {
                                           child: Center(
                                             child: Text(controller.validationResult.value,
                                               style: TextStyle(
-                                                fontSize: 15,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.w400,
-                                                // color: Palette.red
+                                                color: Palette.red
                                               ),
                                             ),
                                           ),
                                         )
                                       ),
-                                      SizedBox(height: 5.h,),
+                                      SizedBox(height: 10,),
                                       // NEXT BUTTON
                                       InkWell(
                                         onTap: () {

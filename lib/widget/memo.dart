@@ -80,71 +80,73 @@ class _MemoState extends State<Memo> {
         onTap: (){
           Navigator.of(context).pop();
         },
-        child: Container(
-          width: 270.w,
-          height: 430.h,
-          // color: Colors.red,
-          child: Column(
-            children: [
-              Container(
-                height: 370.h,
-                // color: Colors.green[100],
-                //  텍스트 필드 너무 큼, 밑줄 없애고 오토포커스?
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                child: TextFormField(
-                  maxLength: 5000,
-                  controller: _textEditingController,
-                  onChanged: (value ) {
-                    memoContents = value;
-                  },
-                  autovalidateMode:
-                    AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    // counterText: "aaaaaaaaaa",
-                    hintText: "Enter within 500 characters",
-                    border: InputBorder.none,
+        child: SingleChildScrollView(
+          child: Container(
+            width: 270.w,
+            height: 410.h,
+            // color: Colors.red,
+            child: Column(
+              children: [
+                Container(
+                  height: 350.h,
+                  // color: Colors.green[100],
+                  //  텍스트 필드 너무 큼, 밑줄 없애고 오토포커스?
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: TextFormField(
+                    maxLength: 5000,
+                    controller: _textEditingController,
+                    onChanged: (value ) {
+                      memoContents = value;
+                    },
+                    autovalidateMode:
+                      AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      // counterText: "aaaaaaaaaa",
+                      hintText: "Enter within 500 characters",
+                      border: InputBorder.none,
+                    ),
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    minLines: 1,
+                    maxLines: 20,
                   ),
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  minLines: 1,
-                  maxLines: 20,
                 ),
-              ),
-              Container(
-                height: 50.h,
-                // color: Colors.red[100],
-                child: GestureDetector(
-                  child: Center(
-                    child: Container(
-                      width: 120.w,
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Palette.gray, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text('Save',
-                          style: TextStyle(
-                            color: Palette.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16
+                Container(
+                  height: 50.h,
+                  // color: Colors.red[100],
+                  child: GestureDetector(
+                    child: Center(
+                      child: Container(
+                        width: 120.w,
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Palette.gray, width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Text('Save',
+                            style: TextStyle(
+                              color: Palette.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16
+                            ),
                           ),
                         ),
                       ),
                     ),
+                    onTap: (){
+                      // setState(() {
+                      //   widget.memoOpen = false;
+                      // });
+                      // print(memoContents); // TODO db로 데이터를 보내봐야 알 것 같음
+                      // TODO SAVE EVENT 
+                      editMemo(memoContents);
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  onTap: (){
-                    // setState(() {
-                    //   widget.memoOpen = false;
-                    // });
-                    // print(memoContents); // TODO db로 데이터를 보내봐야 알 것 같음
-                    // TODO SAVE EVENT 
-                    editMemo(memoContents);
-                    Navigator.of(context).pop();
-                  },
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

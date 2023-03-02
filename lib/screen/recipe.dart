@@ -476,7 +476,7 @@ class _RecipeState extends State<Recipe> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '/ ${controller.divideWeight[index]}',
+                                                  '/ ${controller.divideWeight[index]} g',
                                                   // 'bb',
                                                   style: TextStyle(
                                                     fontSize: 14,
