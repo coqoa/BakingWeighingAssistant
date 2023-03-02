@@ -552,6 +552,7 @@ class _RecipeState extends State<Recipe> {
                             child: Container(
                               width: 60,
                               height: 60,
+                              color: Palette.white,
                               child: Obx((){
                                 return 
                                 Icon(
@@ -589,6 +590,7 @@ class _RecipeState extends State<Recipe> {
                             child:Container(
                               width: 60,
                               height: 60,
+                              color: Palette.white,
                               child: Obx((){
                                 return Icon(
                                   Icons.safety_divider, 
@@ -627,6 +629,7 @@ class _RecipeState extends State<Recipe> {
                             child: Container(
                               width: 60,
                               height: 60,
+                              color: Palette.white,
                               child: Icon(Icons.edit, color: Palette.gray, size: 22,),
                             ),
                           ),
@@ -682,6 +685,7 @@ class _RecipeState extends State<Recipe> {
                             child: Container(
                               width: 60,
                               height: 60,
+                              color: Palette.white,
                               child: Icon(Icons.delete_outline, color: Palette.gray, size: 22,),
                             ),
                           ),
