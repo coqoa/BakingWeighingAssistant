@@ -68,7 +68,7 @@ class RecipeController extends GetxController{
     num sum = 0;
     print('전 = $recipeWeightTotal');
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-      {recipeTitle:{'multipleValue':int.parse(multipleIndicator),'divideWeight':divideWeight[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      {recipeTitle:{'multipleValue':double.parse(multipleIndicator),'divideWeight':divideWeight[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     ).then((value){
       for(int j=0 ; j < (recipeWeight[index].length) ; j ++ ){
         if(recipeWeight[index][j].length>0){
@@ -82,8 +82,8 @@ class RecipeController extends GetxController{
 
   divideValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
-      {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':int.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
+      {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     );
-    divideWeight[index] = int.parse(multipleIndicator);
+    divideWeight[index] = double.parse(multipleIndicator);
   }
 }
