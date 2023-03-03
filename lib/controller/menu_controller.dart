@@ -1,3 +1,4 @@
+import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +11,7 @@ import '../screen/recipe.dart';
 class MenuController extends GetxController{
 
   RxList menuList = [].obs;
+  Rx<RequestStatus> requestStatus = RequestStatus.EMPTY.obs;
   
   // String? email = FirebaseAuth.instance.currentUser?.email;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -17,9 +19,11 @@ class MenuController extends GetxController{
   // var emailPath = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email);
 
   loadMenuList()async{
+    requestStatus.value=RequestStatus.LOADING;
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
       menuList.value = result.data()!['menuList'];
     });
+    requestStatus.value=RequestStatus.SUCCESS;
   }
 
   moveToMenuDetails(menuTitle){

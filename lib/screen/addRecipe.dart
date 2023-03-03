@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AddRecipe extends StatefulWidget {
@@ -106,7 +107,7 @@ class _AddRecipeState extends State<AddRecipe> {
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
-
+        centerTitle: true,
         // 뒤로가기버튼
         leading:  GestureDetector(
           onTap: (){
@@ -116,18 +117,19 @@ class _AddRecipeState extends State<AddRecipe> {
             width: 50,
             height: 50,
             color: Palette.white,
-            child: const Center(
-              child: Text('<',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Palette.darkgray
-                ),
-              )
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: SvgPicture.asset(
+                'assets/images/left1.svg',
+                color: Palette.darkgray,
+                width: 30,
+                height: 30,
+              ),
             ),
           ),
         ),
 
-        title: const Text('ADD',
+        title: Text('ADD',
           style: TextStyle(
             color: Palette.darkgray
           ),
@@ -144,13 +146,18 @@ class _AddRecipeState extends State<AddRecipe> {
               height: 50,
               color: Palette.white,
               child: Center(
-                child: ((){
-                  if(title.isEmpty){
-                    return Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
-                  }else{
-                    return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
-                  }
-                }())
+                child: SvgPicture.asset(
+                  'assets/images/check1.svg',
+                  color: ((){
+                    if(title.isEmpty){
+                      return Palette.lightgray;
+                    }else{
+                      return Colors.green[600];
+                    }
+                  }()),
+                  width: 30,
+                  height: 30,
+                ),
               ),
             ),
           ),
