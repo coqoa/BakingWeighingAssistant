@@ -20,15 +20,19 @@ class Palette{
   static const Color darkgray = Color.fromARGB(255, 111, 111, 111);
 
   static const Color backgroundColor= Color.fromRGBO(255, 255, 255, 1);
-  static const Color textColorWhite= Color.fromRGBO(255, 255, 255, 1);
+  // static const Color textColorWhite= Color.fromRGBO(255, 255, 255, 1);
+  static const Color textColorWhite= Colors.black;
 
   static const Color modalBackgroundColor= Color.fromRGBO(244, 244, 244, 0.5);
 
 
-  static const Color neumorphismColor= Color.fromRGBO(33, 33, 33, 1); // 다크모드
+  // static const Color neumorphismColor= Color.fromRGBO(33, 33, 33, 1); // 다크모드
+  // static const Color neumorphismTopShadow= Color.fromRGBO(33, 33, 33, 1); // 탑
+  // static const Color neumorphismBottomShadow= Color.fromRGBO(0, 0, 0, 1); // 바텀
+  // static const Color neumorphismColor= Color.fromRGBO(238, 238, 238, 1);
+  static const Color neumorphismColor= Colors.white;
   static const Color neumorphismTopShadow= Color.fromRGBO(33, 33, 33, 1); // 탑
   static const Color neumorphismBottomShadow= Color.fromRGBO(0, 0, 0, 1); // 바텀
-  // static const Color neumorphismColor= Color.fromRGBO(238, 238, 238, 1);
 
 
 }

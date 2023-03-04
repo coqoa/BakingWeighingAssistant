@@ -458,9 +458,10 @@ class _MenuState extends State<Menu> {
                               child: Center(
                                 child: Text('Logout',
                                   style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w800,
-                                    color: Palette.darkgray
+                                    fontSize: 20,
+                                    // fontWeight: FontWeight.w800, 
+                                    color: Palette.darkgray,
+                                    // fontFamily: 'notosans'
                                   ),
                                 )
                               ),

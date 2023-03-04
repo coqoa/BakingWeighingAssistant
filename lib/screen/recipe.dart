@@ -168,7 +168,8 @@ class _RecipeState extends State<Recipe> {
                                       Text('Memo',
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: Palette.darkgray
+                                          color: Palette.darkgray,
+                                          fontFamily: 'notosans'
                                         ),
                                       )
                                     ],
@@ -207,7 +208,8 @@ class _RecipeState extends State<Recipe> {
                                       Text('Add',
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: Palette.darkgray
+                                          color: Palette.darkgray,
+                                          fontFamily: 'notosans'
                                         ),
                                       )
                                     ],
@@ -638,7 +640,8 @@ class _RecipeState extends State<Recipe> {
                                   Text('Multiply',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray
+                                      color: Palette.darkgray,
+                                      fontFamily: 'notosans'
                                     ),
                                   )
                                 ],
@@ -688,7 +691,8 @@ class _RecipeState extends State<Recipe> {
                                   Text('Divide',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray
+                                      color: Palette.darkgray,
+                                      fontFamily: 'notosans'
                                     ),
                                   )
                                 ],
@@ -727,7 +731,8 @@ class _RecipeState extends State<Recipe> {
                                   Text('Edit',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray
+                                      color: Palette.darkgray,
+                                      fontFamily: 'notosans'
                                     ),
                                   )
                                 ],
@@ -801,7 +806,8 @@ class _RecipeState extends State<Recipe> {
                                   Text('Delete',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray
+                                      color: Palette.darkgray,
+                                      fontFamily: 'notosans'
                                     ),
                                   )
                                 ],

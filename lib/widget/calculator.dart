@@ -22,38 +22,66 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
     double blur =  10;
     Offset distance = Offset(4,4);
 
-    return GestureDetector(
-      onTap: (){
-        setState(() {
-          widget.callback();
-        });
-      },
-      child: Container(
+
+
+    return Material(
+       color: Colors.transparent,
+      child: Ink(
         width: widget.text == 'Enter' ? 200 : 60,
-        height: 50,
-        margin: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Palette.neumorphismColor,
+            height: 50,
+            // padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              // color: Palette.neumorphismColor,
+              // color: Palette.blue,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(width: 1, color: Palette.reallightgray),
+              boxShadow: [
+                // BoxShadow(
+                //   color: Palette.neumorphismBottomShadow,
+                //   blurRadius: blur,
+                //   offset: distance,
+                // ),
+                // BoxShadow(
+                //   color: Palette.neumorphismTopShadow,
+                //   blurRadius: blur,
+                //   offset: -distance,
+                // ),
+              ]
+            ),
+        child: InkWell(
+          highlightColor: Colors.orange,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Palette.neumorphismBottomShadow,
-              blurRadius: blur,
-              offset: distance,
+          onTap: (){
+            setState(() {
+              widget.callback();
+            });
+          },
+          
+          child: Container(
+            // margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              // color: Palette.neumorphismColor,
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Palette.neumorphismBottomShadow,
+              //     blurRadius: blur,
+              //     offset: distance,
+              //   ),
+              //   BoxShadow(
+              //     color: Palette.neumorphismTopShadow,
+              //     blurRadius: blur,
+              //     offset: -distance,
+              //   ),
+              // ]
             ),
-            BoxShadow(
-              color: Palette.neumorphismTopShadow,
-              blurRadius: blur,
-              offset: -distance,
-            ),
-          ]
-        ),
-        child: Center(
-          child: Text(widget.text,
-            style: TextStyle(
-              color: widget.textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w900
+            child: Center(
+              child: Text(widget.text,
+                style: TextStyle(
+                  color: widget.textColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900
+                ),
+              )
             ),
           )
         ),
@@ -127,16 +155,18 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                     width: 200,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Palette.reallightgray,
+                      // color: Palette.reallightgray,
+                      color: Palette.white,
                       borderRadius: BorderRadius.circular(10),
                       // ignore: prefer_const_literals_to_create_immutables
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black,
-                          blurRadius: 10,
-                          offset: Offset(0,3),
-                        ),
-                      ]
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Colors.black,
+                      //     blurRadius: 10,
+                      //     offset: Offset(0,3),
+                      //   ),
+                      // ],
+                      border: Border.all(width: 1, color: Palette.lightgray)
                     ),
                     child: Center(
                       child: Text(multiflyIndicator,
@@ -150,7 +180,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                   ),
                   SizedBox(height: 15,),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7',widget.controller.recipeList[widget.listViewIndex], widget.listViewIndex);}),
                       MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
