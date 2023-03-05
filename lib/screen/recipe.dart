@@ -192,11 +192,6 @@ class _RecipeState extends State<Recipe> {
                                   width: 40,
                                   // height: 40,
                                   color: Palette.white,
-                                  // margin: EdgeInsets.only(right: 5),
-                                  // child: Icon(Icons.add, color: Palette.lightblack, size: 25,),
-                                  // child: Icon(Icons.post_add, color: Palette.lightblack, size: 30,),
-                                  // child: Icon(Icons.note_add_outlined, color: Palette.lightblack, size: 26,),
-                                  // child: Icon(Icons.assignment_rounded, color: Palette.lightblack, size: 30,),
                                   child: Column(
                                     children: [
                                       SvgPicture.asset(
@@ -395,17 +390,30 @@ class _RecipeState extends State<Recipe> {
                                                           alignment: Alignment.centerRight,
                                                           child: SingleChildScrollView(
                                                             scrollDirection: Axis.horizontal,
-                                                            child: Container(
-                                                              width: 45,
-                                                              child: Text(
-                                                                // 'x 200',
-                                                                controller.multipleValue[index] == 1
-                                                                ? ''
-                                                                : 'x ${removeDotZero(controller.multipleValue[index])}',
-                                                                style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight: FontWeight.w800,
-                                                                  color: Palette.red
+                                                            child: GestureDetector(
+                                                              onTap: (){
+                                                                // MODAL:
+                                                                if(controller.multipleValue.isNotEmpty){
+                                                                  showDialog(
+                                                                    context: context, 
+                                                                    builder: (_){
+                                                                      return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
+                                                                    }
+                                                                  );
+                                                                }
+                                                              },
+                                                              child: Container(
+                                                                width: 45,
+                                                                child: Text(
+                                                                  // 'x 200',
+                                                                  controller.multipleValue[index] == 1
+                                                                  ? ''
+                                                                  : 'x ${removeDotZero(controller.multipleValue[index])}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 14,
+                                                                    fontWeight: FontWeight.w800,
+                                                                    color: Palette.red
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -524,22 +532,35 @@ class _RecipeState extends State<Recipe> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                        Text(
-                                                    'Total ',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Palette.lightblack
+                                                    Text(
+                                                      'Total ',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Palette.lightblack
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    '/ ${removeDotZero(controller.divideWeight[index]) } g',
-                                                    // 'bb',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w800,
-                                                      color: Palette.blue
+                                                    GestureDetector(
+                                                      onTap: (){
+                                                        // MODAL:
+                                                        if(controller.divideWeight.isNotEmpty){
+                                                          showDialog(
+                                                            context: context, 
+                                                            builder: (_){
+                                                              return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
+                                                            }
+                                                          );
+                                                        }
+                                                      },
+                                                      child: Text(
+                                                        '/ ${removeDotZero(controller.divideWeight[index]) } g',
+                                                        // 'bb',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w800,
+                                                          color: Palette.blue
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
                                                   ],
                                                 ),
                                                 Text(
