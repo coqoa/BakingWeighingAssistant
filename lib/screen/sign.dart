@@ -135,10 +135,10 @@ class _SignState extends State<Sign> {
                                       height: 70.h,
                                       // color: Colors.cyan,
                                       child: Center(
-                                        child: Text(isSignin ?'Sign In !' :'Sign Up !',
+                                        child: Text(isSignin ?'Sign In' :'New Account',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.w800,
+                                            fontWeight: FontWeight.w900,
                                             fontSize: 25
                                           ),
                                         ),
@@ -254,12 +254,12 @@ class _SignState extends State<Sign> {
                                             borderRadius: BorderRadius.circular(10),
                                           ),
                                           child: Center(
-                                            child: Text(isSignin ?'Sign In' :'Sign Up',
+                                            child: Text(isSignin ?'Next' :'Submit',
                                             // child: Text('Next',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20
+                                              // fontWeight: FontWeight.bold,
+                                              fontSize: 19
                                             ),),
                                           ), 
                                         ),

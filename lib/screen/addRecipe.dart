@@ -287,9 +287,9 @@ class _AddRecipeState extends State<AddRecipe> {
                                   ),
                   
                                   child: TextField(
-                                    keyboardType: const TextInputType.numberWithOptions(
-                                      signed: true
-                                    ),
+                                    // keyboardType: const TextInputType.numberWithOptions(
+                                    //   signed: true
+                                    // ),
                                     // 정규식
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                     textInputAction: TextInputAction.next,

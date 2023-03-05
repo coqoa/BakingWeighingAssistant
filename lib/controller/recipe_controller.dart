@@ -1,9 +1,7 @@
 
-import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 
 import '../config/enum.dart';
 
@@ -18,7 +16,6 @@ class RecipeController extends GetxController{
   RxList recipeIngredient = [].obs;
   RxList recipeWeight= [].obs;
   RxList recipeWeightTotal= [].obs;
-  RxInt testListSelected = 0.obs;
   RxList multipleValue = [].obs;
   RxList divideWeight = [].obs;
 
@@ -46,22 +43,26 @@ class RecipeController extends GetxController{
     });
     requestStatus.value=RequestStatus.SUCCESS;
   }
+
   deleteRecipe(menuTitle, index)async{
-    // // original 데이터 제거
+
+    // INFO: remove original data
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
       recipeList[index]: FieldValue.delete(),
     });
+    
+    // INFO: List initialize
     recipeList.removeAt(index);
     recipeIngredient.removeAt(index);
     recipeWeight.removeAt(index);
+    recipeWeightTotal.removeAt(index);
+    multipleValue.removeAt(index);
+    divideWeight.removeAt(index);
 
-    // 레시피 리스트 Doc 업데이트생성
+    // INFO: update changed recipeList
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
-
-    // Get.off(()=>Recipe(menuTitle: menuTitle));
-    
   }
 
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{

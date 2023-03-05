@@ -532,7 +532,7 @@ class _RecipeState extends State<Recipe> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    '/ ${controller.divideWeight[index]} g',
+                                                    '/ ${removeDotZero(controller.divideWeight[index]) } g',
                                                     // 'bb',
                                                     style: TextStyle(
                                                       fontSize: 14,

@@ -425,7 +425,7 @@ class _MenuState extends State<Menu> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top, //전체화면 - 상태바 크기
                   color: Colors.black.withOpacity(0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
@@ -436,7 +436,7 @@ class _MenuState extends State<Menu> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 2, color: Palette.gray)
                       ),
-                      margin: EdgeInsets.only(bottom: 80, left: 40),
+                      margin: EdgeInsets.only(bottom: 50, left: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
