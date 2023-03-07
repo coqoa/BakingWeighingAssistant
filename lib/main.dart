@@ -15,6 +15,9 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
+  
+  bool data = await fetchData();
+  print(data);
 
   try{
     await Firebase.initializeApp(
@@ -33,6 +36,17 @@ void main() async {
     print(e);
   }
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
+}
+
+Future<bool> fetchData() async {
+  bool data = false;
+
+  // Change to API call
+  await Future.delayed(Duration(seconds: 3), () {
+    data = true;
+  });
+
+  return data;
 }
 
 class MyApp extends StatefulWidget {
