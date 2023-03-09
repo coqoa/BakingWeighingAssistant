@@ -66,33 +66,30 @@ class _SignState extends State<Sign> {
                         Stack(
                           children: <Widget>[
                             Text(
-                              // 'GRAMMING',
                               'Gramming',
                               style: TextStyle(
-                                // fontFamily: 'carter',
+                                fontFamily: 'carter',
                                 fontWeight: FontWeight.w900,
-                                fontSize: 50,
+                                fontSize: 40,
                                 // 텍스트 테두리 선
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
                                   ..strokeWidth = 4
                                   ..color = Colors.black,
-                                // 자간
-                                letterSpacing: 4,
+                                letterSpacing: 5,
                               ),
                             ),
                             Text(
-                              // 'GRAMMING',
                               'Gramming',
                               style: TextStyle(
+                                fontFamily: 'carter',
                                 fontWeight: FontWeight.w900,
-                                fontSize: 50,
+                                fontSize: 40,
                                 color: Palette.white,
-                                letterSpacing: 4,
-                                // TODO 텍스트 그림자 꼭 필요한가/.
+                                letterSpacing: 5,
                                 shadows: const <Shadow>[
                                   Shadow(
-                                    offset: Offset(5.0, 3.0),
+                                    offset: Offset(4.0, 3.0),
                                     blurRadius: 0,
                                     color: Color.fromARGB(255, 0, 0, 0),
                                   ),
@@ -138,7 +135,7 @@ class _SignState extends State<Sign> {
                                         child: Text(isSignin ?'Sign In' :'New Account',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.w900,
+                                            // fontWeight: FontWeight.w900,
                                             fontSize: 25
                                           ),
                                         ),
@@ -259,7 +256,7 @@ class _SignState extends State<Sign> {
                                             style: TextStyle(
                                               color: Colors.white,
                                               // fontWeight: FontWeight.bold,
-                                              fontSize: 19
+                                              fontSize: 18
                                             ),),
                                           ), 
                                         ),
