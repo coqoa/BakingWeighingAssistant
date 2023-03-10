@@ -44,6 +44,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "checked_yaml",
+      "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/checked_yaml-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "cli_util",
+      "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/cli_util-0.3.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.1",
       "packageUri": "lib/",
@@ -188,6 +200,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -258,6 +276,12 @@
       "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4",
       "packageUri": "lib/",
       "languageVersion": "2.16"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "lints",
@@ -410,7 +434,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-03-08T05:07:12.222975Z",
+  "generated": "2023-03-10T10:33:48.177383Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
