@@ -33,8 +33,8 @@
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.6.0] /Users/coqoa/.gradle/caches/transforms-3/aa701b47cec244085d46a1a42fcc7fb9/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
-25        android:icon="@mipmap/ic_launcher"
-26        android:label="bwa" >
+25        android:icon="@mipmap/launcher_icon"
+26        android:label="Gramming" >
 27        <activity
 28            android:name="com.example.bwa.MainActivity"
 29            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

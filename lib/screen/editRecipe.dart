@@ -142,66 +142,74 @@ class _EditRecipeState extends State<EditRecipe> {
         elevation: 2,
         centerTitle: true,
         // 뒤로가기 버튼
-        leading:  GestureDetector(
-          onTap: (){
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            width: 50,
-            height: 50,
-            color: Palette.white,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: SvgPicture.asset(
-                'assets/images/left1.svg',
-                color: Palette.darkgray,
-                width: 30,
-                height: 30,
+        leading:  Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: GestureDetector(
+            onTap: (){
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Palette.white,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SvgPicture.asset(
+                  'assets/images/left1.svg',
+                  color: Palette.lightblack,
+                  width: 30,
+                  height: 30,
+                ),
               ),
             ),
           ),
         ),
         title: const Text('Edit',
           style: TextStyle(
-            color: Palette.darkgray
+            color: Palette.lightblack,
+            fontWeight: FontWeight.w600,
+            fontSize: 23
           ),
         ),
         
         actions: [
-          GestureDetector(
-            onTap: (){
-              modifyRecipe();
-            },
-            // child: Container(
-            //   width: 50,
-            //   height: 50,
-            //   color: Palette.white,
-            //   child: Center(
-            //     child: ((){
-            //       if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-            //         return const Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
-            //       }else{
-            //         return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
-            //       }
-            //     }())
-            //   ),
-            // ),
-            child: Container(
-              width: 50,
-              height: 50,
-              color: Palette.white,
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/images/check1.svg',
-                  color: ((){
-                    if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-                      return Palette.lightgray;
-                    }else{
-                      return Colors.green[600];
-                    }
-                  }()),
-                  width: 30,
-                  height: 30,
+          Padding(
+            padding: const EdgeInsets.only(right:5),
+            child: GestureDetector(
+              onTap: (){
+                modifyRecipe();
+              },
+              // child: Container(
+              //   width: 50,
+              //   height: 50,
+              //   color: Palette.white,
+              //   child: Center(
+              //     child: ((){
+              //       if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
+              //         return const Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
+              //       }else{
+              //         return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
+              //       }
+              //     }())
+              //   ),
+              // ),
+              child: Container(
+                width: 50,
+                height: 50,
+                color: Palette.white,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/check1.svg',
+                    color: ((){
+                      if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
+                        return Palette.lightgray;
+                      }else{
+                        return Colors.green[600];
+                      }
+                    }()),
+                    width: 30,
+                    height: 30,
+                  ),
                 ),
               ),
             ),
@@ -457,9 +465,10 @@ class _EditRecipeState extends State<EditRecipe> {
                                   // color: Colors.green,
                   
                                   child: TextFormField(
-                                    // keyboardType: const TextInputType.numberWithOptions(
-                                    //   signed: true
-                                    // ),
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                      signed: true,
+                                      decimal: true
+                                    ),
                                     // 정규식
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                     textInputAction: TextInputAction.next,
