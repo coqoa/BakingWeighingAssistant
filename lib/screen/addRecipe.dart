@@ -43,7 +43,7 @@ class _AddRecipeState extends State<AddRecipe> {
               )
             )
           ),
-          messageText: Center(child: Text("'$title'은(는) 이미 존재합니다.")),
+          messageText: Center(child: Text("'$title' already exists")),
           snackPosition: SnackPosition.BOTTOM,
           forwardAnimationCurve: Curves.elasticIn,
           reverseAnimationCurve: Curves.easeOut,
@@ -76,7 +76,7 @@ class _AddRecipeState extends State<AddRecipe> {
             )
           )
         ),
-        messageText: Center(child: Text("TITLE을 채워주세용")),
+        messageText: Center(child: Text("Please enter a Title")),
         snackPosition: SnackPosition.BOTTOM,
         forwardAnimationCurve: Curves.elasticIn,
         reverseAnimationCurve: Curves.easeOut,
@@ -129,7 +129,7 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         ),
 
-        title: Text('ADD',
+        title: Text('Add',
           style: TextStyle(
             color: Palette.darkgray
           ),
@@ -214,7 +214,7 @@ class _AddRecipeState extends State<AddRecipe> {
                           width: 165.w,
                           height: 60.h,
                           child: const Center(
-                            child: Text('재료명',
+                            child: Text('Ingredient',
                               style: TextStyle(
                                 fontSize: 15
                               ),
@@ -225,7 +225,7 @@ class _AddRecipeState extends State<AddRecipe> {
                           width: 165.w,
                           height: 50.h,
                           child: const Center(
-                            child: Text('중량',
+                            child: Text('g',
                               style: TextStyle(
                                 fontSize: 15
                               ),

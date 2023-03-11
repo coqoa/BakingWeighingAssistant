@@ -363,7 +363,7 @@ class _RecipeState extends State<Recipe> {
                                             SizedBox(
                                               width: 120.w,
                                               child: const Center(
-                                                child: Text('재료',
+                                                child: Text('Ingredient',
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     // fontWeight: FontWeight.w800
@@ -794,7 +794,7 @@ class _RecipeState extends State<Recipe> {
                                           ],
                                         ),
                                       ),
-                                      buttonTitle: 'Ok',
+                                      buttonTitle: 'Submit',
                                       btnColor: Palette.white,
                                       btnTextColor: Palette.red,
                                       confirmFunction: (){

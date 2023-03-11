@@ -224,8 +224,8 @@ class _MenuState extends State<Menu> {
                                                 // 위의 onSubmitted 완성 후 붙여넣기\
                                                 editMenu(title, changedTitle);
                                               },
-                                              leftButtonName: '취소', 
-                                              rightButtonName: '확인'
+                                              leftButtonName: 'Back', 
+                                              rightButtonName: 'Submit'
                                             );
                                           }
                                         );
@@ -282,8 +282,8 @@ class _MenuState extends State<Menu> {
                                                 // db삭제기능 
                                                 deleteMenu(item);
                                               }, 
-                                              leftButtonName: '취소', 
-                                              rightButtonName: '확인'
+                                              leftButtonName: 'Back', 
+                                              rightButtonName: 'Submit'
                                             );
                                           }
                                         );
@@ -380,8 +380,8 @@ class _MenuState extends State<Menu> {
                           // 위의 onSubmitted 완성 후 붙여넣기
                           createMenu(title);
                         },
-                        leftButtonName: '취소', 
-                        rightButtonName: '확인');
+                        leftButtonName: 'Back', 
+                        rightButtonName: 'Submit');
                     }
                   );
                 },

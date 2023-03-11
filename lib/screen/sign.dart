@@ -101,7 +101,7 @@ class _SignState extends State<Sign> {
                         // SIGN BOX
                         Container(
                           width: 244.w,
-                          height: 430.h,
+                          height: 420.h,
                           decoration: BoxDecoration(
                             color: Palette.white,
                             borderRadius: BorderRadius.circular(5),
