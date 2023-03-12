@@ -186,7 +186,12 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                       Align(
                         alignment: Alignment.centerRight,
                         // child: Text('연산결과',
-                        child: Text('',
+                        child: Text(
+                          multiflyIndicator.isNotEmpty 
+                          ? widget.type == 'multiple'
+                            ? '${widget.controller.recipeWeightTotal[widget.listViewIndex]*(double.parse(multiflyIndicator))} g'
+                            : '${(widget.controller.recipeWeightTotal[widget.listViewIndex]~/double.parse(multiflyIndicator))} ea'
+                          : '',
                           style: TextStyle(
                             color: Palette.lightgray,
                             fontSize: 15,

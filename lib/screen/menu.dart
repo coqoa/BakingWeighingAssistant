@@ -101,7 +101,7 @@ class _MenuState extends State<Menu> {
                         // INFO: 개별 Tile
                         Container(
                           key: Key(item),// ReorderableListView 자식 요소로 필수 
-                          height: 180.h,
+                          height: 200.h,
                           margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                           decoration: BoxDecoration(
