@@ -32,11 +32,13 @@ class _MenuState extends State<Menu> {
   String changedTitle = '';
   bool settingClicked = false;
   
-  @override
-  void initState() {
-    super.initState();
-    controller.loadMenuList();
-  }
+  // HERE: Interstitial Advertise -
+  InterstitialAd? interstitialAd;
+  int _numInterstitialLoadAttempts = 0;
+  int maxFailedLoadAttempts = 3;
+
+  AD_API_KEYS ad_api_keys = AD_API_KEYS();
+  // HERE:  - Interstitial Advertise
 
   createMenu(e){
     controller.addMenu(e);
@@ -48,37 +50,69 @@ class _MenuState extends State<Menu> {
   editMenu(title, changedTitle){
     controller.editMenu(title, changedTitle);
   }
-  
-  
+
+  // HERE:  Interstitial Advertise-
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: ad_api_keys.INTERSTITIAL[GetPlatform.isIOS ? 'ios' : 'android']!,
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          print('$ad loaded------------------------------------');
+          interstitialAd = ad;
+          _numInterstitialLoadAttempts = 0;
+          interstitialAd!.setImmersiveMode(true);
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error.-------------------------------------');
+          _numInterstitialLoadAttempts += 1;
+          interstitialAd = null;
+          if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+            _createInterstitialAd();
+          }
+        },
+      ));
+    }
+    void _showInterstitialAd() {
+    if (interstitialAd == null) {
+      print('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          print('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createInterstitialAd();
+      },
+    );
+    interstitialAd!.show();
+    interstitialAd = null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller.loadMenuList();
+    _createInterstitialAd();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('BANNER DISPOSE');
+    interstitialAd!.dispose();
+  }
+  // HERE:  - Interstitial Advertise
+
   @override
   Widget build(BuildContext context) {
-//HERE: 여기
-    AD_API_KEYS ad_api_keys = AD_API_KEYS();
-
-    TargetPlatform os = Theme.of(context).platform;
-
-    BannerAd banner = BannerAd(
-      listener: BannerAdListener(
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Ad Faileddddddd');
-           ad.dispose();
-        },
-        onAdLoaded: (_) {
-          print('LOAD BANNERRRRR');
-        },
-      ),
-      size: AdSize.fullBanner,
-      adUnitId: ad_api_keys.UNIT_ID[os == TargetPlatform.iOS ? 'ios' : 'android']!,
-      request: AdRequest(),
-    )..load();
-    
-    @override
-    void dispose() {
-      super.dispose();
-      print('BANNER DISPOSE');
-      banner.dispose();
-    }
-//HERE: 
 
     return Scaffold(
       body: SafeArea(
@@ -151,6 +185,7 @@ class _MenuState extends State<Menu> {
                                 child: GestureDetector(
                                   // recipe 이동
                                   onTap: (){
+                                    _showInterstitialAd();
                                     controller.moveToMenuDetails(item);
                                   },
                                   child: Container(
@@ -503,19 +538,6 @@ class _MenuState extends State<Menu> {
                 ),
               )
             ),
-            //HERE: 여기 
-            Center(
-              child: Container(
-                height: boxHeight,
-                width: boxWidth,
-                color: Colors.red,
-                child: AdWidget(
-                  ad: banner,
-                ),
-              ),
-
-            )
-            //HERE: 
           ],
         ),
       ),

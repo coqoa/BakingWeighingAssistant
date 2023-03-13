@@ -41,6 +41,7 @@ class _RecipeState extends State<Recipe> {
     controller.loadRecipeList(widget.menuTitle);
     multiflyInitialize();
     _pageController.addListener(moveListPage);
+    
   }
 
   moveListPage(){
@@ -72,10 +73,15 @@ class _RecipeState extends State<Recipe> {
     }
   }
 
+    
+
+
   @override
   Widget build(BuildContext context) {
 
+
     final screenHeight = MediaQuery.of(context).size.height; 
+    final screenWidth = MediaQuery.of(context).size.width; 
 
     return Scaffold(
       // backgroundColor: Palette.red,
@@ -219,7 +225,7 @@ class _RecipeState extends State<Recipe> {
                         ),
                       ],
                     ),
-
+        
                     // SECTION: 리스트 인디케이터
                     Container(
                       width: 300,
@@ -760,7 +766,7 @@ class _RecipeState extends State<Recipe> {
                               )
                             ),
                           ),
-
+        
                           // NAV: 삭제 아이콘
                           GestureDetector(
                             onTap: (){
@@ -844,8 +850,8 @@ class _RecipeState extends State<Recipe> {
             ],
           ),
         ),
-      ),
-    );
+  ),
+);
   }
 }
 
