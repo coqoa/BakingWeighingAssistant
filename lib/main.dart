@@ -11,9 +11,11 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
   
   bool data = await fetchData();

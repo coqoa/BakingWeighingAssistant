@@ -154,6 +154,10 @@ get
 2.15
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.5/
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.5/lib/
+google_mobile_ads
+2.12
+file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/google_mobile_ads-2.3.0/
+file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/google_mobile_ads-2.3.0/lib/
 html
 2.17
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.15.2/
@@ -262,6 +266,10 @@ vector_math
 2.14
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib/
+visibility_detector
+2.12
+file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.3.3/
+file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.3.3/lib/
 xml
 2.17
 file:///Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/xml-6.1.0/

@@ -1,4 +1,5 @@
 
+import 'package:bwa/apikey.dart';
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/sign.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../controller/menu_controller.dart';
 import '../widget/default_alert_dialog_twobutton.dart';
@@ -48,8 +49,36 @@ class _MenuState extends State<Menu> {
     controller.editMenu(title, changedTitle);
   }
   
+  
   @override
   Widget build(BuildContext context) {
+//HERE: 여기
+    AD_API_KEYS ad_api_keys = AD_API_KEYS();
+
+    TargetPlatform os = Theme.of(context).platform;
+
+    BannerAd banner = BannerAd(
+      listener: BannerAdListener(
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Ad Faileddddddd');
+           ad.dispose();
+        },
+        onAdLoaded: (_) {
+          print('LOAD BANNERRRRR');
+        },
+      ),
+      size: AdSize.fullBanner,
+      adUnitId: ad_api_keys.UNIT_ID[os == TargetPlatform.iOS ? 'ios' : 'android']!,
+      request: AdRequest(),
+    )..load();
+    
+    @override
+    void dispose() {
+      super.dispose();
+      print('BANNER DISPOSE');
+      banner.dispose();
+    }
+//HERE: 
 
     return Scaffold(
       body: SafeArea(
@@ -473,7 +502,20 @@ class _MenuState extends State<Menu> {
                   ),
                 ),
               )
+            ),
+            //HERE: 여기 
+            Center(
+              child: Container(
+                height: boxHeight,
+                width: boxWidth,
+                color: Colors.red,
+                child: AdWidget(
+                  ad: banner,
+                ),
+              ),
+
             )
+            //HERE: 
           ],
         ),
       ),
