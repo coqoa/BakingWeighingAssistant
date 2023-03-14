@@ -496,6 +496,7 @@ class _MenuState extends State<Menu> {
                       width: 120,
                       height: 50,
                       decoration: BoxDecoration(
+                        color: Palette.white,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(width: 2, color: Palette.gray)
                       ),
@@ -512,6 +513,7 @@ class _MenuState extends State<Menu> {
                             child: SizedBox(
                               width: 100,
                               height: 40,
+                              
                               child: Center(
                                 child: Text('Logout',
                                   style: TextStyle(
