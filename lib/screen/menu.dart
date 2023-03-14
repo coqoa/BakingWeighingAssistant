@@ -9,14 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
 import '../controller/menu_controller.dart';
 import '../widget/default_alert_dialog_twobutton.dart';
-
-
 class Menu extends StatefulWidget {
   const Menu({super.key});
-
   @override
   State<Menu> createState() => _MenuState();
 }
@@ -27,18 +23,15 @@ class _MenuState extends State<Menu> {
   
   late double boxWidth = MediaQuery.of(context).size.width; //
   late double boxHeight = MediaQuery.of(context).size.height;
-  double adHeight = 56.0;
   String title = '';
   String changedTitle = '';
   bool settingClicked = false;
   
-  // HERE: Interstitial Advertise -
+  // INFO: 광고 관련 변수
   InterstitialAd? interstitialAd;
+  AD_API_KEYS adKeys = AD_API_KEYS();
   int _numInterstitialLoadAttempts = 0;
   int maxFailedLoadAttempts = 3;
-
-  AD_API_KEYS ad_api_keys = AD_API_KEYS();
-  // HERE:  - Interstitial Advertise
 
   createMenu(e){
     controller.addMenu(e);
@@ -51,20 +44,22 @@ class _MenuState extends State<Menu> {
     controller.editMenu(title, changedTitle);
   }
 
-  // HERE:  Interstitial Advertise-
+  // INFO: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
   void _createInterstitialAd() {
+    controller.loading();
     InterstitialAd.load(
-      adUnitId: ad_api_keys.INTERSTITIAL[GetPlatform.isIOS ? 'ios' : 'android']!,
+      adUnitId: adKeys.INTERSTITIAL[GetPlatform.isIOS ? 'ios' : 'android']!,
       request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
-          print('$ad loaded------------------------------------');
+          controller.sucess();
+          print('------------------ AD LOADED ------------------ : $ad ');
           interstitialAd = ad;
           _numInterstitialLoadAttempts = 0;
           interstitialAd!.setImmersiveMode(true);
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error.-------------------------------------');
+          print('------------------ AD ERROR ------------------ : $error');
           _numInterstitialLoadAttempts += 1;
           interstitialAd = null;
           if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
@@ -73,21 +68,24 @@ class _MenuState extends State<Menu> {
         },
       ));
     }
-    void _showInterstitialAd() {
+
+  // INFO: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
+  void _showInterstitialAd() {
     if (interstitialAd == null) {
-      print('Warning: attempt to show interstitial before loaded.');
+      print('------------------ interstitialAd is NULL ------------------');
       return;
     }
     interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) =>
-          print('ad onAdShowedFullScreenContent.'),
+      onAdShowedFullScreenContent: (InterstitialAd ad) {
+          print('------------------ SHOWED AD ------------------');
+      },
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        print('$ad onAdDismissedFullScreenContent.');
+        print('------------------ DISMISSED AD ------------------ : $ad');
         ad.dispose();
         _createInterstitialAd();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
+        print('------------------ FAILED AD ------------------ : AD = $ad, ERROR = $error');
         ad.dispose();
         _createInterstitialAd();
       },
@@ -106,10 +104,9 @@ class _MenuState extends State<Menu> {
   @override
   void dispose() {
     super.dispose();
-    print('BANNER DISPOSE');
+    print('------------------ DISPOSE AD ------------------');
     interstitialAd!.dispose();
   }
-  // HERE:  - Interstitial Advertise
 
   @override
   Widget build(BuildContext context) {
@@ -118,8 +115,9 @@ class _MenuState extends State<Menu> {
       body: SafeArea(
         child: Stack(
           children: [
-              Obx((){
+            Obx((){
               if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                // INFO: 데이터가 없을 때 출력될 안내 페이지
                 if(controller.menuList.length == 0 ){
                   return Center(
                     child: Column(
@@ -141,10 +139,11 @@ class _MenuState extends State<Menu> {
                       ],
                     ),
                   );
-                }else{
 
+                }else{
+                  // MAIN:
                   return Theme(
-                    //INFO: 드래그 디자인 지우기
+                    // INFO: 드래그 디자인 지우는 부분
                     data: Theme.of(context).copyWith(
                       canvasColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -180,10 +179,9 @@ class _MenuState extends State<Menu> {
                           ),
                           child: Stack(
                             children: [
-                              // TITLE
+                              // CONTENTS_TITLE:
                               Center(
                                 child: GestureDetector(
-                                  // recipe 이동
                                   onTap: (){
                                     _showInterstitialAd();
                                     controller.moveToMenuDetails(item);
@@ -209,14 +207,14 @@ class _MenuState extends State<Menu> {
                                 ) 
                               ),
                               
-                              // BOTTOM RIGHT BUTTON
+                              // NAV: Tile 하단 버튼
                               Positioned(
                                 bottom: 0,
                                 right: 0,
                                 child: Row(
                                   children: [
                         
-                                    // EDIT
+                                    // INFO: EDIT 버튼
                                     GestureDetector(
                                       child: Container(
                                         width: 40,
@@ -234,6 +232,7 @@ class _MenuState extends State<Menu> {
                                       onTap: () {
                                         title = item;
                                         _textController = TextEditingController(text: title);
+                                        // MODAL:
                                         showDialog(
                                           context: context, 
                                           builder: (_){
@@ -248,9 +247,8 @@ class _MenuState extends State<Menu> {
                                                   children: [
                                                     const SizedBox(),
                                                     TextField(
-                                                      key: GlobalKey(), // 
+                                                      key: GlobalKey(),
                                                       controller: _textController, // 텍스트 기본값 설정 컨트롤러
-                      
                                                       style: const TextStyle(
                                                         fontSize: 25,
                                                       ),
@@ -283,13 +281,12 @@ class _MenuState extends State<Menu> {
                                                   ],
                                                 ),
                                               ),
+                                              leftButtonName: 'Back', 
                                               leftButtonFunction: (){}, 
+                                              rightButtonName: 'Submit',
                                               rightButtonFuction:(){
-                                                // 위의 onSubmitted 완성 후 붙여넣기\
                                                 editMenu(title, changedTitle);
                                               },
-                                              leftButtonName: 'Back', 
-                                              rightButtonName: 'Submit'
                                             );
                                           }
                                         );
@@ -297,7 +294,7 @@ class _MenuState extends State<Menu> {
                                     ),
                                     const SizedBox(width: 10,),
                                     
-                                    // DELETE
+                                    // INFO: DELETE 버튼
                                     GestureDetector(
                                       child: Container(
                                         width: 40,
@@ -341,13 +338,13 @@ class _MenuState extends State<Menu> {
                                                   ],
                                                 ),
                                               ), 
+                                              leftButtonName: 'Back', 
                                               leftButtonFunction: (){}, 
+                                              rightButtonName: 'Submit',
                                               rightButtonFuction: (){
                                                 // db삭제기능 
                                                 deleteMenu(item);
                                               }, 
-                                              leftButtonName: 'Back', 
-                                              rightButtonName: 'Submit'
                                             );
                                           }
                                         );
@@ -364,13 +361,19 @@ class _MenuState extends State<Menu> {
                   );
                 }
               }else{
-                return SizedBox();
+                // FREEPOSITION: 광고 로드 되기 전에 출력되는 progressIndicator
+                return Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               }
-            }
-            ),
+            }),
             
       
-            // CREATE
+            // MODAL: Create 버튼
             Positioned(
               right: 0,
               bottom: 0,
@@ -378,9 +381,6 @@ class _MenuState extends State<Menu> {
                 child: SizedBox(
                   width: 70,
                   height: 70,
-                  // child: Lottie.asset('assets/lotties/plus-lottie.json',
-                  //   width: 60,height: 60
-                  // ),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/images/plus2.svg',
@@ -437,26 +437,25 @@ class _MenuState extends State<Menu> {
                             ],
                           ),
                         ),
-                        leftButtonFunction: (){
-
-                        }, 
+                        leftButtonName: 'Back', 
+                        leftButtonFunction: (){}, 
+                        rightButtonName: 'Submit',
                         rightButtonFuction:(){
-                          // 위의 onSubmitted 완성 후 붙여넣기
                           createMenu(title);
                         },
-                        leftButtonName: 'Back', 
-                        rightButtonName: 'Submit');
+                      );
                     }
                   );
                 },
               ),
             ),
+
+            // MODAL: 설정 버튼
             Positioned(
               left: 0,
               bottom: 0,
               child: GestureDetector(
                 child: Container(
-                  // margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                   width: 70,
                   height: 70,
                   decoration: BoxDecoration(
@@ -504,12 +503,7 @@ class _MenuState extends State<Menu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // // LATE: 언어선택 부분 미구현
-                          // Container(
-                          //   width: 100,
-                          //   height: 40,
-                          //   color: Colors.red,
-                          // ),
+                          // LATE: 언어선택 부분 미구현
                           GestureDetector(
                             onTap: (){
                               FirebaseAuth.instance.signOut();
@@ -518,14 +512,11 @@ class _MenuState extends State<Menu> {
                             child: SizedBox(
                               width: 100,
                               height: 40,
-                              // color: Colors.green,
                               child: Center(
                                 child: Text('Logout',
                                   style: TextStyle(
                                     fontSize: 20,
-                                    // fontWeight: FontWeight.w800, 
                                     color: Palette.darkgray,
-                                    // fontFamily: 'notosans'
                                   ),
                                 )
                               ),

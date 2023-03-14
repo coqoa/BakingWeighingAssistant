@@ -191,4 +191,12 @@ class MenuController extends GetxController{
   dragAndDropMenu()async{
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
   }
+
+  loading(){
+    requestStatus.value=RequestStatus.LOADING;
+  }
+
+  sucess(){
+    requestStatus.value=RequestStatus.SUCCESS;
+  }
 }
