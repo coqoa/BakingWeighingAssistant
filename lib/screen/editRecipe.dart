@@ -27,7 +27,6 @@ class _EditRecipeState extends State<EditRecipe> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? email = FirebaseAuth.instance.currentUser?.email;
-
   String originalTitle = '';
   String title = '';
   List ingredient = [];
@@ -37,13 +36,13 @@ class _EditRecipeState extends State<EditRecipe> {
   late TextEditingController _controller;
   
   Rx<RequestStatus> requestStatus = RequestStatus.EMPTY.obs;
-  // 완료버튼
+  // info: 완료버튼
   void modifyRecipe()async {
     requestStatus.value=RequestStatus.LOADING;
     if(title.isNotEmpty){
       // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeList.contains(title) && originalTitle != title){
-        // ALERT : 존재하는 타이틀
+        // Snackbar: 존재하는 타이틀
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -63,26 +62,25 @@ class _EditRecipeState extends State<EditRecipe> {
           maxWidth: 300.w,
         );
       }else{
-        // 레시피 리스트에 타이틀 변경
+        // info: 레시피 리스트에 타이틀 변경
         recipeList[recipeList.indexOf(originalTitle)]=title;
 
-        // RecipeList 업데이트
+        // info: RecipeList 업데이트
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeList}
         );
-        // original 데이터 제거
+        // info: original 데이터 제거
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update({
           originalTitle: FieldValue.delete(),
         });
-        // new 데이터 입력
+        // info: new 데이터 입력
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': widget.multipleValue, 'divideWeight': widget.divideWeight, 'ingredient':ingredient,'weight':weight}}
         );
-        // Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
         Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
       }
     }else{
-      // ALERT : 타이틀을 입력해주세요
+      // Snackbar: 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -108,22 +106,21 @@ class _EditRecipeState extends State<EditRecipe> {
   @override
   void initState(){
     super.initState();
+    originalTitle = widget.recipeTitle;
+    title = widget.recipeTitle;
+    _controller = TextEditingController(text: title);
+
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
         recipeList = value.data()!['RecipeList'];
       });
     });
 
-    originalTitle = widget.recipeTitle;
-    title = widget.recipeTitle;
-
-    _controller = TextEditingController(text: title);
-
     firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').get().then((value){
       setState(() {
         ingredient = value[widget.recipeTitle]['ingredient'];
         weight = value[widget.recipeTitle]['weight'];
-        // 재료와 중량 리스트 모두 마지막이 비었을 때만 추가해줌
+        // info: 재료와 중량 리스트 모두 마지막이 비었을 때만 추가해줌
         if(ingredient.last.length!=0 && weight.last.length!=0){
           ingredient.add('');
           weight.add('');
@@ -208,7 +205,7 @@ class _EditRecipeState extends State<EditRecipe> {
       body: SafeArea(
         child: Align( 
           alignment: Alignment.topCenter,
-          child: Container(
+          child: SizedBox(
             height: 580.h,
             child: SingleChildScrollView(
               child: Column(
@@ -294,6 +291,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                     autocorrect: false,
                                     onChanged: (value) {
                                       setState(() {
+                                        // info: 레시피 입력시 다음 줄 생성하는 부분
                                         if(ingredient.length <= index+1){
                                           ingredient.add("");
                                           weight.add("");
@@ -315,8 +313,6 @@ class _EditRecipeState extends State<EditRecipe> {
                                   decoration: const BoxDecoration(
                                     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
                                   ),
-                                  // color: Colors.green,
-                  
                                   child: TextFormField(
                                     keyboardType: const TextInputType.numberWithOptions(
                                       signed: true,
@@ -334,6 +330,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                     initialValue: weight[index],
                                     onChanged: (value) {
                                       setState(() {
+                                        // info: 레시피 입력시 다음 줄 생성하는 부분
                                         if(weight.length <= index+1){
                                           ingredient.add("");
                                           weight.add("");
