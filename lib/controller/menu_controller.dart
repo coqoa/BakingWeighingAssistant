@@ -13,11 +13,9 @@ class MenuController extends GetxController{
   RxList menuList = [].obs;
   Rx<RequestStatus> requestStatus = RequestStatus.EMPTY.obs;
   
-  // String? email = FirebaseAuth.instance.currentUser?.email;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // var emailPath = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email);
-
+  // * 메뉴 로드
   loadMenuList()async{
     requestStatus.value=RequestStatus.LOADING;
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
@@ -26,27 +24,28 @@ class MenuController extends GetxController{
     requestStatus.value=RequestStatus.SUCCESS;
   }
 
+  // * 메뉴 -> 레시피 이동
   moveToMenuDetails(menuTitle){
     Get.to(()=>Recipe(menuTitle: menuTitle,));
   }
 
+  // * 메뉴 추가
   addMenu(e)async{
-    // var addAllDoc = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e);
-
     if(e.length > 0){
       if(!menuList.contains(e)){
-        // 메뉴리스트에 추가
+        // info: 메뉴리스트에 추가
         menuList.add(e);
-        // menuList doc 생성
+        // info: 메뉴리스트 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
-        // 메모추가 
+        // info: 메모 생성 
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').set({"Memo":''});
-        // 레시피추가
+        // info: 레시피 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').set({});
-        // 레시피 리스트 추가
+        // info: 레시피 리스트 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').set({"RecipeList":[]});
 
       }else{
+        // Snackbar: 존재하는 타이틀일 경우 처리
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -59,20 +58,19 @@ class MenuController extends GetxController{
           ),
           messageText: const Center(
             child: Text(
-              "'TITLE'을 확인해주세요."
+              "'An already Existing Title"
             )
           ),
           snackPosition: SnackPosition.BOTTOM,
           forwardAnimationCurve: Curves.elasticIn,
           reverseAnimationCurve: Curves.easeOut,
-          // duration: Duration(milliseconds: 1000),
           backgroundColor: Palette.lightgray,
-          // messageText: "'TITLE'을 확인해주세요"
           margin: EdgeInsets.only(bottom: 20.h),
           maxWidth: 300.w,
         );
       }
     }else{
+      // Snackbar: title이 공백일 경우 처리
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -85,15 +83,13 @@ class MenuController extends GetxController{
         ),
         messageText: const Center(
           child: Text(
-            "'TITLE'을 확인해주세요."
+            "Please check the Title"
           )
         ),
         snackPosition: SnackPosition.BOTTOM,
         forwardAnimationCurve: Curves.elasticIn,
         reverseAnimationCurve: Curves.easeOut,
-        // duration: Duration(milliseconds: 1000),
         backgroundColor: Palette.lightgray,
-        // messageText: "'TITLE'을 확인해주세요"
         margin: EdgeInsets.only(bottom: 20.h),
         maxWidth: 300.w,
       );
@@ -101,13 +97,12 @@ class MenuController extends GetxController{
   }
 
   deleteMenu(e)async{
-
     menuList.remove(e);
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').delete();
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').delete();
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').delete();
-    // 내부에 있는 모든 doc을 지워주면 collection을 지워줌
+    // info: firebase는 내부에 있는 모든 doc을 지워줘야 collection을 지울 수 있음
   }
 
   editMenu(originalTitle, changedTitle)async{
@@ -122,13 +117,11 @@ class MenuController extends GetxController{
             )
           )
         ),
-        messageText: const Center(child: Text("'TITLE'을 확인해주세요.")),
+        messageText: const Center(child: Text("Please check the Title")),
         snackPosition: SnackPosition.BOTTOM,
         forwardAnimationCurve: Curves.elasticIn,
         reverseAnimationCurve: Curves.easeOut,
-        // duration: Duration(milliseconds: 1000),
         backgroundColor: Palette.lightgray,
-        // messageText: "'TITLE'을 확인해주세요"
         margin: EdgeInsets.only(bottom: 20.h),
         maxWidth: 200.w,
       );
@@ -143,13 +136,6 @@ class MenuController extends GetxController{
         menuList[menuList.indexOf(originalTitle)]=changedTitle;
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
 
-        // await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').get().then((value){
-        //   print(value.data().runtimeType);
-        //   // Map<String, dynamic> test = {'가나다':{'미미미':123}};
-        //   Map<String, dynamic>? test = value.data();
-        //   print(test.runtimeType);
-        //   firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Recipe').set(value.data()!);
-        // });
 
         // 변경 레시피 : 메모 추가 
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Memo').set(originalMemo.data()!);
@@ -174,13 +160,11 @@ class MenuController extends GetxController{
               )
             )
           ),
-          messageText: Center(child: Text("'$changedTitle'은(는) 존재하는 'Title'입니다.")),
+          messageText: Center(child: Text("'$changedTitle' is already exists Title")),
           snackPosition: SnackPosition.BOTTOM,
           forwardAnimationCurve: Curves.elasticIn,
           reverseAnimationCurve: Curves.easeOut,
-          // duration: Duration(milliseconds: 1000),
           backgroundColor: Palette.lightgray,
-          // messageText: "'TITLE'을 확인해주세요"
           margin: EdgeInsets.only(bottom: 20.h),
           maxWidth: 300.w,
         );
