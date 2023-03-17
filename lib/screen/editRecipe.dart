@@ -136,12 +136,12 @@ class _EditRecipeState extends State<EditRecipe> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
+      // Header:
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
         centerTitle: true,
-        // 뒤로가기 버튼
+        // Nav:뒤로가기 버튼
         leading:  Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GestureDetector(
@@ -164,6 +164,7 @@ class _EditRecipeState extends State<EditRecipe> {
             ),
           ),
         ),
+        // Nav: 페이지 타이틀
         title: const Text('Edit',
           style: TextStyle(
             color: Palette.lightblack,
@@ -171,7 +172,7 @@ class _EditRecipeState extends State<EditRecipe> {
             fontSize: 23
           ),
         ),
-        
+        // Nav: 완료 버튼
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:5),
@@ -179,20 +180,6 @@ class _EditRecipeState extends State<EditRecipe> {
               onTap: (){
                 modifyRecipe();
               },
-              // child: Container(
-              //   width: 50,
-              //   height: 50,
-              //   color: Palette.white,
-              //   child: Center(
-              //     child: ((){
-              //       if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-              //         return const Icon(Icons.check_outlined, color: Palette.lightgray, size: 30);
-              //       }else{
-              //         return Icon(Icons.check_outlined, color: Colors.green[600], size: 30);
-              //       }
-              //     }())
-              //   ),
-              // ),
               child: Container(
                 width: 50,
                 height: 50,
@@ -215,21 +202,19 @@ class _EditRecipeState extends State<EditRecipe> {
             ),
           ),
         ],
-
       ),
 
+      // Main:
       body: SafeArea(
         child: Align( 
           alignment: Alignment.topCenter,
           child: Container(
             height: 580.h,
-            // color: Colors.green,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-            
-                  // 타이틀 
+                  // Contents_header: 타이틀 
                   Container(
                     width: 330.w,
                     margin: EdgeInsets.only(top: 10.h),
@@ -254,15 +239,13 @@ class _EditRecipeState extends State<EditRecipe> {
                     ),
                   ),
 
-                  // 시트 헤더
+                  // info: 시트 헤더
                   Container(
                     width: 330.w,
                     decoration: const BoxDecoration(
-                      // color: Colors.red,
                       border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
                     ),
                     child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: 165.w,
@@ -286,139 +269,10 @@ class _EditRecipeState extends State<EditRecipe> {
                     ),
                   ),
                   
-                  // 시트 바디
-                  Container(
+                  // contents_main: 시트 바디
+                  SizedBox(
                     width: 330.w,
                     height: 305.h,
-                    // 리오더블
-                    // color: Colors.blue,
-                    // child: 
-                    // ReorderableListView(
-                    //   onReorder: (int oldIndex, int newIndex) { 
-                    //     // setState(() {
-                    //     setState(() {
-                    //       if (newIndex > oldIndex) {
-                    //         newIndex -= 1;
-                    //       }
-                    //       final moveIngredient = ingredient.removeAt(oldIndex);
-                    //       final moveWeight = weight.removeAt(oldIndex);
-                    //       ingredient.insert(newIndex, moveIngredient);
-                    //       weight.insert(newIndex, moveWeight);
-                          
-                    //     });
-                    //     //   // print(controller.menuList);
-                    //       // controller.dragAndDropMenu(); // db업데이트 
-                          
-                    //     // });
-            
-                    //    },
-                    //   children: List.generate(ingredient.length, (item)=>Container(
-                    //       key: Key('${ingredient[item]}$item}${weight[item]}'),
-                    //       // child: Text('$item : ${ingredient[item]}, ${weight[item]}'),
-                    //       child: Row(
-                    //         children: [
-                    //           Text('$item 위아래'),
-                    //           Container(
-                    //             width: 100,
-                    //             child: TextFormField(
-                    //               initialValue: ingredient[item],
-                    //               onChanged: (value){
-                    //                 setState(() {
-                    //                   print(item);
-                    //                   print(ingredient);
-                    //                   print(ingredient[item]);
-                    //                   print(value);
-                    //                   ingredient.add('');
-                                      
-                    //                   // if(ingredient.length <= item){
-                    //                       // ingredient.add("");
-                    //                       // weight.add("");
-                    //                     // }
-                    //                   // ingredient[item] = value;
-                                      
-                    //                 });
-                    //               },
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       )
-                    //     )),
-                    //   // children: [
-                    //   //   ListView.builder(
-                    //   //     itemCount: ingredient.length, // 리스트 생성 후에 포커스하려면 +2로 해야하나?
-                    //   //     itemBuilder: (BuildContext context, int index) {
-                    //   //       return Column(
-                    //   //         // key: Key('${ingredient[index]}$index}${weight[index]}'),
-                    //   //         key: Key(index.toS),
-                    //   //         children: [
-                    //   //           Row(
-                    //   //             children: [
-                    //   //               // Container(
-                    //   //               //   width: 165.w,
-                    //   //               //   height: 60.h,
-                    //   //               //   decoration: const BoxDecoration(
-                    //   //               //     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                    //   //               //   ),
-                    //   //               //   // color: Colors.red,
-                    //   //               //   // child: Center(child: Text(listTest[index]['이름'])),
-                    //   //               //   child: TextField(
-                    //   //               //     textInputAction: TextInputAction.next,
-                    //   //               //     textAlign: TextAlign.center,
-                    //   //               //     onChanged: (value) {
-                    //   //               //       // testA = value;
-                    //   //               //       setState(() {
-                    //   //               //         if(ingredient.length <= index){
-                    //   //               //           ingredient.add("");
-                    //   //               //           weight.add("");
-                    //   //               //         }
-                    //   //               //         ingredient[index] = value;
-                    //   //               //       });
-                    //   //               //     },
-                    //   //               //     decoration: const InputDecoration(
-                    //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //   //               //     ),
-                    //   //               //   ),
-                    //   //               // ),
-                                    
-                    //   //               // Container(
-                    //   //               //   width: 165.w,
-                    //   //               //   height: 60.h,
-                    //   //               //   decoration: const BoxDecoration(
-                    //   //               //     border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                    //   //               //   ),
-                    //   //               //   // color: Colors.green,
-                    //   //               //   // child: Center(child: Text(listTest[index]['중량'])),
-                      
-                    //   //               //   child: TextField(
-                    //   //               //     textInputAction: TextInputAction.next,
-                    //   //               //     textAlign: TextAlign.center,
-                    //   //               //     onChanged: (value) {
-                    //   //               //       // testB = value;
-                    //   //               //       setState(() {
-                    //   //               //         if(weight.length <= index){
-                    //   //               //           ingredient.add("");
-                    //   //               //           weight.add("");
-                    //   //               //         }
-                    //   //               //         weight[index] = value;
-                    //   //               //       });
-                    //   //               //     } ,
-                    //   //               //     decoration: const InputDecoration(
-                    //   //               //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //   //               //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                    //   //               //     ),
-                    //   //               //   ),
-                    //   //               // ),
-                    //   //             ]
-                    //   //           ),
-                    //   //           const Divider(height: 10,),
-                    //   //         ],
-                    //   //       );
-                    //   //     }
-                    //   //   )
-                    //   // ],
-                    // ),
-            
                     child : ListView.builder(
                       itemCount: weight.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -426,14 +280,13 @@ class _EditRecipeState extends State<EditRecipe> {
                           children: [
                             Row(
                               children: [
-                                // 좌항(재료)
+                                // info: 좌항(재료)
                                 Container(
                                   width: 165.w,
                                   height: 60.h,
                                   decoration: const BoxDecoration(
                                     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                   ),
-                                  // color: Colors.red,
                                   child: TextFormField(
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
@@ -455,7 +308,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                   ),
                                 ),
                                 
-                                // 우항(중량)
+                                // info: 우항(중량)
                                 Container(
                                   width: 165.w,
                                   height: 60.h,
@@ -469,7 +322,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                       signed: true,
                                       decimal: true
                                     ),
-                                    // 정규식
+                                    // ref: 정규식
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
