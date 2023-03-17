@@ -19,12 +19,12 @@ class RecipeController extends GetxController{
   RxList multipleValue = [].obs;
   RxList divideWeight = [].obs;
 
+  // * 레시피 로드
   loadRecipeList(menuTitle) async{
     requestStatus.value=RequestStatus.LOADING;
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').get().then((result){
       recipeList.value = result.data()!['RecipeList'];
-    }
-    );
+    });
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').get().then((result) async{
       for(int i = 0; i<result.data()!.keys.length; i++){
         num sum = 0;
@@ -44,14 +44,14 @@ class RecipeController extends GetxController{
     requestStatus.value=RequestStatus.SUCCESS;
   }
 
+  // * 레시피 삭제
   deleteRecipe(menuTitle, index)async{
-
-    // INFO: remove original data
+    // INFO: 기존 데이터 지우기
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
       recipeList[index]: FieldValue.delete(),
     });
     
-    // INFO: List initialize
+    // INFO: 리스트 초기화
     recipeList.removeAt(index);
     recipeIngredient.removeAt(index);
     recipeWeight.removeAt(index);
@@ -59,15 +59,14 @@ class RecipeController extends GetxController{
     multipleValue.removeAt(index);
     divideWeight.removeAt(index);
 
-    // INFO: update changed recipeList
+    // INFO: 변경된 레시피 리스트 업데이트
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
   }
-
+  // * 곱한 값 업데이트
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     num sum = 0;
-    print('전 = $recipeWeightTotal');
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
       {recipeTitle:{'multipleValue':double.parse(multipleIndicator),'divideWeight':divideWeight[index], 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
     ).then((value){
@@ -81,6 +80,7 @@ class RecipeController extends GetxController{
     recipeWeightTotal[index] = sum*multipleValue[index];
   }
 
+  // * 나눈 값 업데이트
   divideValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
       {recipeTitle:{'multipleValue' : multipleValue[index], 'divideWeight':double.parse(multipleIndicator), 'ingredient':recipeIngredient[index], 'weight':recipeWeight[index]}}
