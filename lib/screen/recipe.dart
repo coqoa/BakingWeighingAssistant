@@ -44,12 +44,12 @@ class _RecipeState extends State<Recipe> {
   }
 
   moveListPage(){
-    // INFO: 스크롤 이동
+    // info: 스크롤 이동
     _scrollController.scrollToIndex(
       listViewIndex,
       preferPosition: AutoScrollPosition.middle,
     );
-    // INFO: 계산기 초기화
+    // info: 계산기 초기화
     multiflyInitialize();
   }
 
@@ -76,7 +76,7 @@ class _RecipeState extends State<Recipe> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // HEADER: 앱 바
+              // header: 앱 바
               Container(
                 height: 100,
                 padding: EdgeInsets.only(top: 10, bottom: 10,),
@@ -93,11 +93,11 @@ class _RecipeState extends State<Recipe> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // SECTION: 앱 바 상단
+                    // section: 앱 바 상단
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // NAV: 앱 바 왼쪽 아이콘
+                        // nav: 앱 바 왼쪽 아이콘
                         GestureDetector(
                           child: Container(
                             width: 90.w,
@@ -118,7 +118,7 @@ class _RecipeState extends State<Recipe> {
                             });
                           },
                         ),
-                        // NAV: 앱 바 타이틀
+                        // nav: 앱 바 타이틀
                         Container(
                           width: 180.w,
                           child: Center(
@@ -134,7 +134,7 @@ class _RecipeState extends State<Recipe> {
                             ),
                           ),
                         ),
-                        // NAV: 앱 바 우측 아이콘
+                        // nav: 앱 바 우측 아이콘
                         Container(
                           width: 90.w,
                           child: Row(
@@ -164,7 +164,7 @@ class _RecipeState extends State<Recipe> {
                                 ),
                                 onTap: (){
                                   setState(() {
-                                    // MODAL:
+                                    // modal:
                                     showDialog(
                                     context: context, 
                                       builder: (_){
@@ -206,7 +206,7 @@ class _RecipeState extends State<Recipe> {
                       ],
                     ),
         
-                    // SECTION: 레시피 리스트 인디케이터
+                    // section: 레시피 리스트 인디케이터
                     Container(
                       width: 300,
                       height: 35,
@@ -226,7 +226,7 @@ class _RecipeState extends State<Recipe> {
                               controller: _scrollController, 
                               index: index, 
                               child: GestureDetector(
-                                // ASIDE: 리스트 인디케이터 버튼
+                                // aside: 리스트 인디케이터 버튼
                                 child: Container(
                                   margin: EdgeInsets.only(left: 5.w, right: 5.w),
                                   child: Center(
@@ -259,12 +259,12 @@ class _RecipeState extends State<Recipe> {
                 ),
               ),
 
-              // MAIN: 메인 컨텐츠
+              // main: 메인 컨텐츠
               Expanded(
                 child: Obx((){
                   if(controller.requestStatus.value==RequestStatus.SUCCESS){
                     if(controller.recipeList.isEmpty){
-                      // INFO: 리스트가 없으면 출력될 안내 페이지
+                      // info: 리스트가 없으면 출력될 안내 페이지
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -296,7 +296,7 @@ class _RecipeState extends State<Recipe> {
                           });
                         },
                         itemBuilder: (BuildContext context, int index) {
-                          // SECTION: 레시피 메인
+                          // section: 레시피 메인
                           return Center(
                             child: Container(
                               width: 300.w,
@@ -475,7 +475,7 @@ class _RecipeState extends State<Recipe> {
                                       ),
                                     ),
                               
-                                    // CONTENTS_FOOTER: 총 합 / 나누기 섹션
+                                    // contents_footer: 총 합 / 나누기 섹션
                                     Container(
                                       height: 70,
                                       padding: EdgeInsets.only(left: 30, right: 30),
@@ -528,7 +528,7 @@ class _RecipeState extends State<Recipe> {
                                                       ),
                                                       GestureDetector(
                                                         onTap: (){
-                                                          // MODAL:
+                                                          // modal:
                                                           if(controller.divideWeight.isNotEmpty){
                                                             showDialog(
                                                               context: context, 
@@ -580,7 +580,7 @@ class _RecipeState extends State<Recipe> {
                 })
               ),
               
-              // FOOTER: 하단네비게이션바
+              // footer: 하단네비게이션바
               Container(
                 height: 60,
                 decoration: BoxDecoration(
@@ -597,16 +597,16 @@ class _RecipeState extends State<Recipe> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // SECTION: 연산 관련 버튼
+                    // section: 연산 관련 버튼
                     Container(
                       width: 130,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // NAV: 곱하기
+                          // nav: 곱하기
                           GestureDetector(
                             onTap: (){
-                              // MODAL:
+                              // modal:
                               if(controller.multipleValue.isNotEmpty){
                                 showDialog(
                                   context: context, 
@@ -653,10 +653,10 @@ class _RecipeState extends State<Recipe> {
                               )
                             ),
                           ),
-                          // NAV: 나누기
+                          // nav: 나누기
                           GestureDetector(
                             onTap: (){
-                              // MODAL:
+                              // modal:
                               if(controller.divideWeight.isNotEmpty){
                                 showDialog(
                                   context: context, 
@@ -706,13 +706,13 @@ class _RecipeState extends State<Recipe> {
                         ],
                       ),
                     ),
-                    // SECTION: 수정 / 삭제 관련 버튼
+                    // section: 수정 / 삭제 관련 버튼
                     Container(
                       width: 130,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // NAV: 수정
+                          // nav: 수정
                           GestureDetector(
                             onTap: (){
                               if(controller.recipeList.isNotEmpty){
@@ -744,10 +744,10 @@ class _RecipeState extends State<Recipe> {
                             ),
                           ),
         
-                          // NAV: 삭제
+                          // nav: 삭제
                           GestureDetector(
                             onTap: (){
-                              // MODAL:
+                              // modal:
                               if(controller.recipeList.isNotEmpty){
                                 showDialog(
                                   context: context, 

@@ -45,7 +45,7 @@ class MenuController extends GetxController{
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').set({"RecipeList":[]});
 
       }else{
-        // Snackbar: 존재하는 타이틀일 경우 처리
+        // snackbar: 존재하는 타이틀일 경우 처리
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -70,7 +70,7 @@ class MenuController extends GetxController{
         );
       }
     }else{
-      // Snackbar: title이 공백일 경우 처리
+      // snackbar: title이 공백일 경우 처리
       Get.snackbar(
         "","",
         titleText: const Center(

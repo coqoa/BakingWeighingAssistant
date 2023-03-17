@@ -34,7 +34,8 @@ void main() async {
       ),
     );
   }catch(e){
-    print('-- main.dart ERROR --');
+    // check:
+    print('-- main.dart initializeApp ERROR --');
     print(e);
   }
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
@@ -43,7 +44,6 @@ void main() async {
 Future<bool> fetchData() async {
   bool data = false;
 
-  // Change to API call
   await Future.delayed(Duration(seconds: 3), () {
     data = true;
   });

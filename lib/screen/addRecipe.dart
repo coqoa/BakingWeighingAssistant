@@ -31,8 +31,7 @@ class _AddRecipeState extends State<AddRecipe> {
 
   void createRecipe()async {
     if(title.isNotEmpty){
-      // HERE: 
-      // Snackbar: 존재하는 타이틀
+      // snackbar: 존재하는 타이틀
       if(recipeList.contains(title)){
         Get.snackbar(
           "","",
@@ -66,7 +65,7 @@ class _AddRecipeState extends State<AddRecipe> {
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
     }else{
-      // Snackbar: 타이틀을 입력해주세요
+      // snackbar: 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -104,12 +103,12 @@ class _AddRecipeState extends State<AddRecipe> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // Header: 
+      // header: 
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
         centerTitle: true,
-        // Nav: 뒤로가기 버튼
+        // nav: 뒤로가기 버튼
         leading:  Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GestureDetector(
@@ -132,7 +131,7 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ),
         ),
-        // Nav: 페이지 타이틀
+        // nav: 페이지 타이틀
         title: Text('Add',
           style: TextStyle(
             color: Palette.lightblack,
@@ -141,7 +140,7 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         ),
 
-        // Nav: 완료 버튼
+        // nav: 완료 버튼
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:5),
@@ -172,7 +171,7 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         ],
       ),
-      // MAIN: 
+      // main: 
       body: SafeArea(
         child: Align( 
           alignment: Alignment.topCenter,

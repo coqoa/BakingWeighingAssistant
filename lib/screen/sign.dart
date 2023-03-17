@@ -30,7 +30,7 @@ class _SignState extends State<Sign> {
           return SafeArea(
             child: Stack(
               children: [
-                // HEADER:
+                // header:
                 Align(
                   alignment: Alignment.topCenter,
                   child: AnimatedContainer(
@@ -40,7 +40,7 @@ class _SignState extends State<Sign> {
                     height: isKeyboardVisible ? 0 : 370.h,
                     child: Center(
                       child: 
-                      // SECTION: Logo Image Section
+                      // section: Logo Image Section
                       Stack(
                         children: <Widget>[
                           Text(
@@ -80,7 +80,7 @@ class _SignState extends State<Sign> {
                   ),
                 ),
                 
-                // MAIN:
+                // main:
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -90,7 +90,7 @@ class _SignState extends State<Sign> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // SECTION: Sign Section
+                        // section: Sign Section
                         Container(
                           width: 244.w,
                           height: 420.h,
@@ -102,13 +102,13 @@ class _SignState extends State<Sign> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // INFO: 텍스트 필드
+                              // info: 텍스트 필드
                               Column(
                                 children: [
                                   SizedBox(
                                     height: 220.h,
                                     child: isSignin 
-                                    // NAV: Sign in Box
+                                    // div: Sign in Box
                                     ? Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -135,7 +135,7 @@ class _SignState extends State<Sign> {
                                       ],
                                     )
                     
-                                    // NAV: Sign up Box
+                                    // div: Sign up Box
                                     : Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -175,14 +175,14 @@ class _SignState extends State<Sign> {
                                 ],
                               ),
                               
-                              // CONTENTS_FOOTER: 
+                              // contents_footer: 
                               SizedBox(
                                 width: 300.w,
                                 height: 170.h,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    // NAV: Error Message Section
+                                    // nav: Error Message Section
                                     Obx(()=>
                                       SizedBox(
                                         height: 25.h,
@@ -200,7 +200,7 @@ class _SignState extends State<Sign> {
 
                                     SizedBox(height: 10,),
 
-                                    // NAV: Submit Button Section
+                                    // nav: Submit Button Section
                                     InkWell(
                                       onTap: () {
                                         isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
@@ -225,7 +225,7 @@ class _SignState extends State<Sign> {
 
                                     SizedBox(height: 5.h,),
                     
-                                    // NAV: Page Toggle Section
+                                    // nav: Page Toggle Section
                                     InkWell(
                                       onTap: (){
                                         setState(() {

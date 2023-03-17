@@ -42,7 +42,7 @@ class _EditRecipeState extends State<EditRecipe> {
     if(title.isNotEmpty){
       // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeList.contains(title) && originalTitle != title){
-        // Snackbar: 존재하는 타이틀
+        // snackbar: 존재하는 타이틀
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -80,7 +80,7 @@ class _EditRecipeState extends State<EditRecipe> {
         Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
       }
     }else{
-      // Snackbar: 타이틀을 입력해주세요
+      // snackbar: 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -133,12 +133,12 @@ class _EditRecipeState extends State<EditRecipe> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // Header:
+      // header:
       appBar: AppBar(
         backgroundColor: Palette.white,
         elevation: 2,
         centerTitle: true,
-        // Nav:뒤로가기 버튼
+        // nav:뒤로가기 버튼
         leading:  Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GestureDetector(
@@ -161,7 +161,7 @@ class _EditRecipeState extends State<EditRecipe> {
             ),
           ),
         ),
-        // Nav: 페이지 타이틀
+        // nac: 페이지 타이틀
         title: const Text('Edit',
           style: TextStyle(
             color: Palette.lightblack,
@@ -169,7 +169,7 @@ class _EditRecipeState extends State<EditRecipe> {
             fontSize: 23
           ),
         ),
-        // Nav: 완료 버튼
+        // nav: 완료 버튼
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:5),
@@ -201,7 +201,7 @@ class _EditRecipeState extends State<EditRecipe> {
         ],
       ),
 
-      // Main:
+      // main:
       body: SafeArea(
         child: Align( 
           alignment: Alignment.topCenter,
@@ -211,7 +211,7 @@ class _EditRecipeState extends State<EditRecipe> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Contents_header: 타이틀 
+                  // contents_header: 타이틀 
                   Container(
                     width: 330.w,
                     margin: EdgeInsets.only(top: 10.h),

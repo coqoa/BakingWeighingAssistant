@@ -27,7 +27,7 @@ class _MenuState extends State<Menu> {
   String changedTitle = '';
   bool settingClicked = false;
   
-  // INFO: 광고 관련 변수
+  // info: 광고 관련 변수
   InterstitialAd? interstitialAd;
   AD_API_KEYS adKeys = AD_API_KEYS();
   int _numInterstitialLoadAttempts = 0;
@@ -44,7 +44,7 @@ class _MenuState extends State<Menu> {
     controller.editMenu(title, changedTitle);
   }
 
-  // INFO: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
+  // info: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
   void _createInterstitialAd() {
     controller.loading();
     InterstitialAd.load(
@@ -53,13 +53,11 @@ class _MenuState extends State<Menu> {
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
           controller.sucess();
-          print('------------------ AD LOADED ------------------ : $ad ');
           interstitialAd = ad;
           _numInterstitialLoadAttempts = 0;
           interstitialAd!.setImmersiveMode(true);
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('------------------ AD ERROR ------------------ : $error');
           _numInterstitialLoadAttempts += 1;
           interstitialAd = null;
           if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
@@ -69,23 +67,19 @@ class _MenuState extends State<Menu> {
       ));
     }
 
-  // INFO: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
+  // info: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
   void _showInterstitialAd() {
     if (interstitialAd == null) {
-      print('------------------ interstitialAd is NULL ------------------');
       return;
     }
     interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (InterstitialAd ad) {
-          print('------------------ SHOWED AD ------------------');
       },
       onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        print('------------------ DISMISSED AD ------------------ : $ad');
         ad.dispose();
         _createInterstitialAd();
       },
       onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        print('------------------ FAILED AD ------------------ : AD = $ad, ERROR = $error');
         ad.dispose();
         _createInterstitialAd();
       },
@@ -104,7 +98,6 @@ class _MenuState extends State<Menu> {
   @override
   void dispose() {
     super.dispose();
-    print('------------------ DISPOSE AD ------------------');
     interstitialAd!.dispose();
   }
 
@@ -117,8 +110,8 @@ class _MenuState extends State<Menu> {
           children: [
             Obx((){
               if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                // INFO: 데이터가 없을 때 출력될 안내 페이지
-                if(controller.menuList.length == 0 ){
+                // info: 데이터가 없을 때 출력될 안내 페이지
+                if(controller.menuList.isEmpty ){
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -141,9 +134,9 @@ class _MenuState extends State<Menu> {
                   );
 
                 }else{
-                  // MAIN:
+                  // main:
                   return Theme(
-                    // INFO: 드래그 디자인 지우는 부분
+                    // info: 드래그 디자인 지우는 부분
                     data: Theme.of(context).copyWith(
                       canvasColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -160,7 +153,7 @@ class _MenuState extends State<Menu> {
                       },
                   
                       children: controller.menuList.map((item) => 
-                        // INFO: 개별 Tile
+                        // info: 개별 Tile
                         Container(
                           key: Key(item),// ReorderableListView 자식 요소로 필수 
                           height: 200.h,
@@ -207,7 +200,7 @@ class _MenuState extends State<Menu> {
                                 ) 
                               ),
                               
-                              // NAV: Tile 하단 버튼
+                              // nav: Tile 하단 버튼
                               Positioned(
                                 bottom: 0,
                                 right: 0,
@@ -232,7 +225,7 @@ class _MenuState extends State<Menu> {
                                       onTap: () {
                                         title = item;
                                         _textController = TextEditingController(text: title);
-                                        // MODAL:
+                                        // modal:
                                         showDialog(
                                           context: context, 
                                           builder: (_){
@@ -294,7 +287,7 @@ class _MenuState extends State<Menu> {
                                     ),
                                     const SizedBox(width: 10,),
                                     
-                                    // INFO: DELETE 버튼
+                                    // info: DELETE 버튼
                                     GestureDetector(
                                       child: Container(
                                         width: 40,
@@ -373,7 +366,7 @@ class _MenuState extends State<Menu> {
             }),
             
       
-            // MODAL: Create 버튼
+            // modal: Create 버튼
             Positioned(
               right: 0,
               bottom: 0,
@@ -450,7 +443,7 @@ class _MenuState extends State<Menu> {
               ),
             ),
 
-            // MODAL: 설정 버튼
+            // modal: 설정 버튼
             Positioned(
               left: 0,
               bottom: 0,
@@ -488,7 +481,7 @@ class _MenuState extends State<Menu> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top, //전체화면 - 상태바 크기
+                  height: MediaQuery.of(context).size.height -  MediaQuery.of(context).padding.top, // info: 전체화면 - 상태바 크기
                   color: Colors.black.withOpacity(0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
