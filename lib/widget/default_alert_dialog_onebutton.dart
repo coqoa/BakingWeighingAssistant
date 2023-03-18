@@ -24,36 +24,38 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22.0),
       ),
+      // header:
       title: Center(child: Text(title,
         style: const TextStyle(
-          // fontFamily:'jalnan',
           fontWeight: FontWeight.bold,
           fontSize: 30, 
           color: Palette.black
         )
       )),
-      content: Container(
+      // main:
+      content: SizedBox(
         width: 328.w,
         height: 208.h,
         child: Column(
           children: [
-            Container(
+            // contents_main:
+            SizedBox(
                 height: 135.h,
                 child: Center(
                   child: contents
             )),
-            // const Spacer(),    
+            // contents_footer:
             Container(
               height: 68.h,
               decoration: const BoxDecoration(
                 color: Palette.white,
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(22),bottomRight: Radius.circular(22))
               ),
-              
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                // nav:
                 InkWell(
                   onTap: () async {
                     if(confirmFunction!=null){ confirmFunction!();
@@ -68,13 +70,12 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: btnColor,
-                        ),    
+                        ),
                         padding: const EdgeInsets.only(right: 15.0,left: 15.0),
                         child: Center(
                           child: Text(buttonTitle
                             ,style: TextStyle(
                               color: btnTextColor,
-                              // fontFamily: 'jalnan',
                               fontSize: 22
                             )
                           ),

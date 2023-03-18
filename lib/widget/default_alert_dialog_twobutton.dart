@@ -25,12 +25,14 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
         width: 328,
         child: Column(
           children: [
+            // contents_main:
             SizedBox(
                 height: 133,
                 child: Center(
                   child: contents
             )),
-            const Spacer(),    
+            const Spacer(),  
+            // contents_footer:  
             Container(
               height: 55,
               decoration: const BoxDecoration(
@@ -41,6 +43,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                // nav: 좌측 버튼
                 InkWell(
                   onTap: () {
                     if(leftButtonFunction!=null){ 
@@ -68,6 +71,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                   )
                 ),
                 const Spacer(),
+                // nav: 우측 버튼
                 InkWell(
                   onTap: () async {
                     if(rightButtonFuction!=null){ 
