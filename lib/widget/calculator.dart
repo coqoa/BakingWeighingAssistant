@@ -1,11 +1,12 @@
 // 계산기 다이얼로그 버튼
 import 'package:bwa/controller/recipe_controller.dart';
 import 'package:flutter/material.dart';
-
 import '../config/palette.dart';
 
+// * 계산기 버튼 클래스
 class MultiflyBtn extends StatefulWidget {
   const MultiflyBtn({super.key, required this.callback, required this.text, required this.textColor});
+
   final String text;
   final Color textColor;
   final Function callback;
@@ -19,34 +20,13 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
   @override
   Widget build(BuildContext context) {
 
-    double blur =  10;
-    Offset distance = Offset(4,4);
-
-
-
     return Material(
        color: Colors.transparent,
       child: Ink(
         width: widget.text == 'Enter' ? 200 : 80,
             height: 50,
-            // padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-              // color: Palette.neumorphismColor,
-              // color: Palette.blue,
               borderRadius: BorderRadius.circular(10),
-              // border: Border.all(width: 1, color: Palette.reallightgray),
-              boxShadow: [
-                // BoxShadow(
-                //   color: Palette.neumorphismBottomShadow,
-                //   blurRadius: blur,
-                //   offset: distance,
-                // ),
-                // BoxShadow(
-                //   color: Palette.neumorphismTopShadow,
-                //   blurRadius: blur,
-                //   offset: -distance,
-                // ),
-              ]
             ),
         child: InkWell(
           highlightColor: Colors.orange,
@@ -57,32 +37,14 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
             });
           },
           
-          child: Container(
-            // margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              // color: Palette.neumorphismColor,
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Palette.neumorphismBottomShadow,
-              //     blurRadius: blur,
-              //     offset: distance,
-              //   ),
-              //   BoxShadow(
-              //     color: Palette.neumorphismTopShadow,
-              //     blurRadius: blur,
-              //     offset: -distance,
-              //   ),
-              // ]
-            ),
-            child: Center(
-              child: Text(widget.text,
-                style: TextStyle(
-                  color: widget.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900
-                ),
-              )
-            ),
+          child: Center(
+            child: Text(widget.text,
+              style: TextStyle(
+                color: widget.textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w900
+              ),
+            )
           )
         ),
       ),
@@ -109,16 +71,18 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
   void multiflyCount(String s,String recipeTitle, int index){
     setState(() {
       if(s == '<-'){
-        // 빼기 구현
+        // info: 입력값 삭제 버튼
         if(multiflyIndicator.isNotEmpty ){
           multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
         }
       }else if(s == '확인'){
-        // 적용하는 코드
+        // info: 확인 버튼
         if(multiflyIndicator != ''){
           if(widget.type == 'multiple'){
+            // * 곱하기
             widget.controller.multipleValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
           }else{
+            // * 나누기
             widget.controller.divideValueUpdate(widget.menuTitle, recipeTitle, index, multiflyIndicator);
           }
           
@@ -127,7 +91,6 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
       }else if(multiflyIndicator.isEmpty && s=='0'){
       }else if(multiflyIndicator.isEmpty && s=='.'){
       }else if(multiflyIndicator.isEmpty && s.contains('.')){
-
       }else{
         if(multiflyIndicator.length < 5){
           multiflyIndicator = multiflyIndicator+s;
@@ -152,18 +115,18 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // header:
                 Container(
                   width: 230,
                   height: 110,
                   padding: EdgeInsets.only(left: 20, right: 10),
                   margin: EdgeInsets.only(bottom: 10),
-                  // color: Colors.red,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      // div: 
                       Align(
                         alignment: Alignment.topLeft,
-                        // child: Text(widget.type == 'multiple' ? 'Multiply' : 'Divide',
                         child: Text('Calculator',
                           style: TextStyle(
                             color: Palette.black,
@@ -172,6 +135,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           ),
                         ),
                       ),
+                      // div: 입력창
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(widget.type == 'multiple' ? 'x $multiflyIndicator' : '/ $multiflyIndicator g',
@@ -182,7 +146,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           ),
                         ),
                       ),
-                      // INFO: 연산 결과 회색으로 들어갈자리
+                      // div: 연산 결과
                       Align(
                         alignment: Alignment.centerRight,
                         // child: Text('연산결과',
@@ -202,16 +166,18 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                     ],
                   )
                 ),
+
+                // main:
                 Container(
                   height: 255,
                   decoration: BoxDecoration(
-                    // color: Colors.green,
                     border: Border(
                       top: BorderSide(width: 1, color: Palette.reallightgray),
                     )
                   ),
                   child: Column(
                     children: [
+                      // div: 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -220,6 +186,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
+                      // div: 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -228,6 +195,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
+                      // div: 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -236,6 +204,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
+                      // div: 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -244,6 +213,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
+                      // div: 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -253,16 +223,10 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                     ],
                   ),
                 ),
-                // Container(
-                //   child: MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                // )
               ],
             ),
           ),
       ),
     );
-
-
-      // elevation: 3,
   }
 }
