@@ -76,3 +76,22 @@
 - 페이지 이동시 이전 페이지 삭제하는것 / 삭제하지 않는것 구분
  
 입력페이지 먼저 
+
+--
+
+
+Gramming is an app that helps with baking.
+
+With Gramming, you can:
+1. Recipes can be grouped and managed according to their characteristics.
+2. Simple notes are available
+3. Multiply button makes it easy to get the recipe of the desired weight
+4. With the division button, you can easily know the number of doughs against the total weight
+5. Save and load all these situations in real time
+
+I hope it will be helpful for all places where calculations are needed other than baking. 
+
+--
+
+2023. 03. 20 
+앱스토어 등록.
