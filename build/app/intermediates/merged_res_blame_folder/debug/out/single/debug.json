@@ -36,12 +36,12 @@
         "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/drawable-xxxhdpi/splash.png"
     },
     {
-        "merged": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/mipmap-xxhdpi_launcher_icon.png.flat",
-        "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/mipmap-xxhdpi/launcher_icon.png"
-    },
-    {
         "merged": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat",
         "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/mipmap-xxhdpi/launcher_icon.png"
     },
     {
         "merged": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/drawable-v21_launch_background.xml.flat",

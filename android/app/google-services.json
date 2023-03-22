@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615225709175:android:265319866b99568290ac72",
+        "mobilesdk_app_id": "1:615225709175:android:5cbb45dabf1add1a90ac72",
         "android_client_info": {
-          "package_name": "com.example.bwa"
+          "package_name": "com.coqoa.bwa"
         }
       },
       "oauth_client": [

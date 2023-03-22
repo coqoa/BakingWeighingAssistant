@@ -4,7 +4,24 @@
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-fi/values-fi.xml",
             "map": [
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/3ee0f8915dc9bf42c60f3eef0b7bd28a/transformed/jetified-play-services-basement-18.1.0/res/values-fi/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-fi/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "199,245,293,347,423,530,580,701,758,876,969,1010,1096,1131,1165,1215,1300",
+                        "endColumns": "45,47,53,75,106,49,120,56,117,92,40,85,34,33,49,84,38",
+                        "endOffsets": "244,292,346,422,529,579,700,757,875,968,1009,1095,1130,1164,1214,1299,1338"
+                    },
+                    "to": {
+                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2638,2688,2740,2798,2878,2989,3043,3168,3229,3351,3448,3493,3583,3622,3660,3714,3803",
+                        "endColumns": "49,51,57,79,110,53,124,60,121,96,44,89,38,37,53,88,42",
+                        "endOffsets": "2683,2735,2793,2873,2984,3038,3163,3224,3346,3443,3488,3578,3617,3655,3709,3798,3841"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/4c5cefc4bced38f73a0cc4404fde07b9/transformed/jetified-play-services-basement-18.1.0/res/values-fi/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -21,24 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/aa701b47cec244085d46a1a42fcc7fb9/transformed/core-1.6.0/res/values-fi/values-fi.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "24",
-                        "startColumns": "4",
-                        "startOffsets": "2638",
-                        "endColumns": "100",
-                        "endOffsets": "2734"
-                    }
-                },
-                {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/res/values-fi/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/values-fi/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/38e30c664341fe5bfcc1d9de04582443/transformed/browser-1.4.0/res/values-fi/values-fi.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/f9d00c0ad06f3737f5584e3a1be6cac9/transformed/browser-1.4.0/res/values-fi/values-fi.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -69,6 +69,23 @@
                         "startOffsets": "2226,2329,2430,2539",
                         "endColumns": "102,100,108,98",
                         "endOffsets": "2324,2425,2534,2633"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-fi/values-fi.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "41",
+                        "startColumns": "4",
+                        "startOffsets": "3846",
+                        "endColumns": "100",
+                        "endOffsets": "3942"
                     }
                 }
             ]

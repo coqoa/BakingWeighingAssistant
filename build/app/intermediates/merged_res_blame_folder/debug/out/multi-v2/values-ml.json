@@ -4,41 +4,7 @@
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-ml/values-ml.xml",
             "map": [
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/3ee0f8915dc9bf42c60f3eef0b7bd28a/transformed/jetified-play-services-basement-18.1.0/res/values-ml/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "155",
-                        "endOffsets": "350"
-                    },
-                    "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "1113",
-                        "endColumns": "159",
-                        "endOffsets": "1268"
-                    }
-                },
-                {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/aa701b47cec244085d46a1a42fcc7fb9/transformed/core-1.6.0/res/values-ml/values-ml.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "24",
-                        "startColumns": "4",
-                        "startOffsets": "2843",
-                        "endColumns": "100",
-                        "endOffsets": "2939"
-                    }
-                },
-                {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/38e30c664341fe5bfcc1d9de04582443/transformed/browser-1.4.0/res/values-ml/values-ml.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/f9d00c0ad06f3737f5584e3a1be6cac9/transformed/browser-1.4.0/res/values-ml/values-ml.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -55,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/res/values-ml/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/values-ml/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -69,6 +35,57 @@
                         "startOffsets": "55,174,353,492,613,777,902,1007,1273,1455,1571,1745,1881,2030,2191,2255,2324",
                         "endColumns": "118,178,138,120,163,124,104,105,181,115,173,135,148,160,63,68,91",
                         "endOffsets": "169,348,487,608,772,897,1002,1108,1450,1566,1740,1876,2025,2186,2250,2319,2411"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-ml/values-ml.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "41",
+                        "startColumns": "4",
+                        "startOffsets": "4086",
+                        "endColumns": "100",
+                        "endOffsets": "4182"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/4c5cefc4bced38f73a0cc4404fde07b9/transformed/jetified-play-services-basement-18.1.0/res/values-ml/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "155",
+                        "endOffsets": "350"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "1113",
+                        "endColumns": "159",
+                        "endOffsets": "1268"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-ml/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "199,240,291,344,425,531,582,705,758,890,985,1032,1120,1160,1198,1251,1327",
+                        "endColumns": "40,50,52,80,105,50,122,52,131,94,46,87,39,37,52,75,46",
+                        "endOffsets": "239,290,343,424,530,581,704,757,889,984,1031,1119,1159,1197,1250,1326,1373"
+                    },
+                    "to": {
+                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2843,2888,2943,3000,3085,3195,3250,3377,3434,3570,3669,3720,3812,3856,3898,3955,4035",
+                        "endColumns": "44,54,56,84,109,54,126,56,135,98,50,91,43,41,56,79,50",
+                        "endOffsets": "2883,2938,2995,3080,3190,3245,3372,3429,3565,3664,3715,3807,3851,3893,3950,4030,4081"
                     }
                 }
             ]

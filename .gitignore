@@ -71,9 +71,12 @@ apikey.dart
 .flutter-plugins
 .flutter-plugins-dependencies
 build/**
+/keystore
 
+android/
 android/build/
 
+ios/
 ios/Pods/
 ios/Podfile.lock
 ios/Runner.xcworkspace/xcuserdata

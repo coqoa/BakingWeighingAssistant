@@ -4,24 +4,24 @@
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml",
             "map": [
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/3ee0f8915dc9bf42c60f3eef0b7bd28a/transformed/jetified-play-services-basement-18.1.0/res/values-zh-rHK/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-zh-rHK/values.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "199",
-                        "endColumns": "103",
-                        "endOffsets": "302"
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "203,242,285,334,393,457,507,578,632,704,760,792,835,865,895,929,969",
+                        "endColumns": "38,42,48,58,63,49,70,53,71,55,31,42,29,29,33,39,31",
+                        "endOffsets": "241,284,333,392,456,506,577,631,703,759,791,834,864,894,928,968,1000"
                     },
                     "to": {
-                        "startLines": "10",
-                        "startColumns": "4",
-                        "startOffsets": "919",
-                        "endColumns": "107",
-                        "endOffsets": "1022"
+                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2250,2293,2340,2393,2456,2524,2578,2653,2711,2787,2847,2883,2930,2964,2998,3036,3080",
+                        "endColumns": "42,46,52,62,67,53,74,57,75,59,35,46,33,33,37,43,35",
+                        "endOffsets": "2288,2335,2388,2451,2519,2573,2648,2706,2782,2842,2878,2925,2959,2993,3031,3075,3111"
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/res/values-zh-rHK/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/values-zh-rHK/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/38e30c664341fe5bfcc1d9de04582443/transformed/browser-1.4.0/res/values-zh-rHK/values-zh-rHK.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/f9d00c0ad06f3737f5584e3a1be6cac9/transformed/browser-1.4.0/res/values-zh-rHK/values-zh-rHK.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/aa701b47cec244085d46a1a42fcc7fb9/transformed/core-1.6.0/res/values-zh-rHK/values-zh-rHK.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-zh-rHK/values-zh-rHK.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -64,11 +64,28 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "24",
+                        "startLines": "41",
                         "startColumns": "4",
-                        "startOffsets": "2250",
+                        "startOffsets": "3116",
                         "endColumns": "100",
-                        "endOffsets": "2346"
+                        "endOffsets": "3212"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/4c5cefc4bced38f73a0cc4404fde07b9/transformed/jetified-play-services-basement-18.1.0/res/values-zh-rHK/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "199",
+                        "endColumns": "103",
+                        "endOffsets": "302"
+                    },
+                    "to": {
+                        "startLines": "10",
+                        "startColumns": "4",
+                        "startOffsets": "919",
+                        "endColumns": "107",
+                        "endOffsets": "1022"
                     }
                 }
             ]

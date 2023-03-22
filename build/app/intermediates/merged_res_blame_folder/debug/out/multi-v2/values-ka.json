@@ -4,24 +4,7 @@
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-ka/values-ka.xml",
             "map": [
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/19fea4fb28dedd992824e13cc158e7a1/transformed/jetified-play-services-base-18.0.1/res/values-ka/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "193,294,439,563,669,819,949,1067,1171,1340,1444,1595,1719,1876,2011,2073,2130",
-                        "endColumns": "100,144,123,105,149,129,117,103,168,103,150,123,156,134,61,56,71",
-                        "endOffsets": "293,438,562,668,818,948,1066,1170,1339,1443,1594,1718,1875,2010,2072,2129,2201"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,160,309,437,547,701,835,957,1208,1381,1489,1644,1772,1933,2072,2138,2199",
-                        "endColumns": "104,148,127,109,153,133,121,107,172,107,154,127,160,138,65,60,75",
-                        "endOffsets": "155,304,432,542,696,830,952,1060,1376,1484,1639,1767,1928,2067,2133,2194,2270"
-                    }
-                },
-                {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/3ee0f8915dc9bf42c60f3eef0b7bd28a/transformed/jetified-play-services-basement-18.1.0/res/values-ka/values.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/4c5cefc4bced38f73a0cc4404fde07b9/transformed/jetified-play-services-basement-18.1.0/res/values-ka/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/38e30c664341fe5bfcc1d9de04582443/transformed/browser-1.4.0/res/values-ka/values-ka.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/f9d00c0ad06f3737f5584e3a1be6cac9/transformed/browser-1.4.0/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -55,7 +38,41 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/aa701b47cec244085d46a1a42fcc7fb9/transformed/core-1.6.0/res/values-ka/values-ka.xml",
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-ka/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "199,251,299,353,431,535,588,702,763,879,970,1013,1090,1124,1159,1213,1291",
+                        "endColumns": "51,47,53,77,103,52,113,60,115,90,42,76,33,34,53,77,42",
+                        "endOffsets": "250,298,352,430,534,587,701,762,878,969,1012,1089,1123,1158,1212,1290,1333"
+                    },
+                    "to": {
+                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2699,2755,2807,2865,2947,3055,3112,3230,3295,3415,3510,3557,3638,3676,3715,3773,3855",
+                        "endColumns": "55,51,57,81,107,56,117,64,119,94,46,80,37,38,57,81,46",
+                        "endOffsets": "2750,2802,2860,2942,3050,3107,3225,3290,3410,3505,3552,3633,3671,3710,3768,3850,3897"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/values-ka/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "193,294,439,563,669,819,949,1067,1171,1340,1444,1595,1719,1876,2011,2073,2130",
+                        "endColumns": "100,144,123,105,149,129,117,103,168,103,150,123,156,134,61,56,71",
+                        "endOffsets": "293,438,562,668,818,948,1066,1170,1339,1443,1594,1718,1875,2010,2072,2129,2201"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,160,309,437,547,701,835,957,1208,1381,1489,1644,1772,1933,2072,2138,2199",
+                        "endColumns": "104,148,127,109,153,133,121,107,172,107,154,127,160,138,65,60,75",
+                        "endOffsets": "155,304,432,542,696,830,952,1060,1376,1484,1639,1767,1928,2067,2133,2194,2270"
+                    }
+                },
+                {
+                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-ka/values-ka.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -64,11 +81,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "24",
+                        "startLines": "41",
                         "startColumns": "4",
-                        "startOffsets": "2699",
+                        "startOffsets": "3902",
                         "endColumns": "100",
-                        "endOffsets": "2795"
+                        "endOffsets": "3998"
                     }
                 }
             ]

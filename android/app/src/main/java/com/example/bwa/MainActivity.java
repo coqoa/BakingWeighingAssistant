@@ -1,4 +1,4 @@
-package com.example.bwa;
+package com.coqoa.bwa;
 
 import io.flutter.embedding.android.FlutterActivity;
 
