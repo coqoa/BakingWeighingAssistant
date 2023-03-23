@@ -108,4 +108,10 @@ class SignController extends GetxController{
       await validation(e.toString(), sign);
     }
   }
+
+  startAnonymous()async{
+    
+    _authentication.signInAnonymously().then((value) => Get.to(()=> Menu()));
+
+  }
 }

@@ -182,7 +182,7 @@ class _SignState extends State<Sign> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    // nav: Error Message Section
+                                    // div: Error Message Section
                                     Obx(()=>
                                       SizedBox(
                                         height: 25.h,
@@ -200,7 +200,7 @@ class _SignState extends State<Sign> {
 
                                     SizedBox(height: 10,),
 
-                                    // nav: Submit Button Section
+                                    // div: Submit Button Section
                                     InkWell(
                                       onTap: () {
                                         isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
@@ -223,9 +223,9 @@ class _SignState extends State<Sign> {
                                       ),
                                     ),
 
-                                    SizedBox(height: 5.h,),
+                                    SizedBox(height: 7.h,),
                     
-                                    // nav: Page Toggle Section
+                                    // div: Page Toggle Section
                                     InkWell(
                                       onTap: (){
                                         setState(() {
@@ -255,6 +255,24 @@ class _SignState extends State<Sign> {
                                               ),
                                             )
                                           ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h,),
+                                    // div: anonymous account
+                                    InkWell(
+                                      onTap: (){
+                                        controller.startAnonymous();
+                                      },
+                                      child: SizedBox(
+                                        height: 25.h,
+                                        child: Text(
+                                          'or Start with an anonymous account',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w800,
+                                            color: Palette.gray
+                                          ),
                                         ),
                                       ),
                                     )

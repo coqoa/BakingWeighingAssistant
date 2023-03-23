@@ -3,6 +3,7 @@ import 'package:bwa/apikey.dart';
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,7 +66,7 @@ class _MenuState extends State<Menu> {
           }
         },
       ));
-    }
+  }
 
   // info: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
   void _showInterstitialAd() {
@@ -88,9 +89,147 @@ class _MenuState extends State<Menu> {
     interstitialAd = null;
   }
 
+  anonymousToPerpetual(){
+    String email ='';
+    String password = '';
+    String passwordCheck = '';
+
+    return showDialog(
+      context: context, 
+      builder: (_){
+        return 
+        DefaultAlertDialogTwoButton(
+          title: '', 
+          contents: Container(
+            width: 250.w,
+            height: 300.h,
+            // color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // info: email
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 20,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'E-mail',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    email = value;
+                  },
+                ),
+                // info: password
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    password = value;
+                  },
+                ),
+                // info: passwordCheck
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.done,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password Check',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    passwordCheck = value;
+                  },
+                  onSubmitted: ((value) {
+                    print('돈');
+                  }),
+                ),
+              ],
+            ),
+          ),
+          leftButtonName: 'Back', 
+          leftButtonFunction: (){}, 
+          rightButtonName: 'Join us',
+          rightButtonFuction:(){
+
+            if(password == passwordCheck){
+              controller.anonymousToPerpetual(email, password);
+            }else{
+              // validation
+              print('비밀번호 다름'); // here: 벨리데이션 과정 필요함
+            }
+          },
+        );
+      }
+    );
+  }
+
+  
+
   @override
   void initState() {
     super.initState();
+    print('익명유저');
+    print(FirebaseAuth.instance.currentUser);
     controller.loadMenuList();
     _createInterstitialAd();
   }
@@ -116,6 +255,34 @@ class _MenuState extends State<Menu> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // ? 익명 로그인시 출력되는 안내문구
+                        if(FirebaseAuth.instance.currentUser?.email == null)
+                        Column(
+                          children: [
+                            Text('Anonymous accounts may lose data',
+                              style: TextStyle(
+                                fontSize: 17,
+                                // fontWeight: FontWeight.w800
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            GestureDetector(
+                              onTap: (){
+                                // here:
+                                print(FirebaseAuth.instance.currentUser?.email);
+                                anonymousToPerpetual();
+                              },
+                              child: Text('Please tap here to sign up',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  decoration: TextDecoration.underline
+                                  // fontWeight: FontWeight.w800
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30,),
                         Text('Click the add button to create a new Menu',
                           style: TextStyle(
                             fontSize: 17,
@@ -485,9 +652,10 @@ class _MenuState extends State<Menu> {
                   color: Colors.black.withOpacity(0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
+                    // modal: 회원탈퇴, 로그아웃
                     child: Container(
                       width: 120,
-                      height: 50,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: Palette.white,
                         borderRadius: BorderRadius.circular(10),
@@ -498,6 +666,8 @@ class _MenuState extends State<Menu> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // LATE: 언어선택 부분 미구현
+                          // ? 익명계정일경우?
+                          if(FirebaseAuth.instance.currentUser?.email == null)
                           GestureDetector(
                             onTap: (){
                               FirebaseAuth.instance.signOut();
@@ -506,11 +676,70 @@ class _MenuState extends State<Menu> {
                             child: SizedBox(
                               width: 100,
                               height: 40,
-                              
+                              child: Center(
+                                child: Text('Join us',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Palette.darkgray,
+                                  ),
+                                )
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              // modal: 회원탈퇴확인
+                              showDialog(
+                                context: context, 
+                                builder: (_){
+                                  return 
+                                  DefaultAlertDialogTwoButton(
+                                    title: 'Secession', 
+                                    contents: SizedBox(
+                                      child: Text('Are you sure?',
+                                      style: TextStyle(
+                                      color: Palette.black,
+                                      fontSize: 21
+                                    ),),
+                                    ),
+                                    leftButtonName: ' No ', 
+                                    leftButtonFunction: (){}, 
+                                    rightButtonName: 'Okay',
+                                    rightButtonFuction:(){
+                                      controller.secession(); // HERE:
+                                    },
+                                  );
+                                }
+                              );
+                            },
+                            child: SizedBox(
+                              width: 100,
+                              height: 40,
+                              child: Center(
+                                child: Text('Secession',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    color: Palette.darkgray,
+                                  ),
+                                )
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              FirebaseAuth.instance.signOut();
+                              Get.off(Sign());   
+                            },
+                            child: SizedBox(
+                              width: 100,
+                              height: 40,
                               child: Center(
                                 child: Text('Logout',
                                   style: TextStyle(
                                     fontSize: 20,
+                                    fontWeight: FontWeight.w700,
                                     color: Palette.darkgray,
                                   ),
                                 )

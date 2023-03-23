@@ -1,5 +1,7 @@
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/menu.dart';
+import 'package:bwa/screen/sign.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -174,6 +176,34 @@ class MenuController extends GetxController{
 
   dragAndDropMenu()async{
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
+  }
+
+  void secession()async{
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).delete();
+    await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
+  }
+
+  anonymousToPerpetual(emailAddress, password)async{
+    final credential = EmailAuthProvider.credential(email: emailAddress, password: password);
+    try {
+      // final userCredential = await FirebaseAuth.instance.currentUser
+      await FirebaseAuth.instance.currentUser?.linkWithCredential(credential).then((value) => Get.to(()=> Menu()));
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "provider-already-linked":
+          print("The provider has already been linked to the user.");
+          break;
+        case "invalid-credential":
+          print("The provider's credential is not valid.");
+          break;
+        case "credential-already-in-use":
+          print("The account corresponding to the credential already exists, "
+              "or is already linked to a Firebase User.");
+          break;
+        default:
+          print("Unknown error.");
+      }
+    }
   }
 
   loading(){
