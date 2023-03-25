@@ -191,17 +191,79 @@ class MenuController extends GetxController{
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "provider-already-linked":
+            Get.snackbar(
+            "","",
+            titleText: const Center(
+              child: Text("ERROR", 
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15
+                )
+              )
+            ),
+            messageText: const Center(
+              child: Text(
+                "'An already Existing Title"
+              )
+            ),
+            snackPosition: SnackPosition.BOTTOM,
+            forwardAnimationCurve: Curves.elasticIn,
+            reverseAnimationCurve: Curves.easeOut,
+            backgroundColor: Palette.lightgray,
+            margin: EdgeInsets.only(bottom: 20.h),
+            maxWidth: 300.w,
+          );
           print("The provider has already been linked to the user.");
           break;
+
         case "invalid-credential":
           print("The provider's credential is not valid.");
           break;
+
         case "credential-already-in-use":
           print("The account corresponding to the credential already exists, "
               "or is already linked to a Firebase User.");
           break;
+
+        case "email-already-in-use":
+          print("email-already-in-use - 사용중인 아이디");
+          break;
+
+        case "invalid-email":
+          print("invalid-email - 형식");
+          break;
+
+        case "weak-password":
+          //HERE:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          Get.snackbar(
+            "","",
+            titleText: const Center(
+              child: Text("ERROR", 
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15
+                )
+              )
+            ),
+            messageText: const Center(
+              child: Text(
+                "'An already Existing Title"
+              )
+            ),
+            snackPosition: SnackPosition.BOTTOM,
+            forwardAnimationCurve: Curves.elasticIn,
+            reverseAnimationCurve: Curves.easeOut,
+            backgroundColor: Palette.lightgray,
+            margin: EdgeInsets.only(bottom: 20.h),
+            maxWidth: 300.w,
+          );
+      
+          print("weak-password - 비밀번호 6자리 이상형식");
+          break;
+          
         default:
-          print("Unknown error.");
+          print("Unknown error. : ${e.code}");
+          // + 비밀번호 체크는 메뉴페이지에서 해결
       }
     }
   }
