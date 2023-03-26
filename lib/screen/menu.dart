@@ -3,6 +3,7 @@ import 'package:bwa/apikey.dart';
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:bwa/widget/validation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,8 @@ class _MenuState extends State<Menu> {
   int _numInterstitialLoadAttempts = 0;
   int maxFailedLoadAttempts = 3;
 
+   Validation validation = Validation();
+   
   createMenu(e){
     controller.addMenu(e);
   }
@@ -100,7 +103,7 @@ class _MenuState extends State<Menu> {
         return 
         DefaultAlertDialogTwoButton(
           title: '', 
-          contents: Container(
+          contents: SizedBox(
             width: 250.w,
             height: 300.h,
             // color: Colors.red,
@@ -200,7 +203,12 @@ class _MenuState extends State<Menu> {
                     passwordCheck = value;
                   },
                   onSubmitted: ((value) {
-                    print('돈');
+                    if(password == passwordCheck){
+                      controller.anonymousToPerpetual(email, password);
+                    }else{
+                      print('menu.dart - REF VALIDATION CLASS ----------');
+                      validation.validationSnackBar('Please check your password');
+                    }
                   }),
                 ),
               ],
@@ -210,12 +218,11 @@ class _MenuState extends State<Menu> {
           leftButtonFunction: (){}, 
           rightButtonName: 'Join us',
           rightButtonFuction:(){
-
             if(password == passwordCheck){
               controller.anonymousToPerpetual(email, password);
             }else{
-              // validation
-              print('비밀번호 다름'); // here: 벨리데이션 과정 필요함
+              print('menu.dart - REF VALIDATION CLASS ----------');
+              validation.validationSnackBar('Password does not match'); // here: 벨리데이션 과정 필요함
             }
           },
         );
@@ -228,8 +235,6 @@ class _MenuState extends State<Menu> {
   @override
   void initState() {
     super.initState();
-    print('익명유저');
-    print(FirebaseAuth.instance.currentUser);
     controller.loadMenuList();
     _createInterstitialAd();
   }
@@ -253,13 +258,14 @@ class _MenuState extends State<Menu> {
                 if(controller.menuList.isEmpty ){
                   return Center(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         // ? 익명 로그인시 출력되는 안내문구
                         if(FirebaseAuth.instance.currentUser?.email == null)
                         Column(
                           children: [
-                            Text('Anonymous accounts may lose data',
+                            Text('- Anonymous account is may lose data.',
                               style: TextStyle(
                                 fontSize: 17,
                                 // fontWeight: FontWeight.w800
@@ -268,34 +274,40 @@ class _MenuState extends State<Menu> {
                             SizedBox(height: 20,),
                             GestureDetector(
                               onTap: (){
-                                // here:
-                                print(FirebaseAuth.instance.currentUser?.email);
+                                // * 익명로그인:
                                 anonymousToPerpetual();
                               },
-                              child: Text('Please tap here to sign up',
+                              child: Text('If you want to join Gramming, tap here',
                                 style: TextStyle(
                                   fontSize: 17,
-                                  decoration: TextDecoration.underline
-                                  // fontWeight: FontWeight.w800
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w800
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 30,),
-                        Text('Click the add button to create a new Menu',
-                          style: TextStyle(
-                            fontSize: 17,
-                            // fontWeight: FontWeight.w800
-                          ),
+
+                        Column(
+                          children: [
+                            Text('Click the add button to create a new Menu',
+                              style: TextStyle(
+                                fontSize: 17,
+                                // fontWeight: FontWeight.w800
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Text('↘︎',
+                              style: TextStyle(
+                                fontSize: 15,
+                                // fontWeight: FontWeight.w800
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(height: 20,),
-                        Text('↘︎',
-                          style: TextStyle(
-                            fontSize: 15,
-                            // fontWeight: FontWeight.w800
-                          ),
-                        )
+
+                        if(FirebaseAuth.instance.currentUser?.email == null)
+                        SizedBox()
                       ],
                     ),
                   );
@@ -666,16 +678,19 @@ class _MenuState extends State<Menu> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // LATE: 언어선택 부분 미구현
-                          // ? 익명계정일경우?
+                          // * 익명계정일경우?
                           if(FirebaseAuth.instance.currentUser?.email == null)
                           GestureDetector(
                             onTap: (){
-                              FirebaseAuth.instance.signOut();
-                              Get.off(Sign());   
+                              setState(() {
+                                settingClicked = false;
+                              });
+                              anonymousToPerpetual();
                             },
-                            child: SizedBox(
-                              width: 100,
+                            child: Container(
+                              width: 120,
                               height: 40,
+                              color: Colors.transparent,
                               child: Center(
                                 child: Text('Join us',
                                   style: TextStyle(
@@ -713,9 +728,10 @@ class _MenuState extends State<Menu> {
                                 }
                               );
                             },
-                            child: SizedBox(
-                              width: 100,
+                            child: Container(
+                              width: 120,
                               height: 40,
+                              color: Colors.transparent,
                               child: Center(
                                 child: Text('Secession',
                                   style: TextStyle(
@@ -732,9 +748,10 @@ class _MenuState extends State<Menu> {
                               FirebaseAuth.instance.signOut();
                               Get.off(Sign());   
                             },
-                            child: SizedBox(
-                              width: 100,
+                            child: Container(
+                              width: 120,
                               height: 40,
+                              color: Colors.transparent,
                               child: Center(
                                 child: Text('Logout',
                                   style: TextStyle(

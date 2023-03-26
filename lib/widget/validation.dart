@@ -25,7 +25,7 @@ class Validation{
           )
         ),
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(milliseconds: 2500),
+        duration: Duration(milliseconds: 3000),
         forwardAnimationCurve: Curves.easeInOutQuart,
         reverseAnimationCurve: Curves.easeInQuart,
         backgroundColor: Palette.black.withOpacity(0.5),
