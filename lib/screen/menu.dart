@@ -34,8 +34,10 @@ class _MenuState extends State<Menu> {
   AD_API_KEYS adKeys = AD_API_KEYS();
   int _numInterstitialLoadAttempts = 0;
   int maxFailedLoadAttempts = 3;
+  
+  bool adReady= false;
 
-   Validation validation = Validation();
+  Validation validation = Validation();
    
   createMenu(e){
     controller.addMenu(e);
@@ -50,16 +52,20 @@ class _MenuState extends State<Menu> {
 
   // info: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
   void _createInterstitialAd() {
-    controller.loading();
     InterstitialAd.load(
       adUnitId: adKeys.INTERSTITIAL[GetPlatform.isIOS ? 'ios' : 'android']!,
       request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
-          controller.sucess();
           interstitialAd = ad;
           _numInterstitialLoadAttempts = 0;
           interstitialAd!.setImmersiveMode(true);
+          print(ad.responseInfo);
+          print('광고로드');
+          setState(() {
+            adReady = true;
+            print('adReady = $adReady');
+          });
         },
         onAdFailedToLoad: (LoadAdError error) {
           _numInterstitialLoadAttempts += 1;
@@ -75,6 +81,8 @@ class _MenuState extends State<Menu> {
   void _showInterstitialAd() {
     if (interstitialAd == null) {
       return;
+    }else{
+      print('널이아님');
     }
     interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (InterstitialAd ad) {
@@ -235,14 +243,18 @@ class _MenuState extends State<Menu> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      adReady = false;
+      print('adReady = $adReady');
+    });
     controller.loadMenuList();
     _createInterstitialAd();
   }
 
   @override
   void dispose() {
+    interstitialAd?.dispose();
     super.dispose();
-    interstitialAd!.dispose();
   }
 
   @override
@@ -252,297 +264,303 @@ class _MenuState extends State<Menu> {
       body: SafeArea(
         child: Stack(
           children: [
-            Obx((){
-              if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                // info: 데이터가 없을 때 출력될 안내 페이지
-                if(controller.menuList.isEmpty ){
-                  return Center(
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // ? 익명 로그인시 출력되는 안내문구
-                        if(FirebaseAuth.instance.currentUser?.email == null)
-                        Column(
-                          children: [
-                            Text('- Anonymous account is may lose data.',
-                              style: TextStyle(
-                                fontSize: 17,
-                                // fontWeight: FontWeight.w800
-                              ),
-                            ),
-                            SizedBox(height: 20,),
-                            GestureDetector(
-                              onTap: (){
-                                // * 익명로그인:
-                                anonymousToPerpetual();
-                              },
-                              child: Text('If you want to join Gramming, tap here',
+            ((){
+              if(adReady==true){ 
+                return Obx((){
+                  // info: 데이터가 없을 때 출력될 안내 페이지
+                  if(controller.menuList.isEmpty ){
+                    return Center(
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // ? 익명 로그인시 출력되는 안내문구
+                          if(FirebaseAuth.instance.currentUser?.email == null)
+                          Column(
+                            children: [
+                              Text('- Anonymous account is may lose data.',
                                 style: TextStyle(
                                   fontSize: 17,
-                                  decoration: TextDecoration.underline,
-                                  fontWeight: FontWeight.w800
+                                  // fontWeight: FontWeight.w800
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-
-                        Column(
-                          children: [
-                            Text('Click the add button to create a new Menu',
-                              style: TextStyle(
-                                fontSize: 17,
-                                // fontWeight: FontWeight.w800
-                              ),
-                            ),
-                            SizedBox(height: 20,),
-                            Text('↘︎',
-                              style: TextStyle(
-                                fontSize: 15,
-                                // fontWeight: FontWeight.w800
-                              ),
-                            )
-                          ],
-                        ),
-
-                        if(FirebaseAuth.instance.currentUser?.email == null)
-                        SizedBox()
-                      ],
-                    ),
-                  );
-
-                }else{
-                  // main:
-                  return Theme(
-                    // info: 드래그 디자인 지우는 부분
-                    data: Theme.of(context).copyWith(
-                      canvasColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                    ),
-                    
-                    child: ReorderableListView(
-                      onReorder: (int oldIndex, int newIndex) {
-                        if (newIndex > oldIndex) {
-                          newIndex -= 1;
-                        }
-                        final moveItem = controller.menuList.removeAt(oldIndex);
-                        controller.menuList.insert(newIndex, moveItem);
-                        controller.dragAndDropMenu();
-                      },
-                  
-                      children: controller.menuList.map((item) => 
-                        // info: 개별 Tile
-                        Container(
-                          key: Key(item),// ReorderableListView 자식 요소로 필수 
-                          height: 200.h,
-                          margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
-                              const BoxShadow(
-                                blurRadius: 12,
-                                offset: Offset(3.0, 6.0),
-                                color: Color.fromRGBO(0, 0, 0, .2),
-                              )
-                            ]
-                          ),
-                          child: Stack(
-                            children: [
-                              // CONTENTS_TITLE:
-                              Center(
-                                child: GestureDetector(
-                                  onTap: (){
-                                    _showInterstitialAd();
-                                    controller.moveToMenuDetails(item);
-                                  },
-                                  child: Container(
-                                    color: Palette.white,
-                                    height: 200.h,
-                                    width: 300,
-                                    child: Center(
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Text(item,
-                                          style: const TextStyle(
-                                            // fontFamily: 'jalnan',
-                                            color: Palette.lightblack,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                              SizedBox(height: 20,),
+                              GestureDetector(
+                                onTap: (){
+                                  // * 익명로그인:
+                                  anonymousToPerpetual();
+                                },
+                                child: Text('If you want to join Gramming, tap here',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    decoration: TextDecoration.underline,
+                                    fontWeight: FontWeight.w800
                                   ),
-                                ) 
-                              ),
-                              
-                              // nav: Tile 하단 버튼
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Row(
-                                  children: [
-                        
-                                    // INFO: EDIT 버튼
-                                    GestureDetector(
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        color: Palette.white,
-                                        child: Center(
-                                          child: SvgPicture.asset(
-                                            'assets/images/pencil1.svg', 
-                                            color: Palette.gray,
-                                            width: 25,
-                                            height: 25,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        title = item;
-                                        _textController = TextEditingController(text: title);
-                                        // modal:
-                                        showDialog(
-                                          context: context, 
-                                          builder: (_){
-                                            return 
-                                            DefaultAlertDialogTwoButton(
-                                              title: 'Edit', 
-                                              contents: SizedBox(
-                                                width: 250.w,
-                                                height: 100.h,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    const SizedBox(),
-                                                    TextField(
-                                                      key: GlobalKey(),
-                                                      controller: _textController, // 텍스트 기본값 설정 컨트롤러
-                                                      style: const TextStyle(
-                                                        fontSize: 25,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                      cursorColor: Palette.lightblack,
-                                                      cursorHeight: 25,
-                                                      maxLength: 20,
-                                                      autocorrect: false,
-                                                      autofocus: true,
-                      
-                                                      decoration: const InputDecoration(
-                                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                                        filled: true,
-                                                        fillColor: Palette.white,
-                                                        isDense: true,
-                                                        contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-                                                      ),
-                                                      
-                                                      onChanged: (value){
-                                                          setState(() {
-                                                            changedTitle = value;
-                                                          });
-                                                      },
-                                                      onSubmitted: (value){
-                                                        Navigator.of(context).pop();
-                                                        editMenu(title, changedTitle);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              leftButtonName: 'Back', 
-                                              leftButtonFunction: (){}, 
-                                              rightButtonName: 'Submit',
-                                              rightButtonFuction:(){
-                                                editMenu(title, changedTitle);
-                                              },
-                                            );
-                                          }
-                                        );
-                                      },
-                                    ),
-                                    const SizedBox(width: 10,),
-                                    
-                                    // info: DELETE 버튼
-                                    GestureDetector(
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        color: Palette.white,
-                                        child: Center(
-                                          child: SvgPicture.asset(
-                                            'assets/images/delete2.svg',
-                                            color: Palette.gray,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        showDialog(
-                                          context: context, 
-                                          builder: (_){
-                                            return DefaultAlertDialogTwoButton(
-                                              title: 'Delete', 
-                                              contents: SizedBox(
-                                                width: 250,
-                                                height: 100,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    const Text('Are you sure delete',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    SizedBox(height: 10,),
-                                                    Text('\'$item\'?',
-                                                      style: const TextStyle(
-                                                        fontSize: 19,
-                                                        fontWeight: FontWeight.bold
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ), 
-                                              leftButtonName: 'Back', 
-                                              leftButtonFunction: (){}, 
-                                              rightButtonName: 'Submit',
-                                              rightButtonFuction: (){
-                                                // db삭제기능 
-                                                deleteMenu(item);
-                                              }, 
-                                            );
-                                          }
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                )
+                                ),
                               ),
                             ],
                           ),
-                        )
-                      ).toList(),
-                    ),
-                  );
-                }
+
+                          Column(
+                            children: [
+                              Text('Click the add button to create a new Menu',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  // fontWeight: FontWeight.w800
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text('↘︎',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  // fontWeight: FontWeight.w800
+                                ),
+                              )
+                            ],
+                          ),
+
+                          if(FirebaseAuth.instance.currentUser?.email == null)
+                          SizedBox()
+                        ],
+                      ),
+                    );
+
+                  }else{
+                    // main:
+                    return Theme(
+                      // info: 드래그 디자인 지우는 부분
+                      data: Theme.of(context).copyWith(
+                        canvasColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                      ),
+                      
+                      child: ReorderableListView(
+                        onReorder: (int oldIndex, int newIndex) {
+                          if (newIndex > oldIndex) {
+                            newIndex -= 1;
+                          }
+                          final moveItem = controller.menuList.removeAt(oldIndex);
+                          controller.menuList.insert(newIndex, moveItem);
+                          controller.dragAndDropMenu();
+                        },
+                    
+                        children: controller.menuList.map((item) => 
+                          // info: 개별 Tile
+                          Container(
+                            key: Key(item),// ReorderableListView 자식 요소로 필수 
+                            height: 200.h,
+                            margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                const BoxShadow(
+                                  blurRadius: 12,
+                                  offset: Offset(3.0, 6.0),
+                                  color: Color.fromRGBO(0, 0, 0, .2),
+                                )
+                              ]
+                            ),
+                            child: Stack(
+                              children: [
+                                // CONTENTS_TITLE:
+                                Center(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      _showInterstitialAd();
+                                      controller.moveToMenuDetails(item);
+                                    },
+                                    child: Container(
+                                      color: Palette.white,
+                                      height: 200.h,
+                                      width: 300,
+                                      child: Center(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Text(item,
+                                            style: const TextStyle(
+                                              // fontFamily: 'jalnan',
+                                              color: Palette.lightblack,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ) 
+                                ),
+                                
+                                // nav: Tile 하단 버튼
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Row(
+                                    children: [
+                          
+                                      // INFO: EDIT 버튼
+                                      GestureDetector(
+                                        child: Container(
+                                          width: 40,
+                                          height: 40,
+                                          color: Palette.white,
+                                          child: Center(
+                                            child: SvgPicture.asset(
+                                              'assets/images/pencil1.svg', 
+                                              color: Palette.gray,
+                                              width: 25,
+                                              height: 25,
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          title = item;
+                                          _textController = TextEditingController(text: title);
+                                          // modal:
+                                          showDialog(
+                                            context: context, 
+                                            builder: (_){
+                                              return 
+                                              DefaultAlertDialogTwoButton(
+                                                title: 'Edit', 
+                                                contents: SizedBox(
+                                                  width: 250.w,
+                                                  height: 100.h,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      const SizedBox(),
+                                                      TextField(
+                                                        key: GlobalKey(),
+                                                        controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                                                        style: const TextStyle(
+                                                          fontSize: 25,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                        cursorColor: Palette.lightblack,
+                                                        cursorHeight: 25,
+                                                        maxLength: 20,
+                                                        autocorrect: false,
+                                                        autofocus: true,
+                        
+                                                        decoration: const InputDecoration(
+                                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                          filled: true,
+                                                          fillColor: Palette.white,
+                                                          isDense: true,
+                                                          contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                        ),
+                                                        
+                                                        onChanged: (value){
+                                                            setState(() {
+                                                              changedTitle = value;
+                                                            });
+                                                        },
+                                                        onSubmitted: (value){
+                                                          Navigator.of(context).pop();
+                                                          editMenu(title, changedTitle);
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                leftButtonName: 'Back', 
+                                                leftButtonFunction: (){}, 
+                                                rightButtonName: 'Submit',
+                                                rightButtonFuction:(){
+                                                  editMenu(title, changedTitle);
+                                                },
+                                              );
+                                            }
+                                          );
+                                        },
+                                      ),
+                                      const SizedBox(width: 10,),
+                                      
+                                      // info: DELETE 버튼
+                                      GestureDetector(
+                                        child: Container(
+                                          width: 40,
+                                          height: 40,
+                                          color: Palette.white,
+                                          child: Center(
+                                            child: SvgPicture.asset(
+                                              'assets/images/delete2.svg',
+                                              color: Palette.gray,
+                                              width: 30,
+                                              height: 30,
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          showDialog(
+                                            context: context, 
+                                            builder: (_){
+                                              return DefaultAlertDialogTwoButton(
+                                                title: 'Delete', 
+                                                contents: SizedBox(
+                                                  width: 250,
+                                                  height: 100,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      const Text('Are you sure delete',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                      SizedBox(height: 10,),
+                                                      Text('\'$item\'?',
+                                                        style: const TextStyle(
+                                                          fontSize: 19,
+                                                          fontWeight: FontWeight.bold
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ), 
+                                                leftButtonName: 'Back', 
+                                                leftButtonFunction: (){}, 
+                                                rightButtonName: 'Submit',
+                                                rightButtonFuction: (){
+                                                  // db삭제기능 
+                                                  deleteMenu(item);
+                                                }, 
+                                              );
+                                            }
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ),
+                              ],
+                            ),
+                          )
+                        ).toList(),
+                      ),
+                    );
+                  }
+                });
               }else{
-                // FREEPOSITION: 광고 로드 되기 전에 출력되는 progressIndicator
                 return Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    color: Colors.transparent,
+                    child: CircularProgressIndicator(
+                      color: Palette.black,
+                    ),
                   ),
                 );
               }
-            }),
+            }()),
+            
+            
             
       
             // modal: Create 버튼
@@ -551,8 +569,8 @@ class _MenuState extends State<Menu> {
               bottom: 0,
               child: GestureDetector(
                 child: SizedBox(
-                  width: 70,
-                  height: 70,
+                  width: 65,
+                  height: 65,
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/images/plus2.svg',
@@ -628,16 +646,16 @@ class _MenuState extends State<Menu> {
               bottom: 0,
               child: GestureDetector(
                 child: Container(
-                  width: 70,
-                  height: 70,
+                  width: 60,
+                  height: 60,
                   decoration: BoxDecoration(
                   ),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/images/setting2.svg',
-                      color: Palette.lightgray,
-                      width: 25,
-                      height: 25,
+                      color: Palette.black,
+                      width: 28,
+                      height: 28,
                     ),
                   ),
                 ),

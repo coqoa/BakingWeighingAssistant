@@ -30,7 +30,7 @@ class MenuController extends GetxController{
 
   // * 메뉴 -> 레시피 이동
   moveToMenuDetails(menuTitle){
-    Get.to(()=>Recipe(menuTitle: menuTitle,));
+    Get.off(()=>Recipe(menuTitle: menuTitle,)); //HERE: to -> off로 바꿧는데 안드로이드 뒤로가기 이벤트 테스트 해야함 -광고 관련 생명주기를 알고싶어서
   }
 
   // * 메뉴 추가
