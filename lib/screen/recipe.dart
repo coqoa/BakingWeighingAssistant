@@ -114,7 +114,7 @@ class _RecipeState extends State<Recipe> {
                           ),
                           onTap: (){
                             setState(() {
-                              Get.off(()=>Menu()); // NOTE: to 로 할지 off로 할지 안드로이드로 확인해야함
+                              Get.off(()=>Menu()); // NOTE: to 로 할지 off로 할지 안드로이드로 확인해야함 //! get back?
                             });
                           },
                         ),
