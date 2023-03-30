@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.coqoa.bwa"
-4    android:versionCode="1"
-5    android:versionName="1.0.0" >
+4    android:versionCode="2"
+5    android:versionName="1.0.1" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="19"
@@ -15,15 +15,15 @@
 15    <uses-permission android:name="android.permission.INTERNET" />
 15-->/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/debug/AndroidManifest.xml:7:5-66
 15-->/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/debug/AndroidManifest.xml:7:22-64
-16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->[com.google.firebase:firebase-auth:21.1.0] /Users/coqoa/.gradle/caches/transforms-3/4a9da42da7989287787340e3f7e46327/transformed/jetified-firebase-auth-21.1.0/AndroidManifest.xml:24:5-79
-16-->[com.google.firebase:firebase-auth:21.1.0] /Users/coqoa/.gradle/caches/transforms-3/4a9da42da7989287787340e3f7e46327/transformed/jetified-firebase-auth-21.1.0/AndroidManifest.xml:24:22-76
-17    <uses-permission android:name="android.permission.WAKE_LOCK" />
-17-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:24:5-68
-17-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:24:22-65
-18    <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Android package visibility setting -->
-18-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
-18-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:25:22-76
+16    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+16-->/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/AndroidManifest.xml:3:5-78
+16-->/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/AndroidManifest.xml:3:22-76
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[com.google.firebase:firebase-auth:21.1.0] /Users/coqoa/.gradle/caches/transforms-3/4a9da42da7989287787340e3f7e46327/transformed/jetified-firebase-auth-21.1.0/AndroidManifest.xml:24:5-79
+17-->[com.google.firebase:firebase-auth:21.1.0] /Users/coqoa/.gradle/caches/transforms-3/4a9da42da7989287787340e3f7e46327/transformed/jetified-firebase-auth-21.1.0/AndroidManifest.xml:24:22-76
+18    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Android package visibility setting -->
+18-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:24:5-68
+18-->[com.google.android.gms:play-services-measurement-api:21.2.0] /Users/coqoa/.gradle/caches/transforms-3/9fe8d1b46c71e9b954a639d6f927ec09/transformed/jetified-play-services-measurement-api-21.2.0/AndroidManifest.xml:24:22-65
 19    <queries>
 19-->[com.google.android.gms:play-services-ads-lite:21.5.0] /Users/coqoa/.gradle/caches/transforms-3/4bbba883568fecd77a9d4e24f8d2c2bb/transformed/jetified-play-services-ads-lite-21.5.0/AndroidManifest.xml:32:5-48:15
 20
@@ -99,7 +99,7 @@
 75        -->
 76        <meta-data
 77            android:name="com.google.android.gms.ads.APPLICATION_ID"
-78            android:value="ca-app-pub-3940256099942544~3347511713" />
+78            android:value="ca-app-pub-2348793730555023~5915665290" />
 79        <meta-data
 80            android:name="flutterEmbedding"
 81            android:value="2" />

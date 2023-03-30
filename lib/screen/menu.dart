@@ -30,12 +30,12 @@ class _MenuState extends State<Menu> {
   bool settingClicked = false;
   
   // info: 광고 관련 변수
-  InterstitialAd? interstitialAd;
-  AD_API_KEYS adKeys = AD_API_KEYS();
-  int _numInterstitialLoadAttempts = 0;
-  int maxFailedLoadAttempts = 3;
+  // InterstitialAd? interstitialAd;
+  // AD_API_KEYS adKeys = AD_API_KEYS();
+  // int _numInterstitialLoadAttempts = 0;
+  // int maxFailedLoadAttempts = 3;
   
-  bool adReady= false;
+  // bool adReady= false;
 
   Validation validation = Validation();
    
@@ -51,54 +51,54 @@ class _MenuState extends State<Menu> {
   }
 
   // info: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
-  void _createInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: adKeys.INTERSTITIAL[GetPlatform.isIOS ? 'ios' : 'android']!,
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (InterstitialAd ad) {
-          interstitialAd = ad;
-          _numInterstitialLoadAttempts = 0;
-          interstitialAd!.setImmersiveMode(true);
-          print(ad.responseInfo);
-          print('광고로드');
-          setState(() {
-            adReady = true;
-            print('adReady = $adReady');
-          });
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          _numInterstitialLoadAttempts += 1;
-          interstitialAd = null;
-          if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
-            _createInterstitialAd();
-          }
-        },
-      ));
-  }
+  // void _createInterstitialAd() {
+  //   InterstitialAd.load(
+  //     adUnitId: adKeys.NATIVE[GetPlatform.isIOS ? 'ios' : 'android']!,
+  //     request: AdRequest(),
+  //     adLoadCallback: InterstitialAdLoadCallback(
+  //       onAdLoaded: (InterstitialAd ad) {
+  //         interstitialAd = ad;
+  //         _numInterstitialLoadAttempts = 0;
+  //         interstitialAd!.setImmersiveMode(true);
+  //         print(ad.responseInfo);
+  //         print('광고로드');
+  //         setState(() {
+  //           adReady = true;
+  //           print('adReady = $adReady');
+  //         });
+  //       },
+  //       onAdFailedToLoad: (LoadAdError error) {
+  //         _numInterstitialLoadAttempts += 1;
+  //         interstitialAd = null;
+  //         if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+  //           _createInterstitialAd();
+  //         }
+  //       },
+  //     ));
+  // }
 
   // info: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
-  void _showInterstitialAd() {
-    if (interstitialAd == null) {
-      return;
-    }else{
-      print('널이아님');
-    }
-    interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) {
-      },
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        ad.dispose();
-        _createInterstitialAd();
-      },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        ad.dispose();
-        _createInterstitialAd();
-      },
-    );
-    interstitialAd!.show();
-    interstitialAd = null;
-  }
+  // void _showInterstitialAd() {
+  //   if (interstitialAd == null) {
+  //     return;
+  //   }else{
+  //     print('널이아님');
+  //   }
+  //   interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+  //     onAdShowedFullScreenContent: (InterstitialAd ad) {
+  //     },
+  //     onAdDismissedFullScreenContent: (InterstitialAd ad) {
+  //       ad.dispose();
+  //       _createInterstitialAd();
+  //     },
+  //     onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+  //       ad.dispose();
+  //       _createInterstitialAd();
+  //     },
+  //   );
+  //   interstitialAd!.show();
+  //   interstitialAd = null;
+  // }
 
   anonymousToPerpetual(){
     String email ='';
@@ -243,17 +243,17 @@ class _MenuState extends State<Menu> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      adReady = false;
-      print('adReady = $adReady');
-    });
+    // setState(() {
+    //   adReady = false;
+    //   print('adReady = $adReady');
+    // });
     controller.loadMenuList();
-    _createInterstitialAd();
+    // _createInterstitialAd();
   }
 
   @override
   void dispose() {
-    interstitialAd?.dispose();
+    // interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -265,7 +265,7 @@ class _MenuState extends State<Menu> {
         child: Stack(
           children: [
             ((){
-              if(adReady==true){ 
+              // if(adReady==true){ 
                 return Obx((){
                   // info: 데이터가 없을 때 출력될 안내 페이지
                   if(controller.menuList.isEmpty ){
@@ -368,7 +368,7 @@ class _MenuState extends State<Menu> {
                                 Center(
                                   child: GestureDetector(
                                     onTap: (){
-                                      _showInterstitialAd();
+                                      // _showInterstitialAd();
                                       controller.moveToMenuDetails(item);
                                     },
                                     child: Container(
@@ -546,18 +546,18 @@ class _MenuState extends State<Menu> {
                     );
                   }
                 });
-              }else{
-                return Center(
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    color: Colors.transparent,
-                    child: CircularProgressIndicator(
-                      color: Palette.black,
-                    ),
-                  ),
-                );
-              }
+              // }else{
+              //   return Center(
+              //     child: Container(
+              //       width: 40,
+              //       height: 40,
+              //       color: Colors.transparent,
+              //       child: CircularProgressIndicator(
+              //         color: Palette.black,
+              //       ),
+              //     ),
+              //   );
+              // }
             }()),
             
             
