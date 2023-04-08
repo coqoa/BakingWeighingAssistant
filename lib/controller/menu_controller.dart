@@ -2,6 +2,7 @@ import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:bwa/widget/default_alert_dialog_twobutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,11 @@ class MenuController extends GetxController{
   // * 메뉴 로드
   loadMenuList()async{
     requestStatus.value=RequestStatus.LOADING;
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
-      menuList.value = result.data()!['menuList'];
-    });
+    if(FirebaseAuth.instance.currentUser?.email != null){
+      await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
+        menuList.value = result.data()?['menuList'];
+      });
+    }
     requestStatus.value=RequestStatus.SUCCESS;
   }
 
@@ -185,10 +188,15 @@ class MenuController extends GetxController{
     await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
   }
 
-  anonymousToPerpetual(emailAddress, password)async{
+  anonymousToPerpetualValidation(emailAddress, password, context)async{
     final credential = EmailAuthProvider.credential(email: emailAddress, password: password);
     try {
-      await FirebaseAuth.instance.currentUser?.linkWithCredential(credential).then((value) => Get.to(()=> Menu()));
+      await FirebaseAuth.instance.currentUser?.linkWithCredential(credential).then(
+        (value){
+          Get.to(()=> Menu());
+          Navigator.of(context).pop();
+        }
+      );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "provider-already-linked":
@@ -237,4 +245,5 @@ class MenuController extends GetxController{
   sucess(){
     requestStatus.value=RequestStatus.SUCCESS;
   }
+
 }

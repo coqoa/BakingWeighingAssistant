@@ -11,11 +11,9 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
   
   bool data = await fetchData();
@@ -34,7 +32,6 @@ void main() async {
       ),
     );
   }catch(e){
-    // check:
     print('-- main.dart initializeApp ERROR --');
     print(e);
   }
@@ -62,7 +59,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    print('FirebaseAuth.instance.currentUser?.email = ${FirebaseAuth.instance.currentUser?.email}');
   }
   @override
   Widget build(BuildContext context) {
@@ -103,7 +99,6 @@ class _MyAppState extends State<MyApp> {
           : Sign(),
         );
       },
-      
     );
   }
 }

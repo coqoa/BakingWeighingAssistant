@@ -1,16 +1,12 @@
 
-import 'package:bwa/apikey.dart';
-import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:bwa/widget/validation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../controller/menu_controller.dart';
 import '../widget/default_alert_dialog_twobutton.dart';
 class Menu extends StatefulWidget {
@@ -29,13 +25,6 @@ class _MenuState extends State<Menu> {
   String changedTitle = '';
   bool settingClicked = false;
   
-  // info: 광고 관련 변수
-  // InterstitialAd? interstitialAd;
-  // AD_API_KEYS adKeys = AD_API_KEYS();
-  // int _numInterstitialLoadAttempts = 0;
-  // int maxFailedLoadAttempts = 3;
-  
-  // bool adReady= false;
 
   Validation validation = Validation();
    
@@ -49,56 +38,6 @@ class _MenuState extends State<Menu> {
   editMenu(title, changedTitle){
     controller.editMenu(title, changedTitle);
   }
-
-  // info: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
-  // void _createInterstitialAd() {
-  //   InterstitialAd.load(
-  //     adUnitId: adKeys.NATIVE[GetPlatform.isIOS ? 'ios' : 'android']!,
-  //     request: AdRequest(),
-  //     adLoadCallback: InterstitialAdLoadCallback(
-  //       onAdLoaded: (InterstitialAd ad) {
-  //         interstitialAd = ad;
-  //         _numInterstitialLoadAttempts = 0;
-  //         interstitialAd!.setImmersiveMode(true);
-  //         print(ad.responseInfo);
-  //         print('광고로드');
-  //         setState(() {
-  //           adReady = true;
-  //           print('adReady = $adReady');
-  //         });
-  //       },
-  //       onAdFailedToLoad: (LoadAdError error) {
-  //         _numInterstitialLoadAttempts += 1;
-  //         interstitialAd = null;
-  //         if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
-  //           _createInterstitialAd();
-  //         }
-  //       },
-  //     ));
-  // }
-
-  // info: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
-  // void _showInterstitialAd() {
-  //   if (interstitialAd == null) {
-  //     return;
-  //   }else{
-  //     print('널이아님');
-  //   }
-  //   interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-  //     onAdShowedFullScreenContent: (InterstitialAd ad) {
-  //     },
-  //     onAdDismissedFullScreenContent: (InterstitialAd ad) {
-  //       ad.dispose();
-  //       _createInterstitialAd();
-  //     },
-  //     onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-  //       ad.dispose();
-  //       _createInterstitialAd();
-  //     },
-  //   );
-  //   interstitialAd!.show();
-  //   interstitialAd = null;
-  // }
 
   anonymousToPerpetual(){
     String email ='';
@@ -114,7 +53,6 @@ class _MenuState extends State<Menu> {
           contents: SizedBox(
             width: 250.w,
             height: 300.h,
-            // color: Colors.red,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -212,7 +150,7 @@ class _MenuState extends State<Menu> {
                   },
                   onSubmitted: ((value) {
                     if(password == passwordCheck){
-                      controller.anonymousToPerpetual(email, password);
+                      controller.anonymousToPerpetualValidation(email, password, context);
                     }else{
                       print('menu.dart - REF VALIDATION CLASS ----------');
                       validation.validationSnackBar('Please check your password');
@@ -225,12 +163,14 @@ class _MenuState extends State<Menu> {
           leftButtonName: 'Back', 
           leftButtonFunction: (){}, 
           rightButtonName: 'Join us',
-          rightButtonFuction:(){
+          rightButtonFuction:()async{
             if(password == passwordCheck){
-              controller.anonymousToPerpetual(email, password);
+              await controller.anonymousToPerpetualValidation(email, password, context);
+              setState(() {});
+              // Navigator.of(context).pop(); // ! 조건분기태워야함
             }else{
               print('menu.dart - REF VALIDATION CLASS ----------');
-              validation.validationSnackBar('Password does not match'); // here: 벨리데이션 과정 필요함
+              validation.validationSnackBar('Password does not match'); 
             }
           },
         );
@@ -243,17 +183,11 @@ class _MenuState extends State<Menu> {
   @override
   void initState() {
     super.initState();
-    // setState(() {
-    //   adReady = false;
-    //   print('adReady = $adReady');
-    // });
     controller.loadMenuList();
-    // _createInterstitialAd();
   }
 
   @override
   void dispose() {
-    // interstitialAd?.dispose();
     super.dispose();
   }
 
@@ -265,299 +199,284 @@ class _MenuState extends State<Menu> {
         child: Stack(
           children: [
             ((){
-              // if(adReady==true){ 
-                return Obx((){
-                  // info: 데이터가 없을 때 출력될 안내 페이지
-                  if(controller.menuList.isEmpty ){
-                    return Center(
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // ? 익명 로그인시 출력되는 안내문구
-                          if(FirebaseAuth.instance.currentUser?.email == null)
-                          Column(
-                            children: [
-                              Text('- Anonymous account is may lose data.',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.w800
-                                ),
+              return Obx((){
+                // info: 데이터가 없을 때 출력될 안내 페이지
+                if(controller.menuList.isEmpty ){
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // 익명 로그인시 출력되는 안내문구
+                        if(FirebaseAuth.instance.currentUser?.email == null)
+                        Column(
+                          children: [
+                            Text('Anonymous account is may lose data',
+                              style: TextStyle(
+                                fontSize: 17,
                               ),
-                              SizedBox(height: 20,),
-                              GestureDetector(
-                                onTap: (){
-                                  // * 익명로그인:
-                                  anonymousToPerpetual();
-                                },
-                                child: Text('If you want to join Gramming, tap here',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w800
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          Column(
-                            children: [
-                              Text('Click the add button to create a new Menu',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.w800
-                                ),
-                              ),
-                              SizedBox(height: 20,),
-                              Text('↘︎',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  // fontWeight: FontWeight.w800
-                                ),
-                              )
-                            ],
-                          ),
-
-                          if(FirebaseAuth.instance.currentUser?.email == null)
-                          SizedBox()
-                        ],
-                      ),
-                    );
-
-                  }else{
-                    // main:
-                    return Theme(
-                      // info: 드래그 디자인 지우는 부분
-                      data: Theme.of(context).copyWith(
-                        canvasColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                      ),
-                      
-                      child: ReorderableListView(
-                        onReorder: (int oldIndex, int newIndex) {
-                          if (newIndex > oldIndex) {
-                            newIndex -= 1;
-                          }
-                          final moveItem = controller.menuList.removeAt(oldIndex);
-                          controller.menuList.insert(newIndex, moveItem);
-                          controller.dragAndDropMenu();
-                        },
-                    
-                        children: controller.menuList.map((item) => 
-                          // info: 개별 Tile
-                          Container(
-                            key: Key(item),// ReorderableListView 자식 요소로 필수 
-                            height: 200.h,
-                            margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                const BoxShadow(
-                                  blurRadius: 12,
-                                  offset: Offset(3.0, 6.0),
-                                  color: Color.fromRGBO(0, 0, 0, .2),
-                                )
-                              ]
                             ),
-                            child: Stack(
-                              children: [
-                                // CONTENTS_TITLE:
-                                Center(
-                                  child: GestureDetector(
-                                    onTap: (){
-                                      // _showInterstitialAd();
-                                      controller.moveToMenuDetails(item);
-                                    },
-                                    child: Container(
-                                      color: Palette.white,
-                                      height: 200.h,
-                                      width: 300,
-                                      child: Center(
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Text(item,
-                                            style: const TextStyle(
-                                              // fontFamily: 'jalnan',
-                                              color: Palette.lightblack,
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold
-                                            ),
+                            SizedBox(height: 20,),
+                            GestureDetector(
+                              onTap: (){
+                                // * 익명로그인:
+                                anonymousToPerpetual();
+                              },
+                              child: Text('If you want to join Gramming, tap here',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w800
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Column(
+                          children: [
+                            Text('Create a new Menu',
+                              style: TextStyle(
+                                fontSize: 17,
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Text('↘︎',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            )
+                          ],
+                        ),
+
+                        if(FirebaseAuth.instance.currentUser?.email == null)
+                        SizedBox()
+                      ],
+                    ),
+                  );
+
+                }else{
+                  // main:
+                  return Theme(
+                    // 드래그 디자인 지우는 부분
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                    ),
+                    
+                    child: ReorderableListView(
+                      onReorder: (int oldIndex, int newIndex) {
+                        if (newIndex > oldIndex) {
+                          newIndex -= 1;
+                        }
+                        final moveItem = controller.menuList.removeAt(oldIndex);
+                        controller.menuList.insert(newIndex, moveItem);
+                        controller.dragAndDropMenu();
+                      },
+                  
+                      children: controller.menuList.map((item) => 
+                        // 개별 Tile
+                        Container(
+                          key: Key(item),// ReorderableListView 자식 요소로 필수 
+                          height: 200.h,
+                          margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              const BoxShadow(
+                                blurRadius: 12,
+                                offset: Offset(3.0, 6.0),
+                                color: Color.fromRGBO(0, 0, 0, .2),
+                              )
+                            ]
+                          ),
+                          child: Stack(
+                            children: [
+                              // CONTENTS_TITLE:
+                              Center(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    // _showInterstitialAd();
+                                    controller.moveToMenuDetails(item);
+                                  },
+                                  child: Container(
+                                    color: Palette.white,
+                                    height: 200.h,
+                                    width: 300,
+                                    child: Center(
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Text(item,
+                                          style: const TextStyle(
+                                            // fontFamily: 'jalnan',
+                                            color: Palette.lightblack,
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ) 
-                                ),
-                                
-                                // nav: Tile 하단 버튼
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Row(
-                                    children: [
-                          
-                                      // INFO: EDIT 버튼
-                                      GestureDetector(
-                                        child: Container(
-                                          width: 40,
-                                          height: 40,
-                                          color: Palette.white,
-                                          child: Center(
-                                            child: SvgPicture.asset(
-                                              'assets/images/pencil1.svg', 
-                                              color: Palette.gray,
-                                              width: 25,
-                                              height: 25,
-                                            ),
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          title = item;
-                                          _textController = TextEditingController(text: title);
-                                          // modal:
-                                          showDialog(
-                                            context: context, 
-                                            builder: (_){
-                                              return 
-                                              DefaultAlertDialogTwoButton(
-                                                title: 'Edit', 
-                                                contents: SizedBox(
-                                                  width: 250.w,
-                                                  height: 100.h,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      const SizedBox(),
-                                                      TextField(
-                                                        key: GlobalKey(),
-                                                        controller: _textController, // 텍스트 기본값 설정 컨트롤러
-                                                        style: const TextStyle(
-                                                          fontSize: 25,
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                        cursorColor: Palette.lightblack,
-                                                        cursorHeight: 25,
-                                                        maxLength: 20,
-                                                        autocorrect: false,
-                                                        autofocus: true,
+                                  ),
+                                ) 
+                              ),
+                              
+                              // nav: Tile 하단 버튼
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Row(
+                                  children: [
                         
-                                                        decoration: const InputDecoration(
-                                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                                                          filled: true,
-                                                          fillColor: Palette.white,
-                                                          isDense: true,
-                                                          contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
-                                                        ),
-                                                        
-                                                        onChanged: (value){
-                                                            setState(() {
-                                                              changedTitle = value;
-                                                            });
-                                                        },
-                                                        onSubmitted: (value){
-                                                          Navigator.of(context).pop();
-                                                          editMenu(title, changedTitle);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                leftButtonName: 'Back', 
-                                                leftButtonFunction: (){}, 
-                                                rightButtonName: 'Submit',
-                                                rightButtonFuction:(){
-                                                  editMenu(title, changedTitle);
-                                                },
-                                              );
-                                            }
-                                          );
-                                        },
-                                      ),
-                                      const SizedBox(width: 10,),
-                                      
-                                      // info: DELETE 버튼
-                                      GestureDetector(
-                                        child: Container(
-                                          width: 40,
-                                          height: 40,
-                                          color: Palette.white,
-                                          child: Center(
-                                            child: SvgPicture.asset(
-                                              'assets/images/delete2.svg',
-                                              color: Palette.gray,
-                                              width: 30,
-                                              height: 30,
-                                            ),
+                                    // EDIT 버튼
+                                    GestureDetector(
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        color: Palette.white,
+                                        child: Center(
+                                          child: SvgPicture.asset(
+                                            'assets/images/pencil1.svg', 
+                                            color: Palette.gray,
+                                            width: 25,
+                                            height: 25,
                                           ),
                                         ),
-                                        onTap: () {
-                                          showDialog(
-                                            context: context, 
-                                            builder: (_){
-                                              return DefaultAlertDialogTwoButton(
-                                                title: 'Delete', 
-                                                contents: SizedBox(
-                                                  width: 250,
-                                                  height: 100,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      const Text('Are you sure delete',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                      SizedBox(height: 10,),
-                                                      Text('\'$item\'?',
-                                                        style: const TextStyle(
-                                                          fontSize: 19,
-                                                          fontWeight: FontWeight.bold
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ), 
-                                                leftButtonName: 'Back', 
-                                                leftButtonFunction: (){}, 
-                                                rightButtonName: 'Submit',
-                                                rightButtonFuction: (){
-                                                  // db삭제기능 
-                                                  deleteMenu(item);
-                                                }, 
-                                              );
-                                            }
-                                          );
-                                        },
                                       ),
-                                    ],
-                                  )
-                                ),
-                              ],
-                            ),
-                          )
-                        ).toList(),
-                      ),
-                    );
-                  }
-                });
-              // }else{
-              //   return Center(
-              //     child: Container(
-              //       width: 40,
-              //       height: 40,
-              //       color: Colors.transparent,
-              //       child: CircularProgressIndicator(
-              //         color: Palette.black,
-              //       ),
-              //     ),
-              //   );
-              // }
+                                      onTap: () {
+                                        title = item;
+                                        _textController = TextEditingController(text: title);
+                                        // modal:
+                                        showDialog(
+                                          context: context, 
+                                          builder: (_){
+                                            return 
+                                            DefaultAlertDialogTwoButton(
+                                              title: 'Edit', 
+                                              contents: SizedBox(
+                                                width: 250.w,
+                                                height: 100.h,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    const SizedBox(),
+                                                    TextField(
+                                                      key: GlobalKey(),
+                                                      controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                                                      style: const TextStyle(
+                                                        fontSize: 25,
+                                                      ),
+                                                      textAlign: TextAlign.center,
+                                                      cursorColor: Palette.lightblack,
+                                                      cursorHeight: 25,
+                                                      maxLength: 20,
+                                                      autocorrect: false,
+                                                      autofocus: true,
+                      
+                                                      decoration: const InputDecoration(
+                                                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                        filled: true,
+                                                        fillColor: Palette.white,
+                                                        isDense: true,
+                                                        contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                      ),
+                                                      
+                                                      onChanged: (value){
+                                                          setState(() {
+                                                            changedTitle = value;
+                                                          });
+                                                      },
+                                                      onSubmitted: (value){
+                                                        Navigator.of(context).pop();
+                                                        editMenu(title, changedTitle);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              leftButtonName: 'Back', 
+                                              leftButtonFunction: (){}, 
+                                              rightButtonName: 'Submit',
+                                              rightButtonFuction:(){
+                                                editMenu(title, changedTitle);
+                                                Navigator.of(context).pop();
+                                              },
+                                            );
+                                          }
+                                        );
+                                      },
+                                    ),
+                                    const SizedBox(width: 10,),
+                                    
+                                    // DELETE 버튼
+                                    GestureDetector(
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        color: Palette.white,
+                                        child: Center(
+                                          child: SvgPicture.asset(
+                                            'assets/images/delete2.svg',
+                                            color: Palette.gray,
+                                            width: 30,
+                                            height: 30,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        showDialog(
+                                          context: context, 
+                                          builder: (_){
+                                            return DefaultAlertDialogTwoButton(
+                                              title: 'Delete', 
+                                              contents: SizedBox(
+                                                width: 250,
+                                                height: 100,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    const Text('Are you sure delete',
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                      ),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                    SizedBox(height: 10,),
+                                                    Text('\'$item\'?',
+                                                      style: const TextStyle(
+                                                        fontSize: 19,
+                                                        fontWeight: FontWeight.bold
+                                                      ),
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ), 
+                                              leftButtonName: 'Back', 
+                                              leftButtonFunction: (){}, 
+                                              rightButtonName: 'Submit',
+                                              rightButtonFuction: (){
+                                                // db삭제기능 
+                                                deleteMenu(item);
+                                                Navigator.of(context).pop();
+                                              }, 
+                                            );
+                                          }
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ),
+                            ],
+                          ),
+                        )
+                      ).toList(),
+                    ),
+                  );
+                }
+              });
             }()),
             
             
@@ -632,6 +551,7 @@ class _MenuState extends State<Menu> {
                         rightButtonName: 'Submit',
                         rightButtonFuction:(){
                           createMenu(title);
+                          Navigator.of(context).pop();
                         },
                       );
                     }
@@ -740,7 +660,8 @@ class _MenuState extends State<Menu> {
                                     leftButtonFunction: (){}, 
                                     rightButtonName: 'Okay',
                                     rightButtonFuction:(){
-                                      controller.secession(); // HERE:
+                                      controller.secession();
+                                      Navigator.of(context).pop();
                                     },
                                   );
                                 }

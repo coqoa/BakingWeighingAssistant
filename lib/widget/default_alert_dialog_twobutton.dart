@@ -76,10 +76,11 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                   onTap: () async {
                     if(rightButtonFuction!=null){ 
                       rightButtonFuction();
-                      Navigator.of(context).pop();
-                    }else{
-                      Navigator.of(context).pop();
+                      // Navigator.of(context).pop();
                     }
+                    // else{
+                    //   Navigator.of(context).pop();
+                    // }
                   },
                     child: Container(
                         height: 36,

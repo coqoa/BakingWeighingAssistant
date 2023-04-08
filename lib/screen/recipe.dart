@@ -44,17 +44,20 @@ class _RecipeState extends State<Recipe> {
   }
 
   moveListPage(){
-    // info: 스크롤 이동
+    // 스크롤 이동
     _scrollController.scrollToIndex(
       listViewIndex,
       preferPosition: AutoScrollPosition.middle,
     );
-    // info: 계산기 초기화
+    // 계산기 초기화
     multiflyInitialize();
   }
 
-  void multiflyInitialize(){}
+  void multiflyInitialize(){
+
+  }
   
+  // 소수점지우기
   removeDotZero(e){
     if(e.toString().contains('.0')){
       return e.ceil();
@@ -113,9 +116,6 @@ class _RecipeState extends State<Recipe> {
                             ),
                           ),
                           onTap: (){
-                            // setState(() {
-                            //   Get.off(()=>Menu()); // NOTE: to 로 할지 off로 할지 안드로이드로 확인해야함 //! get back?
-                            // });
                             Navigator.of(context).pop();
                           },
                         ),
@@ -332,7 +332,7 @@ class _RecipeState extends State<Recipe> {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          // CONTENTS_TITLE: 타이틀
+                                          // contents_header: 타이틀
                                           Obx((){
                                             return((){
                                               if(controller.requestStatus.value==RequestStatus.SUCCESS){
@@ -422,7 +422,7 @@ class _RecipeState extends State<Recipe> {
                                       ),
                                     ),
                               
-                                    // CONTENTS_DESCRIPTION: 레시피 본문
+                                    // contents_main: 레시피 본문
                                     SingleChildScrollView(
                                       child: Container(
                                         height: screenHeight-250-140, 
