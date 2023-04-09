@@ -254,28 +254,80 @@ class _MenuState extends State<Menu> {
                           ],
                         ),
 
-                        Container(
-                          color: Colors.red,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text('Create a new Menu',
+                        GestureDetector(
+                          onTap: (){
+                            showDialog(
+                              context: context, 
+                              builder: (_){
+                                return DefaultAlertDialogTwoButton(
+                                  title: 'Create', 
+                                  contents: SizedBox(
+                                    width: 250.w,
+                                    height: 100.h,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const SizedBox(),
+                                        TextField(
+                                          key: GlobalKey(),
+                                          style: const TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          cursorColor: Palette.lightblack,
+                                          cursorHeight: 25,
+                                          maxLength: 20,
+                                          autocorrect: false,
+                                          autofocus: true,
+              
+                                          decoration: const InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                            filled: true,
+                                            fillColor: Palette.white,
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                          ),
+                                          
+                                          onChanged: (value){
+                                              setState(() {
+                                                title = value;
+                                              });
+                                          },
+                                          onSubmitted: (v){
+                                            Navigator.of(context).pop();
+                                            createMenu(title);
+                                        },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  leftButtonName: 'Back', 
+                                  leftButtonFunction: (){}, 
+                                  rightButtonName: 'Submit',
+                                  rightButtonFuction:(){
+                                    createMenu(title);
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              }
+                            );
+                          },
+                          child: Container(
+                            width: 160,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Palette.black),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text('create new menu',
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold
                                 ),
                               ),
-                              // HERE:
-                              SizedBox(height: 20,),
-                              // Text('↘︎',
-                              //   style: TextStyle(
-                              //     fontSize: 15,
-                              //   ),
-                              // ),
-                              // Icon(Icons.add_to_photos_rounded,
-                              Icon(Icons.add,
-                                color: Palette.black,
-                              )
-                            ],
+                            ),
                           ),
                         ),
 
@@ -309,7 +361,7 @@ class _MenuState extends State<Menu> {
                         Container(
                           key: Key(item),// ReorderableListView 자식 요소로 필수 
                           height: 200.h,
-                          margin: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                          margin: const EdgeInsets.fromLTRB(40, 20, 40, 15),
                           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -513,6 +565,7 @@ class _MenuState extends State<Menu> {
             
       
             // 모달: Create 버튼
+            if(controller.menuList.isNotEmpty)
             Positioned(
               right: 0,
               bottom: 0,
