@@ -16,9 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
   
-  bool data = await fetchData();
-  print(data);
-
   try{
     await Firebase.initializeApp(
       options: FirebaseOptions(
@@ -32,20 +29,13 @@ void main() async {
       ),
     );
   }catch(e){
-    print('-- main.dart initializeApp ERROR --');
-    print(e);
+    print('-- main.dart initializeApp ERROR: $e --');
   }
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
-}
-
-Future<bool> fetchData() async {
-  bool data = false;
-
-  await Future.delayed(Duration(seconds: 3), () {
-    data = true;
-  });
-
-  return data;
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((value) => 
+    runApp(const MyApp())
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -56,10 +46,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -84,7 +76,6 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             scaffoldBackgroundColor: Colors.white,
-      
           ),
       
           builder: (context, child){
@@ -95,8 +86,8 @@ class _MyAppState extends State<MyApp> {
           },
       
           home: FirebaseAuth.instance.currentUser?.email != null 
-          ? Menu() 
-          : Sign(),
+            ? Menu() 
+            : Sign(),
         );
       },
     );

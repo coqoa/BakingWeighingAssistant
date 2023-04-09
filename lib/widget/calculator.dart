@@ -3,7 +3,6 @@ import 'package:bwa/controller/recipe_controller.dart';
 import 'package:flutter/material.dart';
 import '../config/palette.dart';
 
-// * 계산기 버튼 클래스
 class MultiflyBtn extends StatefulWidget {
   const MultiflyBtn({super.key, required this.callback, required this.text, required this.textColor});
 
@@ -71,12 +70,12 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
   void multiflyCount(String s,String recipeTitle, int index){
     setState(() {
       if(s == '<-'){
-        // info: 입력값 삭제 버튼
+        //  입력값 삭제 버튼
         if(multiflyIndicator.isNotEmpty ){
           multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
         }
       }else if(s == '확인'){
-        // info: 확인 버튼
+        //  확인 버튼
         if(multiflyIndicator != ''){
           if(widget.type == 'multiple'){
             // * 곱하기
@@ -105,127 +104,127 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-            height: 405,
-            width: 240,
-            padding: EdgeInsets.only(top: 20, bottom: 10),
-            decoration: BoxDecoration(
-              color: Palette.neumorphismColor,
-              borderRadius: BorderRadius.circular(15)
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // header:
-                Container(
-                  width: 230,
-                  height: 110,
-                  padding: EdgeInsets.only(left: 20, right: 10),
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // div: 
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Calculator',
-                          style: TextStyle(
-                            color: Palette.black,
-                            fontSize: 21,
-                            fontWeight: FontWeight.w700
-                          ),
+          height: 405,
+          width: 240,
+          padding: EdgeInsets.only(top: 20, bottom: 10),
+          decoration: BoxDecoration(
+            color: Palette.neumorphismColor,
+            borderRadius: BorderRadius.circular(15)
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // header:
+              Container(
+                width: 230,
+                height: 110,
+                padding: EdgeInsets.only(left: 20, right: 10),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text('Calculator',
+                        style: TextStyle(
+                          color: Palette.black,
+                          fontSize: 21,
+                          fontWeight: FontWeight.w700
                         ),
                       ),
-                      // div: 입력창
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(widget.type == 'multiple' ? 'x $multiflyIndicator' : '/ $multiflyIndicator g',
-                          style: TextStyle(
-                            color: Palette.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500
-                          ),
+                    ),
+                    //  입력창
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(widget.type == 'multiple' ? 'x $multiflyIndicator' : '/ $multiflyIndicator g',
+                        style: TextStyle(
+                          color: Palette.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500
                         ),
                       ),
-                      // div: 연산 결과
-                      Align(
-                        alignment: Alignment.centerRight,
-                        // child: Text('연산결과',
-                        child: Text(
-                          multiflyIndicator.isNotEmpty 
-                          ? widget.type == 'multiple'
-                            ? '${widget.controller.recipeWeightTotal[widget.listViewIndex]*(double.parse(multiflyIndicator))} g'
-                            : '${(widget.controller.recipeWeightTotal[widget.listViewIndex]~/double.parse(multiflyIndicator))} ea'
-                          : '',
-                          style: TextStyle(
-                            color: Palette.lightgray,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500
-                          ),
+                    ),
+                    //  연산 결과
+                    Align(
+                      alignment: Alignment.centerRight,
+                      // child: Text('연산결과',
+                      child: Text(
+                        multiflyIndicator.isNotEmpty 
+                        ? widget.type == 'multiple'
+                          ? '${widget.controller.recipeWeightTotal[widget.listViewIndex]*(double.parse(multiflyIndicator))} g'
+                          : '${(widget.controller.recipeWeightTotal[widget.listViewIndex]~/double.parse(multiflyIndicator))} ea'
+                        : '',
+                        style: TextStyle(
+                          color: Palette.lightgray,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500
                         ),
                       ),
-                    ],
+                    ),
+                  ],
+                )
+              ),
+
+              // main:
+              Container(
+                height: 255,
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(width: 1, color: Palette.reallightgray),
                   )
                 ),
+                child: Column(
+                  children: [
 
-                // main:
-                Container(
-                  height: 255,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(width: 1, color: Palette.reallightgray),
-                    )
-                  ),
-                  child: Column(
-                    children: [
-                      // div: 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7',widget.controller.recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                        ]
-                      ),
-                      // div: 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                        ]
-                      ),
-                      // div: 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                        ]
-                      ),
-                      // div: 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MultiflyBtn(text: '.', textColor: Palette.textColorWhite, callback: (){multiflyCount('.',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                          MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                        ]
-                      ),
-                      // div: 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
-                        ]
-                      ),
-                    ],
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        MultiflyBtn(text: '7', textColor: Palette.textColorWhite, callback: (){multiflyCount('7',widget.controller.recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '8', textColor: Palette.textColorWhite, callback: (){multiflyCount('8',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                      ]
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MultiflyBtn(text: '4', textColor: Palette.textColorWhite, callback: (){multiflyCount('4',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '5', textColor: Palette.textColorWhite, callback: (){multiflyCount('5',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                      ]
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MultiflyBtn(text: '1', textColor: Palette.textColorWhite, callback: (){multiflyCount('1',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '2', textColor: Palette.textColorWhite, callback: (){multiflyCount('2',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                      ]
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MultiflyBtn(text: '.', textColor: Palette.textColorWhite, callback: (){multiflyCount('.',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: '0', textColor: Palette.textColorWhite, callback: (){multiflyCount('0',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                        MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                      ]
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MultiflyBtn(text: 'Enter', textColor: Palette.blue, callback: (){multiflyCount('확인',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
+                      ]
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
       ),
     );
   }

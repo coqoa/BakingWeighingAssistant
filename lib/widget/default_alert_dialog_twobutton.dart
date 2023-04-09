@@ -25,14 +25,14 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
         width: 328,
         child: Column(
           children: [
-            // contents_main:
+            // 컨텐츠 메인
             SizedBox(
                 height: 133,
                 child: Center(
                   child: contents
             )),
             const Spacer(),  
-            // contents_footer:  
+            // 컨텐츠 하단
             Container(
               height: 55,
               decoration: const BoxDecoration(
@@ -43,45 +43,41 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                // nav: 좌측 버튼
-                InkWell(
-                  onTap: () {
-                    if(leftButtonFunction!=null){ 
-                      leftButtonFunction();
-                      Navigator.of(context).pop();
-                    }else{
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: Container(
-                      height: 36,
-                      margin: const EdgeInsets.only(left: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Palette.lightgray,
-                        border: Border.all(color: Palette.lightgray, width: 2)
-                      ),
-                      padding: const EdgeInsets.only(right: 15.0,left: 15.0),
-                      child: Center(
-                        child: 
-                        Text(leftButtonName,
-                            style: const TextStyle(color:Palette.white,fontSize: 15)
+                  // 좌측 버튼
+                  InkWell(
+                    onTap: () {
+                      if(leftButtonFunction!=null){ 
+                        leftButtonFunction();
+                        Navigator.of(context).pop();
+                      }else{
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Container(
+                        height: 36,
+                        margin: const EdgeInsets.only(left: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Palette.lightgray,
+                          border: Border.all(color: Palette.lightgray, width: 2)
                         ),
-                      )
-                  )
-                ),
-                const Spacer(),
-                // nav: 우측 버튼
-                InkWell(
-                  onTap: () async {
-                    if(rightButtonFuction!=null){ 
-                      rightButtonFuction();
-                      // Navigator.of(context).pop();
-                    }
-                    // else{
-                    //   Navigator.of(context).pop();
-                    // }
-                  },
+                        padding: const EdgeInsets.only(right: 15.0,left: 15.0),
+                        child: Center(
+                          child: 
+                          Text(leftButtonName,
+                              style: const TextStyle(color:Palette.white,fontSize: 15)
+                          ),
+                        )
+                    )
+                  ),
+                  const Spacer(),
+                  // 우측 버튼
+                  InkWell(
+                    onTap: () async {
+                      if(rightButtonFuction!=null){ 
+                        rightButtonFuction();
+                      }
+                    },
                     child: Container(
                         height: 36,
                         margin: const EdgeInsets.only(right: 16),
@@ -100,7 +96,8 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                         )
                     )
                   ),
-              ],),
+                ],
+              ),
             )    
           ],
         ),

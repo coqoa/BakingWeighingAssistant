@@ -39,7 +39,7 @@ class _MemoState extends State<Memo> {
   @override
   Widget build(BuildContext context) {
 
-  TextEditingController _textEditingController = new TextEditingController(text: memoContents);
+  TextEditingController textEditingController =  TextEditingController(text: memoContents);
 
   return  AlertDialog(
       insetPadding: const EdgeInsets.all(0),
@@ -65,13 +65,13 @@ class _MemoState extends State<Memo> {
           height: 410.h,
           child: Column(
             children: [
-              // div: 메모 입력 공간
+              // 메모 입력 공간
               Container(
                 height: 350.h,
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
                   maxLength: 5000,
-                  controller: _textEditingController,
+                  controller: textEditingController,
                   onChanged: (value ) {
                     memoContents = value;
                   },
@@ -87,7 +87,7 @@ class _MemoState extends State<Memo> {
                   maxLines: 20,
                 ),
               ),
-              // div: 저장 버튼
+              // 저장 버튼
               SizedBox(
                 height: 50.h,
                 child: GestureDetector(

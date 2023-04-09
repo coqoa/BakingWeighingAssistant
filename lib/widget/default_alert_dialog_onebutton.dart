@@ -1,8 +1,6 @@
 import 'package:bwa/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class DefaultAlertDialogOneButton extends StatelessWidget{
@@ -38,13 +36,13 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
         height: 208.h,
         child: Column(
           children: [
-            // contents_main:
+            // 컨텐츠 메인
             SizedBox(
                 height: 135.h,
                 child: Center(
                   child: contents
             )),
-            // contents_footer:
+            // 컨텐츠 하단
             Container(
               height: 68.h,
               decoration: const BoxDecoration(
@@ -55,7 +53,6 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                // nav:
                 InkWell(
                   onTap: () async {
                     if(confirmFunction!=null){ confirmFunction!();

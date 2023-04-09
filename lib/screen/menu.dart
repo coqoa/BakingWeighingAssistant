@@ -24,7 +24,7 @@ class _MenuState extends State<Menu> {
   String title = '';
   String changedTitle = '';
   bool settingClicked = false;
-  
+  bool circularIndicatorVisible = true;
 
   Validation validation = Validation();
    
@@ -152,7 +152,6 @@ class _MenuState extends State<Menu> {
                     if(password == passwordCheck){
                       controller.anonymousToPerpetualValidation(email, password, context);
                     }else{
-                      print('menu.dart - REF VALIDATION CLASS ----------');
                       validation.validationSnackBar('Please check your password');
                     }
                   }),
@@ -167,9 +166,7 @@ class _MenuState extends State<Menu> {
             if(password == passwordCheck){
               await controller.anonymousToPerpetualValidation(email, password, context);
               setState(() {});
-              // Navigator.of(context).pop(); // ! 조건분기태워야함
             }else{
-              print('menu.dart - REF VALIDATION CLASS ----------');
               validation.validationSnackBar('Password does not match'); 
             }
           },
@@ -184,6 +181,11 @@ class _MenuState extends State<Menu> {
   void initState() {
     super.initState();
     controller.loadMenuList();
+    Future.delayed(Duration(milliseconds: 500),(){
+      setState(() {
+        circularIndicatorVisible = false;
+      });
+    });
   }
 
   @override
@@ -191,8 +193,12 @@ class _MenuState extends State<Menu> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
+
+    final screenHeight = MediaQuery.of(context).size.height; 
+    final screenWidth = MediaQuery.of(context).size.width; 
 
     return Scaffold(
       body: SafeArea(
@@ -200,7 +206,7 @@ class _MenuState extends State<Menu> {
           children: [
             ((){
               return Obx((){
-                // info: 데이터가 없을 때 출력될 안내 페이지
+                // 데이터가 없을 때 출력될 안내 페이지
                 if(controller.menuList.isEmpty ){
                   return Center(
                     child: Column(
@@ -210,8 +216,16 @@ class _MenuState extends State<Menu> {
                         if(FirebaseAuth.instance.currentUser?.email == null)
                         Column(
                           children: [
-                            Text('Anonymous account is may lose data',
+                            Text('If you start without logging in,',
                               style: TextStyle(
+                                
+                                fontSize: 17,
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+                            Text('you may lose your data',
+                              style: TextStyle(
+                                
                                 fontSize: 17,
                               ),
                             ),
@@ -221,31 +235,48 @@ class _MenuState extends State<Menu> {
                                 // * 익명로그인:
                                 anonymousToPerpetual();
                               },
-                              child: Text('If you want to join Gramming, tap here',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  decoration: TextDecoration.underline,
-                                  fontWeight: FontWeight.w800
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      width: 1, 
+                                      color: Palette.black
+                                  ) )
+                                ),
+                                child: Text('To join Gramming, tap here!',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w800
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
 
-                        Column(
-                          children: [
-                            Text('Create a new Menu',
-                              style: TextStyle(
-                                fontSize: 17,
+                        Container(
+                          color: Colors.red,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Create a new Menu',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 20,),
-                            Text('↘︎',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            )
-                          ],
+                              // HERE:
+                              SizedBox(height: 20,),
+                              // Text('↘︎',
+                              //   style: TextStyle(
+                              //     fontSize: 15,
+                              //   ),
+                              // ),
+                              // Icon(Icons.add_to_photos_rounded,
+                              Icon(Icons.add,
+                                color: Palette.black,
+                              )
+                            ],
+                          ),
                         ),
 
                         if(FirebaseAuth.instance.currentUser?.email == null)
@@ -293,11 +324,10 @@ class _MenuState extends State<Menu> {
                           ),
                           child: Stack(
                             children: [
-                              // CONTENTS_TITLE:
+                              // 메뉴 타이틀
                               Center(
                                 child: GestureDetector(
                                   onTap: (){
-                                    // _showInterstitialAd();
                                     controller.moveToMenuDetails(item);
                                   },
                                   child: Container(
@@ -321,7 +351,7 @@ class _MenuState extends State<Menu> {
                                 ) 
                               ),
                               
-                              // nav: Tile 하단 버튼
+                              // 메뉴 하단 버튼
                               Positioned(
                                 bottom: 0,
                                 right: 0,
@@ -346,7 +376,7 @@ class _MenuState extends State<Menu> {
                                       onTap: () {
                                         title = item;
                                         _textController = TextEditingController(text: title);
-                                        // modal:
+                                        // 모달 : 수정 버튼
                                         showDialog(
                                           context: context, 
                                           builder: (_){
@@ -362,7 +392,7 @@ class _MenuState extends State<Menu> {
                                                     const SizedBox(),
                                                     TextField(
                                                       key: GlobalKey(),
-                                                      controller: _textController, // 텍스트 기본값 설정 컨트롤러
+                                                      controller: _textController, 
                                                       style: const TextStyle(
                                                         fontSize: 25,
                                                       ),
@@ -457,7 +487,7 @@ class _MenuState extends State<Menu> {
                                               leftButtonFunction: (){}, 
                                               rightButtonName: 'Submit',
                                               rightButtonFuction: (){
-                                                // db삭제기능 
+                                                // DB 삭제기능 
                                                 deleteMenu(item);
                                                 Navigator.of(context).pop();
                                               }, 
@@ -482,7 +512,7 @@ class _MenuState extends State<Menu> {
             
             
       
-            // modal: Create 버튼
+            // 모달: Create 버튼
             Positioned(
               right: 0,
               bottom: 0,
@@ -560,7 +590,7 @@ class _MenuState extends State<Menu> {
               ),
             ),
 
-            // modal: 설정 버튼
+            // 모달 : 설정 버튼
             Positioned(
               left: 0,
               bottom: 0,
@@ -602,7 +632,7 @@ class _MenuState extends State<Menu> {
                   color: Colors.black.withOpacity(0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    // modal: 회원탈퇴, 로그아웃
+                    // 모달 : 회원탈퇴, 로그아웃
                     child: Container(
                       width: 120,
                       height: 150,
@@ -615,8 +645,6 @@ class _MenuState extends State<Menu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // LATE: 언어선택 부분 미구현
-                          // * 익명계정일경우?
                           if(FirebaseAuth.instance.currentUser?.email == null)
                           GestureDetector(
                             onTap: (){
@@ -642,7 +670,7 @@ class _MenuState extends State<Menu> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              // modal: 회원탈퇴확인
+                              // 모달 : 회원탈퇴확인
                               showDialog(
                                 context: context, 
                                 builder: (_){
@@ -709,6 +737,24 @@ class _MenuState extends State<Menu> {
                 ),
               )
             ),
+            if(circularIndicatorVisible)
+            Center(
+              child: Container(
+                width: screenWidth,
+                height: screenHeight,
+                color: Palette.white,
+                child: Center(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    // color: Colors.blue,
+                    child: CircularProgressIndicator(
+                      color: Palette.black,
+                    )
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

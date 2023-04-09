@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
@@ -40,9 +39,8 @@ class _EditRecipeState extends State<EditRecipe> {
   void modifyRecipe()async {
     requestStatus.value=RequestStatus.LOADING;
     if(title.isNotEmpty){
-      // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeList.contains(title) && originalTitle != title){
-        // snackbar: 존재하는 타이틀
+        // snackbar - 존재하는 타이틀
         Get.snackbar(
           "","",
           titleText: const Center(
@@ -62,25 +60,25 @@ class _EditRecipeState extends State<EditRecipe> {
           maxWidth: 300.w,
         );
       }else{
-        // info: 레시피 리스트에 타이틀 변경
+        // 레시피 리스트에 타이틀 변경
         recipeList[recipeList.indexOf(originalTitle)]=title;
 
-        // info: RecipeList 업데이트
+        // RecipeList 업데이트
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeList}
         );
-        // info: original 데이터 제거
+        // original 데이터 제거
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update({
           originalTitle: FieldValue.delete(),
         });
-        // info: new 데이터 입력
+        // new 데이터 입력
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': widget.multipleValue, 'divideWeight': widget.divideWeight, 'ingredient':ingredient,'weight':weight}}
         );
         Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
       }
     }else{
-      // snackbar: 타이틀을 입력해주세요
+      // snackbar - 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -120,7 +118,7 @@ class _EditRecipeState extends State<EditRecipe> {
       setState(() {
         ingredient = value[widget.recipeTitle]['ingredient'];
         weight = value[widget.recipeTitle]['weight'];
-        // info: 재료와 중량 리스트 모두 마지막이 비었을 때만 추가해줌
+        // 재료와 중량 리스트 모두 마지막이 비었을 때만 추가해줌
         if(ingredient.last.length!=0 && weight.last.length!=0){
           ingredient.add('');
           weight.add('');
@@ -138,7 +136,7 @@ class _EditRecipeState extends State<EditRecipe> {
         backgroundColor: Palette.white,
         elevation: 2,
         centerTitle: true,
-        // nav:뒤로가기 버튼
+        // 뒤로가기 버튼
         leading:  Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GestureDetector(
@@ -161,7 +159,8 @@ class _EditRecipeState extends State<EditRecipe> {
             ),
           ),
         ),
-        // nac: 페이지 타이틀
+
+        // 페이지 타이틀
         title: const Text('Edit',
           style: TextStyle(
             color: Palette.lightblack,
@@ -169,7 +168,8 @@ class _EditRecipeState extends State<EditRecipe> {
             fontSize: 23
           ),
         ),
-        // nav: 완료 버튼
+
+        // 완료 버튼
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:5),
@@ -211,7 +211,7 @@ class _EditRecipeState extends State<EditRecipe> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // contents_header: 타이틀 
+                  // 타이틀 
                   Container(
                     width: 330.w,
                     margin: EdgeInsets.only(top: 10.h),
@@ -236,7 +236,7 @@ class _EditRecipeState extends State<EditRecipe> {
                     ),
                   ),
 
-                  // info: 시트 헤더
+                  // 시트 헤더
                   Container(
                     width: 330.w,
                     decoration: const BoxDecoration(
@@ -266,7 +266,7 @@ class _EditRecipeState extends State<EditRecipe> {
                     ),
                   ),
                   
-                  // contents_main: 시트 바디
+                  // 레시피 본문
                   SizedBox(
                     width: 330.w,
                     height: 305.h,
@@ -277,7 +277,7 @@ class _EditRecipeState extends State<EditRecipe> {
                           children: [
                             Row(
                               children: [
-                                // info: 좌항(재료)
+                                // 좌항(재료)
                                 Container(
                                   width: 165.w,
                                   height: 60.h,
@@ -306,7 +306,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                   ),
                                 ),
                                 
-                                // info: 우항(중량)
+                                // 우항(중량)
                                 Container(
                                   width: 165.w,
                                   height: 60.h,
@@ -318,7 +318,7 @@ class _EditRecipeState extends State<EditRecipe> {
                                       signed: true,
                                       decimal: true
                                     ),
-                                    // ref: 정규식
+                                    // ref - 정규식
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,

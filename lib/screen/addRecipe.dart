@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/recipe.dart';
@@ -31,7 +30,7 @@ class _AddRecipeState extends State<AddRecipe> {
 
   void createRecipe()async {
     if(title.isNotEmpty){
-      // snackbar: 존재하는 타이틀
+      // snackbar - 존재하는 타이틀
       if(recipeList.contains(title)){
         Get.snackbar(
           "","",
@@ -52,20 +51,20 @@ class _AddRecipeState extends State<AddRecipe> {
           maxWidth: 300.w,
         );
       }else{
-        // info: 레시피 리스트에 추가 
+        //  레시피 리스트에 추가 
         await recipeList.add(title);
         // 레시피 리스트 Doc 업데이트생성
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeList}
         );
-        // info: 레시피 Doc 추가 
+        //  레시피 Doc 추가 
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': 1,'divideWeight': 1,'ingredient':ingredient,'weight':weight}}
         );
         Get.offAll(()=>Recipe(menuTitle: widget.menuTitle));
       }
     }else{
-      // snackbar: 타이틀을 입력해주세요
+      // snackbar - 타이틀을 입력해주세요
       Get.snackbar(
         "","",
         titleText: const Center(
@@ -108,7 +107,7 @@ class _AddRecipeState extends State<AddRecipe> {
         backgroundColor: Palette.white,
         elevation: 2,
         centerTitle: true,
-        // nav: 뒤로가기 버튼
+        // 뒤로가기 버튼
         leading:  Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GestureDetector(
@@ -131,7 +130,7 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ),
         ),
-        // nav: 페이지 타이틀
+        // 페이지 타이틀
         title: Text('Add',
           style: TextStyle(
             color: Palette.lightblack,
@@ -140,7 +139,7 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
         ),
 
-        // nav: 완료 버튼
+        // 완료 버튼
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:5),
@@ -182,7 +181,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
             
-                  // contents_header: 레시피 타이틀 입력공간
+                  // 레시피 타이틀 입력공간
                   Container(
                     width: 330.w,
                     margin: EdgeInsets.only(top: 10.h),
@@ -208,11 +207,10 @@ class _AddRecipeState extends State<AddRecipe> {
                     ),
                   ),
 
-                  // info: 시트 헤더
+                  // 시트 헤더
                   Container(
                     width: 330.w,
                     decoration: const BoxDecoration(
-                      // color: Colors.red,
                       border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
                     ),
                     child: Row(
@@ -243,7 +241,7 @@ class _AddRecipeState extends State<AddRecipe> {
                     ),
                   ),
                   
-                  // contents_main: 레시피 시트
+                  // 레시피 본문
                   SizedBox(
                     width: 330.w,
                     height: 290.h,
@@ -261,7 +259,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                   decoration: const BoxDecoration(
                                     border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                   ),
-                                  // info: 재료명 TextField
+                                  // 재료명 TextField
                                   child: TextField(
                                     textInputAction: TextInputAction.next,
                                     textAlign: TextAlign.center,
@@ -282,7 +280,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                   ),
                                 ),
                                 
-                                // info: 중량 TextField
+                                // 중량 TextField
                                 Container(
                                   width: 165.w,
                                   height: 60.h,

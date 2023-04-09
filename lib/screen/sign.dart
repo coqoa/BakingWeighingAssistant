@@ -40,7 +40,7 @@ class _SignState extends State<Sign> {
                     height: isKeyboardVisible ? 0 : 370.h,
                     child: Center(
                       child: 
-                      // section: Logo Image Section
+                      // 상단 로고 이미지
                       Stack(
                         children: <Widget>[
                           Text(
@@ -90,7 +90,7 @@ class _SignState extends State<Sign> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // section: Sign Section
+                        // 로그인 / 회원가입 섹션
                         Container(
                           width: 244.w,
                           height: 420.h,
@@ -102,13 +102,13 @@ class _SignState extends State<Sign> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // info: 텍스트 필드
+                              // 텍스트 필드
                               Column(
                                 children: [
                                   SizedBox(
                                     height: 220.h,
                                     child: isSignin 
-                                    // div: Sign in Box
+                                    // 로그인
                                     ? Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -135,7 +135,7 @@ class _SignState extends State<Sign> {
                                       ],
                                     )
                     
-                                    // div: Sign up Box
+                                    // 회원가입
                                     : Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
@@ -175,14 +175,13 @@ class _SignState extends State<Sign> {
                                 ],
                               ),
                               
-                              // contents_footer: 
                               SizedBox(
                                 width: 300.w,
                                 height: 170.h,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    // div: Error Message Section
+                                    // validation 결과
                                     Obx(()=>
                                       SizedBox(
                                         height: 25.h,
@@ -200,7 +199,7 @@ class _SignState extends State<Sign> {
 
                                     SizedBox(height: 10,),
 
-                                    // div: Submit Button Section
+                                    // 확인 버튼
                                     InkWell(
                                       onTap: () {
                                         isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
@@ -223,9 +222,9 @@ class _SignState extends State<Sign> {
                                       ),
                                     ),
 
-                                    SizedBox(height: 7.h,),
+                                    SizedBox(height: 10.h,),
                     
-                                    // div: Page Toggle Section
+                                    // 로그인 / 회원가입 토글버튼
                                     InkWell(
                                       onTap: (){
                                         setState(() {
@@ -243,12 +242,12 @@ class _SignState extends State<Sign> {
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w800,
-                                                color: Palette.middleblack
+                                                color: Palette.gray
                                               ),
                                             ),
-                                            Text(isSignin ?'Join us' :'Log in',
+                                            Text(isSignin ?' Join us' :' Log in',
                                               style: TextStyle(
-                                                color: Palette.blue,
+                                                color: Palette.black,
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w900,
                                                 fontStyle: FontStyle.italic
@@ -258,23 +257,45 @@ class _SignState extends State<Sign> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 5.h,),
-                                    // div: anonymous account
+                                    SizedBox(height: 10.h,),
+                                    // 익명로그인
                                     InkWell(
                                       onTap: (){
                                         controller.startAnonymous();
                                       },
-                                      child: SizedBox(
-                                        height: 25.h,
-                                        child: Text(
-                                          'or Start with an anonymous account',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w800,
-                                            color: Palette.gray
+                                      // child: SizedBox(
+                                      //   height: 25.h,
+                                      //   child: Text(
+                                      //     'or Start with an anonymous account',
+                                      //     style: TextStyle(
+                                      //       fontSize: 14,
+                                      //       fontWeight: FontWeight.w800,
+                                      //       color: Palette.gray
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Or start without logging in first',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w800,
+                                              color: Palette.gray
+                                            ),
                                           ),
-                                        ),
+                                          // Text('Anonymous account',
+                                          //   style: TextStyle(
+                                          //     color: Palette.black,
+                                          //     fontSize: 14,
+                                          //     fontWeight: FontWeight.w900,
+                                          //     fontStyle: FontStyle.italic
+                                          //   ),
+                                          // )
+                                        ],
                                       ),
+
                                     )
                                   ],
                                 )

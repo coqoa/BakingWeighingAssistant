@@ -46,12 +46,12 @@ class RecipeController extends GetxController{
 
   // * 레시피 삭제
   deleteRecipe(menuTitle, index)async{
-    // INFO: 기존 데이터 지우기
+    // 기존 데이터 지우기
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
       recipeList[index]: FieldValue.delete(),
     });
     
-    // INFO: 리스트 초기화
+    // 리스트 초기화
     recipeList.removeAt(index);
     recipeIngredient.removeAt(index);
     recipeWeight.removeAt(index);
@@ -59,11 +59,12 @@ class RecipeController extends GetxController{
     multipleValue.removeAt(index);
     divideWeight.removeAt(index);
 
-    // INFO: 변경된 레시피 리스트 업데이트
+    // 변경된 레시피 리스트 업데이트
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
   }
+  
   // * 곱한 값 업데이트
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     num sum = 0;
