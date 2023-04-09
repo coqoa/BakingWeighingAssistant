@@ -2,6 +2,7 @@ import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:bwa/widget/default_alert_dialog_twobutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -187,6 +188,143 @@ class MenuController extends GetxController{
   void secession()async{
     await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).delete();
     await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
+  }
+
+  // * 익명회원으로 시작
+  anonymousToPerpetual(context){
+    String email ='';
+    String password = '';
+    String passwordCheck = '';
+
+    return showDialog(
+      context: context, 
+      builder: (_){
+        return 
+        DefaultAlertDialogTwoButton(
+          title: '', 
+          contents: SizedBox(
+            width: 250.w,
+            height: 300.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // info: email
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 20,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'E-mail',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    email = value;
+                  },
+                ),
+                // info: password
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    password = value;
+                  },
+                ),
+                // info: passwordCheck
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.done,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password Check',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    passwordCheck = value;
+                  },
+                  onSubmitted: ((value) {
+                    if(password == passwordCheck){
+                      anonymousToPerpetualValidation(email, password, context);
+                    }else{
+                      validation.validationSnackBar('Please check your password');
+                    }
+                  }),
+                ),
+              ],
+            ),
+          ),
+          leftButtonName: 'Back', 
+          leftButtonFunction: (){}, 
+          rightButtonName: 'Join us',
+          rightButtonFuction:()async{
+            if(password == passwordCheck){
+              await anonymousToPerpetualValidation(email, password, context);
+              // setState(() {}); //!
+            }else{
+              validation.validationSnackBar('Password does not match'); 
+            }
+          },
+        );
+      }
+    );
   }
 
   // * 익명회원 -> 회원가입검증

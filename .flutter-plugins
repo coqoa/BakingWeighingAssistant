@@ -1,10 +1,10 @@
 # This is a generated file; do not edit or check into version control.
-cloud_firestore=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-4.0.3/
-cloud_firestore_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-3.0.3/
-firebase_auth=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-4.1.0/
-firebase_auth_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-5.1.0/
-firebase_core=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-2.1.1/
-firebase_core_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-2.0.1/
+cloud_firestore=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-4.5.0/
+cloud_firestore_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-3.4.0/
+firebase_auth=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-4.4.0/
+firebase_auth_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-5.3.0/
+firebase_core=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-2.9.0/
+firebase_core_web=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-2.3.0/
 flutter_keyboard_visibility=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility-5.4.0/
 flutter_keyboard_visibility_linux=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility_linux-1.0.0/
 flutter_keyboard_visibility_macos=/Users/coqoa/Documents/dev/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_keyboard_visibility_macos-1.0.0/

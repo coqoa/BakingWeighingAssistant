@@ -39,141 +39,141 @@ class _MenuState extends State<Menu> {
     controller.editMenu(title, changedTitle);
   }
 
-  anonymousToPerpetual(){
-    String email ='';
-    String password = '';
-    String passwordCheck = '';
+  // anonymousToPerpetual(){
+  //   String email ='';
+  //   String password = '';
+  //   String passwordCheck = '';
 
-    return showDialog(
-      context: context, 
-      builder: (_){
-        return 
-        DefaultAlertDialogTwoButton(
-          title: '', 
-          contents: SizedBox(
-            width: 250.w,
-            height: 300.h,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // info: email
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 20,
-                  textInputAction: TextInputAction.next,
-                  autocorrect: false,
-                  autofocus: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'E-mail',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    email = value;
-                  },
-                ),
-                // info: password
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 25,
-                  textInputAction: TextInputAction.next,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    password = value;
-                  },
-                ),
-                // info: passwordCheck
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 25,
-                  textInputAction: TextInputAction.done,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password Check',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    passwordCheck = value;
-                  },
-                  onSubmitted: ((value) {
-                    if(password == passwordCheck){
-                      controller.anonymousToPerpetualValidation(email, password, context);
-                    }else{
-                      validation.validationSnackBar('Please check your password');
-                    }
-                  }),
-                ),
-              ],
-            ),
-          ),
-          leftButtonName: 'Back', 
-          leftButtonFunction: (){}, 
-          rightButtonName: 'Join us',
-          rightButtonFuction:()async{
-            if(password == passwordCheck){
-              await controller.anonymousToPerpetualValidation(email, password, context);
-              setState(() {});
-            }else{
-              validation.validationSnackBar('Password does not match'); 
-            }
-          },
-        );
-      }
-    );
-  }
+  //   return showDialog(
+  //     context: context, 
+  //     builder: (_){
+  //       return 
+  //       DefaultAlertDialogTwoButton(
+  //         title: '', 
+  //         contents: SizedBox(
+  //           width: 250.w,
+  //           height: 300.h,
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               // info: email
+  //               TextField(
+  //                 key: GlobalKey(),
+  //                 style: const TextStyle(
+  //                   fontSize: 20,
+  //                 ),
+  //                 textAlign: TextAlign.center,
+  //                 cursorColor: Palette.lightblack,
+  //                 cursorHeight: 20,
+  //                 keyboardType:TextInputType.emailAddress,
+  //                 maxLength: 20,
+  //                 textInputAction: TextInputAction.next,
+  //                 autocorrect: false,
+  //                 autofocus: true,
+  //                 decoration: const InputDecoration(
+  //                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+  //                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+  //                   filled: true,
+  //                   fillColor: Palette.white,
+  //                   isDense: true,
+  //                   contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+  //                   hintText: 'E-mail',
+  //                   hintStyle: TextStyle(
+  //                     fontSize: 15
+  //                   ),
+  //                   counterText: ''
+  //                 ),
+  //                 onChanged: (value){
+  //                   email = value;
+  //                 },
+  //               ),
+  //               // info: password
+  //               TextField(
+  //                 key: GlobalKey(),
+  //                 style: const TextStyle(
+  //                   fontSize: 20,
+  //                 ),
+  //                 textAlign: TextAlign.center,
+  //                 cursorColor: Palette.lightblack,
+  //                 cursorHeight: 20,
+  //                 keyboardType:TextInputType.emailAddress,
+  //                 maxLength: 25,
+  //                 textInputAction: TextInputAction.next,
+  //                 autocorrect: false,
+  //                 obscureText: true,
+  //                 decoration: const InputDecoration(
+  //                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+  //                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+  //                   filled: true,
+  //                   fillColor: Palette.white,
+  //                   isDense: true,
+  //                   contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+  //                   hintText: 'Password',
+  //                   hintStyle: TextStyle(
+  //                     fontSize: 15
+  //                   ),
+  //                   counterText: ''
+  //                 ),
+  //                 onChanged: (value){
+  //                   password = value;
+  //                 },
+  //               ),
+  //               // info: passwordCheck
+  //               TextField(
+  //                 key: GlobalKey(),
+  //                 style: const TextStyle(
+  //                   fontSize: 20,
+  //                 ),
+  //                 textAlign: TextAlign.center,
+  //                 cursorColor: Palette.lightblack,
+  //                 cursorHeight: 20,
+  //                 keyboardType:TextInputType.emailAddress,
+  //                 maxLength: 25,
+  //                 textInputAction: TextInputAction.done,
+  //                 autocorrect: false,
+  //                 obscureText: true,
+  //                 decoration: const InputDecoration(
+  //                   enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+  //                   focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+  //                   filled: true,
+  //                   fillColor: Palette.white,
+  //                   isDense: true,
+  //                   contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+  //                   hintText: 'Password Check',
+  //                   hintStyle: TextStyle(
+  //                     fontSize: 15
+  //                   ),
+  //                   counterText: ''
+  //                 ),
+  //                 onChanged: (value){
+  //                   passwordCheck = value;
+  //                 },
+  //                 onSubmitted: ((value) {
+  //                   if(password == passwordCheck){
+  //                     controller.anonymousToPerpetualValidation(email, password, context);
+  //                   }else{
+  //                     validation.validationSnackBar('Please check your password');
+  //                   }
+  //                 }),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         leftButtonName: 'Back', 
+  //         leftButtonFunction: (){}, 
+  //         rightButtonName: 'Join us',
+  //         rightButtonFuction:()async{
+  //           if(password == passwordCheck){
+  //             await controller.anonymousToPerpetualValidation(email, password, context);
+  //             setState(() {});
+  //           }else{
+  //             validation.validationSnackBar('Password does not match'); 
+  //           }
+  //         },
+  //       );
+  //     }
+  //   );
+  // }
 
   
 
@@ -233,7 +233,7 @@ class _MenuState extends State<Menu> {
                             GestureDetector(
                               onTap: (){
                                 // * 익명로그인:
-                                anonymousToPerpetual();
+                                controller.anonymousToPerpetual(context);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -704,7 +704,7 @@ class _MenuState extends State<Menu> {
                               setState(() {
                                 settingClicked = false;
                               });
-                              anonymousToPerpetual();
+                              controller.anonymousToPerpetual(context);
                             },
                             child: Container(
                               width: 120,
