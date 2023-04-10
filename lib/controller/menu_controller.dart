@@ -2,6 +2,7 @@ import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:bwa/widget/default_alert_dialog_twobutton.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -185,10 +186,154 @@ class MenuController extends GetxController{
     await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
   }
 
-  anonymousToPerpetual(emailAddress, password)async{
+  anonymousToPerpetual(context){
+    String email ='';
+    String password = '';
+    String passwordCheck = '';
+
+    return showDialog(
+      context: context, 
+      builder: (_){
+        return 
+        DefaultAlertDialogTwoButton(
+          title: '', 
+          contents: SizedBox(
+            width: 250.w,
+            height: 300.h,
+            // color: Colors.red,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // info: email
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 20,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'E-mail',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    email = value;
+                  },
+                ),
+                // info: password
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.next,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    password = value;
+                  },
+                ),
+                // info: passwordCheck
+                TextField(
+                  key: GlobalKey(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  cursorColor: Palette.lightblack,
+                  cursorHeight: 20,
+                  keyboardType:TextInputType.emailAddress,
+                  maxLength: 25,
+                  textInputAction: TextInputAction.done,
+                  autocorrect: false,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                    filled: true,
+                    fillColor: Palette.white,
+                    isDense: true,
+                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
+                    hintText: 'Password Check',
+                    hintStyle: TextStyle(
+                      fontSize: 15
+                    ),
+                    counterText: ''
+                  ),
+                  onChanged: (value){
+                    passwordCheck = value;
+                  },
+                  onSubmitted: ((value) {
+                    if(password == passwordCheck){
+                      anonymousToPerpetualValidation(email, password, context);
+                    }else{
+                      print('menu.dart - REF VALIDATION CLASS ----------');
+                      validation.validationSnackBar('Please check your password');
+                    }
+                  }),
+                ),
+              ],
+            ),
+          ),
+          leftButtonName: 'Back', 
+          leftButtonFunction: (){}, 
+          rightButtonName: 'Join us',
+          rightButtonFuction:(){
+            if(password == passwordCheck){
+              anonymousToPerpetualValidation(email, password, context);
+            }else{
+              print('menu.dart - REF VALIDATION CLASS ----------');
+              validation.validationSnackBar('Password does not match'); // here: 벨리데이션 과정 필요함
+            }
+          },
+        );
+      }
+    );
+  }
+
+
+
+  anonymousToPerpetualValidation(emailAddress, password, context)async{
     final credential = EmailAuthProvider.credential(email: emailAddress, password: password);
     try {
-      await FirebaseAuth.instance.currentUser?.linkWithCredential(credential).then((value) => Get.to(()=> Menu()));
+      await FirebaseAuth.instance.currentUser?.linkWithCredential(credential).then((value){
+        Navigator.of(context).pop();
+        Get.to(()=> Menu());
+        
+    });
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "provider-already-linked":

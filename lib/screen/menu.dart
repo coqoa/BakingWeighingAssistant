@@ -1,16 +1,12 @@
 
-import 'package:bwa/apikey.dart';
-import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:bwa/widget/validation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../controller/menu_controller.dart';
 import '../widget/default_alert_dialog_twobutton.dart';
 class Menu extends StatefulWidget {
@@ -28,14 +24,7 @@ class _MenuState extends State<Menu> {
   String title = '';
   String changedTitle = '';
   bool settingClicked = false;
-  
-  // info: 광고 관련 변수
-  // InterstitialAd? interstitialAd;
-  // AD_API_KEYS adKeys = AD_API_KEYS();
-  // int _numInterstitialLoadAttempts = 0;
-  // int maxFailedLoadAttempts = 3;
-  
-  // bool adReady= false;
+  bool circularIndicatorVisible = true;
 
   Validation validation = Validation();
    
@@ -50,270 +39,168 @@ class _MenuState extends State<Menu> {
     controller.editMenu(title, changedTitle);
   }
 
-  // info: initState에서 호출, load fail, dimiss, on ad fail 상황에서 재호출
-  // void _createInterstitialAd() {
-  //   InterstitialAd.load(
-  //     adUnitId: adKeys.NATIVE[GetPlatform.isIOS ? 'ios' : 'android']!,
-  //     request: AdRequest(),
-  //     adLoadCallback: InterstitialAdLoadCallback(
-  //       onAdLoaded: (InterstitialAd ad) {
-  //         interstitialAd = ad;
-  //         _numInterstitialLoadAttempts = 0;
-  //         interstitialAd!.setImmersiveMode(true);
-  //         print(ad.responseInfo);
-  //         print('광고로드');
-  //         setState(() {
-  //           adReady = true;
-  //           print('adReady = $adReady');
-  //         });
-  //       },
-  //       onAdFailedToLoad: (LoadAdError error) {
-  //         _numInterstitialLoadAttempts += 1;
-  //         interstitialAd = null;
-  //         if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
-  //           _createInterstitialAd();
-  //         }
-  //       },
-  //     ));
-  // }
-
-  // info: 버튼을 누르면 로드되어있는 Ad를 호출하는 메소드
-  // void _showInterstitialAd() {
-  //   if (interstitialAd == null) {
-  //     return;
-  //   }else{
-  //     print('널이아님');
-  //   }
-  //   interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-  //     onAdShowedFullScreenContent: (InterstitialAd ad) {
-  //     },
-  //     onAdDismissedFullScreenContent: (InterstitialAd ad) {
-  //       ad.dispose();
-  //       _createInterstitialAd();
-  //     },
-  //     onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-  //       ad.dispose();
-  //       _createInterstitialAd();
-  //     },
-  //   );
-  //   interstitialAd!.show();
-  //   interstitialAd = null;
-  // }
-
-  anonymousToPerpetual(){
-    String email ='';
-    String password = '';
-    String passwordCheck = '';
-
-    return showDialog(
-      context: context, 
-      builder: (_){
-        return 
-        DefaultAlertDialogTwoButton(
-          title: '', 
-          contents: SizedBox(
-            width: 250.w,
-            height: 300.h,
-            // color: Colors.red,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // info: email
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 20,
-                  textInputAction: TextInputAction.next,
-                  autocorrect: false,
-                  autofocus: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'E-mail',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    email = value;
-                  },
-                ),
-                // info: password
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 25,
-                  textInputAction: TextInputAction.next,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    password = value;
-                  },
-                ),
-                // info: passwordCheck
-                TextField(
-                  key: GlobalKey(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  cursorColor: Palette.lightblack,
-                  cursorHeight: 20,
-                  keyboardType:TextInputType.emailAddress,
-                  maxLength: 25,
-                  textInputAction: TextInputAction.done,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
-                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
-                    filled: true,
-                    fillColor: Palette.white,
-                    isDense: true,
-                    contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password Check',
-                    hintStyle: TextStyle(
-                      fontSize: 15
-                    ),
-                    counterText: ''
-                  ),
-                  onChanged: (value){
-                    passwordCheck = value;
-                  },
-                  onSubmitted: ((value) {
-                    if(password == passwordCheck){
-                      controller.anonymousToPerpetual(email, password);
-                    }else{
-                      print('menu.dart - REF VALIDATION CLASS ----------');
-                      validation.validationSnackBar('Please check your password');
-                    }
-                  }),
-                ),
-              ],
-            ),
-          ),
-          leftButtonName: 'Back', 
-          leftButtonFunction: (){}, 
-          rightButtonName: 'Join us',
-          rightButtonFuction:(){
-            if(password == passwordCheck){
-              controller.anonymousToPerpetual(email, password);
-            }else{
-              print('menu.dart - REF VALIDATION CLASS ----------');
-              validation.validationSnackBar('Password does not match'); // here: 벨리데이션 과정 필요함
-            }
-          },
-        );
-      }
-    );
-  }
-
-  
 
   @override
   void initState() {
     super.initState();
-    // setState(() {
-    //   adReady = false;
-    //   print('adReady = $adReady');
-    // });
     controller.loadMenuList();
-    // _createInterstitialAd();
+    Future.delayed(Duration(milliseconds: 500),(){
+      setState(() {
+        circularIndicatorVisible = false;
+      });
+    });
   }
 
   @override
   void dispose() {
-    // interstitialAd?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    final screenHeight = MediaQuery.of(context).size.height; 
+    final screenWidth = MediaQuery.of(context).size.width; 
 
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
             ((){
-              // if(adReady==true){ 
                 return Obx((){
                   // info: 데이터가 없을 때 출력될 안내 페이지
-                  if(controller.menuList.isEmpty ){
+                  if(controller.menuList.isEmpty){
                     return Center(
                       child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // ? 익명 로그인시 출력되는 안내문구
                           if(FirebaseAuth.instance.currentUser?.email == null)
                           Column(
                             children: [
-                              Text('- Anonymous account is may lose data.',
+                              Text('If you start without logging in,',
                                 style: TextStyle(
+
                                   fontSize: 17,
-                                  // fontWeight: FontWeight.w800
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Text('you may lose your data',
+                                style: TextStyle(
+
+                                  fontSize: 17,
                                 ),
                               ),
                               SizedBox(height: 20,),
                               GestureDetector(
                                 onTap: (){
                                   // * 익명로그인:
-                                  anonymousToPerpetual();
+                                  controller.anonymousToPerpetual(context);
                                 },
-                                child: Text('If you want to join Gramming, tap here',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w800
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        width: 1, 
+                                        color: Palette.black
+                                    ) )
+                                  ),
+                                  child: Text('To join Gramming, tap here!',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w800
+                                    ),
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
 
                           Column(
                             children: [
-                              Text('Click the add button to create a new Menu',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.w800
-                                ),
-                              ),
-                              SizedBox(height: 20,),
-                              Text('↘︎',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  // fontWeight: FontWeight.w800
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context, 
+                                    builder: (_){
+                                      return DefaultAlertDialogTwoButton(
+                                        title: 'Create', 
+                                        contents: SizedBox(
+                                          width: 250.w,
+                                          height: 100.h,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const SizedBox(),
+                                              TextField(
+                                                key: GlobalKey(),
+                                                style: const TextStyle(
+                                                  fontSize: 25,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                cursorColor: Palette.lightblack,
+                                                cursorHeight: 25,
+                                                maxLength: 20,
+                                                autocorrect: false,
+                                                autofocus: true,
+                    
+                                                decoration: const InputDecoration(
+                                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
+                                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
+                                                  filled: true,
+                                                  fillColor: Palette.white,
+                                                  isDense: true,
+                                                  contentPadding: EdgeInsets.fromLTRB(10,0,10,2)
+                                                ),
+                                                
+                                                onChanged: (value){
+                                                    setState(() {
+                                                      title = value;
+                                                    });
+                                                },
+                                                onSubmitted: (v){
+                                                  Navigator.of(context).pop();
+                                                  createMenu(title);
+                                              },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        leftButtonName: 'Back', 
+                                        leftButtonFunction: (){}, 
+                                        rightButtonName: 'Submit',
+                                        rightButtonFuction:(){
+                                          createMenu(title);
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                    }
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(width: 1.5, color: Palette.lightblack),
+                                    borderRadius: BorderRadius.circular(15)
+                                  ),
+                                  width: 180,
+                                  height: 60,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.touch_app_outlined,
+                                        color: Palette.black,
+                                      ),
+                                      SizedBox(width: 10,),
+                                      Text('Create new menu',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ]
+                                  )
                                 ),
                               )
                             ],
@@ -368,7 +255,6 @@ class _MenuState extends State<Menu> {
                                 Center(
                                   child: GestureDetector(
                                     onTap: (){
-                                      // _showInterstitialAd();
                                       controller.moveToMenuDetails(item);
                                     },
                                     child: Container(
@@ -471,6 +357,7 @@ class _MenuState extends State<Menu> {
                                                 rightButtonName: 'Submit',
                                                 rightButtonFuction:(){
                                                   editMenu(title, changedTitle);
+                                                  Navigator.of(context).pop();
                                                 },
                                               );
                                             }
@@ -529,6 +416,7 @@ class _MenuState extends State<Menu> {
                                                 rightButtonFuction: (){
                                                   // db삭제기능 
                                                   deleteMenu(item);
+                                                  Navigator.of(context).pop();
                                                 }, 
                                               );
                                             }
@@ -546,24 +434,13 @@ class _MenuState extends State<Menu> {
                     );
                   }
                 });
-              // }else{
-              //   return Center(
-              //     child: Container(
-              //       width: 40,
-              //       height: 40,
-              //       color: Colors.transparent,
-              //       child: CircularProgressIndicator(
-              //         color: Palette.black,
-              //       ),
-              //     ),
-              //   );
-              // }
             }()),
             
             
             
       
             // modal: Create 버튼
+            if(controller.menuList.isNotEmpty)
             Positioned(
               right: 0,
               bottom: 0,
@@ -572,11 +449,15 @@ class _MenuState extends State<Menu> {
                   width: 65,
                   height: 65,
                   child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/plus2.svg',
-                      color: Palette.black,
-                      width: 35,
-                      height: 35,
+                    // child: SvgPicture.asset(
+                    //   'assets/images/plus2.svg',
+                    //   color: Palette.black,
+                    //   width: 35,
+                    //   height: 35,
+                    // ),
+                    child: Icon(Icons.add_circle_outline,
+                      color: Palette.darkgray,
+                      size: 30,
                     ),
                   ),
                 ),
@@ -632,6 +513,7 @@ class _MenuState extends State<Menu> {
                         rightButtonName: 'Submit',
                         rightButtonFuction:(){
                           createMenu(title);
+                          Navigator.of(context).pop();
                         },
                       );
                     }
@@ -651,11 +533,15 @@ class _MenuState extends State<Menu> {
                   decoration: BoxDecoration(
                   ),
                   child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/setting2.svg',
-                      color: Palette.black,
-                      width: 28,
-                      height: 28,
+                    // child: SvgPicture.asset(
+                    //   'assets/images/setting2.svg',
+                    //   color: Palette.black,
+                    //   width: 28,
+                    //   height: 28,
+                    // ),
+                    child: Icon(Icons.settings_outlined,
+                      color: Palette.darkgray,
+                      size: 25,
                     ),
                   ),
                 ),
@@ -695,7 +581,6 @@ class _MenuState extends State<Menu> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // LATE: 언어선택 부분 미구현
                           // * 익명계정일경우?
                           if(FirebaseAuth.instance.currentUser?.email == null)
                           GestureDetector(
@@ -703,7 +588,7 @@ class _MenuState extends State<Menu> {
                               setState(() {
                                 settingClicked = false;
                               });
-                              anonymousToPerpetual();
+                              controller.anonymousToPerpetual(context);
                             },
                             child: Container(
                               width: 120,
@@ -740,7 +625,8 @@ class _MenuState extends State<Menu> {
                                     leftButtonFunction: (){}, 
                                     rightButtonName: 'Okay',
                                     rightButtonFuction:(){
-                                      controller.secession(); // HERE:
+                                      controller.secession(); 
+                                      Navigator.of(context).pop();
                                     },
                                   );
                                 }
@@ -788,6 +674,24 @@ class _MenuState extends State<Menu> {
                 ),
               )
             ),
+            if(circularIndicatorVisible)
+            Center(
+              child: Container(
+                width: screenWidth,
+                height: screenHeight,
+                color: Palette.white,
+                child: Center(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    // color: Colors.blue,
+                    child: CircularProgressIndicator(
+                      color: Palette.black,
+                    )
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

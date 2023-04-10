@@ -144,10 +144,6 @@
 		<data>
 		1KwodjT/HgbgD49pDSoV7fswQ3Y=
 		</data>
-		<key>flutter_assets/assets/lotties/plus-lottie.json</key>
-		<data>
-		94P6vUsMwl29hwn8wkftIwuhTaw=
-		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		mcmNrC70e/OT89y/p5EgxkVsLrs=
@@ -158,7 +154,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		f4i/hcQjQ++TrFUUSgBEwyMXHgw=
+		bSs5EBYiC8NIhSHx3djwpcPLrTc=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -413,13 +409,6 @@
 			pfBQoAFejlFYBxE4pCGhTAVEODoY4blwZ635kRwxIv4=
 			</data>
 		</dict>
-		<key>flutter_assets/assets/lotties/plus-lottie.json</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			nDrelFq027whNuHfAxgTNKrnl0T0lsSmscjYCyGfwYM=
-			</data>
-		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash2</key>
@@ -438,7 +427,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uGj6QnY5BEM5ptcC0Wfg3WWA5lKh4OguBGW4/AI+gHY=
+			vxrc03SNUiudR80K2G8IzH4gQ2VMq1g/IHCVU6cyU+I=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
