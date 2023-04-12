@@ -267,24 +267,40 @@ class _RecipeState extends State<Recipe> {
                     if(controller.recipeList.isEmpty){
                       // info: 리스트가 없으면 출력될 안내 페이지
                       return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('↗︎',
-                              style: TextStyle(
-                                fontSize: 15,
-                                // fontWeight: FontWeight.w800
-                              ),
+                        child: GestureDetector(
+                          onTap: (){
+                            Get.to(()=>AddRecipe(menuTitle: widget.menuTitle));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(width: 1.5, color: Palette.lightblack),
+                              borderRadius: BorderRadius.circular(15)
                             ),
-                            SizedBox(height: 20,),
-                            Text('Click the add button to create a new Menu',
-                              style: TextStyle(
-                                fontSize: 17,
-                                // fontWeight: FontWeight.w800
-                              ),
-                            ),
-                          ],
+                            width: 180,
+                            height: 60,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/plus2.svg',
+                                  color: Palette.black,
+                                  width: 25,
+                                  height: 25,
+                                ),
+                                SizedBox(width: 10,),
+                                Text('Add a new Recipe',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ]
+                            )
+                          ),
                         ),
+
                       );
                     }else{
                       return  PageView.builder(
