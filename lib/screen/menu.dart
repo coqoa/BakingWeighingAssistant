@@ -292,11 +292,9 @@ class _MenuState extends State<Menu> {
                                           height: 40,
                                           color: Palette.white,
                                           child: Center(
-                                            child: SvgPicture.asset(
-                                              'assets/images/pencil1.svg', 
-                                              color: Palette.gray,
-                                              width: 25,
-                                              height: 25,
+                                            child: Icon(Icons.mode_edit_outline_outlined,
+                                                color:  Palette.gray,
+                                                size: 24,
                                             ),
                                           ),
                                         ),
@@ -373,11 +371,9 @@ class _MenuState extends State<Menu> {
                                           height: 40,
                                           color: Palette.white,
                                           child: Center(
-                                            child: SvgPicture.asset(
-                                              'assets/images/delete2.svg',
-                                              color: Palette.gray,
-                                              width: 30,
-                                              height: 30,
+                                            child: Icon(Icons.delete_outline_rounded,
+                                                color:  Palette.gray,
+                                                size: 24,
                                             ),
                                           ),
                                         ),

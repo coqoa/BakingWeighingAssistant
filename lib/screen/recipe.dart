@@ -106,7 +106,7 @@ class _RecipeState extends State<Recipe> {
                               alignment: Alignment.centerLeft,
                               child: SvgPicture.asset(
                                 'assets/images/left1.svg',
-                                color: Palette.darkgray,
+                                color: Palette.gray,
                                 width: 30,
                                 height: 30,
                               ),
@@ -146,17 +146,23 @@ class _RecipeState extends State<Recipe> {
                                   width: 40,
                                   color: Palette.white,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                        'assets/images/memo1.svg',
-                                        color: Palette.darkgray,
-                                        width: 22,
-                                        height: 22,
+                                      // SvgPicture.asset(
+                                      //   'assets/images/memo1.svg',
+                                      //   color: Palette.darkgray,
+                                      //   width: 22,
+                                      //   height: 22,
+                                      // ),
+                                      // Icon(Icons.mode_comment_outlined,
+                                      Icon(Icons.event_note_rounded,
+                                        color: Palette.gray,
+                                        size: 25,
                                       ),
                                       Text('Memo',
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: Palette.darkgray,
+                                          color: Palette.gray,
                                           fontFamily: 'notosans'
                                         ),
                                       )
@@ -180,17 +186,24 @@ class _RecipeState extends State<Recipe> {
                                   width: 40,
                                   color: Palette.white,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                        'assets/images/plus2.svg',
-                                        color: Palette.darkgray,
-                                        width: 25,
-                                        height: 25,
+                                      // SvgPicture.asset(
+                                      //   'assets/images/plus2.svg',
+                                      //   color: Palette.darkgray,
+                                      //   width: 25,
+                                      //   height: 25,
+                                      // ),
+                                      // Icon(Icons.add,
+                                      // Icon(Icons.add_box_outlined,
+                                      Icon(Icons.add_box_outlined,
+                                        color: Palette.gray,
+                                        size: 25,
                                       ),
                                       Text('Add',
                                         style: TextStyle(
                                           fontSize: 10,
-                                          color: Palette.darkgray,
+                                          color: Palette.gray,
                                           fontFamily: 'notosans'
                                         ),
                                       )
@@ -471,7 +484,7 @@ class _RecipeState extends State<Recipe> {
                                                             child: Obx(() => 
                                                               controller.recipeWeight[listViewIndex][idx].length != 0 
                                                               ? Text(
-                                                                '${removeDotZero(controller.recipeWeight[listViewIndex][idx])}',
+                                                                '${removeDotZero(double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index])}',
                                                                 style: TextStyle(
                                                                   fontSize: 16,
                                                                   fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
@@ -647,22 +660,22 @@ class _RecipeState extends State<Recipe> {
                                       color: ((){
                                         if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                           if(controller.multipleValue.isNotEmpty){
-                                            return controller.multipleValue[listViewIndex] == 1 ? Palette.darkgray : Palette.red; 
+                                            return controller.multipleValue[listViewIndex] == 1 ? Palette.gray : Palette.red; 
                                           }else{
-                                            return Palette.darkgray;
+                                            return Palette.gray;
                                           }
                                         }else{
-                                          return Palette.darkgray;
+                                          return Palette.gray;
                                         }
                                       }()),
-                                      width: 30,
-                                      height: 30,
+                                      width: 24,
+                                      height: 24,
                                     );
                                   }),
                                   Text('Multiply',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray,
+                                      color: Palette.gray,
                                       fontFamily: 'notosans'
                                     ),
                                   )
@@ -692,27 +705,25 @@ class _RecipeState extends State<Recipe> {
                                 children: [
                                   Obx((){
                                     return 
-                                    SvgPicture.asset(
-                                      'assets/images/divide1.svg',
+                                    Icon(Icons.percent_rounded,
                                       color: ((){
                                         if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                           if(controller.divideWeight.isNotEmpty){
-                                            return controller.divideWeight[listViewIndex] == 1 ? Palette.darkgray : Palette.blue;
+                                            return controller.divideWeight[listViewIndex] == 1 ? Palette.gray : Palette.blue;
                                           }else{
-                                            return Palette.darkgray;
+                                            return Palette.gray;
                                           }
                                         }else{
-                                          return Palette.darkgray;
+                                          return Palette.gray;
                                         }
                                       }()),
-                                      width: 30,
-                                      height: 30,
+                                      size: 24,
                                     );
                                   }),
                                   Text('Divide',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray,
+                                      color: Palette.gray,
                                       fontFamily: 'notosans'
                                     ),
                                   )
@@ -743,16 +754,20 @@ class _RecipeState extends State<Recipe> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset(
-                                    'assets/images/pencil1.svg',
-                                    color: Palette.darkgray,
-                                    width: 25,
-                                    height: 25,
+                                  // SvgPicture.asset(
+                                  //   'assets/images/pencil1.svg',
+                                  //   color: Palette.darkgray,
+                                  //   width: 25,
+                                  //   height: 25,
+                                  // ),
+                                  Icon(Icons.mode_edit_outline_outlined,
+                                      color:  Palette.gray,
+                                      size: 24,
                                   ),
                                   Text('Edit',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray,
+                                      color: Palette.gray,
                                       fontFamily: 'notosans'
                                     ),
                                   )
@@ -814,16 +829,14 @@ class _RecipeState extends State<Recipe> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset(
-                                    'assets/images/delete2.svg',
-                                    color: Palette.darkgray,
-                                    width: 27,
-                                    height: 27,
+                                  Icon(Icons.delete_outline_rounded,
+                                      color:  Palette.gray,
+                                      size: 24,
                                   ),
                                   Text('Delete',
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Palette.darkgray,
+                                      color: Palette.gray,
                                       fontFamily: 'notosans'
                                     ),
                                   )
