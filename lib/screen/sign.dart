@@ -24,272 +24,275 @@ class _SignState extends State<Sign> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: KeyboardVisibilityBuilder(
-        builder: (context, isKeyboardVisible) { 
-          return SafeArea(
-            child: Stack(
-              children: [
-                // header:
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    curve: Curves.easeIn,
-                    width: 300.w,
-                    height: isKeyboardVisible ? 0 : 370.h,
-                    child: Center(
-                      child: 
-                      // section: Logo Image Section
-                      Stack(
-                        children: <Widget>[
-                          Text(
-                            'Gramming',
-                            style: TextStyle(
-                              fontFamily: 'carter',
-                              fontWeight: FontWeight.w900,
-                              fontSize: 40,
-                              // 텍스트 테두리 선
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 4
-                                ..color = Colors.black,
-                              letterSpacing: 5,
+    return WillPopScope(
+      onWillPop: () async => false, 
+      child: Scaffold(
+        body: KeyboardVisibilityBuilder(
+          builder: (context, isKeyboardVisible) { 
+            return SafeArea(
+              child: Stack(
+                children: [
+                  // header:
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      curve: Curves.easeIn,
+                      width: 300.w,
+                      height: isKeyboardVisible ? 0 : 370.h,
+                      child: Center(
+                        child: 
+                        // section: Logo Image Section
+                        Stack(
+                          children: <Widget>[
+                            Text(
+                              'Gramming',
+                              style: TextStyle(
+                                fontFamily: 'carter',
+                                fontWeight: FontWeight.w900,
+                                fontSize: 40,
+                                // 텍스트 테두리 선
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 4
+                                  ..color = Colors.black,
+                                letterSpacing: 5,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Gramming',
-                            style: TextStyle(
-                              fontFamily: 'carter',
-                              fontWeight: FontWeight.w900,
-                              fontSize: 40,
+                            Text(
+                              'Gramming',
+                              style: TextStyle(
+                                fontFamily: 'carter',
+                                fontWeight: FontWeight.w900,
+                                fontSize: 40,
+                                color: Palette.white,
+                                letterSpacing: 5,
+                                shadows: const <Shadow>[
+                                  Shadow(
+                                    offset: Offset(4.0, 3.0),
+                                    blurRadius: 0,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      )
+                    ),
+                  ),
+                  
+                  // main:
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: 360.w,
+                      height: 520.h,
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // section: Sign Section
+                          Container(
+                            width: 244.w,
+                            height: 420.h,
+                            decoration: BoxDecoration(
                               color: Palette.white,
-                              letterSpacing: 5,
-                              shadows: const <Shadow>[
-                                Shadow(
-                                  offset: Offset(4.0, 3.0),
-                                  blurRadius: 0,
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                      
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // info: 텍스트 필드
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 220.h,
+                                      child: isSignin 
+                                      // div: Sign in Box
+                                      ? Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          SignTextField(
+                                            controller: controller,
+                                            valueKey: const ValueKey(1), 
+                                            obscureText: false, 
+                                            hintText: 'E-Mail Address', 
+                                            type: 'userEmail',
+                                            textInputAction: TextInputAction.next,
+                                            nextEvent: true,
+                                            sign: isSignin,
+                                          ),
+                                          SignTextField(
+                                            controller: controller,
+                                            valueKey: const ValueKey(2), 
+                                            obscureText: true, 
+                                            hintText: 'Password', 
+                                            type: 'userPassword',
+                                            textInputAction: TextInputAction.done,
+                                            nextEvent: false,
+                                            sign: isSignin,
+                                          ),
+                                        ],
+                                      )
+                      
+                                      // div: Sign up Box
+                                      : Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          SignTextField(
+                                            controller: controller,
+                                            valueKey: const ValueKey(3), 
+                                            obscureText: false, 
+                                            hintText: 'E-Mail Address', 
+                                            type: 'userEmail',
+                                            textInputAction: TextInputAction.next,
+                                            nextEvent: true,
+                                            sign: isSignin,
+                                          ),
+                                          SignTextField(
+                                            controller: controller,
+                                            valueKey: const ValueKey(4), 
+                                            obscureText: true, 
+                                            hintText: 'Password', 
+                                            type: 'userPassword',
+                                            textInputAction: TextInputAction.next,
+                                            nextEvent: true,
+                                            sign: isSignin,
+                                          ),
+                                          SignTextField(
+                                            controller: controller,
+                                            valueKey: const ValueKey(5), 
+                                            obscureText: true, 
+                                            hintText: 'Password Repeat', 
+                                            type: 'userPasswordRepeat',
+                                            textInputAction: TextInputAction.done,
+                                            nextEvent: false,
+                                            sign: isSignin,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                
+                                // contents_footer: 
+                                SizedBox(
+                                  width: 300.w,
+                                  height: 170.h,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      // div: Error Message Section
+                                      Obx(()=>
+                                        SizedBox(
+                                          height: 25.h,
+                                          child: Center(
+                                            child: Text(controller.validationResult.value,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w400,
+                                                color: Palette.red
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ),
+    
+                                      SizedBox(height: 10,),
+    
+                                      // div: Submit Button Section
+                                      InkWell(
+                                        onTap: () {
+                                          isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
+                                        },
+                                        child: Container(
+                                          width: 214.w,
+                                          height: 60.h,
+                                          decoration: BoxDecoration(
+                                            color: Palette.black,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(isSignin ?'Log in' :'Register',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 18
+                                            ),),
+                                          ), 
+                                        ),
+                                      ),
+    
+                                      SizedBox(height: 7.h,),
+                      
+                                      // div: Page Toggle Section
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            isSignin = !isSignin;
+                                            controller.initValidation();
+                                          });
+                                        },
+                                        child: SizedBox(
+                                          height: 25.h,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                isSignin ? 'Don’t you have an account? ' : 'Do you have an account? ',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Palette.middleblack
+                                                ),
+                                              ),
+                                              Text(isSignin ?'Join us' :'Log in',
+                                                style: TextStyle(
+                                                  color: Palette.blue,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w900,
+                                                  fontStyle: FontStyle.italic
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h,),
+                                      // div: anonymous account
+                                      InkWell(
+                                        onTap: (){
+                                          controller.startAnonymous();
+                                        },
+                                        child: SizedBox(
+                                          height: 25.h,
+                                          child: Text(
+                                            'or Start with an anonymous account',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w800,
+                                              color: Palette.gray
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
                                 ),
                               ],
                             ),
                           ),
                         ],
-                      )
-                    )
-                  ),
-                ),
-                
-                // main:
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: 360.w,
-                    height: 520.h,
-                    color: Colors.transparent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // section: Sign Section
-                        Container(
-                          width: 244.w,
-                          height: 420.h,
-                          decoration: BoxDecoration(
-                            color: Palette.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                    
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // info: 텍스트 필드
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    height: 220.h,
-                                    child: isSignin 
-                                    // div: Sign in Box
-                                    ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SignTextField(
-                                          controller: controller,
-                                          valueKey: const ValueKey(1), 
-                                          obscureText: false, 
-                                          hintText: 'E-Mail Address', 
-                                          type: 'userEmail',
-                                          textInputAction: TextInputAction.next,
-                                          nextEvent: true,
-                                          sign: isSignin,
-                                        ),
-                                        SignTextField(
-                                          controller: controller,
-                                          valueKey: const ValueKey(2), 
-                                          obscureText: true, 
-                                          hintText: 'Password', 
-                                          type: 'userPassword',
-                                          textInputAction: TextInputAction.done,
-                                          nextEvent: false,
-                                          sign: isSignin,
-                                        ),
-                                      ],
-                                    )
-                    
-                                    // div: Sign up Box
-                                    : Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SignTextField(
-                                          controller: controller,
-                                          valueKey: const ValueKey(3), 
-                                          obscureText: false, 
-                                          hintText: 'E-Mail Address', 
-                                          type: 'userEmail',
-                                          textInputAction: TextInputAction.next,
-                                          nextEvent: true,
-                                          sign: isSignin,
-                                        ),
-                                        SignTextField(
-                                          controller: controller,
-                                          valueKey: const ValueKey(4), 
-                                          obscureText: true, 
-                                          hintText: 'Password', 
-                                          type: 'userPassword',
-                                          textInputAction: TextInputAction.next,
-                                          nextEvent: true,
-                                          sign: isSignin,
-                                        ),
-                                        SignTextField(
-                                          controller: controller,
-                                          valueKey: const ValueKey(5), 
-                                          obscureText: true, 
-                                          hintText: 'Password Repeat', 
-                                          type: 'userPasswordRepeat',
-                                          textInputAction: TextInputAction.done,
-                                          nextEvent: false,
-                                          sign: isSignin,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              
-                              // contents_footer: 
-                              SizedBox(
-                                width: 300.w,
-                                height: 170.h,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    // div: Error Message Section
-                                    Obx(()=>
-                                      SizedBox(
-                                        height: 25.h,
-                                        child: Center(
-                                          child: Text(controller.validationResult.value,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w400,
-                                              color: Palette.red
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ),
-
-                                    SizedBox(height: 10,),
-
-                                    // div: Submit Button Section
-                                    InkWell(
-                                      onTap: () {
-                                        isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
-                                      },
-                                      child: Container(
-                                        width: 214.w,
-                                        height: 60.h,
-                                        decoration: BoxDecoration(
-                                          color: Palette.black,
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Center(
-                                          child: Text(isSignin ?'Log in' :'Register',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18
-                                          ),),
-                                        ), 
-                                      ),
-                                    ),
-
-                                    SizedBox(height: 7.h,),
-                    
-                                    // div: Page Toggle Section
-                                    InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          isSignin = !isSignin;
-                                          controller.initValidation();
-                                        });
-                                      },
-                                      child: SizedBox(
-                                        height: 25.h,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              isSignin ? 'Don’t you have an account? ' : 'Do you have an account? ',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w800,
-                                                color: Palette.middleblack
-                                              ),
-                                            ),
-                                            Text(isSignin ?'Join us' :'Log in',
-                                              style: TextStyle(
-                                                color: Palette.blue,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w900,
-                                                fontStyle: FontStyle.italic
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 5.h,),
-                                    // div: anonymous account
-                                    InkWell(
-                                      onTap: (){
-                                        controller.startAnonymous();
-                                      },
-                                      child: SizedBox(
-                                        height: 25.h,
-                                        child: Text(
-                                          'or Start with an anonymous account',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w800,
-                                            color: Palette.gray
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

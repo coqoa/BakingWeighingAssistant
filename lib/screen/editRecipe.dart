@@ -77,7 +77,7 @@ class _EditRecipeState extends State<EditRecipe> {
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': widget.multipleValue, 'divideWeight': widget.divideWeight, 'ingredient':ingredient,'weight':weight}}
         );
-        Get.to(()=>Recipe(menuTitle: widget.menuTitle,));
+        Get.off(()=>Recipe(menuTitle: widget.menuTitle,));
       }
     }else{
       // snackbar: 타이틀을 입력해주세요
@@ -132,65 +132,30 @@ class _EditRecipeState extends State<EditRecipe> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      // header:
-      appBar: AppBar(
-        backgroundColor: Palette.white,
-        elevation: 2,
-        centerTitle: true,
-        // nav:뒤로가기 버튼
-        leading:  Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: GestureDetector(
-            onTap: (){
-              Navigator.of(context).pop();
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              color: Palette.white,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: SvgPicture.asset(
-                  'assets/images/left1.svg',
-                  color: Palette.lightblack,
-                  width: 30,
-                  height: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
-        // nac: 페이지 타이틀
-        title: const Text('Edit',
-          style: TextStyle(
-            color: Palette.lightblack,
-            fontWeight: FontWeight.w600,
-            fontSize: 23
-          ),
-        ),
-        // nav: 완료 버튼
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right:5),
+    return WillPopScope(
+      onWillPop: () async => false, 
+      child: Scaffold(
+        // header:
+        appBar: AppBar(
+          backgroundColor: Palette.white,
+          elevation: 2,
+          centerTitle: true,
+          // nav:뒤로가기 버튼
+          leading:  Padding(
+            padding: const EdgeInsets.only(left: 10),
             child: GestureDetector(
               onTap: (){
-                modifyRecipe();
+                Navigator.of(context).pop();
               },
               child: Container(
                 width: 50,
                 height: 50,
                 color: Palette.white,
-                child: Center(
+                child: Align(
+                  alignment: Alignment.centerLeft,
                   child: SvgPicture.asset(
-                    'assets/images/check1.svg',
-                    color: ((){
-                      if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
-                        return Palette.lightgray;
-                      }else{
-                        return Colors.green[600];
-                      }
-                    }()),
+                    'assets/images/left1.svg',
+                    color: Palette.lightblack,
                     width: 30,
                     height: 30,
                   ),
@@ -198,157 +163,195 @@ class _EditRecipeState extends State<EditRecipe> {
               ),
             ),
           ),
-        ],
-      ),
-
-      // main:
-      body: SafeArea(
-        child: Align( 
-          alignment: Alignment.topCenter,
-          child: SizedBox(
-            height: 580.h,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // contents_header: 타이틀 
-                  Container(
-                    width: 330.w,
-                    margin: EdgeInsets.only(top: 10.h),
-                    child: TextField(
-                      textInputAction: TextInputAction.next,
-                      controller: _controller,
-                      autofocus: true,
-                      style: TextStyle(
-                        fontSize: 25
+          // nac: 페이지 타이틀
+          title: const Text('Edit',
+            style: TextStyle(
+              color: Palette.lightblack,
+              fontWeight: FontWeight.w600,
+              fontSize: 23
+            ),
+          ),
+          // nav: 완료 버튼
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right:5),
+              child: GestureDetector(
+                onTap: (){
+                  modifyRecipe();
+                },
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  color: Palette.white,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/check1.svg',
+                      color: ((){
+                        if(ingredient.isEmpty || weight.isEmpty || title.isEmpty){
+                          return Palette.lightgray;
+                        }else{
+                          return Colors.green[600];
+                        }
+                      }()),
+                      width: 30,
+                      height: 30,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+    
+        // main:
+        body: SafeArea(
+          child: Align( 
+            alignment: Alignment.topCenter,
+            child: SizedBox(
+              height: 580.h,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // contents_header: 타이틀 
+                    Container(
+                      width: 330.w,
+                      margin: EdgeInsets.only(top: 10.h),
+                      child: TextField(
+                        textInputAction: TextInputAction.next,
+                        controller: _controller,
+                        autofocus: true,
+                        style: TextStyle(
+                          fontSize: 25
+                        ),
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Colors.black),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Colors.transparent),
+                          ),
+                          hintText: "Title"
+                        ),
+                        onChanged: (value) => title = value,
                       ),
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.black),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.transparent),
-                        ),
-                        hintText: "Title"
+                    ),
+    
+                    // info: 시트 헤더
+                    Container(
+                      width: 330.w,
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
                       ),
-                      onChanged: (value) => title = value,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 165.w,
+                            height: 60.h,
+                            child: const Center(child: Text('Ingredient',
+                              style: TextStyle(
+                                fontSize: 15
+                              ),
+                            ))
+                          ),
+                          SizedBox(
+                            width: 165.w,
+                            height: 50.h,
+                            child: const Center(child: Text('g',
+                              style: TextStyle(
+                                fontSize: 15
+                              ),
+                            ))
+                          ),
+                        ]
+                      ),
                     ),
-                  ),
-
-                  // info: 시트 헤더
-                  Container(
-                    width: 330.w,
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 165.w,
-                          height: 60.h,
-                          child: const Center(child: Text('Ingredient',
-                            style: TextStyle(
-                              fontSize: 15
-                            ),
-                          ))
-                        ),
-                        SizedBox(
-                          width: 165.w,
-                          height: 50.h,
-                          child: const Center(child: Text('g',
-                            style: TextStyle(
-                              fontSize: 15
-                            ),
-                          ))
-                        ),
-                      ]
-                    ),
-                  ),
-                  
-                  // contents_main: 시트 바디
-                  SizedBox(
-                    width: 330.w,
-                    height: 305.h,
-                    child : ListView.builder(
-                      itemCount: weight.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Row(
-                              children: [
-                                // info: 좌항(재료)
-                                Container(
-                                  width: 165.w,
-                                  height: 60.h,
-                                  decoration: const BoxDecoration(
-                                    border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
-                                  ),
-                                  child: TextFormField(
-                                    textInputAction: TextInputAction.next,
-                                    textAlign: TextAlign.center,
-                                    initialValue: ingredient[index],
-                                    autocorrect: false,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        // info: 레시피 입력시 다음 줄 생성하는 부분
-                                        if(ingredient.length <= index+1){
-                                          ingredient.add("");
-                                          weight.add("");
-                                        }
-                                        ingredient[index] = value;
-                                      });
-                                    },
-                                    decoration: const InputDecoration(
-                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                    
+                    // contents_main: 시트 바디
+                    SizedBox(
+                      width: 330.w,
+                      height: 305.h,
+                      child : ListView.builder(
+                        itemCount: weight.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  // info: 좌항(재료)
+                                  Container(
+                                    width: 165.w,
+                                    height: 60.h,
+                                    decoration: const BoxDecoration(
+                                      border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
+                                    ),
+                                    child: TextFormField(
+                                      textInputAction: TextInputAction.next,
+                                      textAlign: TextAlign.center,
+                                      initialValue: ingredient[index],
+                                      autocorrect: false,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          // info: 레시피 입력시 다음 줄 생성하는 부분
+                                          if(ingredient.length <= index+1){
+                                            ingredient.add("");
+                                            weight.add("");
+                                          }
+                                          ingredient[index] = value;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                
-                                // info: 우항(중량)
-                                Container(
-                                  width: 165.w,
-                                  height: 60.h,
-                                  decoration: const BoxDecoration(
-                                    border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
-                                  ),
-                                  child: TextFormField(
-                                    keyboardType: const TextInputType.numberWithOptions(
-                                      signed: true,
-                                      decimal: true
+                                  
+                                  // info: 우항(중량)
+                                  Container(
+                                    width: 165.w,
+                                    height: 60.h,
+                                    decoration: const BoxDecoration(
+                                      border: Border(left: BorderSide(width: 0.5, color: Palette.reallightgray))
                                     ),
-                                    // ref: 정규식
-                                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
-                                    textInputAction: TextInputAction.next,
-                                    textAlign: TextAlign.center,
-                                    autocorrect: false,
-                                    decoration: const InputDecoration(
-                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
-                                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                    child: TextFormField(
+                                      keyboardType: const TextInputType.numberWithOptions(
+                                        signed: true,
+                                        decimal: true
+                                      ),
+                                      // ref: 정규식
+                                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
+                                      textInputAction: TextInputAction.next,
+                                      textAlign: TextAlign.center,
+                                      autocorrect: false,
+                                      decoration: const InputDecoration(
+                                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.transparent),),
+                                      ),
+                                      initialValue: weight[index],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          // info: 레시피 입력시 다음 줄 생성하는 부분
+                                          if(weight.length <= index+1){
+                                            ingredient.add("");
+                                            weight.add("");
+                                          }
+                                          weight[index] = value;
+                                        });
+                                      } ,
                                     ),
-                                    initialValue: weight[index],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        // info: 레시피 입력시 다음 줄 생성하는 부분
-                                        if(weight.length <= index+1){
-                                          ingredient.add("");
-                                          weight.add("");
-                                        }
-                                        weight[index] = value;
-                                      });
-                                    } ,
                                   ),
-                                ),
-                              ]
-                            ),
-                            const Divider(height: 10,),
-                          ],
-                        );
-                      }
-                    )
-                  ),
-                ],
+                                ]
+                              ),
+                              const Divider(height: 10,),
+                            ],
+                          );
+                        }
+                      )
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

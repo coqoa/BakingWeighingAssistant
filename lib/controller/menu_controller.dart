@@ -23,8 +23,13 @@ class MenuController extends GetxController{
   // * 메뉴 로드
   loadMenuList()async{
     requestStatus.value=RequestStatus.LOADING;
+
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
-      menuList.value = result.data()!['menuList'];
+      if(result.data()!=null){
+        menuList.value = result.data()?['menuList'];
+      }else{
+        menuList.value = [];
+      }
     });
     requestStatus.value=RequestStatus.SUCCESS;
   }
