@@ -42,7 +42,7 @@ class _SignState extends State<Sign> {
                       height: isKeyboardVisible ? 0 : 370.h,
                       child: Center(
                         child: 
-                        // section: Logo Image Section
+                        // section: 로고 이미지
                         Stack(
                           children: <Widget>[
                             Text(
@@ -92,7 +92,7 @@ class _SignState extends State<Sign> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // section: Sign Section
+                          // section: 회원가입 / 로그인
                           Container(
                             width: 244.w,
                             height: 420.h,
@@ -104,13 +104,13 @@ class _SignState extends State<Sign> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // info: 텍스트 필드
+                                // 메인 텍스트 필드
                                 Column(
                                   children: [
                                     SizedBox(
                                       height: 220.h,
                                       child: isSignin 
-                                      // div: Sign in Box
+                                      // Sign in Box
                                       ? Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
@@ -137,7 +137,7 @@ class _SignState extends State<Sign> {
                                         ],
                                       )
                       
-                                      // div: Sign up Box
+                                      // Sign up Box
                                       : Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
@@ -177,14 +177,14 @@ class _SignState extends State<Sign> {
                                   ],
                                 ),
                                 
-                                // contents_footer: 
+                                // 하단 
                                 SizedBox(
                                   width: 300.w,
                                   height: 170.h,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      // div: Error Message Section
+                                      // 에러 메시지
                                       Obx(()=>
                                         SizedBox(
                                           height: 25.h,
@@ -202,7 +202,7 @@ class _SignState extends State<Sign> {
     
                                       SizedBox(height: 10,),
     
-                                      // div: Submit Button Section
+                                      // Submit 버튼
                                       InkWell(
                                         onTap: () {
                                           isSignin ? controller.signIn('SignIn') : controller.signUp('SignUp');
@@ -227,7 +227,7 @@ class _SignState extends State<Sign> {
     
                                       SizedBox(height: 7.h,),
                       
-                                      // div: Page Toggle Section
+                                      // 회원가입 / 로그인 토글 버튼
                                       InkWell(
                                         onTap: (){
                                           setState(() {
@@ -261,7 +261,7 @@ class _SignState extends State<Sign> {
                                         ),
                                       ),
                                       SizedBox(height: 5.h,),
-                                      // div: anonymous account
+                                      // 익명 로그인 버튼
                                       InkWell(
                                         onTap: (){
                                           controller.startAnonymous();

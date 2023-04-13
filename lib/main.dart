@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_print
 
 import 'package:bwa/apikey.dart';
@@ -17,9 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
-  
-  bool data = await fetchData();
-  print(data);
 
   try{
     await Firebase.initializeApp(
@@ -34,21 +30,9 @@ void main() async {
       ),
     );
   }catch(e){
-    // check:
-    print('-- main.dart initializeApp ERROR --');
-    print(e);
+    print('-- main.dart initializeApp ERROR --$e');
   }
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
-}
-
-Future<bool> fetchData() async {
-  bool data = false;
-
-  await Future.delayed(Duration(seconds: 3), () {
-    data = true;
-  });
-
-  return data;
 }
 
 class MyApp extends StatefulWidget {
@@ -62,7 +46,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    print('FirebaseAuth.instance.currentUser?.email = ${FirebaseAuth.instance.currentUser?.email}');
   }
   @override
   Widget build(BuildContext context) {
@@ -88,7 +71,6 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.white,
             visualDensity: VisualDensity.adaptivePlatformDensity,
             scaffoldBackgroundColor: Colors.white,
-      
           ),
       
           builder: (context, child){
