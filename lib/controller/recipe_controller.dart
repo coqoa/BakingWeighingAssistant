@@ -114,7 +114,6 @@ class RecipeController extends GetxController{
   }
 
   // * 레시피 수정
-
   void modifyRecipe(
     String title, 
     String originalTitle, 
@@ -149,18 +148,18 @@ class RecipeController extends GetxController{
           maxWidth: 300.w,
         );
       }else{
-        // info: 레시피 리스트에 타이틀 변경
+        // 레시피 리스트에 타이틀 변경
         recipeListParam[recipeListParam.indexOf(originalTitle)]=title;
 
-        // info: RecipeList 업데이트
+        // RecipeList 업데이트
         await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeListParam}
         );
-        // info: original 데이터 제거
+        // original 데이터 제거
         await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
           originalTitle: FieldValue.delete(),
         });
-        // info: new 데이터 입력
+        // new 데이터 입력
         await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
           {title:{'multipleValue': multipleValue, 'divideWeight': divideWeight, 'ingredient':ingredient,'weight':weight}}
         );
@@ -192,12 +191,12 @@ class RecipeController extends GetxController{
 
   // * 레시피 삭제
   deleteRecipe(menuTitle, index)async{
-    // INFO: 기존 데이터 지우기
+    // 기존 데이터 지우기
     await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
       recipeList[index]: FieldValue.delete(),
     });
     
-    // INFO: 리스트 초기화
+    // 리스트 초기화
     recipeList.removeAt(index);
     recipeIngredient.removeAt(index);
     recipeWeight.removeAt(index);
@@ -205,11 +204,12 @@ class RecipeController extends GetxController{
     multipleValue.removeAt(index);
     divideWeight.removeAt(index);
 
-    // INFO: 변경된 레시피 리스트 업데이트
+    // 변경된 레시피 리스트 업데이트
     await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
       {'RecipeList':recipeList}
     );
   }
+  
   // * 곱한 값 업데이트
   multipleValueUpdate(menuTitle, recipeTitle, index, multipleIndicator)async{
     num sum = 0;
