@@ -43,15 +43,15 @@ class MenuController extends GetxController{
   addMenu(e)async{
     if(e.length > 0){
       if(!menuList.contains(e)){
-        // info: 메뉴리스트에 추가
+        // 메뉴리스트에 추가
         menuList.add(e);
-        // info: 메뉴리스트 생성
+        // 메뉴리스트 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
-        // info: 메모 생성 
+        // 메모 생성 
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').set({"Memo":''});
-        // info: 레시피 생성
+        // 레시피 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').set({});
-        // info: 레시피 리스트 생성
+        // 레시피 리스트 생성
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').set({"RecipeList":[]});
 
       }else{
@@ -106,15 +106,17 @@ class MenuController extends GetxController{
     }
   }
 
+  // * 메뉴 삭제
   deleteMenu(e)async{
     menuList.remove(e);
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').delete();
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').delete();
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').delete();
-    // info: firebase는 내부에 있는 모든 doc을 지워줘야 collection을 지울 수 있음
+    // firebase는 내부에 있는 모든 doc을 지워줘야 collection을 지울 수 있음
   }
 
+  // * 메뉴 수정
   editMenu(originalTitle, changedTitle)async{
     if(changedTitle.length<1 || originalTitle == changedTitle){
       Get.snackbar(
@@ -146,7 +148,6 @@ class MenuController extends GetxController{
         menuList[menuList.indexOf(originalTitle)]=changedTitle;
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
 
-
         // 변경 레시피 : 메모 추가 
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Memo').set(originalMemo.data()!);
         // 변경 레시피 : 레시피 추가
@@ -155,10 +156,10 @@ class MenuController extends GetxController{
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('RecipeList').set(originalRecipeList.data()!);
 
         // 기존데이터 삭제해주기
-
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Memo').delete();
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').delete();
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').delete();
+
       }else{
         Get.snackbar(
           "","",
@@ -186,11 +187,13 @@ class MenuController extends GetxController{
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
   }
 
+  // * 탈퇴
   void secession()async{
     await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).delete();
     await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
   }
 
+  // * 익명로그인
   anonymousToPerpetual(context){
     String email ='';
     String password = '';
@@ -209,7 +212,7 @@ class MenuController extends GetxController{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // info: email
+                // email
                 TextField(
                   key: GlobalKey(),
                   style: const TextStyle(
@@ -240,7 +243,8 @@ class MenuController extends GetxController{
                     email = value;
                   },
                 ),
-                // info: password
+
+                // password
                 TextField(
                   key: GlobalKey(),
                   style: const TextStyle(
@@ -271,7 +275,8 @@ class MenuController extends GetxController{
                     password = value;
                   },
                 ),
-                // info: passwordCheck
+
+                // passwordCheck
                 TextField(
                   key: GlobalKey(),
                   style: const TextStyle(
@@ -305,7 +310,6 @@ class MenuController extends GetxController{
                     if(password == passwordCheck){
                       anonymousToPerpetualValidation(email, password, context);
                     }else{
-                      print('menu.dart - REF VALIDATION CLASS ----------');
                       validation.validationSnackBar('Please check your password');
                     }
                   }),
@@ -320,8 +324,7 @@ class MenuController extends GetxController{
             if(password == passwordCheck){
               anonymousToPerpetualValidation(email, password, context);
             }else{
-              print('menu.dart - REF VALIDATION CLASS ----------');
-              validation.validationSnackBar('Password does not match'); // here: 벨리데이션 과정 필요함
+              validation.validationSnackBar('Password does not match');
             }
           },
         );
@@ -329,8 +332,7 @@ class MenuController extends GetxController{
     );
   }
 
-
-
+  // * 익명로그인 -> 회원가입
   anonymousToPerpetualValidation(emailAddress, password, context)async{
     final credential = EmailAuthProvider.credential(email: emailAddress, password: password);
     try {
@@ -343,39 +345,40 @@ class MenuController extends GetxController{
       switch (e.code) {
         case "provider-already-linked":
           validation.validationSnackBar("The provider has already been linked to the user.");
-          print("The provider has already been linked to the user.");
+          // print("The provider has already been linked to the user.");
           break;
 
         case "invalid-credential":
           validation.validationSnackBar("The provider's credential is not valid.");
-          print("The provider's credential is not valid.");
+          // print("The provider's credential is not valid.");
           break;
 
         case "credential-already-in-use":
           validation.validationSnackBar("The account corresponding to the credential already exists, \nor is already linked to a Firebase User.");
-          print("The account corresponding to the credential already exists, "
-              "or is already linked to a Firebase User.");
+          // print("The account corresponding to the credential already exists, "
+          //     "or is already linked to a Firebase User.");
           break;
 
         case "email-already-in-use":
           validation.validationSnackBar("This email is in use");
-          print("This email is in use");
+          // print("This email is in use");
           break;
 
         case "invalid-email":
           validation.validationSnackBar("Please enter in email format");
-          print("Please enter in email format");
+          // print("Please enter in email format");
           break;
 
         case "weak-password":
           validation.validationSnackBar('Please check your password \nPassword must be 6 digits or more ');
-          print("weak-password - 비밀번호 6자리 이상형식");
+          // print("weak-password - 비밀번호 6자리 이상형식");
           break;
           
         default:
           validation.validationSnackBar('Unknown error. : ${e.code} \nPlease send a mail - coqoa28@gmail.com');
-          print("Unknown error. : ${e.code}");
-          // + 비밀번호 체크는 메뉴페이지에서 해결
+          // print("Unknown error. : ${e.code}");
+        
+        // + 비밀번호 체크는 메뉴페이지에서 해결
       }
     }
   }
