@@ -2,14 +2,12 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
-import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({super.key, required this.menuTitle});
@@ -78,6 +76,7 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
             ),
           ),
+
           // 페이지 타이틀
           title: Text('Add',
             style: TextStyle(
@@ -118,6 +117,7 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ],
         ),
+
         // main: 
         body: SafeArea(
           child: Align( 
@@ -129,7 +129,7 @@ class _AddRecipeState extends State<AddRecipe> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
               
-                    // contents_header: 레시피 타이틀 입력공간
+                    // 레시피 타이틀 입력공간
                     Container(
                       width: 330.w,
                       margin: EdgeInsets.only(top: 10.h),
@@ -189,7 +189,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     ),
                     
-                    // contents_main: 레시피 시트
+                    // 레시피 시트
                     SizedBox(
                       width: 330.w,
                       height: 290.h,

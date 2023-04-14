@@ -113,6 +113,83 @@ class RecipeController extends GetxController{
     }
   }
 
+  // * 레시피 수정
+
+  void modifyRecipe(
+    String title, 
+    String originalTitle, 
+    String menuTitle, 
+    dynamic multipleValue, 
+    dynamic divideWeight, 
+    List recipeListParam, 
+    List ingredient, 
+    List weight
+  )async {
+    requestStatus.value=RequestStatus.LOADING;
+    if(title.isNotEmpty){
+      // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
+      if(recipeListParam.contains(title) && originalTitle != title){
+        // snackbar: 존재하는 타이틀
+        Get.snackbar(
+          "","",
+          titleText: const Center(
+            child: Text("ERROR", 
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              )
+            )
+          ),
+          messageText: Center(child: Text("'$title' already exists")),
+          snackPosition: SnackPosition.BOTTOM,
+          forwardAnimationCurve: Curves.elasticIn,
+          reverseAnimationCurve: Curves.easeOut,
+          backgroundColor: Palette.lightgray,
+          margin: EdgeInsets.only(bottom: 20.h),
+          maxWidth: 300.w,
+        );
+      }else{
+        // info: 레시피 리스트에 타이틀 변경
+        recipeListParam[recipeListParam.indexOf(originalTitle)]=title;
+
+        // info: RecipeList 업데이트
+        await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
+          {'RecipeList':recipeListParam}
+        );
+        // info: original 데이터 제거
+        await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update({
+          originalTitle: FieldValue.delete(),
+        });
+        // info: new 데이터 입력
+        await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
+          {title:{'multipleValue': multipleValue, 'divideWeight': divideWeight, 'ingredient':ingredient,'weight':weight}}
+        );
+        Get.off(()=>Recipe(menuTitle: menuTitle,));
+      }
+    }else{
+      // snackbar: 타이틀을 입력해주세요
+      Get.snackbar(
+        "","",
+        titleText: const Center(
+          child: Text("ERROR", 
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15
+            )
+          )
+        ),
+        messageText: Center(child: Text("Please enter a Title")),
+        snackPosition: SnackPosition.BOTTOM,
+        forwardAnimationCurve: Curves.elasticIn,
+        reverseAnimationCurve: Curves.easeOut,
+        backgroundColor: Palette.lightgray,
+        margin: EdgeInsets.only(bottom: 20.h),
+        maxWidth: 300.w,
+      );
+    }
+    requestStatus.value=RequestStatus.SUCCESS;
+  }
+
   // * 레시피 삭제
   deleteRecipe(menuTitle, index)async{
     // INFO: 기존 데이터 지우기
