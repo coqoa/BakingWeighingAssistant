@@ -351,7 +351,7 @@ class _RecipeState extends State<Recipe> {
                                                 if(controller.requestStatus.value==RequestStatus.SUCCESS){
                                                   return Text(controller.recipeList[index],
                                                     style: const TextStyle(
-                                                      fontSize: 26,
+                                                      fontSize: 23,
                                                       color: Palette.black
                                                     ),
                                                   );
@@ -369,7 +369,7 @@ class _RecipeState extends State<Recipe> {
                                                   child: const Center(
                                                     child: Text('Ingredient',
                                                       style: TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 17,
                                                       ),
                                                     )
                                                   )
@@ -382,7 +382,7 @@ class _RecipeState extends State<Recipe> {
                                                         alignment: Alignment.center,
                                                         child: Text('g',
                                                           style: TextStyle(
-                                                            fontSize: 18,
+                                                            fontSize: 17,
                                                           ),
                                                         ),
                                                       ),

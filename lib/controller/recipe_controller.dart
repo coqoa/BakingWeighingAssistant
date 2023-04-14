@@ -1,6 +1,10 @@
 
+import 'package:bwa/config/palette.dart';
+import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../config/enum.dart';
@@ -42,6 +46,71 @@ class RecipeController extends GetxController{
       }
     });
     requestStatus.value=RequestStatus.SUCCESS;
+  }
+
+  // * 레시피 추가
+  void createRecipe(
+    String title, 
+    String menuTitle, 
+    List recipeListParam, 
+    List ingredient, 
+    List weight
+  )async {
+    if(title.isNotEmpty){
+      // snackbar: 존재하는 타이틀
+      if(recipeListParam.contains(title)){
+        Get.snackbar(
+          "","",
+          titleText: const Center(
+            child: Text("ERROR", 
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              )
+            )
+          ),
+          messageText: Center(child: Text("'$title' already exists")),
+          snackPosition: SnackPosition.BOTTOM,
+          forwardAnimationCurve: Curves.elasticIn,
+          reverseAnimationCurve: Curves.easeOut,
+          backgroundColor: Palette.lightgray,
+          margin: EdgeInsets.only(bottom: 20.h),
+          maxWidth: 300.w,
+        );
+      }else{
+        // 레시피 리스트에 추가 
+        recipeListParam.add(title);
+        // 레시피 리스트 Doc 업데이트생성
+        await firestore.collection('users').doc(email).collection(menuTitle).doc('RecipeList').set(
+          {'RecipeList':recipeListParam}
+        );
+        // 레시피 Doc 추가 
+        await firestore.collection('users').doc(email).collection(menuTitle).doc('Recipe').update(
+          {title:{'multipleValue': 1,'divideWeight': 1,'ingredient':ingredient,'weight':weight}}
+        );
+        Get.off(()=>Recipe(menuTitle: menuTitle));
+      }
+    }else{
+      // snackbar: 타이틀을 입력해주세요
+      Get.snackbar(
+        "","",
+        titleText: const Center(
+          child: Text("ERROR", 
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15
+            )
+          )
+        ),
+        messageText: Center(child: Text("Please enter a Title")),
+        snackPosition: SnackPosition.BOTTOM,
+        forwardAnimationCurve: Curves.elasticIn,
+        reverseAnimationCurve: Curves.easeOut,
+        backgroundColor: Palette.lightgray,
+        margin: EdgeInsets.only(bottom: 20.h),
+        maxWidth: 300.w,
+      );
+    }
   }
 
   // * 레시피 삭제

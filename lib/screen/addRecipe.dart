@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/controller/recipe_controller.dart';
 import 'package:bwa/screen/recipe.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,68 +25,12 @@ class _AddRecipeState extends State<AddRecipe> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? email = FirebaseAuth.instance.currentUser?.email;
 
+  RecipeController controller = RecipeController();
+
   String title = '';
   List ingredient = [];
   List weight = [];
   late dynamic recipeList = [];
-
-  void createRecipe()async {
-    if(title.isNotEmpty){
-      // snackbar: 존재하는 타이틀
-      if(recipeList.contains(title)){
-        Get.snackbar(
-          "","",
-          titleText: const Center(
-            child: Text("ERROR", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )
-            )
-          ),
-          messageText: Center(child: Text("'$title' already exists")),
-          snackPosition: SnackPosition.BOTTOM,
-          forwardAnimationCurve: Curves.elasticIn,
-          reverseAnimationCurve: Curves.easeOut,
-          backgroundColor: Palette.lightgray,
-          margin: EdgeInsets.only(bottom: 20.h),
-          maxWidth: 300.w,
-        );
-      }else{
-        // 레시피 리스트에 추가 
-        await recipeList.add(title);
-        // 레시피 리스트 Doc 업데이트생성
-        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
-          {'RecipeList':recipeList}
-        );
-        // 레시피 Doc 추가 
-        await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
-          {title:{'multipleValue': 1,'divideWeight': 1,'ingredient':ingredient,'weight':weight}}
-        );
-        Get.off(()=>Recipe(menuTitle: widget.menuTitle));
-      }
-    }else{
-      // snackbar: 타이틀을 입력해주세요
-      Get.snackbar(
-        "","",
-        titleText: const Center(
-          child: Text("ERROR", 
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            )
-          )
-        ),
-        messageText: Center(child: Text("Please enter a Title")),
-        snackPosition: SnackPosition.BOTTOM,
-        forwardAnimationCurve: Curves.elasticIn,
-        reverseAnimationCurve: Curves.easeOut,
-        backgroundColor: Palette.lightgray,
-        margin: EdgeInsets.only(bottom: 20.h),
-        maxWidth: 300.w,
-      );
-    }
-  }
 
   @override
   void initState(){
@@ -148,7 +93,7 @@ class _AddRecipeState extends State<AddRecipe> {
               padding: const EdgeInsets.only(right:5),
               child: GestureDetector(
                 onTap: (){
-                  createRecipe();
+                  controller.createRecipe(title, widget.menuTitle, recipeList, ingredient, weight);
                 },
                 child: Container(
                   width: 50,
@@ -262,7 +207,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                     decoration: const BoxDecoration(
                                       border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                     ),
-                                    
+
                                     // 재료명 TextField
                                     child: TextField(
                                       textInputAction: TextInputAction.next,
