@@ -52,17 +52,16 @@ class _AddRecipeState extends State<AddRecipe> {
           maxWidth: 300.w,
         );
       }else{
-        // info: 레시피 리스트에 추가 
+        // 레시피 리스트에 추가 
         await recipeList.add(title);
         // 레시피 리스트 Doc 업데이트생성
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').set(
           {'RecipeList':recipeList}
         );
-        // info: 레시피 Doc 추가 
+        // 레시피 Doc 추가 
         await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').update(
           {title:{'multipleValue': 1,'divideWeight': 1,'ingredient':ingredient,'weight':weight}}
         );
-        // Navigator.of(context).pop();
         Get.off(()=>Recipe(menuTitle: widget.menuTitle));
       }
     }else{
@@ -111,7 +110,7 @@ class _AddRecipeState extends State<AddRecipe> {
           backgroundColor: Palette.white,
           elevation: 2,
           centerTitle: true,
-          // nav: 뒤로가기 버튼
+          // 뒤로가기 버튼
           leading:  Padding(
             padding: const EdgeInsets.only(left: 10),
             child: GestureDetector(
@@ -134,7 +133,7 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
             ),
           ),
-          // nav: 페이지 타이틀
+          // 페이지 타이틀
           title: Text('Add',
             style: TextStyle(
               color: Palette.lightblack,
@@ -143,7 +142,7 @@ class _AddRecipeState extends State<AddRecipe> {
             ),
           ),
     
-          // nav: 완료 버튼
+          // 완료 버튼
           actions: [
             Padding(
               padding: const EdgeInsets.only(right:5),
@@ -211,11 +210,10 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     ),
     
-                    // info: 시트 헤더
+                    // 시트 헤더
                     Container(
                       width: 330.w,
                       decoration: const BoxDecoration(
-                        // color: Colors.red,
                         border: Border(bottom: BorderSide(width: 1, color: Palette.lightgray))
                       ),
                       child: Row(
@@ -264,7 +262,8 @@ class _AddRecipeState extends State<AddRecipe> {
                                     decoration: const BoxDecoration(
                                       border: Border(right: BorderSide(width: 0.5, color: Palette.reallightgray))
                                     ),
-                                    // info: 재료명 TextField
+                                    
+                                    // 재료명 TextField
                                     child: TextField(
                                       textInputAction: TextInputAction.next,
                                       textAlign: TextAlign.center,
@@ -285,7 +284,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                     ),
                                   ),
                                   
-                                  // info: 중량 TextField
+                                  // 중량 TextField
                                   Container(
                                     width: 165.w,
                                     height: 60.h,
@@ -298,7 +297,7 @@ class _AddRecipeState extends State<AddRecipe> {
                                         signed: true,
                                         decimal: true
                                       ),
-                                      // ref: 정규식
+                                      // 정규식
                                       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))], 
                                       textInputAction: TextInputAction.next,
                                       textAlign: TextAlign.center,
