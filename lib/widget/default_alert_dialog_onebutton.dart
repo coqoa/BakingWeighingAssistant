@@ -1,8 +1,6 @@
 import 'package:bwa/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class DefaultAlertDialogOneButton extends StatelessWidget{
@@ -13,6 +11,7 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
   late Function? confirmFunction;
   late Color? btnColor;
   late Color? btnTextColor;
+
   DefaultAlertDialogOneButton({super.key, required this.title, required this.contents,required this.buttonTitle, this.confirmFunction, this.btnColor, this.btnTextColor});
 
   @override
@@ -38,13 +37,14 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
         height: 208.h,
         child: Column(
           children: [
-            // contents_main:
+            // 내용
             SizedBox(
                 height: 135.h,
                 child: Center(
                   child: contents
             )),
-            // contents_footer:
+
+            // 버튼
             Container(
               height: 68.h,
               decoration: const BoxDecoration(
@@ -55,34 +55,34 @@ class DefaultAlertDialogOneButton extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                // nav:
-                InkWell(
-                  onTap: () async {
-                    if(confirmFunction!=null){ confirmFunction!();
-                      Navigator.of(context).pop();
-                    }else{
-                      Navigator.of(context).pop();
-                    }
-                  },
+                  InkWell(
+                    onTap: () async {
+                      if(confirmFunction!=null){ confirmFunction!();
+                        Navigator.of(context).pop();
+                      }else{
+                        Navigator.of(context).pop();
+                      }
+                    },
                     child: Container(
-                        width: 200.w,
-                        height: 54.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: btnColor,
+                      width: 200.w,
+                      height: 54.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: btnColor,
+                      ),
+                      padding: const EdgeInsets.only(right: 15.0,left: 15.0),
+                      child: Center(
+                        child: Text(buttonTitle,
+                          style: TextStyle(
+                            color: btnTextColor,
+                            fontSize: 22
+                          )
                         ),
-                        padding: const EdgeInsets.only(right: 15.0,left: 15.0),
-                        child: Center(
-                          child: Text(buttonTitle
-                            ,style: TextStyle(
-                              color: btnTextColor,
-                              fontSize: 22
-                            )
-                          ),
-                        )
+                      )
                     )
                   ),
-              ],),
+                ],
+              ),
             )    
           ],
         ),
