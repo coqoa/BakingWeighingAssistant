@@ -1,4 +1,3 @@
-// 계산기 다이얼로그 버튼
 import 'package:bwa/controller/recipe_controller.dart';
 import 'package:flutter/material.dart';
 import '../config/palette.dart';
@@ -52,8 +51,10 @@ class _MultiflyBtnState extends State<MultiflyBtn> {
   }
 }
 
+// * 개별 버튼
 class MultiflyWidget extends StatefulWidget {
   const MultiflyWidget({super.key, required this.menuTitle, required this.listViewIndex, required this.controller, required this.type});
+
   final String menuTitle;
   final int listViewIndex;
   final RecipeController controller;
@@ -71,12 +72,12 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
   void multiflyCount(String s,String recipeTitle, int index){
     setState(() {
       if(s == '<-'){
-        // info: 입력값 삭제 버튼
+        // 입력값 삭제 버튼
         if(multiflyIndicator.isNotEmpty ){
           multiflyIndicator = multiflyIndicator.substring(0, multiflyIndicator.length-1);
         }
       }else if(s == '확인'){
-        // info: 확인 버튼
+        // 확인 버튼
         if(multiflyIndicator != ''){
           if(widget.type == 'multiple'){
             // * 곱하기
@@ -124,7 +125,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // div: 
+                      // 타이틀
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text('Calculator',
@@ -135,7 +136,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           ),
                         ),
                       ),
-                      // div: 입력창
+                      // 입력창
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(widget.type == 'multiple' ? 'x $multiflyIndicator' : '/ $multiflyIndicator g',
@@ -146,7 +147,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           ),
                         ),
                       ),
-                      // div: 연산 결과
+                      // 연산 결과
                       Align(
                         alignment: Alignment.centerRight,
                         // child: Text('연산결과',
@@ -177,7 +178,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                   ),
                   child: Column(
                     children: [
-                      // div: 
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -186,7 +187,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '9', textColor: Palette.textColorWhite, callback: (){multiflyCount('9',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
-                      // div: 
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -195,7 +196,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '6', textColor: Palette.textColorWhite, callback: (){multiflyCount('6',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
-                      // div: 
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -204,7 +205,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: '3', textColor: Palette.textColorWhite, callback: (){multiflyCount('3',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
-                      // div: 
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -213,7 +214,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                           MultiflyBtn(text: 'del', textColor: Palette.red, callback: (){multiflyCount('<-',widget.controller. recipeList[widget.listViewIndex], widget.listViewIndex);}),
                         ]
                       ),
-                      // div: 
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
