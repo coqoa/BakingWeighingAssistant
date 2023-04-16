@@ -17,7 +17,6 @@ class _MemoState extends State<Memo> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? email = FirebaseAuth.instance.currentUser?.email;
-
   String memoContents = '';
 
   @override
@@ -65,7 +64,7 @@ class _MemoState extends State<Memo> {
           height: 410.h,
           child: Column(
             children: [
-              // div: 메모 입력 공간
+              // 메모 입력 공간
               Container(
                 height: 350.h,
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -87,7 +86,7 @@ class _MemoState extends State<Memo> {
                   maxLines: 20,
                 ),
               ),
-              // div: 저장 버튼
+              //  저장 버튼
               SizedBox(
                 height: 50.h,
                 child: GestureDetector(
