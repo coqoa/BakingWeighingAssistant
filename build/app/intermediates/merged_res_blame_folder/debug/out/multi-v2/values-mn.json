@@ -55,23 +55,6 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-mn/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "199,248,302,359,439,529,579,685,737,857,944,986,1065,1102,1139,1195,1274",
-                        "endColumns": "48,53,56,79,89,49,105,51,119,86,41,78,36,36,55,78,35",
-                        "endOffsets": "247,301,358,438,528,578,684,736,856,943,985,1064,1101,1138,1194,1273,1309"
-                    },
-                    "to": {
-                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "2692,2745,2803,2864,2948,3042,3096,3206,3262,3386,3477,3523,3606,3647,3688,3748,3831",
-                        "endColumns": "52,57,60,83,93,53,109,55,123,90,45,82,40,40,59,82,39",
-                        "endOffsets": "2740,2798,2859,2943,3037,3091,3201,3257,3381,3472,3518,3601,3642,3683,3743,3826,3866"
-                    }
-                },
-                {
                     "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-mn/values-mn.xml",
                     "from": {
                         "startLines": "2",
@@ -81,11 +64,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "41",
+                        "startLines": "24",
                         "startColumns": "4",
-                        "startOffsets": "3871",
+                        "startOffsets": "2692",
                         "endColumns": "100",
-                        "endOffsets": "3967"
+                        "endOffsets": "2788"
                     }
                 }
             ]

@@ -38,23 +38,6 @@
                     }
                 },
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-ja/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "199,238,282,332,397,468,518,602,655,729,799,832,888,920,953,992,1046",
-                        "endColumns": "38,43,49,64,70,49,83,52,73,69,32,55,31,32,38,53,32",
-                        "endOffsets": "237,281,331,396,467,517,601,654,728,798,831,887,919,952,991,1045,1078"
-                    },
-                    "to": {
-                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "2398,2441,2489,2543,2612,2687,2741,2829,2886,2964,3038,3075,3135,3171,3208,3251,3309",
-                        "endColumns": "42,47,53,68,74,53,87,56,77,73,36,59,35,36,42,57,36",
-                        "endOffsets": "2436,2484,2538,2607,2682,2736,2824,2881,2959,3033,3070,3130,3166,3203,3246,3304,3341"
-                    }
-                },
-                {
                     "source": "/Users/coqoa/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/values-ja/values-ja.xml",
                     "from": {
                         "startLines": "2",
@@ -64,11 +47,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "41",
+                        "startLines": "24",
                         "startColumns": "4",
-                        "startOffsets": "3346",
+                        "startOffsets": "2398",
                         "endColumns": "100",
-                        "endOffsets": "3442"
+                        "endOffsets": "2494"
                     }
                 },
                 {

@@ -1,9 +1,6 @@
 com.coqoa.bwa
 attr activityAction
 attr activityName
-attr adSize
-attr adSizes
-attr adUnitId
 attr alpha
 attr alwaysExpand
 attr buttonSize
@@ -38,10 +35,6 @@ attr splitMinSmallestWidth
 attr splitMinWidth
 attr splitRatio
 attr ttcIndex
-bool enable_system_alarm_service_default
-bool enable_system_foreground_service_default
-bool enable_system_job_service_default
-bool workmanager_test_configuration
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color browser_actions_bg_grey
@@ -85,8 +78,6 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
-drawable admob_close_button_black_circle_white_cross
-drawable admob_close_button_white_circle_black_cross
 drawable background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
@@ -122,7 +113,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable splash
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -181,7 +171,6 @@ id icon_group
 id icon_only
 id info
 id italic
-id layout
 id light
 id line1
 id line3
@@ -216,7 +205,6 @@ id title
 id wide
 integer google_play_services_version
 integer status_bar_notification_info_maxnum
-layout admob_empty_layout
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -229,7 +217,6 @@ layout notification_template_part_time
 mipmap ic_launcher
 mipmap launcher_icon
 raw firebase_common_keep
-string androidx_startup
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
 string common_google_play_services_enable_title
@@ -258,24 +245,7 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
-string native_body
-string native_headline
-string native_media_view
-string offline_notification_text
-string offline_notification_title
-string offline_opt_in_confirm
-string offline_opt_in_confirmation
-string offline_opt_in_decline
-string offline_opt_in_message
-string offline_opt_in_title
 string project_id
-string s1
-string s2
-string s3
-string s4
-string s5
-string s6
-string s7
 string status_bar_notification_info_overflow
 style LaunchTheme
 style NormalTheme
@@ -284,12 +254,10 @@ style TextAppearance_Compat_Notification_Info
 style TextAppearance_Compat_Notification_Line2
 style TextAppearance_Compat_Notification_Time
 style TextAppearance_Compat_Notification_Title
-style Theme_IAPTheme
 style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
 styleable ActivityFilter activityAction activityName
 styleable ActivityRule alwaysExpand
-styleable AdsAttrs adSize adSizes adUnitId
 styleable Capability queryPatterns shortcutMatchRequired
 styleable ColorStateListItem android_color android_alpha alpha
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery fontProviderSystemFontFamily

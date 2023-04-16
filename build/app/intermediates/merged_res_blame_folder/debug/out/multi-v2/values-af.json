@@ -4,23 +4,6 @@
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-af/values-af.xml",
             "map": [
                 {
-                    "source": "/Users/coqoa/.gradle/caches/transforms-3/dfbb449d5180966a490970469897ec3d/transformed/jetified-play-services-ads-21.5.0/res/values-af/values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
-                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
-                        "startOffsets": "199,246,294,349,430,540,590,711,770,904,997,1036,1118,1153,1187,1239,1323",
-                        "endColumns": "46,47,54,80,109,49,120,58,133,92,38,81,34,33,51,83,43",
-                        "endOffsets": "245,293,348,429,539,589,710,769,903,996,1035,1117,1152,1186,1238,1322,1366"
-                    },
-                    "to": {
-                        "startLines": "24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "2671,2722,2774,2833,2918,3032,3086,3211,3274,3412,3509,3552,3638,3677,3715,3771,3859",
-                        "endColumns": "50,51,58,84,113,53,124,62,137,96,42,85,38,37,55,87,47",
-                        "endOffsets": "2717,2769,2828,2913,3027,3081,3206,3269,3407,3504,3547,3633,3672,3710,3766,3854,3902"
-                    }
-                },
-                {
                     "source": "/Users/coqoa/.gradle/caches/transforms-3/f9d00c0ad06f3737f5584e3a1be6cac9/transformed/browser-1.4.0/res/values-af/values-af.xml",
                     "from": {
                         "startLines": "2,3,4,5",
@@ -47,11 +30,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "41",
+                        "startLines": "24",
                         "startColumns": "4",
-                        "startOffsets": "3907",
+                        "startOffsets": "2671",
                         "endColumns": "100",
-                        "endOffsets": "4003"
+                        "endOffsets": "2767"
                     }
                 },
                 {
