@@ -30,7 +30,7 @@ class SignController extends GetxController{
   }
 
   // 검증 결과 출력 메소드
-  Future<void> validation(errMsg, sign)async {
+  Future<void> validation(String errMsg, String sign)async {
     if(sign == 'SignIn'){
       // * 로그인 검증 결과
       // 패스워드 오류
@@ -69,35 +69,30 @@ class SignController extends GetxController{
         // 틀린 비밀번호
         validationResult.value = 'Passwords do not match';
       }
-      
     }
   }
 
   // 회원가입
-  Future<void> signIn(sign)async {
+  Future<void> signIn(String sign)async {
     await _authentication.signInWithEmailAndPassword(
       email: userEmail.value, 
       password: userPassword.value
     ).then((value) {
-      if(value.user != null){
-        Get.to(()=> Menu());
-      }
+      if(value.user != null){Get.to(()=> Menu());}
     }).catchError((e)async{
       await validation(e.message, sign);
     });
   }
 
   // 회원가입검증
-  Future<void> signUp(sign)async {
+  Future<void> signUp(String sign)async {
     try{
       if(userPassword.value == userPasswordRepeat.value){
         final newUser = await _authentication.createUserWithEmailAndPassword(
           email: userEmail.value, 
           password: userPassword.value,
         );
-        if(newUser.user != null){
-          Get.to(()=> Menu());
-        }
+        if(newUser.user != null){Get.to(()=> Menu());}
       }else{
         validation('Passwords do not match', sign);
       }

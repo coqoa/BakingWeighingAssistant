@@ -12,10 +12,10 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   FIREBASE_API_KEYS firebaseOptions = FIREBASE_API_KEYS();
 
   try{
+    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
       options: FirebaseOptions(
         apiKey: firebaseOptions.apiKey,
@@ -28,9 +28,13 @@ void main() async {
       ),
     );
   }catch(e){
-    print('-- main.dart initializeApp ERROR --$e');
+    print('-- main.dart initializeApp ERROR -- $e');
   }
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(const MyApp()));
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((value) => 
+      runApp(const MyApp())
+    );
 }
 
 class MyApp extends StatefulWidget {
@@ -41,10 +45,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -79,8 +85,8 @@ class _MyAppState extends State<MyApp> {
           },
       
           home: FirebaseAuth.instance.currentUser?.email != null 
-          ? Menu() 
-          : Sign(),
+            ? Menu() 
+            : Sign(),
         );
       },
       

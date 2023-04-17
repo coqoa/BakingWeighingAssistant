@@ -215,7 +215,7 @@ class _SignState extends State<Sign> {
                                             borderRadius: BorderRadius.circular(10),
                                           ),
                                           child: Center(
-                                            child: Text(isSignin ?'Log in' :'Register',
+                                            child: Text(isSignin ? 'Log in' : 'Register',
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
@@ -260,7 +260,9 @@ class _SignState extends State<Sign> {
                                           ),
                                         ),
                                       ),
+
                                       SizedBox(height: 5.h,),
+
                                       // 익명 로그인 버튼
                                       InkWell(
                                         onTap: (){
@@ -319,6 +321,7 @@ class SignTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final bool nextEvent;
   final bool sign;
+
   @override
   State<SignTextField> createState() => _SignTextFieldState();
 }
@@ -360,8 +363,9 @@ class _SignTextFieldState extends State<SignTextField> {
       ),
       
       onChanged: (value){
-          widget.controller.textFieldChanged(widget.type, value);
+        widget.controller.textFieldChanged(widget.type, value);
       },
+      
       onSubmitted: (_){
         if(widget.nextEvent){
         }else{

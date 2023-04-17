@@ -3,6 +3,7 @@ import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:bwa/widget/default_alert_dialog_twobutton.dart';
+import 'package:bwa/widget/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,10 @@ class MenuController extends GetxController{
 
   // * 메뉴 로드
   loadMenuList()async{
+
+    print('-=-=-=-=-=-=-=');
+    print(FirebaseAuth.instance.currentUser?.email);
+    print('-=-=-=-=-=-=-=');
     requestStatus.value=RequestStatus.LOADING;
 
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
@@ -56,53 +61,11 @@ class MenuController extends GetxController{
 
       }else{
         // snackbar: 존재하는 타이틀일 경우 처리
-        Get.snackbar(
-          "","",
-          titleText: const Center(
-            child: Text("ERROR", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )
-            )
-          ),
-          messageText: const Center(
-            child: Text(
-              "'An already Existing Title"
-            )
-          ),
-          snackPosition: SnackPosition.BOTTOM,
-          forwardAnimationCurve: Curves.elasticIn,
-          reverseAnimationCurve: Curves.easeOut,
-          backgroundColor: Palette.lightgray,
-          margin: EdgeInsets.only(bottom: 20.h),
-          maxWidth: 300.w,
-        );
+        CustomSnackBar().snackBar('ERROR', "An already Existing Title");
       }
     }else{
       // snackbar: title이 공백일 경우 처리
-      Get.snackbar(
-        "","",
-        titleText: const Center(
-          child: Text("ERROR", 
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            )
-          )
-        ),
-        messageText: const Center(
-          child: Text(
-            "Please check the Title"
-          )
-        ),
-        snackPosition: SnackPosition.BOTTOM,
-        forwardAnimationCurve: Curves.elasticIn,
-        reverseAnimationCurve: Curves.easeOut,
-        backgroundColor: Palette.lightgray,
-        margin: EdgeInsets.only(bottom: 20.h),
-        maxWidth: 300.w,
-      );
+      CustomSnackBar().snackBar('ERROR', "Please check the Title");
     }
   }
 
@@ -119,24 +82,7 @@ class MenuController extends GetxController{
   // * 메뉴 수정
   editMenu(originalTitle, changedTitle)async{
     if(changedTitle.length<1 || originalTitle == changedTitle){
-      Get.snackbar(
-        "","",
-        titleText: const Center(
-          child: Text("ERROR", 
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            )
-          )
-        ),
-        messageText: const Center(child: Text("Please check the Title")),
-        snackPosition: SnackPosition.BOTTOM,
-        forwardAnimationCurve: Curves.elasticIn,
-        reverseAnimationCurve: Curves.easeOut,
-        backgroundColor: Palette.lightgray,
-        margin: EdgeInsets.only(bottom: 20.h),
-        maxWidth: 200.w,
-      );
+      CustomSnackBar().snackBar('ERROR', "Please check the Title");
     }else{
       if(!menuList.contains(changedTitle)){
         
@@ -161,24 +107,7 @@ class MenuController extends GetxController{
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').delete();
 
       }else{
-        Get.snackbar(
-          "","",
-          titleText: const Center(
-            child: Text("ERROR", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )
-            )
-          ),
-          messageText: Center(child: Text("'$changedTitle' is already exists Title")),
-          snackPosition: SnackPosition.BOTTOM,
-          forwardAnimationCurve: Curves.elasticIn,
-          reverseAnimationCurve: Curves.easeOut,
-          backgroundColor: Palette.lightgray,
-          margin: EdgeInsets.only(bottom: 20.h),
-          maxWidth: 300.w,
-        );
+        CustomSnackBar().snackBar('ERROR', "'$changedTitle' is already exists Title");
       }
     }
   }

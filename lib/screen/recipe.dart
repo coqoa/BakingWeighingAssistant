@@ -3,8 +3,8 @@
 import 'package:bwa/config/enum.dart';
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/controller/recipe_controller.dart';
-import 'package:bwa/screen/addRecipe.dart';
-import 'package:bwa/screen/editRecipe.dart';
+import 'package:bwa/screen/add_recipe.dart';
+import 'package:bwa/screen/edit_recipe.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/widget/calculator.dart';
 import 'package:bwa/widget/memo.dart';
@@ -52,8 +52,6 @@ class _RecipeState extends State<Recipe> {
     );
     multiflyInitialize();
   }
-
- 
   
   removeDotZero(e){
     if(e.toString().contains('.0')){
@@ -115,9 +113,10 @@ class _RecipeState extends State<Recipe> {
                               ),
                             ),
                             onTap: (){
-                                Get.off(()=>Menu()); 
+                              Get.off(()=>Menu()); 
                             },
                           ),
+
                           // 앱 바 타이틀
                           Container(
                             width: 180.w,
@@ -134,6 +133,7 @@ class _RecipeState extends State<Recipe> {
                               ),
                             ),
                           ),
+
                           // 앱 바 우측 아이콘
                           Container(
                             width: 90.w,
@@ -163,9 +163,9 @@ class _RecipeState extends State<Recipe> {
                                   ),
                                   onTap: (){
                                     setState(() {
-                                      // modal:
+                                      // 모달 - 메모 열기
                                       showDialog(
-                                      context: context, 
+                                        context: context, 
                                         builder: (_){
                                           return Memo(menuTitle: widget.menuTitle); 
                                         }
@@ -395,12 +395,17 @@ class _RecipeState extends State<Recipe> {
                                                                 scrollDirection: Axis.horizontal,
                                                                 child: GestureDetector(
                                                                   onTap: (){
-                                                                    // 모달
+                                                                    // 모달 - 곱하기 계산기
                                                                     if(controller.multipleValue.isNotEmpty){
                                                                       showDialog(
                                                                         context: context, 
                                                                         builder: (_){
-                                                                          return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
+                                                                          return  MultiflyWidget(
+                                                                            menuTitle: widget.menuTitle, 
+                                                                            listViewIndex: listViewIndex, 
+                                                                            controller: controller, 
+                                                                            type:'multiple'
+                                                                          );
                                                                         }
                                                                       );
                                                                     }
@@ -483,7 +488,9 @@ class _RecipeState extends State<Recipe> {
                                                     );
                                                   })
                                                 );
-                                              }else{return Text('');}
+                                              }else{
+                                                return Text('');
+                                              }
                                             }());
                                           }),
                                         ),
@@ -528,51 +535,56 @@ class _RecipeState extends State<Recipe> {
                                                   ],
                                                 ),
                                                 controller.divideWeight[index] != 1
-                                                ? Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'Total ',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            color: Palette.lightblack
-                                                          ),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: (){
-                                                            // 모달
-                                                            if(controller.divideWeight.isNotEmpty){
-                                                              showDialog(
-                                                                context: context, 
-                                                                builder: (_){
-                                                                  return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
-                                                                }
-                                                              );
-                                                            }
-                                                          },
-                                                          child: Text(
-                                                            '/ ${removeDotZero(controller.divideWeight[index]) } g',
+                                                  ? Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            'Total ',
                                                             style: TextStyle(
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.w800,
-                                                              color: Palette.blue
+                                                              color: Palette.lightblack
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      '${controller.recipeWeightTotal[index] ~/ controller.divideWeight[index]} ea',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Palette.lightblack
+                                                          GestureDetector(
+                                                            onTap: (){
+                                                              // 모달
+                                                              if(controller.divideWeight.isNotEmpty){
+                                                                showDialog(
+                                                                  context: context, 
+                                                                  builder: (_){
+                                                                    return  MultiflyWidget(
+                                                                      menuTitle: widget.menuTitle, 
+                                                                      listViewIndex: listViewIndex, 
+                                                                      controller: controller, 
+                                                                      type:'divide'
+                                                                    );
+                                                                  }
+                                                                );
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              '/ ${removeDotZero(controller.divideWeight[index]) } g',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w800,
+                                                                color: Palette.blue
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                )
-                                                :SizedBox()
+                                                      Text(
+                                                        '${controller.recipeWeightTotal[index] ~/ controller.divideWeight[index]} ea',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          color: Palette.lightblack
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                  :SizedBox()
                                               ],
                                             );
                                           }else{
@@ -620,12 +632,17 @@ class _RecipeState extends State<Recipe> {
                             // 곱하기
                             GestureDetector(
                               onTap: (){
-                                // 모달
+                                // 모달 - 곱하기 계산기
                                 if(controller.multipleValue.isNotEmpty){
                                   showDialog(
                                     context: context, 
                                     builder: (_){
-                                      return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'multiple');
+                                      return  MultiflyWidget(
+                                        menuTitle: widget.menuTitle, 
+                                        listViewIndex: listViewIndex, 
+                                        controller: controller, 
+                                        type:'multiple'
+                                      );
                                     }
                                   );
                                 }
@@ -670,12 +687,17 @@ class _RecipeState extends State<Recipe> {
                             // 나누기
                             GestureDetector(
                               onTap: (){
-                                // 모달
+                                // 모달 - 나누기 계산기
                                 if(controller.divideWeight.isNotEmpty){
                                   showDialog(
                                     context: context, 
                                     builder: (_){
-                                      return  MultiflyWidget(menuTitle: widget.menuTitle, listViewIndex: listViewIndex, controller: controller, type:'divide');
+                                      return  MultiflyWidget(
+                                        menuTitle: widget.menuTitle, 
+                                        listViewIndex: listViewIndex,
+                                        controller: controller, 
+                                        type:'divide'
+                                      );
                                     }
                                   );
                                 }
@@ -718,6 +740,7 @@ class _RecipeState extends State<Recipe> {
                           ],
                         ),
                       ),
+
                       // section: 수정 / 삭제 관련 버튼
                       Container(
                         width: 130,
@@ -728,7 +751,12 @@ class _RecipeState extends State<Recipe> {
                             GestureDetector(
                               onTap: (){
                                 if(controller.recipeList.isNotEmpty){
-                                  Get.to(()=>EditRecipe(menuTitle: widget.menuTitle, multipleValue: controller.multipleValue[listViewIndex], divideWeight: controller.divideWeight[listViewIndex], recipeTitle: controller.recipeList[listViewIndex],));
+                                  Get.to(()=>EditRecipe(
+                                    menuTitle: widget.menuTitle, 
+                                    multipleValue: controller.multipleValue[listViewIndex], 
+                                    divideWeight: controller.divideWeight[listViewIndex], 
+                                    recipeTitle: controller.recipeList[listViewIndex],)
+                                  );
                                 }
                               },
                               child: Container(
@@ -738,12 +766,6 @@ class _RecipeState extends State<Recipe> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    // SvgPicture.asset(
-                                    //   'assets/images/pencil1.svg',
-                                    //   color: Palette.darkgray,
-                                    //   width: 25,
-                                    //   height: 25,
-                                    // ),
                                     Icon(Icons.mode_edit_outline_outlined,
                                         color:  Palette.gray,
                                         size: 24,
@@ -760,10 +782,9 @@ class _RecipeState extends State<Recipe> {
                               ),
                             ),
           
-                            // 삭제
                             GestureDetector(
                               onTap: (){
-                                // 모달
+                                // 모달 - 레시피 삭제
                                 if(controller.recipeList.isNotEmpty){
                                   showDialog(
                                     context: context, 

@@ -1,6 +1,7 @@
 
 import 'package:bwa/config/palette.dart';
 import 'package:bwa/screen/recipe.dart';
+import 'package:bwa/widget/snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,9 @@ class RecipeController extends GetxController{
   RxList recipeList = [].obs;
   RxList recipeIngredient = [].obs;
   RxList recipeWeight= [].obs;
-  RxList recipeWeightTotal= [].obs;
   RxList multipleValue = [].obs;
   RxList divideWeight = [].obs;
+  RxList recipeWeightTotal= [].obs;
 
   // * 레시피 로드
   loadRecipeList(menuTitle) async{
@@ -59,24 +60,7 @@ class RecipeController extends GetxController{
     if(title.isNotEmpty){
       // snackbar: 존재하는 타이틀
       if(recipeListParam.contains(title)){
-        Get.snackbar(
-          "","",
-          titleText: const Center(
-            child: Text("ERROR", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )
-            )
-          ),
-          messageText: Center(child: Text("'$title' already exists")),
-          snackPosition: SnackPosition.BOTTOM,
-          forwardAnimationCurve: Curves.elasticIn,
-          reverseAnimationCurve: Curves.easeOut,
-          backgroundColor: Palette.lightgray,
-          margin: EdgeInsets.only(bottom: 20.h),
-          maxWidth: 300.w,
-        );
+        CustomSnackBar().snackBar('ERROR', "'$title' already exists");
       }else{
         // 레시피 리스트에 추가 
         recipeListParam.add(title);
@@ -92,24 +76,7 @@ class RecipeController extends GetxController{
       }
     }else{
       // snackbar: 타이틀을 입력해주세요
-      Get.snackbar(
-        "","",
-        titleText: const Center(
-          child: Text("ERROR", 
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            )
-          )
-        ),
-        messageText: Center(child: Text("Please enter a Title")),
-        snackPosition: SnackPosition.BOTTOM,
-        forwardAnimationCurve: Curves.elasticIn,
-        reverseAnimationCurve: Curves.easeOut,
-        backgroundColor: Palette.lightgray,
-        margin: EdgeInsets.only(bottom: 20.h),
-        maxWidth: 300.w,
-      );
+      CustomSnackBar().snackBar('ERROR', "Please enter a Title");
     }
   }
 
@@ -129,24 +96,7 @@ class RecipeController extends GetxController{
       // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeListParam.contains(title) && originalTitle != title){
         // snackbar: 존재하는 타이틀
-        Get.snackbar(
-          "","",
-          titleText: const Center(
-            child: Text("ERROR", 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15
-              )
-            )
-          ),
-          messageText: Center(child: Text("'$title' already exists")),
-          snackPosition: SnackPosition.BOTTOM,
-          forwardAnimationCurve: Curves.elasticIn,
-          reverseAnimationCurve: Curves.easeOut,
-          backgroundColor: Palette.lightgray,
-          margin: EdgeInsets.only(bottom: 20.h),
-          maxWidth: 300.w,
-        );
+        CustomSnackBar().snackBar('ERROR', "'$title' already exists");
       }else{
         // 레시피 리스트에 타이틀 변경
         recipeListParam[recipeListParam.indexOf(originalTitle)]=title;
@@ -167,24 +117,7 @@ class RecipeController extends GetxController{
       }
     }else{
       // snackbar: 타이틀을 입력해주세요
-      Get.snackbar(
-        "","",
-        titleText: const Center(
-          child: Text("ERROR", 
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            )
-          )
-        ),
-        messageText: Center(child: Text("Please enter a Title")),
-        snackPosition: SnackPosition.BOTTOM,
-        forwardAnimationCurve: Curves.elasticIn,
-        reverseAnimationCurve: Curves.easeOut,
-        backgroundColor: Palette.lightgray,
-        margin: EdgeInsets.only(bottom: 20.h),
-        maxWidth: 300.w,
-      );
+      CustomSnackBar().snackBar('ERROR', "Please enter a Title");
     }
     requestStatus.value=RequestStatus.SUCCESS;
   }
