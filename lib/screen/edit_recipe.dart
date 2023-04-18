@@ -26,7 +26,7 @@ class EditRecipe extends StatefulWidget {
 class _EditRecipeState extends State<EditRecipe> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String? email = FirebaseAuth.instance.currentUser?.email;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   String originalTitle = '';
   String title = '';
   List ingredient = [];
@@ -45,13 +45,13 @@ class _EditRecipeState extends State<EditRecipe> {
     title = widget.recipeTitle;
     _controller = TextEditingController(text: title);
 
-    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
+    firestore.collection('users').doc(uid).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
         recipeList = value.data()!['RecipeList'];
       });
     });
 
-    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Recipe').get().then((value){
+    firestore.collection('users').doc(uid).collection(widget.menuTitle).doc('Recipe').get().then((value){
       setState(() {
         ingredient = value[widget.recipeTitle]['ingredient'];
         weight = value[widget.recipeTitle]['weight'];

@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
             );
           },
       
-          home: FirebaseAuth.instance.currentUser?.email != null 
+          home: FirebaseAuth.instance.currentUser?.uid != null 
             ? Menu() 
             : Sign(),
         );

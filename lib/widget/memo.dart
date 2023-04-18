@@ -16,13 +16,13 @@ class Memo extends StatefulWidget {
 class _MemoState extends State<Memo> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String? email = FirebaseAuth.instance.currentUser?.email;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   String memoContents = '';
 
   @override
   void initState() {
     super.initState();
-    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Memo').get().then((value){
+    firestore.collection('users').doc(uid).collection(widget.menuTitle).doc('Memo').get().then((value){
       setState(() {
         memoContents = value.data()!['Memo'];
       });
@@ -30,7 +30,7 @@ class _MemoState extends State<Memo> {
   }
 
   editMemo(contents)async{
-    await firestore.collection('users').doc(email).collection(widget.menuTitle).doc('Memo').set(
+    await firestore.collection('users').doc(uid).collection(widget.menuTitle).doc('Memo').set(
       {'Memo':contents}
     );
   }

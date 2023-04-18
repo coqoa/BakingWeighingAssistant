@@ -72,7 +72,7 @@ class _MenuState extends State<Menu> {
                 if(controller.menuList.isEmpty){
                   return Center(
                     child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // 익명 로그인시 출력되는 안내문구
                         if(FirebaseAuth.instance.currentUser?.email == null)
@@ -110,7 +110,8 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
+                              SizedBox(height: 50,)
                             ],
                           ),
 
@@ -204,7 +205,7 @@ class _MenuState extends State<Menu> {
                           ],
                         ),
 
-                        if(FirebaseAuth.instance.currentUser?.email == null)
+                        if(FirebaseAuth.instance.currentUser?.uid == null)
                           SizedBox()
                       ],
                     ),
@@ -565,7 +566,7 @@ class _MenuState extends State<Menu> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // 익명계정일경우?
-                              if(FirebaseAuth.instance.currentUser?.email == null)
+                              if(FirebaseAuth.instance.currentUser?.uid == null)
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {

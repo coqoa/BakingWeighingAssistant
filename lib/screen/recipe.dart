@@ -48,7 +48,7 @@ class _RecipeState extends State<Recipe> {
     // 스크롤 이동
     _scrollController.scrollToIndex(
       listViewIndex,
-      preferPosition: AutoScrollPosition.middle,
+      // preferPosition: AutoScrollPosition.middle,
     );
     multiflyInitialize();
   }
@@ -239,9 +239,11 @@ class _RecipeState extends State<Recipe> {
                                     ),
                                   ),
                                   onTap: () {
-                                    setState(() {
+                                    print(listViewIndex);
+                                    print(index);
+                                    // setState(() {
                                       listViewIndex = index;
-                                    });
+                                    // });
                                     // 페이지 이동
                                     _pageController.animateToPage(listViewIndex, curve: Curves.decelerate, duration: Duration(milliseconds: 400));
                                     // 계산기 초기화
@@ -820,6 +822,7 @@ class _RecipeState extends State<Recipe> {
                                           // db삭제기능 
                                           setState(() {
                                             controller.deleteRecipe(widget.menuTitle, listViewIndex);
+                                            listViewIndex = listViewIndex-1;
                                           });
                                         },
                                       );

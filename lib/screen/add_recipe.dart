@@ -21,7 +21,7 @@ class AddRecipe extends StatefulWidget {
 class _AddRecipeState extends State<AddRecipe> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String? email = FirebaseAuth.instance.currentUser?.email;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
 
   RecipeController controller = RecipeController();
 
@@ -33,7 +33,7 @@ class _AddRecipeState extends State<AddRecipe> {
   @override
   void initState(){
     super.initState();
-    firestore.collection('users').doc(email).collection(widget.menuTitle).doc('RecipeList').get().then((value){
+    firestore.collection('users').doc(uid).collection(widget.menuTitle).doc('RecipeList').get().then((value){
       setState(() {
         recipeList = value.data()!['RecipeList'];
         ingredient.add('');

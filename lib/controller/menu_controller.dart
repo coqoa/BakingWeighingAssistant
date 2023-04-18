@@ -26,10 +26,19 @@ class MenuController extends GetxController{
 
     print('-=-=-=-=-=-=-=');
     print(FirebaseAuth.instance.currentUser?.email);
+    print(FirebaseAuth.instance.currentUser?.uid);
+    // FirebaseAuth.instance.currentUser?.email이 널이면?
+    // FirebaseAuth.instance.currentUser?.uid 판별?
+    // 익명로그인 후에 회원가입하면 Uid가 변경되나?
+    // 1. 이메일 로그인하면 uid가 읽어지는지 확인 v
+    // 2. 익명로그인 -> 이메일 가입하면 Uid 변경안되는지 확인 v
+    // 3. email이 아닌 Uid 기준으로 바꿔도 데이터 저장이 잘 되고 잘 읽어지는지 확인
+    // 4. firebase와 통신하는 모든 코드들 uid 기준으로 바꾸기(변수 통합하기)
+    // 5. 테스트, 버전업, 빌드
     print('-=-=-=-=-=-=-=');
     requestStatus.value=RequestStatus.LOADING;
 
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).get().then((result){
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).get().then((result){
       if(result.data()!=null){
         menuList.value = result.data()?['menuList'];
       }else{
@@ -51,13 +60,13 @@ class MenuController extends GetxController{
         // 메뉴리스트에 추가
         menuList.add(e);
         // 메뉴리스트 생성
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set({'menuList':menuList});
         // 메모 생성 
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').set({"Memo":''});
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('Memo').set({"Memo":''});
         // 레시피 생성
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').set({});
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('Recipe').set({});
         // 레시피 리스트 생성
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').set({"RecipeList":[]});
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('RecipeList').set({"RecipeList":[]});
 
       }else{
         // snackbar: 존재하는 타이틀일 경우 처리
@@ -72,10 +81,10 @@ class MenuController extends GetxController{
   // * 메뉴 삭제
   deleteMenu(e)async{
     menuList.remove(e);
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Memo').delete();
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('Recipe').delete();
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(e).doc('RecipeList').delete();
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set({'menuList':menuList});
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('Memo').delete();
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('Recipe').delete();
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(e).doc('RecipeList').delete();
     // firebase는 내부에 있는 모든 doc을 지워줘야 collection을 지울 수 있음
   }
 
@@ -86,25 +95,25 @@ class MenuController extends GetxController{
     }else{
       if(!menuList.contains(changedTitle)){
         
-        var originalMemo = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Memo').get();
-        var originalRecipe = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').get();
-        var originalRecipeList = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').get();
+        var originalMemo = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('Memo').get();
+        var originalRecipe = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('Recipe').get();
+        var originalRecipeList = await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('RecipeList').get();
 
         // 리스트 변경 후 업데이트
         menuList[menuList.indexOf(originalTitle)]=changedTitle;
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set({'menuList':menuList});
 
         // 변경 레시피 : 메모 추가 
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Memo').set(originalMemo.data()!);
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(changedTitle).doc('Memo').set(originalMemo.data()!);
         // 변경 레시피 : 레시피 추가
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('Recipe').set(originalRecipe.data()!);
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(changedTitle).doc('Recipe').set(originalRecipe.data()!);
         // 변경 레시피 : 레시피 리스트 추가
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(changedTitle).doc('RecipeList').set(originalRecipeList.data()!);
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(changedTitle).doc('RecipeList').set(originalRecipeList.data()!);
 
         // 기존데이터 삭제해주기
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Memo').delete();
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('Recipe').delete();
-        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).collection(originalTitle).doc('RecipeList').delete();
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('Memo').delete();
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('Recipe').delete();
+        await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('RecipeList').delete();
 
       }else{
         CustomSnackBar().snackBar('ERROR', "'$changedTitle' is already exists Title");
@@ -113,13 +122,14 @@ class MenuController extends GetxController{
   }
 
   dragAndDropMenu()async{
-    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.email).set({'menuList':menuList});
+    await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).set({'menuList':menuList});
   }
 
   // * 탈퇴
   void secession()async{
-    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.email).delete();
-    await FirebaseAuth.instance.currentUser?.delete().then((value) => Get.off(Sign()));
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).delete();
+    await FirebaseAuth.instance.currentUser?.delete();
+    await Get.off(Sign());
   }
 
   // * 익명로그인
