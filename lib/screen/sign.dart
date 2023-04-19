@@ -95,7 +95,7 @@ class _SignState extends State<Sign> {
                           // section: 회원가입 / 로그인
                           Container(
                             width: 244.w,
-                            height: 420.h,
+                            height: 410.h,
                             decoration: BoxDecoration(
                               color: Palette.white,
                               borderRadius: BorderRadius.circular(5),
@@ -118,7 +118,7 @@ class _SignState extends State<Sign> {
                                             controller: controller,
                                             valueKey: const ValueKey(1), 
                                             obscureText: false, 
-                                            hintText: 'E-Mail Address', 
+                                            hintText: 'eMailAddress'.tr, 
                                             type: 'userEmail',
                                             textInputAction: TextInputAction.next,
                                             nextEvent: true,
@@ -128,7 +128,7 @@ class _SignState extends State<Sign> {
                                             controller: controller,
                                             valueKey: const ValueKey(2), 
                                             obscureText: true, 
-                                            hintText: 'Password', 
+                                            hintText: 'password'.tr, 
                                             type: 'userPassword',
                                             textInputAction: TextInputAction.done,
                                             nextEvent: false,
@@ -145,7 +145,7 @@ class _SignState extends State<Sign> {
                                             controller: controller,
                                             valueKey: const ValueKey(3), 
                                             obscureText: false, 
-                                            hintText: 'E-Mail Address', 
+                                            hintText: 'eMailAddress'.tr, 
                                             type: 'userEmail',
                                             textInputAction: TextInputAction.next,
                                             nextEvent: true,
@@ -155,7 +155,7 @@ class _SignState extends State<Sign> {
                                             controller: controller,
                                             valueKey: const ValueKey(4), 
                                             obscureText: true, 
-                                            hintText: 'Password', 
+                                            hintText: 'password'.tr, 
                                             type: 'userPassword',
                                             textInputAction: TextInputAction.next,
                                             nextEvent: true,
@@ -165,7 +165,7 @@ class _SignState extends State<Sign> {
                                             controller: controller,
                                             valueKey: const ValueKey(5), 
                                             obscureText: true, 
-                                            hintText: 'Password Repeat', 
+                                            hintText: 'passwordRepeat'.tr, 
                                             type: 'userPasswordRepeat',
                                             textInputAction: TextInputAction.done,
                                             nextEvent: false,
@@ -180,7 +180,7 @@ class _SignState extends State<Sign> {
                                 // 하단 
                                 SizedBox(
                                   width: 300.w,
-                                  height: 170.h,
+                                  height: 180.h,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
@@ -191,7 +191,7 @@ class _SignState extends State<Sign> {
                                           child: Center(
                                             child: Text(controller.validationResult.value,
                                               style: TextStyle(
-                                                fontSize: 17,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                                 color: Palette.red
                                               ),
@@ -215,7 +215,7 @@ class _SignState extends State<Sign> {
                                             borderRadius: BorderRadius.circular(10),
                                           ),
                                           child: Center(
-                                            child: Text(isSignin ? 'Log in' : 'Register',
+                                            child: Text(isSignin ? 'logIn'.tr : 'register'.tr,
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
@@ -225,7 +225,7 @@ class _SignState extends State<Sign> {
                                         ),
                                       ),
     
-                                      SizedBox(height: 7.h,),
+                                      SizedBox(height: 10,),
                       
                                       // 회원가입 / 로그인 토글 버튼
                                       InkWell(
@@ -241,17 +241,17 @@ class _SignState extends State<Sign> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                isSignin ? 'Don’t you have an account? ' : 'Do you have an account? ',
+                                                isSignin ? 'dontYouHaveAnAccount'.tr : 'doYouHaveAnAccount'.tr,
                                                 style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w800,
                                                   color: Palette.middleblack
                                                 ),
                                               ),
-                                              Text(isSignin ?'Join us' :'Log in',
+                                              Text(isSignin ?'joinUs'.tr :'logIn2'.tr,
                                                 style: TextStyle(
                                                   color: Palette.blue,
-                                                  fontSize: 14,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.w900,
                                                   fontStyle: FontStyle.italic
                                                 ),
@@ -261,7 +261,7 @@ class _SignState extends State<Sign> {
                                         ),
                                       ),
 
-                                      SizedBox(height: 5.h,),
+                                      SizedBox(height: 10,),
 
                                       // 익명 로그인 버튼
                                       InkWell(
@@ -271,7 +271,7 @@ class _SignState extends State<Sign> {
                                         child: SizedBox(
                                           height: 25.h,
                                           child: Text(
-                                            'or Start with an anonymous account',
+                                            'orStartWithAnAnonymousAccount'.tr,
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w800,
@@ -351,7 +351,7 @@ class _SignTextFieldState extends State<SignTextField> {
         hintText: widget.hintText,
         hintStyle: const TextStyle(
           color: Palette.gray,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w200,
         ),
         enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),

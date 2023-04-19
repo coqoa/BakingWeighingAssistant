@@ -24,18 +24,6 @@ class MenuController extends GetxController{
   // * 메뉴 로드
   loadMenuList()async{
 
-    print('-=-=-=-=-=-=-=');
-    print(FirebaseAuth.instance.currentUser?.email);
-    print(FirebaseAuth.instance.currentUser?.uid);
-    // FirebaseAuth.instance.currentUser?.email이 널이면?
-    // FirebaseAuth.instance.currentUser?.uid 판별?
-    // 익명로그인 후에 회원가입하면 Uid가 변경되나?
-    // 1. 이메일 로그인하면 uid가 읽어지는지 확인 v
-    // 2. 익명로그인 -> 이메일 가입하면 Uid 변경안되는지 확인 v
-    // 3. email이 아닌 Uid 기준으로 바꿔도 데이터 저장이 잘 되고 잘 읽어지는지 확인
-    // 4. firebase와 통신하는 모든 코드들 uid 기준으로 바꾸기(변수 통합하기)
-    // 5. 테스트, 버전업, 빌드
-    print('-=-=-=-=-=-=-=');
     requestStatus.value=RequestStatus.LOADING;
 
     await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).get().then((result){

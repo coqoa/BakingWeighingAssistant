@@ -78,16 +78,16 @@ class _MenuState extends State<Menu> {
                         if(FirebaseAuth.instance.currentUser?.email == null)
                           Column(
                             children: [
-                              Text('If you start without logging in,',
+                              Text('ifYouStartWithoutLoggingIn'.tr,
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 15,
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              Text('you may lose your data',
+                              Text('youMayLoseYourData'.tr,
                                 style: TextStyle(
 
-                                  fontSize: 17,
+                                  fontSize: 15,
                                 ),
                               ),
                               SizedBox(height: 20,),
@@ -103,9 +103,9 @@ class _MenuState extends State<Menu> {
                                         color: Palette.black
                                     ) )
                                   ),
-                                  child: Text('To join Gramming, tap here!',
+                                  child: Text('toJoinGrammingTapHere'.tr,
                                     style: TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w800
                                     ),
                                   ),
@@ -123,7 +123,7 @@ class _MenuState extends State<Menu> {
                                   context: context, 
                                   builder: (_){
                                     return DefaultAlertDialogTwoButton(
-                                      title: 'Create', 
+                                      title: 'create'.tr, 
                                       contents: SizedBox(
                                         width: 250.w,
                                         height: 100.h,
@@ -165,9 +165,9 @@ class _MenuState extends State<Menu> {
                                           ],
                                         ),
                                       ),
-                                      leftButtonName: 'Back', 
+                                      leftButtonName: 'back'.tr, 
                                       leftButtonFunction: (){}, 
-                                      rightButtonName: 'Submit',
+                                      rightButtonName: 'submit'.tr,
                                       rightButtonFuction:(){
                                         createMenu(title);
                                         Navigator.of(context).pop();
@@ -192,9 +192,9 @@ class _MenuState extends State<Menu> {
                                       color: Palette.black,
                                     ),
                                     SizedBox(width: 10,),
-                                    Text('Create new menu',
+                                    Text('createNewMenu'.tr,
                                       style: TextStyle(
-                                        fontSize: 17,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.bold
                                       ),
                                     ),
@@ -306,7 +306,7 @@ class _MenuState extends State<Menu> {
                                           builder: (_){
                                             return 
                                             DefaultAlertDialogTwoButton(
-                                              title: 'Edit', 
+                                              title: 'edit'.tr, 
                                               contents: SizedBox(
                                                 width: 250.w,
                                                 height: 100.h,
@@ -349,9 +349,9 @@ class _MenuState extends State<Menu> {
                                                   ],
                                                 ),
                                               ),
-                                              leftButtonName: 'Back', 
+                                              leftButtonName: 'back'.tr, 
                                               leftButtonFunction: (){}, 
-                                              rightButtonName: 'Submit',
+                                              rightButtonName: 'submit'.tr,
                                               rightButtonFuction:(){
                                                 editMenu(title, changedTitle);
                                                 Navigator.of(context).pop();
@@ -382,33 +382,25 @@ class _MenuState extends State<Menu> {
                                           context: context, 
                                           builder: (_){
                                             return DefaultAlertDialogTwoButton(
-                                              title: 'Delete', 
+                                              title: 'delete'.tr, 
                                               contents: SizedBox(
                                                 width: 250,
                                                 height: 100,
                                                 child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    const Text('Are you sure delete',
+                                                    Text('areYouSureDelete1'.tr+'\'$item\''+'areYouSureDelete2'.tr+'areYouSureDelete3'.tr,
                                                       style: TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    SizedBox(height: 10,),
-                                                    Text('\'$item\'?',
-                                                      style: const TextStyle(
-                                                        fontSize: 19,
-                                                        fontWeight: FontWeight.bold
+                                                        fontSize: 15,
                                                       ),
                                                       textAlign: TextAlign.center,
                                                     ),
                                                   ],
                                                 ),
                                               ), 
-                                              leftButtonName: 'Back', 
+                                              leftButtonName: 'back'.tr, 
                                               leftButtonFunction: (){}, 
-                                              rightButtonName: 'Submit',
+                                              rightButtonName: 'submit'.tr,
                                               rightButtonFuction: (){
                                                 // db삭제기능 
                                                 deleteMenu(item);
@@ -456,7 +448,7 @@ class _MenuState extends State<Menu> {
                       context: context, 
                       builder: (_){
                         return DefaultAlertDialogTwoButton(
-                          title: 'Create', 
+                          title: 'create'.tr, 
                           contents: SizedBox(
                             width: 250.w,
                             height: 100.h,
@@ -498,9 +490,9 @@ class _MenuState extends State<Menu> {
                               ],
                             ),
                           ),
-                          leftButtonName: 'Back', 
+                          leftButtonName: 'back'.tr, 
                           leftButtonFunction: (){}, 
-                          rightButtonName: 'Submit',
+                          rightButtonName: 'submit'.tr,
                           rightButtonFuction:(){
                             createMenu(title);
                             Navigator.of(context).pop();
@@ -554,19 +546,19 @@ class _MenuState extends State<Menu> {
                         alignment: Alignment.bottomLeft,
                         // 모달 : 회원탈퇴, 로그아웃
                         child: Container(
-                          width: 120,
+                          width: 100,
                           height: 150,
                           decoration: BoxDecoration(
                             color: Palette.white,
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(width: 2, color: Palette.gray)
+                            border: Border.all(width: 1.5, color: Palette.gray)
                           ),
                           margin: EdgeInsets.only(bottom: 50, left: 40),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // 익명계정일경우?
-                              if(FirebaseAuth.instance.currentUser?.uid == null)
+                              if(FirebaseAuth.instance.currentUser?.email == null)
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
@@ -579,9 +571,9 @@ class _MenuState extends State<Menu> {
                                     height: 40,
                                     color: Colors.transparent,
                                     child: Center(
-                                      child: Text('Join us',
+                                      child: Text('joinUs2'.tr,
                                         style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                           color: Palette.darkgray,
                                         ),
@@ -597,17 +589,17 @@ class _MenuState extends State<Menu> {
                                     builder: (_){
                                       return 
                                       DefaultAlertDialogTwoButton(
-                                        title: 'Secession', 
+                                        title: 'secession2'.tr, 
                                         contents: SizedBox(
-                                          child: Text('Are you sure?',
+                                          child: Text('secession3'.tr,
                                           style: TextStyle(
                                           color: Palette.black,
-                                          fontSize: 21
+                                          fontSize: 15
                                         ),),
                                         ),
-                                        leftButtonName: ' No ', 
+                                        leftButtonName: 'back'.tr, 
                                         leftButtonFunction: (){}, 
-                                        rightButtonName: 'Okay',
+                                        rightButtonName: 'submit'.tr,
                                         rightButtonFuction:(){
                                           controller.secession(); 
                                           Navigator.of(context).pop();
@@ -621,9 +613,9 @@ class _MenuState extends State<Menu> {
                                   height: 40,
                                   color: Colors.transparent,
                                   child: Center(
-                                    child: Text('Secession',
+                                    child: Text('secession1'.tr,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w700,
                                         color: Palette.darkgray,
                                       ),
@@ -641,9 +633,9 @@ class _MenuState extends State<Menu> {
                                   height: 40,
                                   color: Colors.transparent,
                                   child: Center(
-                                    child: Text('Logout',
+                                    child: Text('logout'.tr,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w700,
                                         color: Palette.darkgray,
                                       ),

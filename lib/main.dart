@@ -3,6 +3,7 @@
 import 'package:bwa/apikey.dart';
 import 'package:bwa/screen/menu.dart';
 import 'package:bwa/screen/sign.dart';
+import 'package:bwa/widget/language.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,6 +70,9 @@ class _MyAppState extends State<MyApp> {
         return GetMaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
+          translations: Languages(),
+          locale: Get.deviceLocale,
+          fallbackLocale: const Locale('en', 'US'),
           theme: ThemeData(
             fontFamily: 'nanumBarun',
             brightness: Brightness.light,
