@@ -48,6 +48,22 @@ class Languages extends Translations {
           'logout' : '로그아웃',
 
           // menu_controller.dart
+          'error' : '에러',
+          'anAlreadyExistingTitle' : '이미 존재하는 제목입니다',
+          'pleaseCheckTheTitle' : '제목을 확인해주세요',
+          'isAlreadyExistsTitle' : ' 는 이미 존재하는 제목입니다',
+          // validation
+          'pleaseCheckYourPassword' : '비밀번호를 확인해주세요',
+          'passwordDoesNotMatch' : '비밀번호가 일치하지 않습니다',
+          'theProviderHasAlreadyBeenLinkedToTheUser' : '이미 연결된 이메일입니다',
+          "theProvidersCredentialIsNotValid" : "유효하지 않습니다",
+          "theAccountCorrespondingToTheCredentialAlreadyExistsOrIsAlreadyLinkedToAFirebaseUser" : "이미 존재하는 이메일입니다",
+          "thisEmailIsInUse" : "이미 사용중인 이메일입니다",
+          "pleaseEnterInEmailFormat" : "이메일 형식으로 입력해주세요",
+          "pleaseCheckYourPasswordPasswordMustBeDigitsOrMore" : "비밀번호를 확인해주세요 \n 비밀번호는 6자리 이상의 숫자여야 합니다 ",
+          "errorCode305" : "Error Code:305",
+          
+          
 
         },
         'en_US': {
@@ -93,19 +109,22 @@ class Languages extends Translations {
           'logout' : 'Logout',
 
           // menu_controller.dart
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
-          'password' : 'Password',
+          'error' : 'ERROR',
+          'anAlreadyExistingTitle' : 'An already existing Title',
+          'pleaseCheckTheTitle' : 'Please check the Title',
+          'isAlreadyExistsTitle' : ' is already exists Title',
+          // validation
+          'pleaseCheckYourPassword' : 'Please check your password',
+          'passwordDoesNotMatch' : 'Password does not match',
+          'theProviderHasAlreadyBeenLinkedToTheUser' : 'The provider has already been linked to the user',
+          "theProvidersCredentialIsNotValid" : "The provider's credential is not valid",
+          "theAccountCorrespondingToTheCredentialAlreadyExistsOrIsAlreadyLinkedToAFirebaseUser" : "The account corresponding to the credential already exists, \nor is already linked to a Firebase User",
+          "thisEmailIsInUse" : "This email is in use",
+          "pleaseEnterInEmailFormat" : "Please enter in email format",
+          "pleaseCheckYourPasswordPasswordMustBeDigitsOrMore" : "Please check your password \nPassword must be 6 digits or more",
+          "errorCode305" : "Error Code:305",
           
-
-
+          // ! sign, menu 스크린, 컨트롤러 확인해고 recipe 하러 넘어가기
         },
       };
 }

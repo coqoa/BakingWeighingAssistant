@@ -58,11 +58,11 @@ class MenuController extends GetxController{
 
       }else{
         // snackbar: 존재하는 타이틀일 경우 처리
-        CustomSnackBar().snackBar('ERROR', "An already Existing Title");
+        CustomSnackBar().snackBar('error'.tr, "anAlreadyExistingTitle".tr);
       }
     }else{
       // snackbar: title이 공백일 경우 처리
-      CustomSnackBar().snackBar('ERROR', "Please check the Title");
+      CustomSnackBar().snackBar('error'.tr, "pleaseCheckTheTitle".tr);
     }
   }
 
@@ -79,7 +79,7 @@ class MenuController extends GetxController{
   // * 메뉴 수정
   editMenu(originalTitle, changedTitle)async{
     if(changedTitle.length<1 || originalTitle == changedTitle){
-      CustomSnackBar().snackBar('ERROR', "Please check the Title");
+      CustomSnackBar().snackBar('error'.tr, "pleaseCheckTheTitle".tr);
     }else{
       if(!menuList.contains(changedTitle)){
         
@@ -104,7 +104,7 @@ class MenuController extends GetxController{
         await firestore.collection('users').doc(FirebaseAuth.instance.currentUser?.uid).collection(originalTitle).doc('RecipeList').delete();
 
       }else{
-        CustomSnackBar().snackBar('ERROR', "'$changedTitle' is already exists Title");
+        CustomSnackBar().snackBar('error'.tr, "'$changedTitle' "+'isAlreadyExistsTitle'.tr); // ! check
       }
     }
   }
@@ -153,14 +153,14 @@ class MenuController extends GetxController{
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
                   autofocus: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
                     filled: true,
                     fillColor: Palette.white,
                     isDense: true,
                     contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'E-mail',
+                    hintText: 'eMailAddress'.tr,
                     hintStyle: TextStyle(
                       fontSize: 15
                     ),
@@ -185,14 +185,14 @@ class MenuController extends GetxController{
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
                     filled: true,
                     fillColor: Palette.white,
                     isDense: true,
                     contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password',
+                    hintText: 'password'.tr,
                     hintStyle: TextStyle(
                       fontSize: 15
                     ),
@@ -217,14 +217,14 @@ class MenuController extends GetxController{
                   textInputAction: TextInputAction.done,
                   autocorrect: false,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.gray)),
                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Palette.black)),
                     filled: true,
                     fillColor: Palette.white,
                     isDense: true,
                     contentPadding: EdgeInsets.fromLTRB(10,0,10,2),
-                    hintText: 'Password Check',
+                    hintText: 'passwordRepeat'.tr,
                     hintStyle: TextStyle(
                       fontSize: 15
                     ),
@@ -237,21 +237,21 @@ class MenuController extends GetxController{
                     if(password == passwordCheck){
                       anonymousToPerpetualValidation(email, password, context);
                     }else{
-                      validation.validationSnackBar('Please check your password');
+                      validation.validationSnackBar('pleaseCheckYourPassword'.tr);
                     }
                   }),
                 ),
               ],
             ),
           ),
-          leftButtonName: 'Back', 
+          leftButtonName: 'back'.tr, 
           leftButtonFunction: (){}, 
-          rightButtonName: 'Join us',
+          rightButtonName: 'submit'.tr,
           rightButtonFuction:(){
             if(password == passwordCheck){
               anonymousToPerpetualValidation(email, password, context);
             }else{
-              validation.validationSnackBar('Password does not match');
+              validation.validationSnackBar('passwordDoesNotMatch'.tr);
             }
           },
         );
@@ -271,38 +271,38 @@ class MenuController extends GetxController{
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "provider-already-linked":
-          validation.validationSnackBar("The provider has already been linked to the user.");
+          validation.validationSnackBar("theProviderHasAlreadyBeenLinkedToTheUser".tr);
           // print("The provider has already been linked to the user.");
           break;
 
         case "invalid-credential":
-          validation.validationSnackBar("The provider's credential is not valid.");
+          validation.validationSnackBar("theProvidersCredentialIsNotValid".tr);
           // print("The provider's credential is not valid.");
           break;
 
         case "credential-already-in-use":
-          validation.validationSnackBar("The account corresponding to the credential already exists, \nor is already linked to a Firebase User.");
+          validation.validationSnackBar("theAccountCorrespondingToTheCredentialAlreadyExistsOrIsAlreadyLinkedToAFirebaseUser".tr);
           // print("The account corresponding to the credential already exists, "
           //     "or is already linked to a Firebase User.");
           break;
 
         case "email-already-in-use":
-          validation.validationSnackBar("This email is in use");
+          validation.validationSnackBar("thisEmailIsInUse".tr);
           // print("This email is in use");
           break;
 
         case "invalid-email":
-          validation.validationSnackBar("Please enter in email format");
+          validation.validationSnackBar("pleaseEnterInEmailFormat".tr);
           // print("Please enter in email format");
           break;
 
         case "weak-password":
-          validation.validationSnackBar('Please check your password \nPassword must be 6 digits or more ');
+          validation.validationSnackBar('pleaseCheckYourPasswordPasswordMustBeDigitsOrMore'.tr);
           // print("weak-password - 비밀번호 6자리 이상형식");
           break;
           
         default:
-          validation.validationSnackBar('Unknown error. : ${e.code} \nPlease send a mail - coqoa28@gmail.com');
+          validation.validationSnackBar('errorCode305'.tr);
           // print("Unknown error. : ${e.code}");
         
         // + 비밀번호 체크는 메뉴페이지에서 해결

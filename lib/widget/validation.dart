@@ -7,8 +7,8 @@ class Validation{
   validationSnackBar(errorCode){
     return  Get.snackbar(
       "","",
-      titleText: const Center(
-        child: Text("Error", 
+      titleText: Center(
+        child: Text("error".tr, 
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 15,
