@@ -60,7 +60,7 @@ class RecipeController extends GetxController{
     if(title.isNotEmpty){
       // snackbar: 존재하는 타이틀
       if(recipeListParam.contains(title)){
-        CustomSnackBar().snackBar('ERROR', "'$title' already exists");
+        CustomSnackBar().snackBar('error'.tr, "'$title'${"isAlreadyExists".tr}");
       }else{
         // 레시피 리스트에 추가 
         recipeListParam.add(title);
@@ -77,7 +77,7 @@ class RecipeController extends GetxController{
       }
     }else{
       // snackbar: 타이틀을 입력해주세요
-      CustomSnackBar().snackBar('ERROR', "Please enter a Title");
+      CustomSnackBar().snackBar('error'.tr, "pleaseEnterATitle".tr);
     }
   }
 
@@ -97,7 +97,7 @@ class RecipeController extends GetxController{
       // originalTitle != title => 레시피 변경시 현재 타이틀을 다시 쓰기 위한 코드
       if(recipeListParam.contains(title) && originalTitle != title){
         // snackbar: 존재하는 타이틀
-        CustomSnackBar().snackBar('ERROR', "'$title' already exists");
+        CustomSnackBar().snackBar('error'.tr, "'$title'${"isAlreadyExists".tr}");
       }else{
         // 레시피 리스트에 타이틀 변경
         recipeListParam[recipeListParam.indexOf(originalTitle)]=title;
@@ -118,7 +118,7 @@ class RecipeController extends GetxController{
       }
     }else{
       // snackbar: 타이틀을 입력해주세요
-      CustomSnackBar().snackBar('ERROR', "Please enter a Title");
+      CustomSnackBar().snackBar('error'.tr, "pleaseEnterATitle".tr);
     }
     requestStatus.value=RequestStatus.SUCCESS;
   }

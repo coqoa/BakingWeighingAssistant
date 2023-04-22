@@ -151,7 +151,7 @@ class _RecipeState extends State<Recipe> {
                                           color: Palette.gray,
                                           size: 25,
                                         ),
-                                        Text('Memo',
+                                        Text('memo'.tr,
                                           style: TextStyle(
                                             fontSize: 10,
                                             color: Palette.gray,
@@ -184,7 +184,7 @@ class _RecipeState extends State<Recipe> {
                                           color: Palette.gray,
                                           size: 25,
                                         ),
-                                        Text('Add',
+                                        Text('add'.tr,
                                           style: TextStyle(
                                             fontSize: 10,
                                             color: Palette.gray,
@@ -289,7 +289,7 @@ class _RecipeState extends State<Recipe> {
                                     height: 25,
                                   ),
                                   SizedBox(width: 10,),
-                                  Text('Add a new Recipe',
+                                  Text('addAnewRecipe'.tr,
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold
@@ -368,8 +368,8 @@ class _RecipeState extends State<Recipe> {
                                               children: [
                                                 SizedBox(
                                                   width: 120.w,
-                                                  child: const Center(
-                                                    child: Text('Ingredient',
+                                                  child:  Center(
+                                                    child: Text('ingredient'.tr,
                                                       style: TextStyle(
                                                         fontSize: 17,
                                                       ),
@@ -519,7 +519,7 @@ class _RecipeState extends State<Recipe> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Text(
-                                                      'Total ',
+                                                      'total'.tr,
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -543,7 +543,7 @@ class _RecipeState extends State<Recipe> {
                                                       Row(
                                                         children: [
                                                           Text(
-                                                            'Total ',
+                                                            'total'.tr,
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               color: Palette.lightblack
@@ -675,7 +675,7 @@ class _RecipeState extends State<Recipe> {
                                         height: 24,
                                       );
                                     }),
-                                    Text('Multiply',
+                                    Text('multiply'.tr,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Palette.gray,
@@ -728,7 +728,7 @@ class _RecipeState extends State<Recipe> {
                                         size: 24,
                                       );
                                     }),
-                                    Text('Divide',
+                                    Text('divide'.tr,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Palette.gray,
@@ -772,7 +772,7 @@ class _RecipeState extends State<Recipe> {
                                         color:  Palette.gray,
                                         size: 24,
                                     ),
-                                    Text('Edit',
+                                    Text('edit'.tr,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Palette.gray,
@@ -799,7 +799,7 @@ class _RecipeState extends State<Recipe> {
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              const Text('Are you sure delete ?',
+                                              Text('areYouSureDelete'.tr,
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                 ),
@@ -841,7 +841,7 @@ class _RecipeState extends State<Recipe> {
                                         color:  Palette.gray,
                                         size: 24,
                                     ),
-                                    Text('Delete',
+                                    Text('delete'.tr,
                                       style: TextStyle(
                                         fontSize: 10,
                                         color: Palette.gray,

@@ -30,11 +30,13 @@ class Languages extends Translations {
           'ifYouStartWithoutLoggingIn' : '회원가입 없이 시작하면',
           'youMayLoseYourData' : '데이터가 삭제될 수도 있습니다',
           'toJoinGrammingTapHere' : 'Gramming에 가입하려면 여기를 눌러주세요!',
+          'createMenu' : '메뉴 만들기',
           'create' : '생성',
           'back' : '뒤로',
           'submit' : '확인',
           'createNewMenu' : '새로운 Menu 만들기',
           'edit' : '수정',
+          'editRecipe' : '레시피 수정',
           'delete' : '삭제',
           'areYouSureDelete1' : '정말로 ',
           // 타이틀 들어갈 곳
@@ -45,6 +47,7 @@ class Languages extends Translations {
           'secession1': '회원탈퇴',
           'secession2': '',
           'secession3': '정말로 탈퇴 하시겠습니까?',
+          'translate': '한/영 전환',
           'logout' : '로그아웃',
 
           // menu_controller.dart
@@ -63,6 +66,31 @@ class Languages extends Translations {
           "pleaseCheckYourPasswordPasswordMustBeDigitsOrMore" : "비밀번호를 확인해주세요 \n 비밀번호는 6자리 이상의 숫자여야 합니다 ",
           "errorCode305" : "Error Code:305",
           
+          // recipe.dart
+          'memo' : '메모',
+          'add' : '추가',
+          'addAnewRecipe' : '레시피 추가',
+          'ingredient' : '재료',
+          'total' : '총 합 ',
+          'multiply' : '곱하기',
+          'divide' : '나누기',
+          // 'edit' : 'Edit', // 위에있음
+          'areYouSureDelete' : '정말 삭제하시겠습니까?',
+          // 'delete' : 'Delete',// 위에있음
+
+          // recipe_controller.dart
+          'isAlreadyExists' : ' 은/는 이미 존재합니다.',
+          'pleaseEnterATitle' : '제목을 입력해주세요',
+
+          // add_recipe.dart
+          'title' : '제목',
+
+          // calculator.dart
+          'calculator' : '계산기',
+
+          // memo.dart
+          'save' : '저장', //! 통합?
+          'enterWithinCharacters' : '500자 이내로 입력해주세요',
           
 
         },
@@ -93,11 +121,13 @@ class Languages extends Translations {
           'ifYouStartWithoutLoggingIn' : 'If you start without signup,',
           'youMayLoseYourData' : 'you may lose your data',
           'toJoinGrammingTapHere' : 'To join Gramming, tap here!',
+          'createMenu' : 'Create menu',
           'create' : 'Create',
           'back' : 'Back',
           'submit' : 'Submit',
           'createNewMenu' : 'Create new menu',
           'edit' : 'Edit',
+          'editRecipe' : 'Edit recipe',
           'delete' : 'Delete',
           'areYouSureDelete1' : 'Are you sure delete',
           'areYouSureDelete2' : '',
@@ -107,6 +137,7 @@ class Languages extends Translations {
           'secession2': '',
           'secession3': 'Are you sure you want to secession?',
           'logout' : 'Logout',
+          'translate': 'Switch to Kor',
 
           // menu_controller.dart
           'error' : 'ERROR',
@@ -125,6 +156,38 @@ class Languages extends Translations {
           "errorCode305" : "Error Code:305",
           
           // ! sign, menu 스크린, 컨트롤러 확인해고 recipe 하러 넘어가기
+
+          // recipe.dart
+          'memo' : 'Memo',
+          'add' : 'Add',
+          'addAnewRecipe' : 'Add a new Recipe',
+          'ingredient' : 'Ingredient',
+          'total' : 'Total ',
+          'multiply' : 'Multiply',
+          'divide' : 'Divide',
+          // 'edit' : 'Edit', // 위에있음
+          'areYouSureDelete' : 'Are you sure delete ?',
+          // 'delete' : 'Delete',// 위에있음
+
+          // recipe_controller.dart
+          'isAlreadyExists' : ' is already exists',
+          'pleaseEnterATitle' : 'Please enter a Title',
+
+          // add_recipe.dart
+          'title' : 'Title',
+          // edit_recipe.dart
+          // calculator.dart
+          'calculator' : 'Calculator',
+          // memo.dart
+          'save' : 'Save', //! 통합?
+          'enterWithinCharacters' : 'Enter within 500 characters',
+
         },
       };
 }
+
+// 검색어
+// Text(
+// hintText
+// snackBar
+// 모달

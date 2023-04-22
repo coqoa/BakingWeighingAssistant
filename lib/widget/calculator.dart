@@ -1,5 +1,6 @@
 import 'package:bwa/controller/recipe_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../config/palette.dart';
 
 // * 계산기 버튼 클래스
@@ -128,7 +129,7 @@ class _MultiflyWidgetState extends State<MultiflyWidget> {
                       // 타이틀
                       Align(
                         alignment: Alignment.topLeft,
-                        child: Text('Calculator',
+                        child: Text('calculator'.tr,
                           style: TextStyle(
                             color: Palette.black,
                             fontSize: 21,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../config/palette.dart';
 
@@ -48,8 +49,8 @@ class _MemoState extends State<Memo> {
         borderRadius: BorderRadius.circular(22.0),
       ),
       // header:
-      title: const Center(
-        child: Text('Memo',
+      title: Center(
+        child: Text('memo'.tr,
           style: TextStyle(
             fontWeight: FontWeight.w900,
             color: Palette.black,
@@ -69,7 +70,7 @@ class _MemoState extends State<Memo> {
                 height: 350.h,
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: TextFormField(
-                  maxLength: 5000,
+                  maxLength: 500,
                   controller: _textEditingController,
                   onChanged: (value ) {
                     memoContents = value;
@@ -77,7 +78,7 @@ class _MemoState extends State<Memo> {
                   autovalidateMode:
                     AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
-                    hintText: "Enter within 500 characters",
+                    hintText: "enterWithinCharacters".tr,
                     border: InputBorder.none,
                   ),
                   enableSuggestions: false,
@@ -98,8 +99,8 @@ class _MemoState extends State<Memo> {
                         border: Border.all(color: Palette.gray, width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Center(
-                        child: Text('Save',
+                      child: Center(
+                        child: Text('save'.tr,
                           style: TextStyle(
                             color: Palette.black,
                             fontWeight: FontWeight.bold,

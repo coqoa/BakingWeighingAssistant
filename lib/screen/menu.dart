@@ -1,5 +1,6 @@
 
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/controller/main_controller.dart';
 import 'package:bwa/screen/sign.dart';
 import 'package:bwa/widget/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -448,7 +449,7 @@ class _MenuState extends State<Menu> {
                       context: context, 
                       builder: (_){
                         return DefaultAlertDialogTwoButton(
-                          title: 'create'.tr, 
+                          title: 'createMenu'.tr, 
                           contents: SizedBox(
                             width: 250.w,
                             height: 100.h,
@@ -547,7 +548,7 @@ class _MenuState extends State<Menu> {
                         // 모달 : 회원탈퇴, 로그아웃
                         child: Container(
                           width: 100,
-                          height: 150,
+                          height: 190,
                           decoration: BoxDecoration(
                             color: Palette.white,
                             borderRadius: BorderRadius.circular(10),
@@ -581,6 +582,25 @@ class _MenuState extends State<Menu> {
                                     ),
                                   ),
                                 ),
+                              GestureDetector(
+                                onTap: (){
+                                  MainController().translate(); 
+                                },
+                                child: Container(
+                                  width: 120,
+                                  height: 40,
+                                  color: Colors.transparent,
+                                  child: Center(
+                                    child: Text('translate'.tr,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: Palette.darkgray,
+                                      ),
+                                    )
+                                  ),
+                                ),
+                              ),
                               GestureDetector(
                                 onTap: (){
                                   // 모달 : 회원탈퇴확인

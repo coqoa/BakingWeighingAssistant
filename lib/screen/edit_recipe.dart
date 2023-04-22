@@ -99,7 +99,7 @@ class _EditRecipeState extends State<EditRecipe> {
             ),
           ),
           // 페이지 타이틀
-          title: const Text('Edit',
+          title: Text('editRecipe'.tr,
             style: TextStyle(
               color: Palette.lightblack,
               fontWeight: FontWeight.w600,
@@ -169,14 +169,14 @@ class _EditRecipeState extends State<EditRecipe> {
                           fontSize: 25
                         ),
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(width: 1, color: Colors.black),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(width: 1, color: Colors.transparent),
                           ),
-                          hintText: "Title"
+                          hintText: "title".tr
                         ),
                         onChanged: (value) => title = value,
                       ),
@@ -193,7 +193,7 @@ class _EditRecipeState extends State<EditRecipe> {
                           SizedBox(
                             width: 165.w,
                             height: 60.h,
-                            child: const Center(child: Text('Ingredient',
+                            child: Center(child: Text('ingredient'.tr,
                               style: TextStyle(
                                 fontSize: 15
                               ),

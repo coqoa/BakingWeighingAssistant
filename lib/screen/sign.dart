@@ -1,4 +1,6 @@
 import 'package:bwa/config/palette.dart';
+import 'package:bwa/controller/main_controller.dart';
+
 import 'package:bwa/controller/sign_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -290,6 +292,11 @@ class _SignState extends State<Sign> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: MainController().mainController()
+                  )
                 ],
               ),
             );

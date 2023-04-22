@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class AddRecipe extends StatefulWidget {
   const AddRecipe({super.key, required this.menuTitle});
@@ -78,7 +79,7 @@ class _AddRecipeState extends State<AddRecipe> {
           ),
 
           // 페이지 타이틀
-          title: Text('Add',
+          title: Text('addAnewRecipe'.tr,
             style: TextStyle(
               color: Palette.lightblack,
               fontWeight: FontWeight.w600,
@@ -143,14 +144,14 @@ class _AddRecipeState extends State<AddRecipe> {
                           title = value;
                         }),
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(width: 1, color: Colors.black),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(width: 1, color: Colors.transparent),
                           ),
-                          hintText: "Title"
+                          hintText: "title".tr
                         ),
                       ),
                     ),
@@ -166,8 +167,8 @@ class _AddRecipeState extends State<AddRecipe> {
                           SizedBox(
                             width: 165.w,
                             height: 60.h,
-                            child: const Center(
-                              child: Text('Ingredient',
+                            child: Center(
+                              child: Text('ingredient'.tr,
                                 style: TextStyle(
                                   fontSize: 15
                                 ),
