@@ -17,7 +17,7 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
       insetPadding: const EdgeInsets.all(0),
       contentPadding: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22.0),
+        borderRadius: BorderRadius.circular(15.0),
       ),
       title: Center(child: Text(title,style: const TextStyle(fontSize: 25, color: Palette.lightblack))),
       content: SizedBox(
@@ -55,8 +55,9 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                     },
 
                     child: Container(
-                        height: 36,
-                        margin: const EdgeInsets.only(left: 16),
+                        height: 40,
+                        width: 150,
+                        // margin: const EdgeInsets.only(left: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: Palette.lightgray,
@@ -72,7 +73,10 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                     )
                   ),
 
-                  const Spacer(),
+                  // const Spacer(),
+                  SizedBox(
+                    width: 10,
+                  ),
 
                   // 우측 버튼
                   InkWell(
@@ -82,8 +86,9 @@ class DefaultAlertDialogTwoButton extends StatelessWidget{
                       }
                     },
                     child: Container(
-                      height: 36,
-                      margin: const EdgeInsets.only(right: 16),
+                      height: 40,
+                      width: 150,
+                      // margin: const EdgeInsets.only(right: 16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Palette.lightblack,

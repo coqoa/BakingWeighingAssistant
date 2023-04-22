@@ -1321,6 +1321,30 @@
             ]
         },
         {
+            "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/values-v31_values-v31.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/values-v31/styles.xml",
+                    "from": {
+                        "startLines": "3,-1",
+                        "startColumns": "4,-1",
+                        "startOffsets": "173,-1",
+                        "endLines": "9,-1",
+                        "endColumns": "12,-1",
+                        "endOffsets": "622,-1"
+                    },
+                    "to": {
+                        "startLines": "2,9",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,509",
+                        "endLines": "8,11",
+                        "endColumns": "12,12",
+                        "endOffsets": "504,673"
+                    }
+                }
+            ]
+        },
+        {
             "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/values-iw_values-iw.arsc.flat",
             "map": [
                 {
@@ -1608,6 +1632,30 @@
                         "startOffsets": "2256,2356,2454,2563",
                         "endColumns": "99,97,108,100",
                         "endOffsets": "2351,2449,2558,2659"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/build/app/intermediates/merged_res/debug/values-night-v31_values-night-v31.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/coqoa/Documents/GitHub/BakingWeighingAssistant/android/app/src/main/res/values-night-v31/styles.xml",
+                    "from": {
+                        "startLines": "3,-1",
+                        "startColumns": "4,-1",
+                        "startOffsets": "173,-1",
+                        "endLines": "9,-1",
+                        "endColumns": "12,-1",
+                        "endOffsets": "622,-1"
+                    },
+                    "to": {
+                        "startLines": "2,9",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,509",
+                        "endLines": "8,11",
+                        "endColumns": "12,12",
+                        "endOffsets": "504,673"
                     }
                 }
             ]

@@ -293,8 +293,8 @@ class _SignState extends State<Sign> {
                     ),
                   ),
                   Positioned(
-                    bottom: 10,
-                    right: 10,
+                    bottom: 20,
+                    right: 20,
                     child: MainController().mainController()
                   )
                 ],

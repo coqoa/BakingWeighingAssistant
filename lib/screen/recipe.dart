@@ -815,7 +815,7 @@ class _RecipeState extends State<Recipe> {
                                             ],
                                           ),
                                         ),
-                                        buttonTitle: 'Submit',
+                                        buttonTitle: 'submit'.tr,
                                         btnColor: Palette.white,
                                         btnTextColor: Palette.red,
                                         confirmFunction: (){
