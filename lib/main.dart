@@ -31,11 +31,15 @@ void main() async {
   }catch(e){
     print('-- main.dart initializeApp ERROR -- $e');
   }
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
   ]).then((value) => 
-      runApp(const MyApp())
-    );
+    runApp(const MyApp())
+  );
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky).then((value) => 
+  //   runApp(const MyApp())
+  // );
 }
 
 class MyApp extends StatefulWidget {

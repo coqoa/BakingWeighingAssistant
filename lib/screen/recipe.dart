@@ -39,6 +39,7 @@ class _RecipeState extends State<Recipe> {
     controller.loadRecipeList(widget.menuTitle);
     multiflyInitialize();
     _pageController.addListener(moveListPage);
+
   }
 
   // 계산기 초기화
@@ -318,8 +319,10 @@ class _RecipeState extends State<Recipe> {
                                 width: 300.w,
                                 height: screenHeight-220,
                                 padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                                 decoration: BoxDecoration(
                                   color: Palette.white, 
+                                  // color: Palette.red, 
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     const BoxShadow(
@@ -329,273 +332,275 @@ class _RecipeState extends State<Recipe> {
                                     )
                                   ]
                                 ),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      
-                                      Container(
-                                        height: 90,
-                                        decoration: BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: Palette.reallightgray,
-                                                width: 1
-                                              ),
-                                            )
-                                          ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            // 타이틀
-                                            Obx((){
-                                              return((){
-                                                if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                  return Text(controller.recipeList[index],
-                                                    style: const TextStyle(
-                                                      fontSize: 23,
-                                                      color: Palette.black
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    
+                                    // header
+                                    Container(
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Palette.reallightgray,
+                                              width: 1
+                                            ),
+                                          )
+                                        ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // 타이틀
+                                          Obx((){
+                                            return((){
+                                              if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                return Text(controller.recipeList[index],
+                                                  style: const TextStyle(
+                                                    fontSize: 23,
+                                                    color: Palette.black
+                                                  ),
+                                                );
+                                              }else{
+                                                return SizedBox();
+                                              }
+                                            }());
+                                          }),
+                                          // 레시피 표 첫 열
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                width: 120.w,
+                                                child:  Center(
+                                                  child: Text('ingredient'.tr,
+                                                    style: TextStyle(
+                                                      fontSize: 17,
                                                     ),
-                                                  );
-                                                }else{
-                                                  return SizedBox();
-                                                }
-                                              }());
-                                            }),
-                                            // 레시피 표 첫 열
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  width: 120.w,
-                                                  child:  Center(
-                                                    child: Text('ingredient'.tr,
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                      ),
-                                                    )
                                                   )
-                                                ),
-                                                SizedBox(
-                                                  width: 120.w,
-                                                  child: Stack(
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment.center,
-                                                        child: Text('g',
-                                                          style: TextStyle(
-                                                            fontSize: 17,
-                                                          ),
+                                                )
+                                              ),
+                                              SizedBox(
+                                                width: 120.w,
+                                                child: Stack(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text('g',
+                                                        style: TextStyle(
+                                                          fontSize: 17,
                                                         ),
                                                       ),
-                                                      Obx((){
-                                                        return ((){
-                                                          if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                            return Align(
-                                                              alignment: Alignment.centerRight,
-                                                              child: SingleChildScrollView(
-                                                                scrollDirection: Axis.horizontal,
-                                                                child: GestureDetector(
-                                                                  onTap: (){
-                                                                    // 모달 - 곱하기 계산기
-                                                                    if(controller.multipleValue.isNotEmpty){
-                                                                      showDialog(
-                                                                        context: context, 
-                                                                        builder: (_){
-                                                                          return  MultiflyWidget(
-                                                                            menuTitle: widget.menuTitle, 
-                                                                            listViewIndex: listViewIndex, 
-                                                                            controller: controller, 
-                                                                            type:'multiple'
-                                                                          );
-                                                                        }
-                                                                      );
-                                                                    }
-                                                                  },
-                                                                  child: Container(
-                                                                    width: 45,
-                                                                    child: Text(
-                                                                      controller.multipleValue[index] == 1
-                                                                      ? ''
-                                                                      : 'x ${removeDotZero(controller.multipleValue[index])}',
-                                                                      style: TextStyle(
-                                                                        fontSize: 14,
-                                                                        fontWeight: FontWeight.w800,
-                                                                        color: Palette.red
-                                                                      ),
+                                                    ),
+                                                    Obx((){
+                                                      return ((){
+                                                        if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                                          return Align(
+                                                            alignment: Alignment.centerRight,
+                                                            child: SingleChildScrollView(
+                                                              scrollDirection: Axis.horizontal,
+                                                              child: GestureDetector(
+                                                                onTap: (){
+                                                                  // 모달 - 곱하기 계산기
+                                                                  if(controller.multipleValue.isNotEmpty){
+                                                                    showDialog(
+                                                                      context: context, 
+                                                                      builder: (_){
+                                                                        return  MultiflyWidget(
+                                                                          menuTitle: widget.menuTitle, 
+                                                                          listViewIndex: listViewIndex, 
+                                                                          controller: controller, 
+                                                                          type:'multiple'
+                                                                        );
+                                                                      }
+                                                                    );
+                                                                  }
+                                                                },
+                                                                child: Container(
+                                                                  width: 45,
+                                                                  child: Text(
+                                                                    controller.multipleValue[index] == 1
+                                                                    ? ''
+                                                                    : 'x ${removeDotZero(controller.multipleValue[index])}',
+                                                                    style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontWeight: FontWeight.w800,
+                                                                      color: Palette.red
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            );
-                                                          }else{
-                                                            return SizedBox();
-                                                          }
-                                                        }());
-                                                      })
-                                                    ]
-                                                  )
-                                                ),
-                                              ]
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                
-                                      // 레시피 본문
-                                      SingleChildScrollView(
-                                        child: Container(
-                                          height: screenHeight-250-140, 
-                                          child: Obx((){
-                                            return ((){
-                                              if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                                return ListView.builder(
-                                                  itemCount: controller.recipeIngredient[listViewIndex].length, 
-                                                  itemBuilder: ((context, idx) {
-                                                    return Container(
-                                                      height: 40,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 120.w,
-                                                            decoration: BoxDecoration(
                                                             ),
-                                                            child: Center(
-                                                              child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
-                                                                style: TextStyle(
-                                                                  fontSize: 16
-                                                                ),
+                                                          );
+                                                        }else{
+                                                          return SizedBox();
+                                                        }
+                                                      }());
+                                                    })
+                                                  ]
+                                                )
+                                              ),
+                                            ]
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                
+                                    // 레시피 본문
+                                    SingleChildScrollView(
+                                      child: Container(
+                                        // height: 270, 
+                                        // height: 350, 
+                                        height: screenHeight*0.4, 
+                                        // color: Colors.green,
+                                        child: Obx((){
+                                          return ((){
+                                            if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                              return ListView.builder(
+                                                itemCount: controller.recipeIngredient[listViewIndex].length, 
+                                                itemBuilder: ((context, idx) {
+                                                  return Container(
+                                                    height: 40,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Container(
+                                                          width: 120.w,
+                                                          decoration: BoxDecoration(
+                                                          ),
+                                                          child: Center(
+                                                            child: Text('${controller.recipeIngredient[listViewIndex][idx]}',
+                                                              style: TextStyle(
+                                                                fontSize: 16
                                                               ),
                                                             ),
                                                           ),
-                                                          Container(
-                                                            width: 120.w,
-                                                            child: Center(
-                                                              child: Obx(() => 
-                                                                controller.recipeWeight[listViewIndex][idx].length != 0 
-                                                                ? Text(
-                                                                  '${removeDotZero(double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index])}',
-                                                                  style: TextStyle(
-                                                                    fontSize: 16,
-                                                                    fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
-                                                                  ),
-                                                                )
-                                                                : Text('')
+                                                        ),
+                                                        Container(
+                                                          width: 120.w,
+                                                          child: Center(
+                                                            child: Obx(() => 
+                                                              controller.recipeWeight[listViewIndex][idx].length != 0 
+                                                              ? Text(
+                                                                '${removeDotZero(double.parse(controller.recipeWeight[listViewIndex][idx])*controller.multipleValue[index])}',
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: controller.multipleValue[index] != 1 ? FontWeight.bold : FontWeight.normal
+                                                                ),
                                                               )
-                                                            ),
+                                                              : Text('')
+                                                            )
                                                           ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  })
-                                                );
-                                              }else{
-                                                return Text('');
-                                              }
-                                            }());
-                                          }),
-                                        ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                })
+                                              );
+                                            }else{
+                                              return Text('');
+                                            }
+                                          }());
+                                        }),
                                       ),
+                                    ),
                                 
-                                      // section: 총 합 / 나누기
-                                      Container(
-                                        height: 70,
-                                        padding: EdgeInsets.only(left: 30, right: 30),
-                                        decoration: BoxDecoration(
-                                            border: Border(
-                                              top: BorderSide(
-                                                color: Palette.reallightgray,
-                                                width: 1
+                                    // section: 총 합 / 나누기
+                                    Container(
+                                      height: 70,
+                                      padding: EdgeInsets.only(left: 30, right: 30),
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                            top: BorderSide(
+                                              color: Palette.reallightgray,
+                                              width: 1
+                                            ),
+                                          )
+                                        ),
+                                      child: Obx((){
+                                        if(controller.requestStatus.value==RequestStatus.SUCCESS){
+                                          return Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'total'.tr,
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Palette.lightblack
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${removeDotZero(controller.recipeWeightTotal[index])} g',
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Palette.lightblack
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            )
-                                          ),
-                                        child: Obx((){
-                                          if(controller.requestStatus.value==RequestStatus.SUCCESS){
-                                            return Column(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Row(
+                                              controller.divideWeight[index] != 1
+                                                ? Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'total'.tr,
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Palette.lightblack
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            // 모달
+                                                            if(controller.divideWeight.isNotEmpty){
+                                                              showDialog(
+                                                                context: context, 
+                                                                builder: (_){
+                                                                  return  MultiflyWidget(
+                                                                    menuTitle: widget.menuTitle, 
+                                                                    listViewIndex: listViewIndex, 
+                                                                    controller: controller, 
+                                                                    type:'divide'
+                                                                  );
+                                                                }
+                                                              );
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            '/ ${removeDotZero(controller.divideWeight[index]) } g',
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w800,
+                                                              color: Palette.blue
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     Text(
-                                                      'total'.tr,
+                                                      '${controller.recipeWeightTotal[index] ~/ controller.divideWeight[index]} ea',
                                                       style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 18,
                                                         color: Palette.lightblack
                                                       ),
                                                     ),
-                                                    Text(
-                                                      '${removeDotZero(controller.recipeWeightTotal[index])} g',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Palette.lightblack
-                                                      ),
-                                                    )
                                                   ],
-                                                ),
-                                                controller.divideWeight[index] != 1
-                                                  ? Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            'total'.tr,
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Palette.lightblack
-                                                            ),
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: (){
-                                                              // 모달
-                                                              if(controller.divideWeight.isNotEmpty){
-                                                                showDialog(
-                                                                  context: context, 
-                                                                  builder: (_){
-                                                                    return  MultiflyWidget(
-                                                                      menuTitle: widget.menuTitle, 
-                                                                      listViewIndex: listViewIndex, 
-                                                                      controller: controller, 
-                                                                      type:'divide'
-                                                                    );
-                                                                  }
-                                                                );
-                                                              }
-                                                            },
-                                                            child: Text(
-                                                              '/ ${removeDotZero(controller.divideWeight[index]) } g',
-                                                              style: TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w800,
-                                                                color: Palette.blue
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Text(
-                                                        '${controller.recipeWeightTotal[index] ~/ controller.divideWeight[index]} ea',
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          color: Palette.lightblack
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                  :SizedBox()
-                                              ],
-                                            );
-                                          }else{
-                                            return Text('ERROR 568');
-                                          }
-                                        })
-                                      ),
-                                    ],
-                                  ),
+                                                )
+                                                :SizedBox()
+                                            ],
+                                          );
+                                        }else{
+                                          return Text('ERROR 568');
+                                        }
+                                      })
+                                    ),
+                                  ],
                                 )
                               )
                             );
@@ -627,7 +632,7 @@ class _RecipeState extends State<Recipe> {
                     children: [
                       // section: 연산 관련 버튼
                       Container(
-                        width: 130,
+                        width: 160,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -745,7 +750,7 @@ class _RecipeState extends State<Recipe> {
 
                       // section: 수정 / 삭제 관련 버튼
                       Container(
-                        width: 130,
+                        width: 160,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
