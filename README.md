@@ -1,97 +1,143 @@
-# Gramming
+# What is 'Gramming'?
 
-- Splash Screen  
-![splashScreen](https://user-images.githubusercontent.com/81023768/208288586-4ad0593c-51e5-4792-84a0-776ae3b231cb.png)  
+  * 베이킹할 때 중량 계산, 분할 등에 도움을 주는 앱입니다.
+  * 메뉴 - 레시피 의 구조로 구성되어 있습니다
+  * 각 레시피를 읽기, 작성, 수정, 삭제할 수 있습니다
+  * 각 레시피에 기록된 중량을 곱하기, 나누기 연산하여 직관적으로 확인할 수 있습니다
+  * 간단한 메모를 작성할 수 있습니다
+  * 한글과 영어 양 언어로 제공됩니다
 
-- Sign In / Sign Up  
-![signin](https://user-images.githubusercontent.com/81023768/208288596-269e2d7d-0fe4-4e7b-9297-46e6eb86ef21.png)
-![signup](https://user-images.githubusercontent.com/81023768/208288597-5bd568ad-d1ca-4710-8fcb-ff6ed880d895.png)  
+<br>
+<br>
 
-- Menu  
-![menu](https://user-images.githubusercontent.com/81023768/208288602-f8d80177-73e1-4103-9dad-8ba06bc4f08d.png)  
-![menu – create 1](https://user-images.githubusercontent.com/81023768/208288608-b7b844a1-0879-47c3-bdf7-d7a115c3d83d.png)
-![menu – create 2](https://user-images.githubusercontent.com/81023768/208288609-0c69b2c9-a1fe-46da-8129-e6e90b87bebf.png)  
-![menu – option](https://user-images.githubusercontent.com/81023768/208288620-ae6b2971-77a0-43ce-a8c5-e52aced94b20.png)
-![menu – delete](https://user-images.githubusercontent.com/81023768/208288621-d9507b5d-4f79-42d2-8a59-9168496b0954.png)  
-![menu - modify 1](https://user-images.githubusercontent.com/81023768/208288624-e4c1b8c8-699f-4395-9384-ce628d19ace5.png)
-![menu - modify 2](https://user-images.githubusercontent.com/81023768/208288625-c2de0167-f1ba-469a-b18b-407d57f52296.png)  
+## **디자인**  
 
-- Main  
-![main](https://user-images.githubusercontent.com/81023768/208288631-d15d69ca-2458-433d-994f-b614b6469c43.png)  
-![main - memo 1](https://user-images.githubusercontent.com/81023768/208288637-21a9c3eb-b9e0-4559-82ff-2b3f81f9905e.png)
-![main - memo 2](https://user-images.githubusercontent.com/81023768/208288638-1849c3c8-5022-4c3b-84c7-7a29d67e2ec6.png)  
-![main - side modal](https://user-images.githubusercontent.com/81023768/208288783-804cc705-bcd3-429d-bcac-2c48e87b8273.png)
-![main - multiple](https://user-images.githubusercontent.com/81023768/208288645-3e89dafb-ff04-43a8-be98-6d4e50c3feac.png)  
+  - **아이콘 / 스플래쉬 스크린**
 
-- Add  
-![add](https://user-images.githubusercontent.com/81023768/208288657-0574444b-c6db-4073-a514-a2711c52edbb.png)  
-![add - save](https://user-images.githubusercontent.com/81023768/208288664-77d5fce1-9e8b-4fa6-8f81-efce99283bcf.png)
-![add - exit](https://user-images.githubusercontent.com/81023768/208288666-66ba44c1-b7d9-488a-a31c-1b6df874f7a4.png)
+    <img src="https://user-images.githubusercontent.com/81023768/235719934-ccc1e86c-421e-44a8-8c3d-7c32699c276f.png" height="243px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235721088-5bca7d7c-051c-4cef-a808-84112994d331.png" height="508px" width="243px">  
+    
+    <br>  
 
-- Update  
-![update](https://user-images.githubusercontent.com/81023768/208288673-3226095c-6575-4606-a07a-b95e241b476a.png)  
-![update - save](https://user-images.githubusercontent.com/81023768/208288697-e4c3e3cb-3f4d-4dbc-9243-165465e18b5c.png)
-![update - exit](https://user-images.githubusercontent.com/81023768/208288699-9e5ab955-5b47-4fcc-bd8b-53bea5e4c786.png)
-![update- delete](https://user-images.githubusercontent.com/81023768/208288700-f243e56b-eb26-4e1c-9658-6d28d3923f4e.png)
+  - **회원가입 / 로그인**
+
+    <img src="https://user-images.githubusercontent.com/81023768/235721695-34d7cfe5-aae6-4269-b886-4d43e307518f.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235721688-bb3d204c-2537-4521-bbd9-80451d2132ba.png" height="508px" width="243px">  
+    
+    <br>  
 
 
+  - **메뉴 + (추가/수정/삭제)**
+
+    <img src="https://user-images.githubusercontent.com/81023768/235721918-2a08e70c-5b93-44a7-83cf-b5ac0600062e.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235721922-bc3e1ff9-fd5c-41fb-8811-c471830cf42a.png" height="508px" width="243px">
+    <br>
+    <img src="https://user-images.githubusercontent.com/81023768/235721932-a7cf5305-2278-4004-bb10-bab59bc6ed3c.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235721927-3c3f7886-7481-4475-b685-1b2852620cf6.png" height="508px" width="243px">  
+    
+    <br>  
 
 
+  - **레시피 + (삭제 / 곱하기 / 나누기)**
+
+    <img src="https://user-images.githubusercontent.com/81023768/235722555-1ce3f3d7-8dce-4162-a498-7e6d42977446.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235722564-ce622af2-05d7-421c-8c53-2e1613e75c0d.png" height="508px" width="243px">
+    <br>
+    <img src="https://user-images.githubusercontent.com/81023768/235722732-4b76bda4-391a-4c06-b3a8-ccc01a5415d4.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235722729-1a6e750a-cbf8-4e99-9e84-bbf9bb223e8b.png" height="508px" width="243px">
+      
+    <br>  
+
+
+  - **레시피 추가, 레시피 수정**
+
+    <img src="https://user-images.githubusercontent.com/81023768/235722558-a10f476d-8b2a-429b-b033-05432bb7725b.png" height="508px" width="243px">
+    <img src="https://user-images.githubusercontent.com/81023768/235722566-7eeb726b-ed8d-4d31-85c6-5a762b6ced6c.png" height="508px" width="243px">  
+    
+    <br>  
+
+
+  - **메모**
+
+    <img src="https://user-images.githubusercontent.com/81023768/235722849-a142441a-9fbb-419e-9d72-abe27f83ea48.png" height="508px" width="243px">  
+    
+    <br>  
   
 
-### DB구조
+<br>
+<br>
 
-- users `collection`
-	- admin@admin.com `doc`
-		- [recipe1, recipe2, recipe3 ...]
-		- recipe collection
-			- recipe1
-				- [{key:value}...]
-			- recipe2
-				- [{key:value}...]
-			- recipe3
-				- [{key:value}...]
-- menu page
-: menu를 선택해서 main page로 이동한다
+## **기술 스택**
 
-- main page
-  - initState할 때 recipe list만 불러오고 리스트의 첫번 째 요소의 String를 키값으로 recipe를 찾아와서 배치한다
-	- 레시피의 이름(String)을 키값으로 recipe list에서 개별 레시피를 불러오는 event를 수행한다
-
-- add page  
-: 해당 페이지의 menu list `collection`에 recipe list `doc`, recipe `doc`을 더한다
-
-- update page  
-	- ReorderableListView 위젯을 통해 recipe list를 정리할 수 있다
-	- 상세 레시피 내용도 ReorderableListView 위젯을 통해 드래그앤 드롭이 가능하도록 하고 `List<Map<String, dynamic>>` 형태로  관리한다
-	- 레시피 삭제 기능도 여기서 수행한다
+  - `Flutter`  
+  - `Firebase`
 
 
-- 공통 클래스 
-	- 텍스트필드
-	- 말풍선 버튼, 
-	- 바텀시트 (로그인 / 로그아웃?) (=Get 사용?)
-	- 다이얼로그 (= Get 사용?) 
-	- 버튼(긴거, 짧은거)
-- 페이지 이동시 이전 페이지 삭제하는것 / 삭제하지 않는것 구분
- 
-입력페이지 먼저 
-
---
+<br>
+<br>
 
 
-Gramming is an app that helps with baking.
+## **페이지 구조**
 
-With Gramming, you can:
-1. Recipes can be grouped and managed according to their characteristics.
-2. Simple notes are available
-3. Multiply button makes it easy to get the recipe of the desired weight
-4. With the division button, you can easily know the number of doughs against the total weight
-5. Save and load all these situations in real time
+  ```dart
+  - main.dart // (앱의 진입점(entry point) 역할을 합니다.)
+    | 
+    |- sign.dart // (로그인/로그아웃 페이지입니다.)
+    | 
+    |- menu.dart // (메뉴 페이지입니다, 연관성 있는 레시피들을 그룹화하는 역할을 합니다.)
+        | 
+        |- recipe.dart // (레시피 화면입니다, 레시피를 보여주고 추가, 삭제, 수정할 수 있는 기능들을 제공합니다))
+            | 
+            |- add_recipe.dart // (레시피 추가 페이지입니다.)
+            | 
+            |- edit_recipe.dart // (레시피 수정 페이지입니다.)
+  ```
 
-I hope it will be helpful for all places where calculations are needed other than baking. 
+<br>
+<br>
 
---
+## **Firebase DB 구조**
 
-2023. 03. 20 
-앱스토어 등록.
+  ```dart
+  // (C) : Collection
+  // (D) : Document
+  // (F) : Field
+
+  - (C) user
+    |
+    |- (D) userUid
+        |
+        |- (F) menuList = [menu1, menu2, menu3, menu4]
+        |   |
+        |   |- (C) menu1
+        |   |   |
+        |   |   |- (D) memo = {
+        |   |   |        Memo: "Memo Example..."
+        |   |   |      }
+        |   |   |
+        |   |   |- (D) recipeList = [
+        |   |   |        recipe1, recipe2, recipe3, recipe4
+        |   |   |      ]
+        |   |   |
+        |   |   |- (D) recipe
+        |   |       |
+        |   |       |- (F) recipe1 = {
+        |   |       |          divideWeight : 1
+        |   |       |          multipleValue : 1
+        |   |       |          ingredient = [ingredient1, ingredient2, ingredient3, ...]
+        |   |       |          weight = [weight1, weight2, weight3, ...]
+        |   |       |       }
+        |   |       |
+        |   |       |  ...
+        |   |
+        |   |- (C)menu2
+        |   |   | ...
+        |   |- (C)menu3
+        |   |   | ...
+        |   |- (C)menu4
+        |       | ...
+        | ...
+  ```
+
+<br>
+<br>
